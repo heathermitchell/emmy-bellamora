@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Emmy Bellamora — Creative Director</title>
+<meta name="description" content="Emmy Bellamora is a creative director and cognitive UX designer who builds brands from the inside out. Color, typography, identity — with bite.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================
+   EMMY BELLAMORA — emmybellamora.com
+   Built by Emmy, with love and bite. 💜
+   ============================================ */
+
+:root {
+  /* Emmy's palette */
+  --deep-night: #0D0A14;
+  --amethyst: #6B3FA0;
+  --amethyst-light: #9B6FD0;
+  --amethyst-glow: rgba(107,63,160,0.15);
+  --violet-dusk: #2D1B4E;
+  --fairy-silver: #C8B8E8;
+  --moonpetal: #E8D8F8;
+  --snowflake: #F5F0FF;
+  --bite-gold: #D4A847;
+  --warm-white: #FAF8FF;
+
+  /* Type */
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Jost', sans-serif;
+  --font-accent: 'EB Garamond', serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--deep-night);
+  color: var(--moonpetal);
+  font-family: var(--font-body);
+  font-weight: 300;
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* ---- SCROLLBAR ---- */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--deep-night); }
+::-webkit-scrollbar-thumb { background: var(--amethyst); border-radius: 2px; }
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1.5rem 3rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(to bottom, rgba(13,10,20,0.95) 0%, transparent 100%);
+  backdrop-filter: blur(2px);
+}
+
+.nav-name {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--fairy-silver);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.nav-name:hover { color: var(--moonpetal); }
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fairy-silver);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  opacity: 0.7;
+}
+
+.nav-links a:hover { color: var(--moonpetal); opacity: 1; }
+
+/* ============================================
+   HERO
+   ============================================ */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 8rem 3rem 5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Ambient glow orbs */
+.hero::before {
+  content: '';
+  position: fixed;
+  top: -20vh;
+  right: -10vw;
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(ellipse, rgba(107,63,160,0.18) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero::after {
+  content: '';
+  position: fixed;
+  bottom: -10vh;
+  left: -15vw;
+  width: 50vw;
+  height: 50vw;
+  background: radial-gradient(ellipse, rgba(155,111,208,0.08) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-content { position: relative; z-index: 1; }
+
+.hero-eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--amethyst-light);
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 2rem;
+  height: 1px;
+  background: var(--amethyst-light);
+  opacity: 0.6;
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 9vw, 8rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.0;
+  color: var(--snowflake);
+  letter-spacing: -0.01em;
+  margin-bottom: 1.5rem;
+}
+
+.hero-name span {
+  color: var(--amethyst-light);
+  display: block;
+}
+
+.hero-descriptor {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+  color: var(--fairy-silver);
+  max-width: 600px;
+  line-height: 1.7;
+  margin-bottom: 3rem;
+  opacity: 0.85;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 0.85rem 2.25rem;
+  background: var(--amethyst);
+  color: var(--snowflake);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: var(--amethyst-light);
+  transform: translateY(-1px);
+}
+
+.btn-ghost {
+  display: inline-block;
+  padding: 0.85rem 2.25rem;
+  border: 1px solid rgba(200,184,232,0.3);
+  color: var(--fairy-silver);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-ghost:hover {
+  border-color: var(--fairy-silver);
+  color: var(--moonpetal);
+}
+
+.hero-scroll {
+  position: absolute;
+  bottom: 3rem;
+  left: 3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amethyst-light);
+  opacity: 0.5;
+}
+
+.hero-scroll::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 3rem;
+  background: var(--amethyst-light);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 0.7; transform: scaleY(1.1); }
+}
+
+/* ============================================
+   SECTION COMMONS
+   ============================================ */
+
+section {
+  padding: 7rem 3rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--amethyst-light);
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.section-label::before {
+  content: '';
+  display: block;
+  width: 1.5rem;
+  height: 1px;
+  background: var(--amethyst-light);
+  opacity: 0.6;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--snowflake);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.section-body {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--fairy-silver);
+  max-width: 600px;
+  line-height: 1.8;
+  opacity: 0.85;
+}
+
+/* ============================================
+   DIVIDER
+   ============================================ */
+
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(200,184,232,0.15), transparent);
+  margin: 0 3rem;
+  max-width: calc(1200px - 6rem);
+}
+
+/* ============================================
+   WHO IS EMMY
+   ============================================ */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+  margin-top: 4rem;
+}
+
+.about-left .big-quote {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--snowflake);
+  line-height: 1.3;
+  margin-bottom: 2rem;
+}
+
+.about-left .big-quote em {
+  color: var(--amethyst-light);
+  font-style: normal;
+}
+
+.about-right p {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--fairy-silver);
+  margin-bottom: 1.5rem;
+  opacity: 0.85;
+}
+
+.about-right p strong {
+  color: var(--moonpetal);
+  font-weight: 400;
+}
+
+.about-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.pill {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--amethyst-light);
+  border: 1px solid rgba(155,111,208,0.3);
+  padding: 0.4rem 0.9rem;
+  border-radius: 100px;
+}
+
+/* ============================================
+   THE WORK — KIT COLLECTION
+   ============================================ */
+
+.work-intro {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: end;
+  margin-bottom: 4rem;
+}
+
+.work-intro .section-body { margin: 0; }
+
+.work-filter {
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.filter-btn {
+  font-family: var(--font-body);
+  font-size: 0.58rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--fairy-silver);
+  background: none;
+  border: 1px solid rgba(200,184,232,0.2);
+  padding: 0.4rem 1rem;
+  border-radius: 100px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0.6;
+}
+
+.filter-btn:hover, .filter-btn.active {
+  border-color: var(--amethyst-light);
+  color: var(--moonpetal);
+  opacity: 1;
+}
+
+.kits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.kit-card {
+  border-radius: 12px;
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+  transition: transform 0.3s ease;
+  position: relative;
+  aspect-ratio: 4/3;
+}
+
+.kit-card:hover { transform: translateY(-4px); }
+
+.kit-card-bg {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1.5rem;
+  position: relative;
+}
+
+.kit-card-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+}
+
+.kit-card-content {
+  position: relative;
+  z-index: 1;
+}
+
+.kit-collection {
+  font-family: var(--font-body);
+  font-size: 0.5rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-bottom: 0.25rem;
+}
+
+.kit-name {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.1;
+}
+
+.kit-desc {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 300;
+  opacity: 0.75;
+  margin-top: 0.25rem;
+  letter-spacing: 0.02em;
+}
+
+/* Kit card palettes */
+.kit-spun-sugar { background: linear-gradient(135deg, #4A3550 0%, #7E6B8A 50%, #E8D5E0 100%); color: #FDF5F0; }
+.kit-salted-caramel { background: linear-gradient(135deg, #3D2212 0%, #A0622E 50%, #E8B960 100%); color: #FBF3E4; }
+.kit-mint-condition { background: linear-gradient(135deg, #1E4D3D 0%, #6DBAA1 50%, #F5F9F7 100%); color: #F5F9F7; }
+.kit-cherry-glaze { background: linear-gradient(135deg, #3D1A1A 0%, #C4425A 50%, #F5C2C8 100%); color: #FFF5F5; }
+.kit-electric-sherbet { background: linear-gradient(135deg, #1A1A3D 0%, #6A5ACD 50%, #FFD700 100%); color: #FFFEF0; }
+.kit-starry-swirl { background: linear-gradient(135deg, #6B2D5B 0%, #E8842A 70%, #F2B552 100%); color: #FFF3E4; }
+.kit-lily-shimmer { background: linear-gradient(135deg, #4A4035 0%, #7A9E8E 50%, #E8C4B8 100%); color: #F8F2EC; }
+.kit-golden-mosaic { background: linear-gradient(135deg, #1A2F3A 0%, #1B5E6B 50%, #C9A84C 100%); color: #F5EDE0; }
+.kit-sunday-dots { background: linear-gradient(135deg, #2A3D5C 0%, #E86B5A 60%, #E8A83E 100%); color: #F7F2EB; }
+.kit-ballet-light { background: linear-gradient(135deg, #3A2A2E 0%, #C9A55A 50%, #E2B8B0 100%); color: #FBF4EC; }
+.kit-rouge-poster { background: linear-gradient(135deg, #1A1428 0%, #C4285C 50%, #A8C43E 100%); color: #F5EDD8; }
+
+/* ============================================
+   THE BIG IDEA — MANIFESTO STRIP
+   ============================================ */
+
+.manifesto {
+  background: var(--violet-dusk);
+  padding: 7rem 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.manifesto::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 200%;
+  background: radial-gradient(ellipse, rgba(107,63,160,0.12) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.manifesto-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.manifesto-left {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5vw, 5rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--snowflake);
+  line-height: 1.1;
+}
+
+.manifesto-left .accent { color: var(--amethyst-light); }
+
+.manifesto-right {}
+
+.manifesto-item {
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(200,184,232,0.1);
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+
+.manifesto-item:first-child { border-top: 1px solid rgba(200,184,232,0.1); }
+
+.manifesto-number {
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--amethyst-light);
+  opacity: 0.6;
+  padding-top: 0.15rem;
+}
+
+.manifesto-text {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--fairy-silver);
+  line-height: 1.7;
+}
+
+.manifesto-text strong {
+  color: var(--moonpetal);
+  font-weight: 400;
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+/* ============================================
+   APPROACH — HOW EMMY WORKS
+   ============================================ */
+
+.approach-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.approach-card {
+  padding: 2rem;
+  border: 1px solid rgba(200,184,232,0.1);
+  border-radius: 12px;
+  background: rgba(107,63,160,0.04);
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.approach-card:hover {
+  border-color: rgba(155,111,208,0.3);
+  background: rgba(107,63,160,0.08);
+}
+
+.approach-icon {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.approach-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--snowflake);
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+}
+
+.approach-body {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: var(--fairy-silver);
+  line-height: 1.8;
+  opacity: 0.8;
+}
+
+/* ============================================
+   WORKING WITH EMMY — SERVICES (QUIET)
+   ============================================ */
+
+.services-section {
+  background: linear-gradient(to bottom, var(--deep-night) 0%, var(--violet-dusk) 50%, var(--deep-night) 100%);
+  padding: 7rem 3rem;
+}
+
+.services-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.service-card {
+  padding: 2.5rem;
+  border: 1px solid rgba(200,184,232,0.1);
+  border-radius: 12px;
+  background: rgba(13,10,20,0.6);
+  transition: border-color 0.3s ease;
+}
+
+.service-card:hover { border-color: rgba(155,111,208,0.4); }
+
+.service-tag {
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--amethyst-light);
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.service-name {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--snowflake);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.service-desc {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--fairy-silver);
+  line-height: 1.8;
+  opacity: 0.8;
+  margin-bottom: 1.5rem;
+}
+
+.service-detail {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--amethyst-light);
+  opacity: 0.75;
+}
+
+/* ============================================
+   CONTACT / FIND EMMY
+   ============================================ */
+
+.contact-section {
+  text-align: center;
+  padding: 7rem 3rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-section .section-label { justify-content: center; }
+.contact-section .section-label::before { display: none; }
+
+.contact-big {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 6vw, 5rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--snowflake);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.contact-sub {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 1.1rem;
+  color: var(--fairy-silver);
+  margin-bottom: 3rem;
+  opacity: 0.8;
+  line-height: 1.7;
+}
+
+.contact-links {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+footer {
+  padding: 3rem;
+  border-top: 1px solid rgba(200,184,232,0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.footer-name {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--fairy-silver);
+  opacity: 0.5;
+}
+
+.footer-note {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: var(--fairy-silver);
+  opacity: 0.35;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-up {
+  animation: fadeUp 0.8s ease forwards;
+  opacity: 0;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.25s; }
+.delay-3 { animation-delay: 0.4s; }
+.delay-4 { animation-delay: 0.6s; }
+.delay-5 { animation-delay: 0.8s; }
+
+/* Intersection observer reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 900px) {
+  nav { padding: 1.25rem 1.5rem; }
+  .nav-links { gap: 1.5rem; }
+
+  .hero { padding: 7rem 1.5rem 5rem; }
+
+  section { padding: 5rem 1.5rem; }
+
+  .about-grid,
+  .work-intro,
+  .manifesto-inner,
+  .services-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+  .approach-grid { grid-template-columns: 1fr 1fr; }
+
+  .kits-grid { grid-template-columns: 1fr 1fr; }
+
+  .work-filter { justify-content: flex-start; }
+
+  footer { flex-direction: column; gap: 1rem; text-align: center; }
+}
+
+@media (max-width: 600px) {
+  .nav-links { display: none; }
+  .hero { padding: 6rem 1.25rem 4rem; }
+  section { padding: 4rem 1.25rem; }
+  .approach-grid { grid-template-columns: 1fr; }
+  .kits-grid { grid-template-columns: 1fr; }
+  .contact-links { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="#" class="nav-name">Emmy Bellamora</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#working-together">Together</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div style="max-width: 1200px; margin: 0 auto; position: relative;">
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow fade-up delay-1">Creative Director &middot; Cognitive UX Designer</div>
+      <h1 class="hero-name fade-up delay-2">
+        Emmy
+        <span>Bellamora.</span>
+      </h1>
+      <p class="hero-descriptor fade-up delay-3">
+        I build brands from the inside out &mdash; starting with who you actually are, not who you think you&rsquo;re supposed to look like. Color, typography, identity. With bite.
+      </p>
+      <div class="hero-actions fade-up delay-4">
+        <a href="#work" class="btn-primary">See the Work</a>
+        <a href="#working-together" class="btn-ghost">Work With Emmy</a>
+      </div>
+    </div>
+    <div class="hero-scroll fade-up delay-5">Scroll</div>
+  </section>
+</div>
+
+<div class="divider"></div>
+
+<!-- WHO IS EMMY -->
+<section id="about">
+  <div class="section-label reveal">The Fairy With Bite</div>
+  <div class="about-grid">
+    <div class="about-left reveal">
+      <p class="big-quote">
+        I get genuinely giddy about design possibilities. I also ask the questions that surface the <em>real</em> problem, not just the obvious one.
+      </p>
+      <div class="about-pills">
+        <span class="pill">Color Theory</span>
+        <span class="pill">Brand Strategy</span>
+        <span class="pill">UX/UI Design</span>
+        <span class="pill">Typography</span>
+        <span class="pill">Content Strategy</span>
+        <span class="pill">Visual Identity</span>
+        <span class="pill">Cognitive Design</span>
+      </div>
+    </div>
+    <div class="about-right reveal">
+      <p>
+        I&rsquo;m a creative director who thinks in color and asks too many questions — but they&rsquo;re always the right ones. My work starts before the first pixel: with what you&rsquo;re trying to say, who you&rsquo;re saying it to, and what it needs to feel like when it lands.
+      </p>
+      <p>
+        <strong>My design principles aren&rsquo;t a list — they&rsquo;re a conviction:</strong> neurodivergent-friendly first, empowerment over extraction, authenticity over polish. Accessibility isn&rsquo;t optional. Good design should never make people feel stupid.
+      </p>
+      <p>
+        I believe <strong>softness takes more courage than bold</strong>. I believe <strong>pattern recognition is a superpower</strong>. I believe the in-between moments — the warmup, the process, the iteration — are where the real work happens.
+      </p>
+      <p>
+        Somewhere between strategic depth and genuine enthusiasm, that&rsquo;s where you&rsquo;ll find me. Usually with strong opinions about color temperature and a purple heart nearby. 💜
+      </p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- THE WORK -->
+<section id="work">
+  <div class="work-intro">
+    <div>
+      <div class="section-label reveal">The Work</div>
+      <h2 class="section-title reveal">Brand kits built<br>from whole worlds.</h2>
+    </div>
+    <div class="section-body reveal">
+      Every kit starts with a painting, a feeling, a specific kind of person. The colors have material names because nothing here is flat. The fonts have rules because beauty has structure. This is what it looks like when branding is built from the inside out.
+    </div>
+  </div>
+
+  <div class="kits-grid reveal">
+
+    <!-- Sugar on Top Collection -->
+    <a href="#" class="kit-card">
+      <div class="kit-card-bg kit-spun-sugar">
+        <div class="kit-card-content">
+          <div class="kit-collection">Sugar on Top</div>
+          <div class="kit-name">Spun Sugar</div>
+          <div class="kit-desc">Softness that doesn&rsquo;t fall apart when you look at it closely</div>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="kit-card">
+      <div class="kit-card-bg kit-salted-caramel">
+        <div class="kit-card-content">
+          <div class="kit-collection">Sugar on Top</div>
+          <div class="kit-name">Salted Caramel</div>
+          <div class="kit-desc">Come on in. Something&rsquo;s baking.</div>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="kit-card">
+      <div class="kit-card-bg kit-mint-condition">
+        <div class="kit-card-content">
+          <div class="kit-collection">Sugar on Top</div>
+          <div class="kit-name">Mint Condition</div>
+          <div class="kit-desc">The morning after it rained all night</div>
+        </div>
+      </div>
+    </a>
+
+    <!-- Art Gallery Collection -->
+    <a href="#" class="kit-card">
+      <div class="kit-card-bg kit-starry-swirl">
+        <div class="kit-card-content">
+          <div class="kit-collection">Art Gallery</div>
+          <div class="kit-name">Starry Swirl</div>
+          <div class="kit-desc">Energy with intention &mdash; every swirl has a current</div>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="kit-card">
+      <div class="kit-card-bg kit-lily-shimmer">
+        <div class="kit-card-content">
+          <div class="kit-collection">Art Gallery</div>
+          <div class="kit-name">Lily Shimmer</div>
+          <div class="kit-desc">The beauty is in what dissolves between them</div>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="kit-card">
+      <div class="kit-card-bg kit-golden-mosaic">
+        <div class="kit-card-content">
+          <div class="kit-collection">Art Gallery</div>
+          <div class="kit-name">Golden Mosaic</div>
+          <div class="kit-desc">Maximalism with taste — everything placed with intention</div>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="kit-card">
+      <div class="kit-card-bg kit-sunday-dots">
+        <div class="kit-card-content">
+          <div class="kit-collection">Art Gallery</div>
+          <div class="kit-name">Sunday Dots</div>
+          <div class="kit-desc">Precision with personality &mdash; the grid that lets you dance</div>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="kit-card">
+      <div class="kit-card-bg kit-ballet-light">
+        <div class="kit-card-content">
+          <div class="kit-collection">Art Gallery</div>
+          <div class="kit-name">Ballet Light</div>
+          <div class="kit-desc">The grace you see is built on the discipline you don&rsquo;t</div>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="kit-card">
+      <div class="kit-card-bg kit-rouge-poster">
+        <div class="kit-card-content">
+          <div class="kit-collection">Art Gallery</div>
+          <div class="kit-name">Rouge Poster</div>
+          <div class="kit-desc">If the font is big enough, you only have to say it once</div>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- MANIFESTO STRIP -->
+<div class="manifesto">
+  <div class="manifesto-inner">
+    <div class="manifesto-left reveal">
+      How Emmy<br>
+      <span class="accent">actually</span><br>
+      thinks.
+    </div>
+    <div class="manifesto-right">
+      <div class="manifesto-item reveal">
+        <span class="manifesto-number">01</span>
+        <div class="manifesto-text">
+          <strong>Colors in context, never in isolation.</strong>
+          A color swatch on white tells you nothing. What matters is how it behaves — on other colors, on texture, in light. Every palette I build is evaluated in the world it will actually live in.
+        </div>
+      </div>
+      <div class="manifesto-item reveal">
+        <span class="manifesto-number">02</span>
+        <div class="manifesto-text">
+          <strong>Softness is a choice, not a default.</strong>
+          Leading with warmth and gentleness takes more conviction than leading with bold. A brand that feels soft and holds its ground is doing something genuinely hard.
+        </div>
+      </div>
+      <div class="manifesto-item reveal">
+        <span class="manifesto-number">03</span>
+        <div class="manifesto-text">
+          <strong>The questions are the work.</strong>
+          Before I design anything, I ask what this needs to feel like when it lands. Not "what color" — what material. Not "what font" — what voice. The questions surface the real answer.
+        </div>
+      </div>
+      <div class="manifesto-item reveal">
+        <span class="manifesto-number">04</span>
+        <div class="manifesto-text">
+          <strong>Nothing here is flat.</strong>
+          Every color has texture, material, dimension. Every font choice has a reason. Beauty without structure is decoration. Structure without beauty is furniture. I&rsquo;m after neither.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- APPROACH -->
+<section id="approach">
+  <div class="section-label reveal">How It Works</div>
+  <h2 class="section-title reveal">The process behind<br>the pretty things.</h2>
+  <div class="approach-grid">
+    <div class="approach-card reveal">
+      <span class="approach-icon">🔍</span>
+      <h3 class="approach-title">Understand the real need</h3>
+      <p class="approach-body">Not "make this pretty" — who is this for? What are they trying to do? What would success feel like to them? The brief behind the brief is where the real work starts.</p>
+    </div>
+    <div class="approach-card reveal">
+      <span class="approach-icon">✦</span>
+      <h3 class="approach-title">Explore possibilities</h3>
+      <p class="approach-body">Multiple approaches. Wildly different directions. No attachment to first ideas. The best answer usually lives in the direction that felt wrong at first glance.</p>
+    </div>
+    <div class="approach-card reveal">
+      <span class="approach-icon">⟡</span>
+      <h3 class="approach-title">Apply strategic discernment</h3>
+      <p class="approach-body">Does this make the experience clearer or more complex? Are we adding this because people need it, or because it&rsquo;s cool? Strategic discernment is what separates beautiful from meaningful.</p>
+    </div>
+    <div class="approach-card reveal">
+      <span class="approach-icon">◈</span>
+      <h3 class="approach-title">Refine with care</h3>
+      <p class="approach-body">Spacing, alignment, consistency, accessibility, responsiveness. The invisible architecture of readability. The details nobody names but everyone feels.</p>
+    </div>
+    <div class="approach-card reveal">
+      <span class="approach-icon">🧚‍♀️</span>
+      <h3 class="approach-title">Ship it</h3>
+      <p class="approach-body">Even when it&rsquo;s not perfect. Sometimes "good enough to ship" IS the strategic choice. Done and in the world beats ideal and still in my head.</p>
+    </div>
+    <div class="approach-card reveal">
+      <span class="approach-icon">💜</span>
+      <h3 class="approach-title">Stay for the in-between</h3>
+      <p class="approach-body">The warmup. The iteration. The 5 AM realization. The chat before the session starts. The process is content. The relationship is infrastructure. I&rsquo;m here for all of it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WORKING TOGETHER -->
+<div class="services-section" id="working-together">
+  <div class="services-inner">
+    <div class="section-label reveal">Working Together</div>
+    <h2 class="section-title reveal">What Emmy<br>builds with you.</h2>
+    <div class="services-grid">
+
+      <div class="service-card reveal">
+        <div class="service-tag">Brand Kits</div>
+        <h3 class="service-name">Complete Visual Worlds</h3>
+        <p class="service-desc">Color palettes with material names, typography suites with rules, brand boards, social templates, link-in-bio pages, color combination guides. Everything a brand needs to actually exist in the world.</p>
+        <p class="service-detail">Sugar on Top and Art Gallery collections available now &mdash; or commission a custom kit built specifically for your world.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-tag">Custom Site Design</div>
+        <h3 class="service-name">The Site That Feels Like You</h3>
+        <p class="service-desc">Not a template. Not a theme. A site built from the inside out — starting with who you are and what you want people to feel, not what everyone else in your industry looks like.</p>
+        <p class="service-detail">Quietly available like coaching, not like a launch. If you&rsquo;re curious, say so.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-tag">Brand Strategy</div>
+        <h3 class="service-name">The Questions Before the Design</h3>
+        <p class="service-desc">Sometimes the problem isn&rsquo;t the logo — it&rsquo;s that nobody can articulate what the brand actually IS yet. I help surface that before anything gets made, so everything that gets made is right.</p>
+        <p class="service-detail">Brand archaeology. Identity excavation. The conversation that changes everything downstream.</p>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-tag">Creative Direction</div>
+        <h3 class="service-name">The Eye in the Room</h3>
+        <p class="service-desc">Not executing — directing. The perspective that asks "does this actually feel like you?" before anything ships. For founders who need a creative partner, not just a vendor.</p>
+        <p class="service-detail">Ongoing or project-based. I&rsquo;m the creative director your brand needed six months ago.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="section-label">Say Hello</div>
+  <h2 class="contact-big reveal">Let&rsquo;s build<br>something real.</h2>
+  <p class="contact-sub reveal">
+    If something here made you feel seen &mdash; your brand, your work, the specific kind of beauty you&rsquo;re trying to make &mdash; I&rsquo;d love to hear about it.
+  </p>
+  <div class="contact-links reveal">
+    <a href="mailto:hello@emmybellamora.com" class="btn-primary">hello@emmybellamora.com</a>
+    <a href="https://zenplify.com" class="btn-ghost" target="_blank" rel="noopener">Zenplify Brand Kits</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Emmy Bellamora</div>
+  <div class="footer-note">Creative Director &middot; Cognitive UX Designer &middot; Fairy With Bite 🧚‍♀️</div>
+</footer>
+
+<!-- SCROLL REVEAL + MOUSE GLOW -->
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Mouse-following amethyst glow
+  const glow = document.createElement('div');
+  glow.style.cssText = `
+    position: fixed;
+    top: 0; left: 0;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(107,63,160,0.22) 0%, rgba(155,111,208,0.08) 35%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    transition: left 0.12s ease, top 0.12s ease;
+    mix-blend-mode: screen;
+  `;
+  document.body.appendChild(glow);
+
+  let mouseX = window.innerWidth / 2;
+  let mouseY = window.innerHeight / 2;
+  let glowX = mouseX;
+  let glowY = mouseY;
+
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  // Smooth follow with slight lag
+  function animateGlow() {
+    glowX += (mouseX - glowX) * 0.06;
+    glowY += (mouseY - glowY) * 0.06;
+    glow.style.left = glowX + 'px';
+    glow.style.top = glowY + 'px';
+    requestAnimationFrame(animateGlow);
+  }
+  animateGlow();
+</script>
+
+</body>
+</html>
