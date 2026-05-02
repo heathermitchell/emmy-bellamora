@@ -12,7 +12,7 @@
 /* SALTED CARAMEL — rebuilt 2026-05-02: nothing is flat, everything is material. Real texture PNGs layered with color. Ceramic glaze, linen, dark wood, cinnamon-dusted foam, salt crystals, amber glass, bark, whipped cream. */
 :root {
   --tex-burnt-sugar:    url('../../assets/textures/salted-caramel/texture-burnt-sugar.png');
-  --tex-raw-honey:      url('../../assets/textures/salted-caramel/texture-raw-honey.png');
+  --tex-liquid-caramel:      url('../../assets/textures/salted-caramel/texture-liquid-caramel.png');
   --tex-molasses:       url('../../assets/textures/salted-caramel/texture-molasses.png');
   --tex-cinnamon-dust:  url('../../assets/textures/salted-caramel/texture-cinnamon-dust.png');
   --tex-fleur-de-sel:   url('../../assets/textures/salted-caramel/texture-fleur-de-sel.png');
@@ -20,7 +20,7 @@
   --tex-clove:          url('../../assets/textures/salted-caramel/texture-clove.png');
   --tex-whipped-cream:  url('../../assets/textures/salted-caramel/texture-whipped-cream.png');
   --deep-night: #0D0A14; --amethyst: #6B3FA0; --amethyst-light: #9B6FD0; --violet-dusk: #2D1B4E; --fairy-silver: #C8B8E8; --moonpetal: #E8D8F8; --snowflake: #F5F0FF;
-  --sc-burnt-sugar: #A0622E; --sc-molasses: #3D2212; --sc-raw-honey: #E8B960; --sc-cinnamon: #C49175; --sc-fleur: #D4CFC4; --sc-clove: #6B3E26; --sc-buttermilk: #FBF3E4; --sc-whipped: #FFFAF2;
+  --sc-burnt-sugar: #A0622E; --sc-molasses: #3D2212; --sc-liquid-caramel: #E8B960; --sc-cinnamon: #C49175; --sc-fleur: #D4CFC4; --sc-clove: #6B3E26; --sc-buttermilk: #FBF3E4; --sc-whipped: #FFFAF2;
   --font-emmy-display: 'Cormorant Garamond', serif; --font-emmy-body: 'Jost', sans-serif;
   --font-sc-display: 'Fraunces', serif; --font-sc-subhead: 'Lora', serif; --font-sc-body: 'Work Sans', sans-serif;
 }
@@ -36,7 +36,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .nav-links { display: flex; gap: 2.5rem; list-style: none; }
 .nav-links a { font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fairy-silver); text-decoration: none; transition: color 0.3s ease; opacity: 0.7; }
 .nav-links a:hover { color: var(--moonpetal); opacity: 1; }
-.breadcrumb { max-width: 1200px; margin: 0 auto; padding: 4.75rem 3rem 0.5rem; display: flex; align-items: center; gap: 0.6rem; font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sc-raw-honey); opacity: 0.55; }
+.breadcrumb { max-width: 1200px; margin: 0 auto; padding: 4.75rem 3rem 0.5rem; display: flex; align-items: center; gap: 0.6rem; font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sc-liquid-caramel); opacity: 0.55; }
 .breadcrumb a { color: inherit; text-decoration: none; transition: color 0.3s ease, opacity 0.3s ease; }
 .breadcrumb a:hover { color: var(--sc-buttermilk); opacity: 1; }
 .breadcrumb-sep { opacity: 0.45; }
@@ -65,8 +65,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .kit-hero-inner::after { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent 0px, transparent 5px, rgba(232,185,96,0.02) 5px, rgba(232,185,96,0.02) 6px); pointer-events: none; z-index: 1; }
 .kit-hero-wrap { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 3rem; position: relative; z-index: 2; }
 .kit-hero-content { position: relative; z-index: 1; max-width: 720px; }
-.kit-hero-meta { font-family: var(--font-sc-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sc-raw-honey); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.85rem; }
-.kit-hero-meta::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--sc-raw-honey); opacity: 0.7; }
+.kit-hero-meta { font-family: var(--font-sc-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sc-liquid-caramel); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.85rem; }
+.kit-hero-meta::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--sc-liquid-caramel); opacity: 0.7; }
 .kit-hero-name { font-family: var(--font-sc-display); font-size: clamp(3.5rem, 7vw, 6rem); font-weight: 700; color: var(--sc-buttermilk); line-height: 1.0; letter-spacing: -0.015em; margin-bottom: 1.5rem; text-shadow: 0 2px 32px rgba(0,0,0,0.5), 0 4px 64px rgba(0,0,0,0.25); }
 .kit-hero-tagline { font-family: var(--font-sc-subhead); font-style: italic; font-size: clamp(1.1rem, 1.8vw, 1.4rem); color: var(--sc-buttermilk); line-height: 1.6; opacity: 0.95; text-shadow: 0 2px 20px rgba(0,0,0,0.55); max-width: 580px; }
 
@@ -81,7 +81,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .painting-attribution { font-family: var(--font-emmy-body); font-size: 0.7rem; font-weight: 300; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.7; margin-bottom: 2rem; }
 .painting-body p { font-family: var(--font-emmy-body); font-size: 0.92rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); margin-bottom: 1.5rem; opacity: 0.88; }
 .painting-body p strong { color: var(--moonpetal); font-weight: 400; }
-.painting-body p em { color: var(--sc-raw-honey); font-style: italic; }
+.painting-body p em { color: var(--sc-liquid-caramel); font-style: italic; }
 
 /* PALETTE — on cinnamon texture */
 .palette-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% 0%, rgba(61,34,18,0.55) 0%, transparent 55%), radial-gradient(ellipse at 50% 100%, rgba(61,34,18,0.65) 0%, transparent 55%), linear-gradient(to bottom, rgba(61,34,18,0.44) 0%, rgba(61,34,18,0.40) 50%, rgba(61,34,18,0.48) 100%), var(--tex-cinnamon-dust); background-size: auto, auto, auto, cover; }
@@ -97,7 +97,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .palette-swatch::after { content: ''; position: absolute; inset: 0; }
 /* each swatch = texture PNG + color overlay */
 .swatch-burnt-sugar   { background-image: var(--tex-burnt-sugar); }   .swatch-burnt-sugar::after   { background: var(--sc-burnt-sugar); mix-blend-mode: multiply; opacity: 0.45; }
-.swatch-raw-honey     { background-image: var(--tex-raw-honey); }     .swatch-raw-honey::after     { background: var(--sc-raw-honey); mix-blend-mode: multiply; opacity: 0.40; }
+.swatch-liquid-caramel     { background-image: var(--tex-liquid-caramel); }     .swatch-liquid-caramel::after     { background: var(--sc-liquid-caramel); mix-blend-mode: multiply; opacity: 0.40; }
 .swatch-molasses      { background-image: var(--tex-molasses); }      .swatch-molasses::after      { background: var(--sc-molasses); mix-blend-mode: multiply; opacity: 0.55; }
 .swatch-cinnamon      { background-image: var(--tex-cinnamon-dust); } .swatch-cinnamon::after      { background: var(--sc-cinnamon); mix-blend-mode: multiply; opacity: 0.42; }
 .swatch-fleur         { background-image: var(--tex-fleur-de-sel); }  .swatch-fleur::after         { background: var(--sc-fleur); mix-blend-mode: screen; opacity: 0.35; }
@@ -127,7 +127,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 /* Rule card — on dark bark */
 .type-rule { background-image: linear-gradient(to bottom, rgba(61,34,18,0.90) 0%, rgba(107,62,38,0.85) 100%), var(--tex-clove); background-size: auto, cover; border-radius: 16px; padding: 3.5rem 3.5rem; text-align: center; font-family: var(--font-sc-subhead); font-style: italic; font-weight: 500; font-size: clamp(1.3rem, 2.4vw, 1.9rem); line-height: 1.5; color: var(--sc-buttermilk); position: relative; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.5); }
 .type-rule::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-48deg, transparent 0px, transparent 3px, rgba(232,185,96,0.025) 3px, rgba(232,185,96,0.025) 4px); pointer-events: none; }
-.type-rule em { color: var(--sc-raw-honey); font-style: italic; position: relative; }
+.type-rule em { color: var(--sc-liquid-caramel); font-style: italic; position: relative; }
 
 /* COMBOS */
 .combo-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
@@ -145,13 +145,13 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 /* Each combo uses a different texture */
 .combo-1 { background-image: var(--tex-molasses); color: var(--sc-buttermilk); } .combo-1::before { background: linear-gradient(135deg, rgba(61,34,18,0.7) 0%, rgba(232,185,96,0.4) 100%); }
 .combo-2 { background-image: var(--tex-buttermilk); color: var(--sc-molasses); } .combo-2::before { background: linear-gradient(135deg, rgba(251,243,228,0.75) 0%, rgba(232,185,96,0.25) 100%); } .combo-2::after { background: linear-gradient(to top, rgba(251,243,228,0.6) 0%, rgba(251,243,228,0.1) 45%, transparent 70%); }
-.combo-3 { background-image: var(--tex-raw-honey); color: var(--sc-buttermilk); } .combo-3::before { background: linear-gradient(135deg, rgba(61,34,18,0.6) 0%, rgba(232,185,96,0.5) 100%); }
+.combo-3 { background-image: var(--tex-liquid-caramel); color: var(--sc-buttermilk); } .combo-3::before { background: linear-gradient(135deg, rgba(61,34,18,0.6) 0%, rgba(232,185,96,0.5) 100%); }
 .combo-4 { background-image: var(--tex-whipped-cream); color: var(--sc-molasses); } .combo-4::before { background: linear-gradient(135deg, rgba(196,145,117,0.5) 0%, rgba(255,250,242,0.55) 100%); } .combo-4::after { background: linear-gradient(to top, rgba(255,250,242,0.7) 0%, rgba(255,250,242,0.15) 45%, transparent 70%); }
 .combo-5 { background-image: var(--tex-burnt-sugar); color: var(--sc-buttermilk); } .combo-5::before { background: linear-gradient(135deg, rgba(107,62,38,0.68) 0%, rgba(232,185,96,0.42) 100%); }
 .combo-6 { background-image: var(--tex-clove); color: var(--sc-buttermilk); } .combo-6::before { background: linear-gradient(135deg, rgba(61,34,18,0.72) 0%, rgba(196,145,117,0.4) 100%); }
 
 /* INSIDE — on amber glass glow */
-.inside-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% -10%, rgba(232,185,96,0.18) 0%, transparent 52%), linear-gradient(to bottom, rgba(61,34,18,0.42) 0%, rgba(61,34,18,0.38) 100%), var(--tex-raw-honey); background-size: auto, auto, cover; }
+.inside-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% -10%, rgba(232,185,96,0.18) 0%, transparent 52%), linear-gradient(to bottom, rgba(61,34,18,0.42) 0%, rgba(61,34,18,0.38) 100%), var(--tex-liquid-caramel); background-size: auto, auto, cover; }
 .inside-section::before { content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 80%; height: 200%; background: radial-gradient(ellipse, rgba(232,185,96,0.07) 0%, transparent 60%); pointer-events: none; z-index: 0; }
 .inside-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 2; }
 .inside-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
@@ -187,7 +187,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .mock-texture { width: 100%; height: 100%; border-radius: 8px; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); gap: 4px; padding: 4px; background: var(--sc-molasses); }
 .mock-texture-cell { border-radius: 4px; position: relative; overflow: hidden; background-size: cover; background-position: center; }
 .mock-texture-cell::after { content: attr(data-name); position: absolute; bottom: 0.4rem; left: 0.5rem; font-family: var(--font-sc-body); font-size: 0.45rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.9); text-shadow: 0 1px 6px rgba(0,0,0,0.8); }
-.mock-playground { width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1rem; padding: 1.25rem; background-image: radial-gradient(ellipse at 20% 80%, rgba(232,185,96,0.08) 0%, transparent 55%), radial-gradient(ellipse at 80% 20%, rgba(196,145,117,0.07) 0%, transparent 50%), var(--tex-raw-honey); background-size: auto, auto, cover; }
+.mock-playground { width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1rem; padding: 1.25rem; background-image: radial-gradient(ellipse at 20% 80%, rgba(232,185,96,0.08) 0%, transparent 55%), radial-gradient(ellipse at 80% 20%, rgba(196,145,117,0.07) 0%, transparent 50%), var(--tex-liquid-caramel); background-size: auto, auto, cover; }
 .mp-sample { border-radius: 4px; padding: 1rem 1rem 0.85rem; display: flex; flex-direction: column; position: relative; overflow: hidden; text-align: center; background-size: cover; background-position: center; }
 .mp-sample-swatch { flex: 1; border-radius: 3px; margin-bottom: 0.85rem; min-height: 0; background-size: cover; background-position: center; }
 .mp-sample-name { font-family: var(--font-sc-body); font-size: 0.42rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 0.35rem; opacity: 0.85; }
@@ -200,11 +200,11 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .carousel-dot:hover { background: rgba(200,184,232,0.5); }
 .carousel-dot.active { background: var(--amethyst-light); width: 1.4rem; border-radius: 100px; }
 .inside-list { padding-top: 0.5rem; }
-.inside-list-title { font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sc-raw-honey); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.85rem; }
-.inside-list-title::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--sc-raw-honey); opacity: 0.7; }
+.inside-list-title { font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sc-liquid-caramel); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.85rem; }
+.inside-list-title::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--sc-liquid-caramel); opacity: 0.7; }
 .inside-item { padding: 1.1rem 0; border-bottom: 1px solid rgba(200,184,232,0.1); display: grid; grid-template-columns: 2rem 1fr; gap: 0.75rem; align-items: start; }
 .inside-item:first-of-type { border-top: 1px solid rgba(200,184,232,0.1); }
-.inside-icon { font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.1em; color: var(--sc-raw-honey); opacity: 0.85; padding-top: 0.2rem; }
+.inside-icon { font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.1em; color: var(--sc-liquid-caramel); opacity: 0.85; padding-top: 0.2rem; }
 .inside-text strong { display: block; font-family: var(--font-emmy-body); font-size: 0.85rem; font-weight: 400; color: var(--moonpetal); margin-bottom: 0.3rem; letter-spacing: 0.02em; }
 .inside-text span { font-family: var(--font-emmy-body); font-size: 0.72rem; font-weight: 300; color: var(--fairy-silver); opacity: 0.78; line-height: 1.6; }
 
@@ -305,7 +305,7 @@ footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: f
                 </div>
                 <div class="mbb-body">
                   <div class="mbb-palette">
-                    <div class="mbb-swatch swatch-burnt-sugar"></div><div class="mbb-swatch swatch-raw-honey"></div>
+                    <div class="mbb-swatch swatch-burnt-sugar"></div><div class="mbb-swatch swatch-liquid-caramel"></div>
                     <div class="mbb-swatch swatch-molasses"></div><div class="mbb-swatch swatch-cinnamon"></div>
                     <div class="mbb-swatch swatch-fleur"></div><div class="mbb-swatch swatch-clove"></div>
                     <div class="mbb-swatch swatch-buttermilk"></div><div class="mbb-swatch swatch-whipped"></div>
@@ -326,22 +326,22 @@ footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: f
               <div class="mock-playground">
                 <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(61,34,18,0.78),rgba(61,34,18,0.62)),var(--tex-molasses);background-size:auto,cover;color:var(--sc-buttermilk);">
                   <div class="mp-sample-swatch" style="background-image:var(--tex-molasses);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--sc-raw-honey);">Molasses</div>
+                  <div class="mp-sample-name" style="color:var(--sc-liquid-caramel);">Molasses</div>
                   <div class="mp-sample-tagline">Dark wood depth.<br>Warm, not cold.</div>
                 </div>
-                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(232,185,96,0.55),rgba(61,34,18,0.65)),var(--tex-raw-honey);background-size:auto,cover;color:var(--sc-buttermilk);">
-                  <div class="mp-sample-swatch" style="background-image:var(--tex-raw-honey);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--sc-raw-honey);">Raw Honey</div>
+                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(232,185,96,0.55),rgba(61,34,18,0.65)),var(--tex-liquid-caramel);background-size:auto,cover;color:var(--sc-buttermilk);">
+                  <div class="mp-sample-swatch" style="background-image:var(--tex-liquid-caramel);background-size:cover;"></div>
+                  <div class="mp-sample-name" style="color:var(--sc-liquid-caramel);">Liquid Caramel</div>
                   <div class="mp-sample-tagline">Amber glass glow.<br>Light through sweetness.</div>
                 </div>
                 <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(196,145,117,0.55),rgba(61,34,18,0.65)),var(--tex-cinnamon-dust);background-size:auto,cover;color:var(--sc-buttermilk);">
                   <div class="mp-sample-swatch" style="background-image:var(--tex-cinnamon-dust);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--sc-raw-honey);">Cinnamon Dust</div>
+                  <div class="mp-sample-name" style="color:var(--sc-liquid-caramel);">Cinnamon Dust</div>
                   <div class="mp-sample-tagline">Spice on foam.<br>The smell of Sunday.</div>
                 </div>
                 <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(212,207,196,0.55),rgba(61,34,18,0.6)),var(--tex-fleur-de-sel);background-size:auto,cover;color:var(--sc-buttermilk);">
                   <div class="mp-sample-swatch" style="background-image:var(--tex-fleur-de-sel);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--sc-raw-honey);">Fleur de Sel</div>
+                  <div class="mp-sample-name" style="color:var(--sc-liquid-caramel);">Fleur de Sel</div>
                   <div class="mp-sample-tagline">Salt crystals.<br>The thing that makes sweet, sweet.</div>
                 </div>
               </div>
@@ -355,7 +355,7 @@ footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: f
                 <div class="mcs-grid">
                   <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(61,34,18,0.9),rgba(232,185,96,0.65)),var(--tex-molasses);background-size:auto,cover;color:var(--sc-buttermilk);"><div class="mcs-cell-name">Molasses<br>&amp; Honey</div><div class="mcs-cell-meta">Deep &times; Warm &middot; AAA</div></div>
                   <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(251,243,228,0.95),rgba(255,250,242,0.90)),var(--tex-buttermilk);background-size:auto,cover;color:var(--sc-clove);border:1px solid rgba(107,62,38,0.1);"><div class="mcs-cell-name">Linen<br>Morning</div><div class="mcs-cell-meta">Buttermilk &times; Clove &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(107,62,38,0.88),rgba(232,185,96,0.55)),var(--tex-clove);background-size:auto,cover;color:var(--sc-buttermilk);"><div class="mcs-cell-name">Bark<br>&amp; Gold</div><div class="mcs-cell-meta">Clove &times; Raw Honey &middot; AA</div></div>
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(107,62,38,0.88),rgba(232,185,96,0.55)),var(--tex-clove);background-size:auto,cover;color:var(--sc-buttermilk);"><div class="mcs-cell-name">Bark<br>&amp; Gold</div><div class="mcs-cell-meta">Clove &times; Liquid Caramel &middot; AA</div></div>
                   <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(160,98,46,0.88),rgba(251,243,228,0.7)),var(--tex-burnt-sugar);background-size:auto,cover;color:var(--sc-buttermilk);"><div class="mcs-cell-name">Ceramic<br>Warmth</div><div class="mcs-cell-meta">Burnt Sugar &times; Cream &middot; AA</div></div>
                   <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(61,34,18,0.88),rgba(212,207,196,0.5)),var(--tex-molasses);background-size:auto,cover;color:var(--sc-fleur);"><div class="mcs-cell-name">Salt<br>on Dark</div><div class="mcs-cell-meta">Molasses &times; Fleur &middot; AA</div></div>
                   <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(255,250,242,0.92),rgba(251,243,228,0.88)),var(--tex-whipped-cream);background-size:auto,cover;color:var(--sc-burnt-sugar);border:1px solid rgba(107,62,38,0.1);"><div class="mcs-cell-name">Soft<br>Sunday</div><div class="mcs-cell-meta">Whipped &times; Caramel &middot; AA</div></div>
@@ -368,7 +368,7 @@ footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: f
             <div class="mockup-stage" style="padding:1rem;">
               <div class="mock-texture">
                 <div class="mock-texture-cell" data-name="Burnt Sugar"   style="background-image:linear-gradient(to bottom,rgba(160,98,46,0.45),rgba(61,34,18,0.35)),var(--tex-burnt-sugar);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Raw Honey"     style="background-image:linear-gradient(to bottom,rgba(232,185,96,0.5),rgba(61,34,18,0.3)),var(--tex-raw-honey);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Liquid Caramel"     style="background-image:linear-gradient(to bottom,rgba(232,185,96,0.5),rgba(61,34,18,0.3)),var(--tex-liquid-caramel);background-size:auto,cover;"></div>
                 <div class="mock-texture-cell" data-name="Molasses"      style="background-image:linear-gradient(to bottom,rgba(61,34,18,0.55),rgba(61,34,18,0.45)),var(--tex-molasses);background-size:auto,cover;"></div>
                 <div class="mock-texture-cell" data-name="Cinnamon Dust" style="background-image:linear-gradient(to bottom,rgba(196,145,117,0.5),rgba(61,34,18,0.35)),var(--tex-cinnamon-dust);background-size:auto,cover;"></div>
                 <div class="mock-texture-cell" data-name="Fleur de Sel"  style="background-image:linear-gradient(to bottom,rgba(212,207,196,0.5),rgba(61,34,18,0.4)),var(--tex-fleur-de-sel);background-size:auto,cover;"></div>
@@ -397,7 +397,7 @@ footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: f
         <div class="inside-item"><div class="inside-icon">03</div><div class="inside-text"><strong>Brand Board</strong><span>One page that captures the entire kit at a glance &mdash; for presentations or quick reference.</span></div></div>
         <div class="inside-item"><div class="inside-icon">04</div><div class="inside-text"><strong>Color Combinations Cheat Sheet</strong><span>Pre-vetted combinations with WCAG contrast scores. Beautiful AND accessible.</span></div></div>
         <div class="inside-item"><div class="inside-icon">05</div><div class="inside-text"><strong>Tier-2 Playground</strong><span>Full sandbox of the kit in motion &mdash; layouts, social tiles, link-in-bio templates.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">06</div><div class="inside-text"><strong>Texture Vault</strong><span>Eight high-res material textures &mdash; burnt sugar ceramic, raw honey glass, molasses wood, cinnamon dust, fleur de sel, buttermilk linen, clove bark, whipped cream.</span></div></div>
+        <div class="inside-item"><div class="inside-icon">06</div><div class="inside-text"><strong>Texture Vault</strong><span>Eight high-res material textures &mdash; burnt sugar ceramic, liquid caramel glass, molasses wood, cinnamon dust, fleur de sel, buttermilk linen, clove bark, whipped cream.</span></div></div>
       </div>
     </div>
   </div>
@@ -408,7 +408,7 @@ footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: f
     <div class="painting-grid">
       <div class="reveal">
         <div class="painting-label">The Scene Behind It</div>
-        <h2 class="painting-title">A kitchen<br>that actually<br>gets <em style="color:var(--sc-raw-honey);font-style:italic;">used.</em></h2>
+        <h2 class="painting-title">A kitchen<br>that actually<br>gets <em style="color:var(--sc-liquid-caramel);font-style:italic;">used.</em></h2>
         <p class="painting-attribution">A scene, not a painting &mdash; built from feeling first.</p>
       </div>
       <div class="painting-body reveal">
@@ -429,7 +429,7 @@ footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: f
     </div>
     <div class="palette-grid">
       <div class="palette-card reveal"><div class="palette-swatch swatch-burnt-sugar"></div><div class="palette-card-body"><div class="palette-role">Signature Warm</div><div class="palette-name">Burnt Sugar</div><div class="palette-hex">#A0622E</div><p class="palette-feel">That exact moment sugar crosses over into caramel &mdash; amber-brown, matte, slightly rough. The color of a handmade ceramic mug that keeps your coffee warm.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-raw-honey"></div><div class="palette-card-body"><div class="palette-role">Golden Accent</div><div class="palette-name">Raw Honey</div><div class="palette-hex">#E8B960</div><p class="palette-feel">Amber glass with sun in it. Not yellow, not gold &mdash; honey. The warmth of something translucent catching light. The sweetest color in the kit.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-liquid-caramel"></div><div class="palette-card-body"><div class="palette-role">Golden Accent</div><div class="palette-name">Liquid Caramel</div><div class="palette-hex">#E8B960</div><p class="palette-feel">Molten amber catching light &mdash; the moment caramel pours from the spoon. Glossy, golden-brown, alive. The sweetest color in the kit.</p></div></div>
       <div class="palette-card reveal"><div class="palette-swatch swatch-molasses"></div><div class="palette-card-body"><div class="palette-role">Primary Dark</div><div class="palette-name">Molasses</div><div class="palette-hex">#3D2212</div><p class="palette-feel">The darkest thing in a spice cabinet &mdash; almost-black brown with warmth inside it. Never flat, never cold. Dark wood, not dark mood.</p></div></div>
       <div class="palette-card reveal"><div class="palette-swatch swatch-cinnamon"></div><div class="palette-card-body"><div class="palette-role">Spice Mid-tone</div><div class="palette-name">Cinnamon Dust</div><div class="palette-hex">#C49175</div><p class="palette-feel">Cinnamon powder on steamed milk foam. The smell of Sunday. A warm terracotta that sits between burnt sugar and cream without fighting either one.</p></div></div>
       <div class="palette-card reveal"><div class="palette-swatch swatch-fleur"></div><div class="palette-card-body"><div class="palette-role">Cool Accent</div><div class="palette-name">Fleur de Sel</div><div class="palette-hex">#D4CFC4</div><p class="palette-feel">The only cool color in a warm kit &mdash; pale mineral gray, the color of salt crystals on a dark surface. The unexpected pinch that makes everything taste more like itself.</p></div></div>
