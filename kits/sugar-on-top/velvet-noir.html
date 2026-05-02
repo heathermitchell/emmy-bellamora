@@ -1,0 +1,500 @@
+<\!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Velvet Noir — Sugar on Top Brand Kit · Emmy Bellamora</title>
+<meta name="description" content="Velvet Noir is a truffle box with pink champagne — luxury without coldness, depth without heaviness. Eight material-named colors, three-font Champagne Suite, full brand kit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&family=EB+Garamond:ital,wght@0,400;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* VELVET NOIR — rebuilt 2026-05-02: nothing is flat, everything is material. Real texture PNGs layered with color. Champagne bubbles. Section surfaces shift as you scroll. */
+:root {
+  --tex-velvet-drape: url('../../assets/textures/velvet-noir/texture-velvet-drape.png');
+  --tex-dark-ganache: url('../../assets/textures/velvet-noir/texture-dark-ganache.png');
+  --tex-truffle:      url('../../assets/textures/velvet-noir/texture-truffle-interior.png');
+  --tex-rose-fizz:    url('../../assets/textures/velvet-noir/texture-rose-fizz.png');
+  --tex-blush-silk:   url('../../assets/textures/velvet-noir/texture-blush-silk.png');
+  --tex-rose-leaf:    url('../../assets/textures/velvet-noir/texture-rose-leaf.png');
+  --tex-cocoa-cream:  url('../../assets/textures/velvet-noir/texture-cocoa-cream.png');
+  --tex-meringue:     url('../../assets/textures/velvet-noir/texture-meringue-kiss.png');
+  --deep-night: #0D0A14; --amethyst: #6B3FA0; --amethyst-light: #9B6FD0; --violet-dusk: #2D1B4E; --fairy-silver: #C8B8E8; --moonpetal: #E8D8F8; --snowflake: #F5F0FF;
+  --ss-amber-glow: #D4A0A0; --ss-plum-vortex: #2C1810; --ss-coral-flame: #B87D7D; --ss-brushstroke-gold: #C4909B; --ss-rose-dust: #6B3A2A; --ss-burnt-umber: #1A0F0A; --ss-canvas-cream: #F2E6D9; --ss-twilight-slate: #FFF5EE;
+  --font-emmy-display: 'Cormorant Garamond', serif; --font-emmy-body: 'Jost', sans-serif;
+  --font-ss-display: 'Playfair Display', serif; --font-ss-subhead: 'Cormorant Garamond', serif; --font-ss-body: 'Inter', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--ss-burnt-umber); color: var(--moonpetal); font-family: var(--font-emmy-body); font-weight: 300; overflow-x: hidden; line-height: 1.7; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--ss-burnt-umber); }
+::-webkit-scrollbar-thumb { background: var(--amethyst); border-radius: 2px; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(13,10,20,0.95) 0%, transparent 100%); backdrop-filter: blur(2px); }
+.nav-name { font-family: var(--font-emmy-display); font-size: 1.1rem; font-weight: 300; font-style: italic; color: var(--fairy-silver); letter-spacing: 0.05em; text-decoration: none; transition: color 0.3s ease; }
+.nav-name:hover { color: var(--moonpetal); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fairy-silver); text-decoration: none; transition: color 0.3s ease; opacity: 0.7; }
+.nav-links a:hover { color: var(--moonpetal); opacity: 1; }
+.breadcrumb { max-width: 1200px; margin: 0 auto; padding: 4.75rem 3rem 0.5rem; display: flex; align-items: center; gap: 0.6rem; font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ss-brushstroke-gold); opacity: 0.55; }
+.breadcrumb a { color: inherit; text-decoration: none; transition: color 0.3s ease, opacity 0.3s ease; }
+.breadcrumb a:hover { color: var(--ss-canvas-cream); opacity: 1; }
+.breadcrumb-sep { opacity: 0.45; }
+@keyframes bubbleRise { 0% { transform: translateY(0) scale(1); opacity: 0; } 8% { opacity: 0.55; } 60% { transform: translateY(-38vh) translateX(6px) scale(0.92); opacity: 0.35; } 100% { transform: translateY(-70vh) translateX(-4px) scale(0.75); opacity: 0; } }
+@keyframes bubbleDrift { 0% { transform: translateY(0) scale(1); opacity: 0; } 10% { opacity: 0.4; } 55% { transform: translateY(-32vh) translateX(-8px) scale(0.88); opacity: 0.28; } 100% { transform: translateY(-65vh) translateX(5px) scale(0.7); opacity: 0; } }
+.bubbles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.bubble { position: absolute; border-radius: 50%; background: radial-gradient(circle at 38% 35%, rgba(255,240,235,0.9) 0%, rgba(212,160,160,0.45) 40%, rgba(196,144,155,0.15) 70%, transparent 100%); animation-fill-mode: both; animation-iteration-count: infinite; animation-timing-function: ease-in-out; }
+.bubble-1  { width:6px;  height:6px;  bottom:8%;  left:12%; animation: bubbleRise 9s 0s     infinite; }
+.bubble-2  { width:4px;  height:4px;  bottom:4%;  left:28%; animation: bubbleDrift 12s 1.5s  infinite; }
+.bubble-3  { width:8px;  height:8px;  bottom:10%; left:44%; animation: bubbleRise 11s 3.2s   infinite; }
+.bubble-4  { width:5px;  height:5px;  bottom:6%;  left:58%; animation: bubbleDrift 8.5s 0.8s infinite; }
+.bubble-5  { width:7px;  height:7px;  bottom:12%; left:72%; animation: bubbleRise 10s 2.1s   infinite; }
+.bubble-6  { width:3px;  height:3px;  bottom:3%;  left:85%; animation: bubbleDrift 13s 4.5s  infinite; }
+.bubble-7  { width:5px;  height:5px;  bottom:8%;  left:20%; animation: bubbleRise 15s 6s     infinite; }
+.bubble-8  { width:4px;  height:4px;  bottom:5%;  left:65%; animation: bubbleDrift 11s 2.7s  infinite; }
+.bubble-9  { width:6px;  height:6px;  bottom:14%; left:92%; animation: bubbleRise 9.5s 1.1s  infinite; }
+.bubble-10 { width:3px;  height:3px;  bottom:7%;  left:38%; animation: bubbleDrift 14s 5.3s  infinite; }
+.kit-hero { margin: 1.5rem 0 0; padding: 0; position: relative; }
+.kit-hero-inner { border-radius: 0; overflow: hidden; position: relative; min-height: 380px; padding: 4rem 0; display: flex; flex-direction: column; justify-content: center; background-image: radial-gradient(ellipse at 80% 20%, rgba(196,144,155,0.55) 0%, rgba(196,144,155,0.3) 18%, transparent 40%), radial-gradient(ellipse at 20% 80%, rgba(44,24,16,0.7) 0%, rgba(44,24,16,0.4) 30%, transparent 55%), radial-gradient(ellipse at 55% 55%, rgba(212,160,160,0.35) 0%, transparent 45%), linear-gradient(135deg, rgba(26,15,10,0.85) 0%, rgba(44,24,16,0.75) 50%, rgba(212,160,160,0.4) 100%), var(--tex-velvet-drape); background-size: auto, auto, auto, auto, cover; background-blend-mode: normal, normal, normal, multiply, normal; }
+.kit-hero-inner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 78% 25%, rgba(212,160,160,0.38) 0%, transparent 45%), radial-gradient(ellipse at 15% 75%, rgba(26,15,10,0.6) 0%, transparent 50%); pointer-events: none; z-index: 1; }
+.kit-hero-inner::after { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-52deg, transparent 0px, transparent 3px, rgba(212,160,160,0.04) 3px, rgba(212,160,160,0.04) 4px), repeating-linear-gradient(38deg, transparent 0px, transparent 3px, rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px); pointer-events: none; z-index: 1; }
+.kit-hero-wrap { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 3rem; position: relative; z-index: 2; }
+.kit-hero-content { position: relative; z-index: 1; max-width: 720px; }
+.kit-hero-meta { font-family: var(--font-ss-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ss-brushstroke-gold); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.85rem; }
+.kit-hero-meta::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--ss-brushstroke-gold); opacity: 0.7; }
+.kit-hero-name { font-family: var(--font-ss-display); font-size: clamp(3.5rem, 7vw, 6rem); font-weight: 700; color: var(--ss-canvas-cream); line-height: 1.0; letter-spacing: -0.015em; margin-bottom: 1.5rem; text-shadow: 0 2px 32px rgba(0,0,0,0.6), 0 4px 64px rgba(0,0,0,0.3); }
+.kit-hero-tagline { font-family: var(--font-ss-subhead); font-style: italic; font-size: clamp(1.1rem, 1.8vw, 1.4rem); color: var(--ss-canvas-cream); line-height: 1.6; opacity: 0.95; text-shadow: 0 2px 20px rgba(0,0,0,0.6); max-width: 580px; }
+.painting-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 60% 50%, rgba(44,24,16,0.45) 0%, transparent 65%), linear-gradient(to bottom, rgba(26,15,10,0.38) 0%, rgba(26,15,10,0.32) 100%), var(--tex-dark-ganache); background-size: auto, auto, cover; }
+.painting-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(212,160,160,0.08) 0%, transparent 55%); pointer-events: none; }
+.painting-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
+.painting-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; }
+.painting-label { font-family: var(--font-emmy-body); font-size: 0.58rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amethyst-light); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 1rem; }
+.painting-label::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--amethyst-light); opacity: 0.6; }
+.painting-title { font-family: var(--font-emmy-display); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.15; margin-bottom: 1.5rem; }
+.painting-attribution { font-family: var(--font-emmy-body); font-size: 0.7rem; font-weight: 300; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.7; margin-bottom: 2rem; }
+.painting-body p { font-family: var(--font-emmy-body); font-size: 0.92rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); margin-bottom: 1.5rem; opacity: 0.88; }
+.painting-body p strong { color: var(--moonpetal); font-weight: 400; }
+.painting-body p em { color: var(--ss-brushstroke-gold); font-style: italic; }
+.palette-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% 0%, rgba(44,24,16,0.5) 0%, transparent 55%), radial-gradient(ellipse at 50% 100%, rgba(26,15,10,0.6) 0%, transparent 55%), linear-gradient(to bottom, rgba(44,24,16,0.42) 0%, rgba(44,24,16,0.38) 50%, rgba(26,15,10,0.45) 100%), var(--tex-truffle); background-size: auto, auto, auto, cover; }
+.palette-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
+.palette-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
+.palette-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
+.palette-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
+.palette-intro em { color: var(--moonpetal); font-style: italic; }
+.palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.palette-card { border-radius: 12px; overflow: hidden; background: rgba(26,15,10,0.6); border: 1px solid rgba(242,230,217,0.10); box-shadow: 0 4px 24px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.2); transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
+.palette-card:hover { border-color: rgba(196,144,155,0.4); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 2px 8px rgba(212,160,160,0.12); }
+.palette-swatch { width: 100%; aspect-ratio: 1.4; position: relative; background-size: cover; background-position: center; }
+.palette-swatch::after { content: ''; position: absolute; inset: 0; }
+.swatch-rose-fizz    { background-image: var(--tex-rose-fizz); } .swatch-rose-fizz::after    { background: var(--ss-amber-glow); mix-blend-mode: multiply; opacity: 0.45; }
+.swatch-dark-ganache { background-image: var(--tex-dark-ganache); } .swatch-dark-ganache::after { background: var(--ss-plum-vortex); mix-blend-mode: multiply; opacity: 0.5; }
+.swatch-blush-silk   { background-image: var(--tex-blush-silk); } .swatch-blush-silk::after   { background: var(--ss-coral-flame); mix-blend-mode: multiply; opacity: 0.45; }
+.swatch-rose-leaf    { background-image: var(--tex-rose-leaf); } .swatch-rose-leaf::after    { background: var(--ss-brushstroke-gold); mix-blend-mode: multiply; opacity: 0.4; }
+.swatch-truffle      { background-image: var(--tex-truffle); } .swatch-truffle::after      { background: var(--ss-rose-dust); mix-blend-mode: multiply; opacity: 0.5; }
+.swatch-velvet-drape { background-image: var(--tex-velvet-drape); } .swatch-velvet-drape::after { background: var(--ss-burnt-umber); mix-blend-mode: multiply; opacity: 0.55; }
+.swatch-cocoa-cream  { background-image: var(--tex-cocoa-cream); } .swatch-cocoa-cream::after  { background: var(--ss-canvas-cream); mix-blend-mode: screen; opacity: 0.4; }
+.swatch-meringue     { background-image: var(--tex-meringue); } .swatch-meringue::after     { background: var(--ss-twilight-slate); mix-blend-mode: screen; opacity: 0.35; }
+.palette-card-body { padding: 1.25rem 1.25rem 1.5rem; }
+.palette-role { font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--amethyst-light); opacity: 0.7; margin-bottom: 0.4rem; }
+.palette-name { font-family: var(--font-emmy-display); font-size: 1.15rem; font-weight: 300; font-style: italic; color: var(--snowflake); margin-bottom: 0.4rem; line-height: 1.2; }
+.palette-hex { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.6; text-transform: uppercase; margin-bottom: 0.75rem; }
+.palette-feel { font-family: var(--font-emmy-body); font-size: 0.72rem; font-weight: 300; line-height: 1.6; color: var(--fairy-silver); opacity: 0.8; }
+.type-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
+.type-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: end; }
+.type-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
+.type-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
+.type-intro strong { color: var(--moonpetal); font-weight: 400; }
+.type-card { background-image: linear-gradient(to bottom right, rgba(242,230,217,0.97) 0%, rgba(255,245,238,0.97) 100%), var(--tex-cocoa-cream); background-size: auto, cover; background-blend-mode: multiply; border-radius: 16px; padding: 4rem 3.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.2); }
+.type-card::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(42deg, transparent 0px, transparent 4px, rgba(26,15,10,0.022) 4px, rgba(26,15,10,0.022) 5px); pointer-events: none; }
+.type-card-meta { font-family: var(--font-ss-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ss-burnt-umber); opacity: 0.7; margin-bottom: 1rem; position: relative; }
+.type-card-display { font-family: var(--font-ss-display); font-weight: 700; font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.0; color: var(--ss-plum-vortex); margin-bottom: 0.5rem; letter-spacing: -0.02em; position: relative; }
+.type-card-name { font-family: var(--font-ss-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ss-burnt-umber); opacity: 0.65; margin-top: 1rem; margin-bottom: 2rem; position: relative; }
+.type-card-subhead { font-family: var(--font-ss-subhead); font-style: italic; font-weight: 500; font-size: clamp(1.4rem, 2.4vw, 1.9rem); color: var(--ss-burnt-umber); line-height: 1.4; margin-bottom: 1.5rem; max-width: 720px; position: relative; }
+.type-card-body { font-family: var(--font-ss-body); font-weight: 300; font-size: 1rem; line-height: 1.75; color: var(--ss-rose-dust); max-width: 620px; position: relative; }
+.type-rule { background-image: linear-gradient(to bottom, rgba(26,15,10,0.92) 0%, rgba(44,24,16,0.88) 100%), var(--tex-velvet-drape); background-size: auto, cover; border-radius: 16px; padding: 3.5rem 3.5rem; text-align: center; font-family: var(--font-ss-subhead); font-style: italic; font-weight: 500; font-size: clamp(1.3rem, 2.4vw, 1.9rem); line-height: 1.5; color: var(--ss-canvas-cream); position: relative; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.5); }
+.type-rule::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-48deg, transparent 0px, transparent 3px, rgba(212,160,160,0.03) 3px, rgba(212,160,160,0.03) 4px); pointer-events: none; }
+.type-rule em { color: var(--ss-brushstroke-gold); font-style: italic; position: relative; }
+.combo-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
+.combo-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: end; }
+.combo-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
+.combo-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
+.combo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.combo-card { border-radius: 14px; overflow: hidden; aspect-ratio: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; position: relative; transition: transform 0.35s ease, box-shadow 0.35s ease; box-shadow: 0 4px 24px rgba(0,0,0,0.4); background-size: cover; background-position: center; }
+.combo-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+.combo-card::before { content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: 14px; }
+.combo-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 45%, transparent 70%); pointer-events: none; border-radius: 14px; }
+.combo-text { position: relative; z-index: 1; }
+.combo-name { font-family: var(--font-ss-display); font-weight: 700; font-size: 1.5rem; line-height: 1.1; margin-bottom: 0.4rem; }
+.combo-pair { font-family: var(--font-ss-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.8; }
+.combo-1 { background-image: var(--tex-dark-ganache); color: var(--ss-canvas-cream); } .combo-1::before { background: linear-gradient(135deg, rgba(44,24,16,0.65) 0%, rgba(212,160,160,0.45) 100%); }
+.combo-2 { background-image: var(--tex-cocoa-cream); color: var(--ss-burnt-umber); } .combo-2::before { background: linear-gradient(135deg, rgba(242,230,217,0.7) 0%, rgba(212,160,160,0.3) 100%); } .combo-2::after { background: linear-gradient(to top, rgba(242,230,217,0.55) 0%, rgba(242,230,217,0.1) 45%, transparent 70%); }
+.combo-3 { background-image: var(--tex-rose-leaf); color: var(--ss-canvas-cream); } .combo-3::before { background: linear-gradient(135deg, rgba(44,24,16,0.55) 0%, rgba(196,144,155,0.5) 100%); }
+.combo-4 { background-image: var(--tex-meringue); color: var(--ss-burnt-umber); } .combo-4::before { background: linear-gradient(135deg, rgba(184,125,125,0.55) 0%, rgba(255,245,238,0.5) 100%); } .combo-4::after { background: linear-gradient(to top, rgba(255,245,238,0.65) 0%, rgba(255,245,238,0.15) 45%, transparent 70%); }
+.combo-5 { background-image: var(--tex-truffle); color: var(--ss-canvas-cream); } .combo-5::before { background: linear-gradient(135deg, rgba(107,58,42,0.65) 0%, rgba(184,125,125,0.45) 100%); }
+.combo-6 { background-image: var(--tex-velvet-drape); color: var(--ss-canvas-cream); } .combo-6::before { background: linear-gradient(135deg, rgba(26,15,10,0.7) 0%, rgba(212,160,160,0.4) 100%); }
+.inside-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% -10%, rgba(212,160,160,0.15) 0%, transparent 50%), linear-gradient(to bottom, rgba(44,24,16,0.4) 0%, rgba(44,24,16,0.35) 100%), var(--tex-dark-ganache); background-size: auto, auto, cover; }
+.inside-section::before { content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 80%; height: 200%; background: radial-gradient(ellipse, rgba(212,160,160,0.08) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+.inside-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 2; }
+.inside-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
+.inside-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
+.inside-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
+.inside-intro em { color: var(--moonpetal); font-style: italic; }
+.inside-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 3rem; align-items: start; }
+.carousel { position: relative; }
+.carousel-stage { position: relative; aspect-ratio: 4/3; overflow: hidden; border-radius: 14px; cursor: pointer; background: transparent; box-shadow: 0 8px 48px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.3); }
+.carousel-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center; overflow: hidden; pointer-events: none; }
+.carousel-slide.active { opacity: 1; z-index: 2; pointer-events: auto; }
+.mockup-stage { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 2rem; position: relative; overflow: hidden; }
+.mock-brand-board { background-image: linear-gradient(to bottom right, rgba(242,230,217,0.99) 0%, rgba(255,245,238,0.98) 100%), var(--tex-cocoa-cream); background-size: auto, cover; background-blend-mode: multiply; width: 100%; height: 100%; border-radius: 8px; padding: 2rem; display: grid; grid-template-rows: auto 1fr auto; gap: 1.25rem; font-family: var(--font-ss-body); }
+.mbb-header { text-align: center; border-bottom: 1px solid rgba(90,50,37,0.15); padding-bottom: 1rem; }
+.mbb-eyebrow { font-family: var(--font-ss-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ss-burnt-umber); opacity: 0.65; margin-bottom: 0.4rem; }
+.mbb-title { font-family: var(--font-ss-display); font-weight: 700; font-size: 2.2rem; color: var(--ss-plum-vortex); line-height: 1; margin-bottom: 0.35rem; }
+.mbb-tagline { font-family: var(--font-ss-subhead); font-style: italic; font-size: 0.78rem; color: var(--ss-burnt-umber); opacity: 0.85; }
+.mbb-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.mbb-palette { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; align-content: start; }
+.mbb-swatch { aspect-ratio: 1; border-radius: 4px; position: relative; background-size: cover; background-position: center; }
+.mbb-type { display: flex; flex-direction: column; justify-content: center; gap: 0.5rem; padding-left: 0.5rem; border-left: 1px solid rgba(90,50,37,0.12); }
+.mbb-type-display { font-family: var(--font-ss-display); font-weight: 700; font-size: 1.2rem; color: var(--ss-amber-glow); line-height: 1; }
+.mbb-type-sub { font-family: var(--font-ss-subhead); font-style: italic; font-size: 0.7rem; color: var(--ss-burnt-umber); opacity: 0.75; }
+.mbb-type-body { font-family: var(--font-ss-body); font-weight: 300; font-size: 0.55rem; color: var(--ss-rose-dust); line-height: 1.5; }
+.mbb-footer { text-align: center; font-family: var(--font-ss-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ss-burnt-umber); opacity: 0.55; border-top: 1px solid rgba(90,50,37,0.15); padding-top: 0.75rem; }
+.mock-cheat-sheet { background-image: linear-gradient(to bottom, rgba(242,230,217,0.99) 0%, rgba(255,245,238,0.98) 100%), var(--tex-cocoa-cream); background-size: auto, cover; background-blend-mode: multiply; width: 100%; height: 100%; border-radius: 8px; padding: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+.mcs-header { font-family: var(--font-ss-display); font-weight: 700; font-size: 1.2rem; color: var(--ss-plum-vortex); border-bottom: 1px solid rgba(90,50,37,0.15); padding-bottom: 0.5rem; }
+.mcs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; flex: 1; }
+.mcs-cell { border-radius: 4px; padding: 0.6rem 0.75rem; font-family: var(--font-ss-body); display: flex; flex-direction: column; justify-content: space-between; min-height: 0; position: relative; overflow: hidden; background-size: cover; background-position: center; }
+.mcs-cell-name { font-family: var(--font-ss-display); font-weight: 700; font-style: italic; font-size: 0.85rem; line-height: 1.1; position: relative; z-index: 1; }
+.mcs-cell-meta { font-size: 0.45rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.75; position: relative; z-index: 1; }
+.mock-texture { width: 100%; height: 100%; border-radius: 8px; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); gap: 4px; padding: 4px; background: var(--ss-burnt-umber); }
+.mock-texture-cell { border-radius: 4px; position: relative; overflow: hidden; background-size: cover; background-position: center; }
+.mock-texture-cell::after { content: attr(data-name); position: absolute; bottom: 0.4rem; left: 0.5rem; font-family: var(--font-ss-body); font-size: 0.45rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.9); text-shadow: 0 1px 6px rgba(0,0,0,0.8); }
+.mock-playground { width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1rem; padding: 1.25rem; background-image: radial-gradient(ellipse at 20% 80%, rgba(212,160,160,0.10) 0%, transparent 55%), radial-gradient(ellipse at 80% 20%, rgba(196,144,155,0.08) 0%, transparent 50%), var(--tex-dark-ganache); background-size: auto, auto, cover; }
+.mp-sample { border-radius: 4px; padding: 1rem 1rem 0.85rem; display: flex; flex-direction: column; position: relative; overflow: hidden; text-align: center; background-size: cover; background-position: center; }
+.mp-sample-swatch { flex: 1; border-radius: 3px; margin-bottom: 0.85rem; min-height: 0; background-size: cover; background-position: center; }
+.mp-sample-name { font-family: var(--font-ss-body); font-size: 0.42rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 0.35rem; opacity: 0.85; }
+.mp-sample-tagline { font-family: var(--font-ss-subhead); font-style: italic; font-size: 0.6rem; line-height: 1.4; opacity: 0.85; }
+.carousel-caption-row { padding: 1.25rem 0.25rem 0.5rem; display: flex; flex-direction: column; gap: 0.25rem; text-align: center; }
+.caption-label { font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amethyst-light); opacity: 0.65; transition: opacity 0.4s ease; }
+.caption-name { font-family: var(--font-emmy-display); font-size: 0.95rem; font-weight: 300; font-style: italic; color: var(--fairy-silver); opacity: 0.8; transition: opacity 0.4s ease; }
+.carousel-dots { display: flex; justify-content: center; gap: 0.55rem; padding: 0.75rem 0 0; }
+.carousel-dot { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: rgba(200,184,232,0.25); border: none; cursor: pointer; padding: 0; transition: background 0.4s ease, width 0.4s ease; }
+.carousel-dot:hover { background: rgba(200,184,232,0.5); }
+.carousel-dot.active { background: var(--amethyst-light); width: 1.4rem; border-radius: 100px; }
+.inside-list { padding-top: 0.5rem; }
+.inside-list-title { font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ss-brushstroke-gold); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.85rem; }
+.inside-list-title::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--ss-brushstroke-gold); opacity: 0.7; }
+.inside-item { padding: 1.1rem 0; border-bottom: 1px solid rgba(200,184,232,0.1); display: grid; grid-template-columns: 2rem 1fr; gap: 0.75rem; align-items: start; }
+.inside-item:first-of-type { border-top: 1px solid rgba(200,184,232,0.1); }
+.inside-icon { font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.1em; color: var(--ss-brushstroke-gold); opacity: 0.85; padding-top: 0.2rem; }
+.inside-text strong { display: block; font-family: var(--font-emmy-body); font-size: 0.85rem; font-weight: 400; color: var(--moonpetal); margin-bottom: 0.3rem; letter-spacing: 0.02em; }
+.inside-text span { font-family: var(--font-emmy-body); font-size: 0.72rem; font-weight: 300; color: var(--fairy-silver); opacity: 0.78; line-height: 1.6; }
+.cta-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% 50%, rgba(212,160,160,0.22) 0%, transparent 60%), radial-gradient(ellipse at 50% 100%, rgba(26,15,10,0.65) 0%, transparent 55%), linear-gradient(to bottom, rgba(26,15,10,0.45) 0%, rgba(44,24,16,0.5) 100%), var(--tex-rose-fizz); background-size: auto, auto, auto, cover; }
+.cta-section::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-45deg, transparent 0px, transparent 4px, rgba(212,160,160,0.025) 4px, rgba(212,160,160,0.025) 5px); pointer-events: none; }
+.cta-inner { max-width: 900px; margin: 0 auto; padding: 0 3rem; text-align: center; position: relative; z-index: 1; }
+.cta-label { font-family: var(--font-emmy-body); font-size: 0.58rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amethyst-light); margin-bottom: 1.25rem; }
+.cta-big { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.15; margin-bottom: 1.5rem; text-shadow: 0 2px 24px rgba(0,0,0,0.4); }
+.cta-sub { font-family: var(--font-emmy-body); font-size: 1rem; color: var(--fairy-silver); opacity: 0.85; line-height: 1.8; margin-bottom: 2.5rem; max-width: 580px; margin-left: auto; margin-right: auto; }
+.cta-buttons { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
+.btn-primary { display: inline-block; padding: 0.95rem 2.5rem; background: var(--amethyst); color: var(--snowflake); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: background 0.3s ease, transform 0.2s ease; }
+.btn-primary:hover { background: var(--amethyst-light); transform: translateY(-1px); }
+.btn-ghost { display: inline-block; padding: 0.95rem 2.5rem; border: 1px solid rgba(200,184,232,0.3); color: var(--fairy-silver); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: border-color 0.3s ease, color 0.3s ease; }
+.btn-ghost:hover { border-color: var(--fairy-silver); color: var(--moonpetal); }
+footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+.footer-name { font-family: var(--font-emmy-display); font-style: italic; font-size: 1rem; color: var(--fairy-silver); opacity: 0.5; }
+.footer-note { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 300; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.35; }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+@media (max-width: 900px) {
+  nav { padding: 1.25rem 1.5rem; } .nav-links { gap: 1.5rem; } .breadcrumb { padding: 4.25rem 1.5rem 0.4rem; }
+  .kit-hero-wrap { padding: 0 1.5rem; } .kit-hero-inner { padding: 3rem 0; min-height: 320px; }
+  .painting-inner, .palette-inner, .inside-inner { padding: 0 1.5rem; }
+  .type-section, .combo-section { padding: 5rem 1.5rem; }
+  .painting-section, .palette-section, .inside-section, .cta-section { padding: 5rem 0; }
+  .cta-inner { padding: 0 1.5rem; }
+  .painting-grid, .palette-header, .type-header, .combo-header, .inside-header, .inside-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .palette-grid { grid-template-columns: repeat(2, 1fr); } .combo-grid { grid-template-columns: 1fr 1fr; }
+  .type-card { padding: 3rem 2rem; } .type-rule { padding: 2.5rem 2rem; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 3rem 1.5rem; }
+}
+@media (max-width: 600px) {
+  .nav-links { display: none; } .palette-grid { grid-template-columns: 1fr; } .combo-grid { grid-template-columns: 1fr; } .cta-buttons { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-name">Emmy Bellamora</a>
+  <ul class="nav-links">
+    <li><a href="../../index.html#about">About</a></li>
+    <li><a href="../../index.html#work">Work</a></li>
+    <li><a href="../../index.html#approach">Approach</a></li>
+    <li><a href="../../index.html#working-together">Together</a></li>
+    <li><a href="../../index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="breadcrumb">
+  <a href="../../index.html">Emmy</a><span class="breadcrumb-sep">/</span>
+  <a href="../../index.html#work">Brand Kits</a><span class="breadcrumb-sep">/</span>
+  <a href="../../index.html#work">Sugar on Top</a><span class="breadcrumb-sep">/</span>
+  <span>Velvet Noir</span>
+</div>
+
+<section class="kit-hero">
+  <div class="kit-hero-inner">
+    <div class="bubbles" aria-hidden="true">
+      <span class="bubble bubble-1"></span><span class="bubble bubble-2"></span><span class="bubble bubble-3"></span>
+      <span class="bubble bubble-4"></span><span class="bubble bubble-5"></span><span class="bubble bubble-6"></span>
+      <span class="bubble bubble-7"></span><span class="bubble bubble-8"></span><span class="bubble bubble-9"></span>
+      <span class="bubble bubble-10"></span>
+    </div>
+    <div class="kit-hero-wrap">
+      <div class="kit-hero-content">
+        <div class="kit-hero-meta">Sugar on Top &middot; Hero Kit 01</div>
+        <h1 class="kit-hero-name">Velvet Noir</h1>
+        <p class="kit-hero-tagline">A truffle box with pink champagne. Luxury without coldness, depth without heaviness &mdash; for the person who creates her best work in candlelight.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="inside-section">
+  <div class="bubbles" aria-hidden="true">
+    <span class="bubble bubble-1"></span><span class="bubble bubble-2"></span><span class="bubble bubble-3"></span>
+    <span class="bubble bubble-4"></span><span class="bubble bubble-5"></span><span class="bubble bubble-6"></span>
+  </div>
+  <div class="inside-inner">
+    <div class="inside-header">
+      <h2 class="inside-title reveal">Inside the kit.</h2>
+      <p class="inside-intro reveal">Brand kits should be <em>complete worlds</em>, not single files. Flip through to see what arrives when Velvet Noir becomes yours.</p>
+    </div>
+    <div class="inside-grid">
+      <div class="carousel reveal" id="kit-carousel">
+        <div class="carousel-stage">
+          <div class="carousel-slide active" data-slide="0">
+            <div class="mockup-stage">
+              <div class="mock-brand-board">
+                <div class="mbb-header">
+                  <div class="mbb-eyebrow">Sugar on Top &middot; Brand Board</div>
+                  <div class="mbb-title">Velvet Noir</div>
+                  <div class="mbb-tagline">A truffle box with pink champagne</div>
+                </div>
+                <div class="mbb-body">
+                  <div class="mbb-palette">
+                    <div class="mbb-swatch swatch-rose-fizz"></div><div class="mbb-swatch swatch-dark-ganache"></div>
+                    <div class="mbb-swatch swatch-blush-silk"></div><div class="mbb-swatch swatch-rose-leaf"></div>
+                    <div class="mbb-swatch swatch-truffle"></div><div class="mbb-swatch swatch-velvet-drape"></div>
+                    <div class="mbb-swatch swatch-cocoa-cream"></div><div class="mbb-swatch swatch-meringue"></div>
+                  </div>
+                  <div class="mbb-type">
+                    <div class="mbb-type-display">Noir.</div>
+                    <div class="mbb-type-sub">Playfair &middot; Cormorant &middot; Inter</div>
+                    <div class="mbb-type-body">High-contrast display serif, calligraphic italic subhead, and a body sans designed to disappear so the words do the work.</div>
+                  </div>
+                </div>
+                <div class="mbb-footer">By Emmy Bellamora &middot; Sugar on Top Collection</div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-slide" data-slide="1">
+            <div class="mockup-stage" style="padding:0;">
+              <div class="mock-playground">
+                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(26,15,10,0.75),rgba(26,15,10,0.6)),var(--tex-velvet-drape);background-size:auto,cover;color:var(--ss-canvas-cream);">
+                  <div class="mp-sample-swatch" style="background-image:var(--tex-velvet-drape);background-size:cover;"></div>
+                  <div class="mp-sample-name" style="color:var(--ss-brushstroke-gold);">Velvet Drape</div>
+                  <div class="mp-sample-tagline">Crushed velvet shadow.<br>Warm dark, never flat.</div>
+                </div>
+                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(196,144,155,0.6),rgba(44,24,16,0.65)),var(--tex-rose-leaf);background-size:auto,cover;color:var(--ss-canvas-cream);">
+                  <div class="mp-sample-swatch" style="background-image:var(--tex-rose-leaf);background-size:cover;"></div>
+                  <div class="mp-sample-name" style="color:var(--ss-brushstroke-gold);">Rose Leaf</div>
+                  <div class="mp-sample-tagline">Rose gold foil.<br>The detail you noticed, good.</div>
+                </div>
+                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(107,58,42,0.7),rgba(44,24,16,0.65)),var(--tex-truffle);background-size:auto,cover;color:var(--ss-canvas-cream);">
+                  <div class="mp-sample-swatch" style="background-image:var(--tex-truffle);background-size:cover;"></div>
+                  <div class="mp-sample-name" style="color:var(--ss-brushstroke-gold);">Truffle Interior</div>
+                  <div class="mp-sample-tagline">Matte cocoa grain.<br>Cocoa dusted, hand-rolled.</div>
+                </div>
+                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(212,160,160,0.6),rgba(44,24,16,0.6)),var(--tex-rose-fizz);background-size:auto,cover;color:var(--ss-canvas-cream);">
+                  <div class="mp-sample-swatch" style="background-image:var(--tex-rose-fizz);background-size:cover;"></div>
+                  <div class="mp-sample-name" style="color:var(--ss-brushstroke-gold);">Ros&eacute; Fizz</div>
+                  <div class="mp-sample-tagline">Pink champagne.<br>Where the box opens.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-slide" data-slide="2">
+            <div class="mockup-stage">
+              <div class="mock-cheat-sheet">
+                <div class="mcs-header">Color Combinations</div>
+                <div class="mcs-grid">
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(44,24,16,0.9),rgba(212,160,160,0.7)),var(--tex-dark-ganache);background-size:auto,cover;color:var(--ss-canvas-cream);"><div class="mcs-cell-name">Sunset<br>Meets Twilight</div><div class="mcs-cell-meta">Ganache &times; Ros&eacute; &middot; AAA</div></div>
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(242,230,217,0.92),rgba(255,245,238,0.88)),var(--tex-cocoa-cream);background-size:auto,cover;color:var(--ss-burnt-umber);border:1px solid rgba(90,50,37,0.1);"><div class="mcs-cell-name">Clean<br>Energy</div><div class="mcs-cell-meta">Ros&eacute; &times; Cream &middot; AA</div></div>
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(44,24,16,0.88),rgba(196,144,155,0.65)),var(--tex-dark-ganache);background-size:auto,cover;color:var(--ss-brushstroke-gold);"><div class="mcs-cell-name">Evening<br>Glow</div><div class="mcs-cell-meta">Ganache &times; Rose Leaf &middot; AA</div></div>
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(184,125,125,0.85),rgba(255,245,238,0.75)),var(--tex-blush-silk);background-size:auto,cover;color:var(--ss-canvas-cream);"><div class="mcs-cell-name">For<br>Calls to Action</div><div class="mcs-cell-meta">Blush &times; Cream &middot; AA</div></div>
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(107,58,42,0.88),rgba(212,160,160,0.5)),var(--tex-truffle);background-size:auto,cover;color:var(--ss-canvas-cream);"><div class="mcs-cell-name">The Warm<br>Middle</div><div class="mcs-cell-meta">Truffle &times; Ros&eacute; &middot; AA</div></div>
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(26,15,10,0.9),rgba(196,144,155,0.6)),var(--tex-velvet-drape);background-size:auto,cover;color:var(--ss-brushstroke-gold);"><div class="mcs-cell-name">Statement<br>Pairing</div><div class="mcs-cell-meta">Drape &times; Rose Leaf &middot; AA</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-slide" data-slide="3">
+            <div class="mockup-stage" style="padding:1rem;">
+              <div class="mock-texture">
+                <div class="mock-texture-cell" data-name="Rose Fizz"    style="background-image:linear-gradient(to bottom,rgba(212,160,160,0.4),rgba(44,24,16,0.3)),var(--tex-rose-fizz);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Dark Ganache" style="background-image:linear-gradient(to bottom,rgba(44,24,16,0.5),rgba(26,15,10,0.4)),var(--tex-dark-ganache);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Blush Silk"   style="background-image:linear-gradient(to bottom,rgba(184,125,125,0.45),rgba(44,24,16,0.35)),var(--tex-blush-silk);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Rose Leaf"    style="background-image:linear-gradient(to bottom,rgba(196,144,155,0.45),rgba(44,24,16,0.35)),var(--tex-rose-leaf);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Truffle"      style="background-image:linear-gradient(to bottom,rgba(107,58,42,0.5),rgba(26,15,10,0.4)),var(--tex-truffle);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Velvet Drape" style="background-image:linear-gradient(to bottom,rgba(26,15,10,0.55),rgba(26,15,10,0.45)),var(--tex-velvet-drape);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Cocoa Cream"  style="background-image:linear-gradient(to bottom,rgba(242,230,217,0.55),rgba(255,245,238,0.45)),var(--tex-cocoa-cream);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Meringue"     style="background-image:linear-gradient(to bottom,rgba(255,245,238,0.5),rgba(242,230,217,0.4)),var(--tex-meringue);background-size:auto,cover;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-dots">
+          <button class="carousel-dot active" data-go="0" aria-label="Brand Board"></button>
+          <button class="carousel-dot" data-go="1" aria-label="Material Samples"></button>
+          <button class="carousel-dot" data-go="2" aria-label="Cheat Sheet"></button>
+          <button class="carousel-dot" data-go="3" aria-label="Texture Vault"></button>
+        </div>
+        <div class="carousel-caption-row">
+          <div class="caption-label" id="caption-label">Brand Board</div>
+          <div class="caption-name" id="caption-name">The kit at a glance</div>
+        </div>
+      </div>
+      <div class="inside-list reveal">
+        <div class="inside-list-title">Everything Included</div>
+        <div class="inside-item"><div class="inside-icon">01</div><div class="inside-text"><strong>Whole Box Color Palette</strong><span>Eight materially-named colors with hex codes, role descriptions, and texture notes.</span></div></div>
+        <div class="inside-item"><div class="inside-icon">02</div><div class="inside-text"><strong>Typography System</strong><span>Playfair Display + Cormorant Garamond + Inter. Display, subhead, body. With the rule that holds them together.</span></div></div>
+        <div class="inside-item"><div class="inside-icon">03</div><div class="inside-text"><strong>Brand Board</strong><span>One page that captures the entire kit at a glance &mdash; for presentations or quick reference.</span></div></div>
+        <div class="inside-item"><div class="inside-icon">04</div><div class="inside-text"><strong>Color Combinations Cheat Sheet</strong><span>Pre-vetted combinations with WCAG contrast scores. Beautiful AND accessible.</span></div></div>
+        <div class="inside-item"><div class="inside-icon">05</div><div class="inside-text"><strong>Tier-2 Playground</strong><span>Full sandbox of the kit in motion &mdash; layouts, social tiles, link-in-bio templates.</span></div></div>
+        <div class="inside-item"><div class="inside-icon">06</div><div class="inside-text"><strong>Texture Vault</strong><span>Eight high-res material textures &mdash; velvet drape, rose fizz, dark ganache, blush silk, rose leaf, truffle, cocoa cream, meringue kiss.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="painting-section">
+  <div class="painting-inner">
+    <div class="painting-grid">
+      <div class="reveal">
+        <div class="painting-label">The Scene Behind It</div>
+        <h2 class="painting-title">A hotel room in<br>Paris. Late evening.<br>Pink <em style="color:var(--ss-amber-glow);font-style:italic;">champagne.</em></h2>
+        <p class="painting-attribution">A scene, not a painting &mdash; built from feeling first.</p>
+      </div>
+      <div class="painting-body reveal">
+        <p>A hotel room in Paris. Late evening. You're wearing something that feels like water against your skin. There's champagne &mdash; the good kind, the kind that's barely pink. The city is out there, glittering, but you're in here. <strong>Safe. Warm. Writing your masterpiece.</strong></p>
+        <p><em>"I see you, world, but I am up here drinking champagne and writing my masterpiece."</em> That's Velvet Noir. Safety + luxury. Depth without heaviness. The feeling of being wrapped in something expensive that nobody else needs to see.</p>
+        <p>The dark in this kit is not gothic. It is <strong>warm dark</strong> &mdash; chocolate brown-black with red undertones, the outside of a luxury truffle box. The pink is not baby pink. It is the pink of bubbles catching candlelight. The metallic is not yellow gold. It is rose gold foil &mdash; the ribbon on the box, the detail you noticed, good.</p>
+        <p>This is the kit for the person who knows that indulgence is not a guilty pleasure &mdash; it <em>is</em> the work. Her brand shouldn't look careful and corporate. It should feel like stepping into a room where the lighting has already been taken care of.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="palette-section">
+  <div class="palette-inner">
+    <div class="palette-header">
+      <h2 class="palette-title reveal">The Whole Box.<br>Every color material.</h2>
+      <p class="palette-intro reveal">Eight colors. Each one named for what it actually <em>is</em>, because "brown" tells you nothing and <em>Dark Ganache</em> tells you everything. <em>Nothing here is flat. Everything is edible.</em></p>
+    </div>
+    <div class="palette-grid">
+      <div class="palette-card reveal"><div class="palette-swatch swatch-rose-fizz"></div><div class="palette-card-body"><div class="palette-role">Signature Pink</div><div class="palette-name">Ros&eacute; Fizz</div><div class="palette-hex">#D4A0A0</div><p class="palette-feel">Pink champagne in crystal. Not baby pink, not hot pink. The pink of bubbles catching candlelight. Effervescent, luminous, alive.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-dark-ganache"></div><div class="palette-card-body"><div class="palette-role">Primary Dark</div><div class="palette-name">Dark Ganache</div><div class="palette-hex">#2C1810</div><p class="palette-feel">Real dark chocolate &mdash; not black, not corporate. Warm brown-black with red undertones. The outside of the truffle box.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-blush-silk"></div><div class="palette-card-body"><div class="palette-role">Deep Blush</div><div class="palette-name">Blush Silk</div><div class="palette-hex">#B87D7D</div><p class="palette-feel">Deeper than Ros&eacute; Fizz. The silk lining of the box. Where pink gets serious.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-rose-leaf"></div><div class="palette-card-body"><div class="palette-role">Pink Foil Accent</div><div class="palette-name">Rose Leaf</div><div class="palette-hex">#C4909B</div><p class="palette-feel">The metallic warmth of rose gold foil. Not yellow gold, not copper &mdash; pink that catches light. The ribbon on the box.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-truffle"></div><div class="palette-card-body"><div class="palette-role">Rich Mid-tone</div><div class="palette-name">Truffle Interior</div><div class="palette-hex">#6B3A2A</div><p class="palette-feel">That moment you bite in &mdash; the rich brown between dark and milk. Where the flavor lives.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-velvet-drape"></div><div class="palette-card-body"><div class="palette-role">Shadow</div><div class="palette-name">Velvet Drape</div><div class="palette-hex">#1A0F0A</div><p class="palette-feel">The darkest dark &mdash; but warm. Like the shadow under heavy velvet curtains. Never cold, never flat black.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-cocoa-cream"></div><div class="palette-card-body"><div class="palette-role">Warm Neutral</div><div class="palette-name">Cocoa Cream</div><div class="palette-hex">#F2E6D9</div><p class="palette-feel">The tissue paper inside a luxury gift box. Warm, soft, never stark white.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-meringue"></div><div class="palette-card-body"><div class="palette-role">Highlight</div><div class="palette-name">Meringue Kiss</div><div class="palette-hex">#FFF5EE</div><p class="palette-feel">The lightest touch. Almost-white with the faintest blush warmth. Like powdered sugar on something decadent.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="type-section">
+  <div class="type-header">
+    <h2 class="type-title reveal">Three fonts.<br>The Champagne Suite.</h2>
+    <p class="type-intro reveal"><strong>Playfair commands. Cormorant whispers. Inter clarifies.</strong> Three fonts that never compete &mdash; each one with a different volume of voice. All three are free Google Fonts, forever yours.</p>
+  </div>
+  <div class="type-card reveal"><div class="type-card-meta">Headline &middot; Playfair Display 400&ndash;700</div><div class="type-card-display">Truffle box.</div><div class="type-card-name">Playfair Display 700, 72pt &middot; Dark Ganache</div></div>
+  <div class="type-card reveal"><div class="type-card-meta">Subhead &middot; Cormorant Garamond 400 italic</div><p class="type-card-subhead">The whisper between headline and body. Cormorant in italic is one of the most beautiful screen serifs available &mdash; delicate without being fragile, elegant without being precious.</p><div class="type-card-name">Cormorant Garamond 400 italic, 28pt &middot; Truffle Interior</div></div>
+  <div class="type-card reveal"><div class="type-card-meta">Body &middot; Inter 300&ndash;500</div><p class="type-card-body">Designed for screens. At 300 weight on dark backgrounds, Inter genuinely disappears &mdash; the words arrive without the font getting in the way. At 500 weight uppercase with tracking, it becomes a clean caption voice. One font, two personalities. The workhorse that knows when to be quiet.</p><div class="type-card-name">Inter 300, 16pt &middot; Truffle Interior on Cocoa Cream</div></div>
+  <div class="type-rule reveal">The rule:<br><em>Playfair commands. Cormorant whispers. Inter clarifies. Never make them compete.</em></div>
+</section>
+
+<section class="combo-section">
+  <div class="combo-header">
+    <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
+    <p class="combo-intro reveal">A color swatch on white tells you nothing. What matters is how a color <em>behaves</em> next to other colors. These are the signature pairings &mdash; the combinations Velvet Noir was built for.</p>
+  </div>
+  <div class="combo-grid">
+    <div class="combo-card combo-1 reveal"><div class="combo-text"><div class="combo-pair">The Signature</div><div class="combo-name">Ganache &amp; Ros&eacute;</div></div></div>
+    <div class="combo-card combo-2 reveal"><div class="combo-text"><div class="combo-pair">Quiet Elegance</div><div class="combo-name">Ganache on Cocoa</div></div></div>
+    <div class="combo-card combo-3 reveal"><div class="combo-text"><div class="combo-pair">Champagne &amp; Foil</div><div class="combo-name">Ros&eacute; on Rose Leaf</div></div></div>
+    <div class="combo-card combo-4 reveal"><div class="combo-text"><div class="combo-pair">Light &amp; Luminous</div><div class="combo-name">Ros&eacute; &amp; Meringue</div></div></div>
+    <div class="combo-card combo-5 reveal"><div class="combo-text"><div class="combo-pair">The Warm Middle</div><div class="combo-name">Blush &amp; Truffle</div></div></div>
+    <div class="combo-card combo-6 reveal"><div class="combo-text"><div class="combo-pair">Statement Pairing</div><div class="combo-name">Ros&eacute; on Velvet Drape</div></div></div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-label">Take it Home</div>
+    <h2 class="cta-big reveal">Make Velvet Noir<br>your brand.</h2>
+    <p class="cta-sub reveal">The kit is available now. If you want a custom kit built specifically for your world &mdash; or if you'd like Emmy to translate Velvet Noir into a full website &mdash; that's available too.</p>
+    <div class="cta-buttons reveal">
+      <a href="mailto:hello@emmybellamora.com?subject=Velvet Noir Kit" class="btn-primary">Get the Kit</a>
+      <a href="../../index.html#working-together" class="btn-ghost">Talk to Emmy</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Emmy Bellamora</div>
+  <div class="footer-note">Creative Director &middot; Cognitive UX Designer &middot; Fairy With Bite 🧚‍♀️</div>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+(function () {
+  const carousel = document.getElementById('kit-carousel');
+  if (\!carousel) return;
+  const stage = carousel.querySelector('.carousel-stage');
+  const slides = carousel.querySelectorAll('.carousel-slide');
+  const dots = carousel.querySelectorAll('.carousel-dot');
+  const captionLabel = document.getElementById('caption-label');
+  const captionName = document.getElementById('caption-name');
+  const total = slides.length;
+  let current = 0;
+  const captions = [
+    { label: 'Brand Board',      name: 'The kit at a glance' },
+    { label: 'Material Samples', name: 'The textures in the kit' },
+    { label: 'Cheat Sheet',      name: 'Combinations, vetted for accessibility' },
+    { label: 'Texture Vault',    name: 'Eight materials — nothing is flat' }
+  ];
+  function go(i) {
+    current = (i + total) % total;
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === current));
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === current));
+    if (captions[current]) { captionLabel.textContent = captions[current].label; captionName.textContent = captions[current].name; }
+  }
+  stage.addEventListener('click', () => go(current + 1));
+  dots.forEach((dot) => dot.addEventListener('click', (e) => { e.stopPropagation(); go(parseInt(dot.dataset.go, 10)); }));
+  document.addEventListener('keydown', (e) => {
+    const rect = carousel.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      if (e.key === 'ArrowLeft') go(current - 1);
+      if (e.key === 'ArrowRight') go(current + 1);
+    }
+  });
+})();
+</script>
+</body>
+</html>

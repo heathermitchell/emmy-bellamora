@@ -410,114 +410,356 @@ section {
 
 .work-intro .section-body { margin: 0; }
 
-.work-filter {
-  display: flex;
-  gap: 1rem;
-  justify-content: flex-end;
-  flex-wrap: wrap;
-}
+/* ============================================
+   FEATURED KIT — MAGAZINE MOMENT
+   ============================================ */
 
-.filter-btn {
-  font-family: var(--font-body);
-  font-size: 0.58rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: var(--fairy-silver);
-  background: none;
-  border: 1px solid rgba(200,184,232,0.2);
-  padding: 0.4rem 1rem;
-  border-radius: 100px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  opacity: 0.6;
-}
-
-.filter-btn:hover, .filter-btn.active {
-  border-color: var(--amethyst-light);
-  color: var(--moonpetal);
-  opacity: 1;
-}
-
-.kits-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-}
-
-.kit-card {
-  border-radius: 12px;
+.featured-kit {
+  margin-top: 4rem;
+  border-radius: 16px;
   overflow: hidden;
-  text-decoration: none;
-  display: block;
-  transition: transform 0.3s ease;
-  position: relative;
-  aspect-ratio: 4/3;
-}
-
-.kit-card:hover { transform: translateY(-4px); }
-
-.kit-card-bg {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 1.5rem;
+  background: linear-gradient(135deg, #2D1428 0%, #4A1F44 50%, #6B2D5B 100%);
   position: relative;
 }
 
-.kit-card-bg::after {
+.featured-kit::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 60%);
+  background:
+    radial-gradient(ellipse at 80% 20%, rgba(232,132,42,0.18) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 80%, rgba(242,181,82,0.10) 0%, transparent 50%);
+  pointer-events: none;
 }
 
-.kit-card-content {
+.featured-inner {
   position: relative;
   z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: stretch;
 }
 
-.kit-collection {
+.featured-art {
+  padding: 4rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  min-height: 480px;
+}
+
+.featured-tag {
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: #F2B552;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 0.85;
+}
+
+.featured-tag::before {
+  content: '';
+  display: block;
+  width: 1.5rem;
+  height: 1px;
+  background: #F2B552;
+  opacity: 0.6;
+}
+
+.featured-collection {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: #C8B8E8;
+  opacity: 0.7;
+  margin-bottom: 0.5rem;
+}
+
+.featured-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+  font-weight: 300;
+  font-style: italic;
+  color: #FFF3E4;
+  line-height: 1.05;
+  margin-bottom: 1.25rem;
+}
+
+.featured-tagline {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: #F2D6E0;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  opacity: 0.92;
+}
+
+.featured-palette {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.featured-swatch {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.08);
+}
+
+.featured-meta {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.featured-meta-item {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: #E8D5E0;
+  opacity: 0.85;
+}
+
+.featured-meta-item strong {
+  display: block;
   font-family: var(--font-body);
   font-size: 0.5rem;
   font-weight: 400;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  opacity: 0.7;
-  margin-bottom: 0.25rem;
+  color: #F2B552;
+  opacity: 0.75;
+  margin-bottom: 0.35rem;
 }
 
-.kit-name {
-  font-family: var(--font-display);
-  font-size: 1.4rem;
-  font-weight: 300;
-  font-style: italic;
-  line-height: 1.1;
-}
-
-.kit-desc {
+.featured-cta {
+  display: inline-block;
+  padding: 0.85rem 2.25rem;
+  background: rgba(242,181,82,0.95);
+  color: #2D1428;
   font-family: var(--font-body);
   font-size: 0.65rem;
-  font-weight: 300;
-  opacity: 0.75;
-  margin-top: 0.25rem;
-  letter-spacing: 0.02em;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  align-self: flex-start;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 
-/* Kit card palettes */
-.kit-spun-sugar { background: linear-gradient(135deg, #4A3550 0%, #7E6B8A 50%, #E8D5E0 100%); color: #FDF5F0; }
-.kit-salted-caramel { background: linear-gradient(135deg, #3D2212 0%, #A0622E 50%, #E8B960 100%); color: #FBF3E4; }
-.kit-mint-condition { background: linear-gradient(135deg, #1E4D3D 0%, #6DBAA1 50%, #F5F9F7 100%); color: #F5F9F7; }
-.kit-cherry-glaze { background: linear-gradient(135deg, #3D1A1A 0%, #C4425A 50%, #F5C2C8 100%); color: #FFF5F5; }
-.kit-electric-sherbet { background: linear-gradient(135deg, #1A1A3D 0%, #6A5ACD 50%, #FFD700 100%); color: #FFFEF0; }
-.kit-starry-swirl { background: linear-gradient(135deg, #6B2D5B 0%, #E8842A 70%, #F2B552 100%); color: #FFF3E4; }
-.kit-lily-shimmer { background: linear-gradient(135deg, #4A4035 0%, #7A9E8E 50%, #E8C4B8 100%); color: #F8F2EC; }
-.kit-golden-mosaic { background: linear-gradient(135deg, #1A2F3A 0%, #1B5E6B 50%, #C9A84C 100%); color: #F5EDE0; }
-.kit-sunday-dots { background: linear-gradient(135deg, #2A3D5C 0%, #E86B5A 60%, #E8A83E 100%); color: #F7F2EB; }
-.kit-ballet-light { background: linear-gradient(135deg, #3A2A2E 0%, #C9A55A 50%, #E2B8B0 100%); color: #FBF4EC; }
-.kit-rouge-poster { background: linear-gradient(135deg, #1A1428 0%, #C4285C 50%, #A8C43E 100%); color: #F5EDD8; }
+.featured-cta:hover {
+  background: #F2B552;
+  transform: translateY(-1px);
+}
+
+.featured-visual {
+  background:
+    linear-gradient(135deg, #5A3225 0%, #6B2D5B 50%, #E8842A 100%);
+  position: relative;
+  min-height: 480px;
+  overflow: hidden;
+}
+
+/* Crisper sunset wash — defined color zones, no blur */
+.featured-visual::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 75% 25%, #F2B552 0%, rgba(242,181,82,0.4) 18%, transparent 35%),
+    radial-gradient(ellipse at 25% 80%, #6B2D5B 0%, rgba(107,45,91,0.6) 25%, transparent 50%),
+    radial-gradient(ellipse at 60% 60%, rgba(232,132,42,0.65) 0%, transparent 40%);
+}
+
+/* Sharper "stars" — small defined points of light, not blurred dabs */
+.featured-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, #FFF3E4 0%, transparent 60%),
+    radial-gradient(circle, #F2B552 0%, transparent 60%),
+    radial-gradient(circle, #FFF3E4 0%, transparent 60%),
+    radial-gradient(circle, #F2B552 0%, transparent 60%),
+    radial-gradient(circle, #FFF3E4 0%, transparent 60%);
+  background-size: 6px 6px, 4px 4px, 5px 5px, 3px 3px, 4px 4px;
+  background-position: 22% 28%, 78% 18%, 65% 72%, 38% 78%, 88% 55%;
+  background-repeat: no-repeat;
+  opacity: 0.85;
+}
+
+.featured-quote {
+  position: absolute;
+  bottom: 2rem;
+  left: 2rem;
+  right: 2rem;
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 0.95rem;
+  color: rgba(255,243,228,0.92);
+  text-shadow: 0 2px 16px rgba(0,0,0,0.75);
+  line-height: 1.5;
+  z-index: 2;
+}
+
+/* ============================================
+   COLLECTION RIBBONS — ALL KITS AT A GLANCE
+   ============================================ */
+
+.collections-strip {
+  margin-top: 5rem;
+  padding-top: 4rem;
+  border-top: 1px solid rgba(200,184,232,0.12);
+}
+
+.collections-intro {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.collections-intro p {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--fairy-silver);
+  opacity: 0.8;
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+.collection-line {
+  margin-bottom: 3.5rem;
+}
+
+.collection-line:last-child {
+  margin-bottom: 0;
+}
+
+.collection-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.75rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.collection-name {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--snowflake);
+}
+
+.collection-name-meta {
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--amethyst-light);
+  opacity: 0.7;
+}
+
+.collection-link {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--fairy-silver);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(200,184,232,0.3);
+  padding-bottom: 0.15rem;
+  transition: color 0.3s ease, border-color 0.3s ease;
+}
+
+.collection-link:hover {
+  color: var(--moonpetal);
+  border-color: var(--moonpetal);
+}
+
+.kit-circles {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.25rem;
+}
+
+.kit-circle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  group: kit-circle;
+  transition: transform 0.3s ease;
+}
+
+.kit-circle:hover { transform: translateY(-3px); }
+
+.kit-disc {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  margin-bottom: 0.85rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.08);
+  position: relative;
+  transition: box-shadow 0.3s ease;
+}
+
+.kit-circle:hover .kit-disc {
+  box-shadow: 0 6px 22px rgba(155,111,208,0.35), inset 0 1px 0 rgba(255,255,255,0.12);
+}
+
+.kit-circle-name {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--moonpetal);
+  text-align: center;
+  letter-spacing: 0.01em;
+}
+
+.kit-circle-feel {
+  font-family: var(--font-body);
+  font-size: 0.55rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  color: var(--fairy-silver);
+  opacity: 0.6;
+  margin-top: 0.25rem;
+  text-align: center;
+}
+
+/* Kit disc palettes — 4 stacked bands, signature → light → mid → deep */
+/* Each kit leads with its most identifying color so the row doesn't blur into one tone */
+.disc-spun-sugar       { background: linear-gradient(to bottom, #EABFB9 0%, #EABFB9 25%, #E8D5E0 25%, #E8D5E0 50%, #7E6B8A 50%, #7E6B8A 75%, #4A3550 75%, #4A3550 100%); }
+.disc-velvet-noir      { background: linear-gradient(to bottom, #D4A0A0 0%, #D4A0A0 25%, #F2E6D9 25%, #F2E6D9 50%, #6B3A2A 50%, #6B3A2A 75%, #2C1810 75%, #2C1810 100%); }
+.disc-cherry-glaze     { background: linear-gradient(to bottom, #C4425A 0%, #C4425A 25%, #F5C2C8 25%, #F5C2C8 50%, #7A2030 50%, #7A2030 75%, #3D1A1A 75%, #3D1A1A 100%); }
+.disc-salted-caramel   { background: linear-gradient(to bottom, #A0622E 0%, #A0622E 25%, #E8B960 25%, #E8B960 50%, #6B3A1A 50%, #6B3A1A 75%, #3D2212 75%, #3D2212 100%); }
+.disc-mint-condition   { background: linear-gradient(to bottom, #6DBAA1 0%, #6DBAA1 25%, #F5F9F7 25%, #F5F9F7 50%, #3D7563 50%, #3D7563 75%, #1E4D3D 75%, #1E4D3D 100%); }
+.disc-electric-sherbet { background: linear-gradient(to bottom, #FFD700 0%, #FFD700 25%, #FF85B0 25%, #FF85B0 50%, #6A5ACD 50%, #6A5ACD 75%, #1A1A3D 75%, #1A1A3D 100%); }
+.disc-starry-swirl     { background: linear-gradient(to bottom, #E8842A 0%, #E8842A 25%, #F2B552 25%, #F2B552 50%, #6B2D5B 50%, #6B2D5B 75%, #5A3225 75%, #5A3225 100%); }
+.disc-lily-shimmer     { background: linear-gradient(to bottom, #E8C4B8 0%, #E8C4B8 25%, #F8F2EC 25%, #F8F2EC 50%, #7A9E8E 50%, #7A9E8E 75%, #4A4035 75%, #4A4035 100%); }
+.disc-golden-mosaic    { background: linear-gradient(to bottom, #C9A84C 0%, #C9A84C 25%, #F5EDE0 25%, #F5EDE0 50%, #1B5E6B 50%, #1B5E6B 75%, #1A2F3A 75%, #1A2F3A 100%); }
+.disc-sunday-dots      { background: linear-gradient(to bottom, #E86B5A 0%, #E86B5A 25%, #E8A83E 25%, #E8A83E 50%, #F7F2EB 50%, #F7F2EB 75%, #2A3D5C 75%, #2A3D5C 100%); }
+.disc-ballet-light     { background: linear-gradient(to bottom, #C9A55A 0%, #C9A55A 25%, #E2B8B0 25%, #E2B8B0 50%, #FBF4EC 50%, #FBF4EC 75%, #3A2A2E 75%, #3A2A2E 100%); }
+.disc-rouge-poster     { background: linear-gradient(to bottom, #C4285C 0%, #C4285C 25%, #A8C43E 25%, #A8C43E 50%, #F5EDD8 50%, #F5EDD8 75%, #1A1428 75%, #1A1428 100%); }
 
 /* ============================================
    THE BIG IDEA — MANIFESTO STRIP
@@ -842,9 +1084,11 @@ footer {
 
   .approach-grid { grid-template-columns: 1fr 1fr; }
 
-  .kits-grid { grid-template-columns: 1fr 1fr; }
+  .featured-inner { grid-template-columns: 1fr; }
+  .featured-art { padding: 3rem 2rem; min-height: auto; }
+  .featured-visual { min-height: 320px; order: -1; }
 
-  .work-filter { justify-content: flex-start; }
+  .kit-circles { grid-template-columns: repeat(3, 1fr); }
 
   footer { flex-direction: column; gap: 1rem; text-align: center; }
 }
@@ -854,7 +1098,8 @@ footer {
   .hero { padding: 6rem 1.25rem 4rem; }
   section { padding: 4rem 1.25rem; }
   .approach-grid { grid-template-columns: 1fr; }
-  .kits-grid { grid-template-columns: 1fr; }
+  .kit-circles { grid-template-columns: repeat(2, 1fr); }
+  .kit-circle-name { font-size: 0.78rem; }
   .contact-links { flex-direction: column; align-items: center; }
 }
 </style>
@@ -945,99 +1190,143 @@ footer {
     </div>
   </div>
 
-  <div class="kits-grid reveal">
+  <!-- FEATURED KIT — magazine moment -->
+  <div class="featured-kit reveal">
+    <div class="featured-inner">
 
-    <!-- Sugar on Top Collection -->
-    <a href="#" class="kit-card">
-      <div class="kit-card-bg kit-spun-sugar">
-        <div class="kit-card-content">
-          <div class="kit-collection">Sugar on Top</div>
-          <div class="kit-name">Spun Sugar</div>
-          <div class="kit-desc">Softness that doesn&rsquo;t fall apart when you look at it closely</div>
-        </div>
-      </div>
-    </a>
+      <div class="featured-art">
+        <div class="featured-tag">Featured Kit</div>
+        <div class="featured-collection">Art Gallery &middot; Kit 01</div>
+        <h3 class="featured-name">Starry Swirl</h3>
+        <p class="featured-tagline">
+          A sunset burning through impasto sky &mdash; the energy of Van Gogh in a completely different time of day. For the person whose ideas never sit still.
+        </p>
 
-    <a href="#" class="kit-card">
-      <div class="kit-card-bg kit-salted-caramel">
-        <div class="kit-card-content">
-          <div class="kit-collection">Sugar on Top</div>
-          <div class="kit-name">Salted Caramel</div>
-          <div class="kit-desc">Come on in. Something&rsquo;s baking.</div>
+        <div class="featured-palette" aria-label="Signature palette">
+          <span class="featured-swatch" style="background:#6B2D5B;" title="Plum Vortex"></span>
+          <span class="featured-swatch" style="background:#E8842A;" title="Amber Glow"></span>
+          <span class="featured-swatch" style="background:#F2B552;" title="Brushstroke Gold"></span>
+          <span class="featured-swatch" style="background:#E05A3A;" title="Coral Flame"></span>
+          <span class="featured-swatch" style="background:#5A3225;" title="Burnt Umber Swirl"></span>
+          <span class="featured-swatch" style="background:#FFF3E4;" title="Canvas Cream"></span>
         </div>
-      </div>
-    </a>
 
-    <a href="#" class="kit-card">
-      <div class="kit-card-bg kit-mint-condition">
-        <div class="kit-card-content">
-          <div class="kit-collection">Sugar on Top</div>
-          <div class="kit-name">Mint Condition</div>
-          <div class="kit-desc">The morning after it rained all night</div>
+        <div class="featured-meta">
+          <div class="featured-meta-item">
+            <strong>Palette</strong>
+            8 colors, material-named
+          </div>
+          <div class="featured-meta-item">
+            <strong>Type</strong>
+            Display + body + accent
+          </div>
+          <div class="featured-meta-item">
+            <strong>Includes</strong>
+            Boards, templates, playground
+          </div>
         </div>
-      </div>
-    </a>
 
-    <!-- Art Gallery Collection -->
-    <a href="#" class="kit-card">
-      <div class="kit-card-bg kit-starry-swirl">
-        <div class="kit-card-content">
-          <div class="kit-collection">Art Gallery</div>
-          <div class="kit-name">Starry Swirl</div>
-          <div class="kit-desc">Energy with intention &mdash; every swirl has a current</div>
-        </div>
+        <a href="kits/art-gallery/starry-swirl.html" class="featured-cta">See Inside Starry Swirl</a>
       </div>
-    </a>
 
-    <a href="#" class="kit-card">
-      <div class="kit-card-bg kit-lily-shimmer">
-        <div class="kit-card-content">
-          <div class="kit-collection">Art Gallery</div>
-          <div class="kit-name">Lily Shimmer</div>
-          <div class="kit-desc">The beauty is in what dissolves between them</div>
-        </div>
+      <div class="featured-visual" aria-hidden="true">
+        <div class="featured-quote">&ldquo;Energy with intention. Every swirl has a current.&rdquo;</div>
       </div>
-    </a>
 
-    <a href="#" class="kit-card">
-      <div class="kit-card-bg kit-golden-mosaic">
-        <div class="kit-card-content">
-          <div class="kit-collection">Art Gallery</div>
-          <div class="kit-name">Golden Mosaic</div>
-          <div class="kit-desc">Maximalism with taste — everything placed with intention</div>
-        </div>
-      </div>
-    </a>
+    </div>
+  </div>
 
-    <a href="#" class="kit-card">
-      <div class="kit-card-bg kit-sunday-dots">
-        <div class="kit-card-content">
-          <div class="kit-collection">Art Gallery</div>
-          <div class="kit-name">Sunday Dots</div>
-          <div class="kit-desc">Precision with personality &mdash; the grid that lets you dance</div>
-        </div>
-      </div>
-    </a>
+  <!-- COLLECTION RIBBONS — at-a-glance browse -->
+  <div class="collections-strip reveal">
+    <div class="collections-intro">
+      <p>Two collections live now. More coming. Each kit is a complete world &mdash; click any one to step inside.</p>
+    </div>
 
-    <a href="#" class="kit-card">
-      <div class="kit-card-bg kit-ballet-light">
-        <div class="kit-card-content">
-          <div class="kit-collection">Art Gallery</div>
-          <div class="kit-name">Ballet Light</div>
-          <div class="kit-desc">The grace you see is built on the discipline you don&rsquo;t</div>
+    <!-- SUGAR ON TOP -->
+    <div class="collection-line">
+      <div class="collection-header">
+        <div>
+          <div class="collection-name-meta">Collection One</div>
+          <div class="collection-name">Sugar on Top</div>
         </div>
+        <a href="#" class="collection-link">See the Whole Line &rarr;</a>
       </div>
-    </a>
+      <div class="kit-circles">
+        <a href="kits/sugar-on-top/spun-sugar.html" class="kit-circle">
+          <div class="kit-disc disc-spun-sugar"></div>
+          <div class="kit-circle-name">Spun Sugar</div>
+          <div class="kit-circle-feel">Ethereal</div>
+        </a>
+        <a href="kits/sugar-on-top/velvet-noir.html" class="kit-circle">
+          <div class="kit-disc disc-velvet-noir"></div>
+          <div class="kit-circle-name">Velvet Noir</div>
+          <div class="kit-circle-feel">Indulgent</div>
+        </a>
+        <a href="kits/sugar-on-top/cherry-glaze.html" class="kit-circle">
+          <div class="kit-disc disc-cherry-glaze"></div>
+          <div class="kit-circle-name">Cherry Glaze</div>
+          <div class="kit-circle-feel">Vivid</div>
+        </a>
+        <a href="kits/sugar-on-top/salted-caramel.html" class="kit-circle">
+          <div class="kit-disc disc-salted-caramel"></div>
+          <div class="kit-circle-name">Salted Caramel</div>
+          <div class="kit-circle-feel">Warm</div>
+        </a>
+        <a href="kits/sugar-on-top/mint-condition.html" class="kit-circle">
+          <div class="kit-disc disc-mint-condition"></div>
+          <div class="kit-circle-name">Mint Condition</div>
+          <div class="kit-circle-feel">Fresh</div>
+        </a>
+        <a href="kits/sugar-on-top/electric-sherbet.html" class="kit-circle">
+          <div class="kit-disc disc-electric-sherbet"></div>
+          <div class="kit-circle-name">Electric Sherbet</div>
+          <div class="kit-circle-feel">Bold</div>
+        </a>
+      </div>
+    </div>
 
-    <a href="#" class="kit-card">
-      <div class="kit-card-bg kit-rouge-poster">
-        <div class="kit-card-content">
-          <div class="kit-collection">Art Gallery</div>
-          <div class="kit-name">Rouge Poster</div>
-          <div class="kit-desc">If the font is big enough, you only have to say it once</div>
+    <!-- ART GALLERY -->
+    <div class="collection-line">
+      <div class="collection-header">
+        <div>
+          <div class="collection-name-meta">Collection Two</div>
+          <div class="collection-name">Art Gallery</div>
         </div>
+        <a href="#" class="collection-link">See the Whole Line &rarr;</a>
       </div>
-    </a>
+      <div class="kit-circles">
+        <a href="kits/art-gallery/starry-swirl.html" class="kit-circle">
+          <div class="kit-disc disc-starry-swirl"></div>
+          <div class="kit-circle-name">Starry Swirl</div>
+          <div class="kit-circle-feel">Movement</div>
+        </a>
+        <a href="kits/art-gallery/lily-shimmer.html" class="kit-circle">
+          <div class="kit-disc disc-lily-shimmer"></div>
+          <div class="kit-circle-name">Lily Shimmer</div>
+          <div class="kit-circle-feel">Soft</div>
+        </a>
+        <a href="kits/art-gallery/golden-mosaic.html" class="kit-circle">
+          <div class="kit-disc disc-golden-mosaic"></div>
+          <div class="kit-circle-name">Golden Mosaic</div>
+          <div class="kit-circle-feel">Layered</div>
+        </a>
+        <a href="kits/art-gallery/sunday-dots.html" class="kit-circle">
+          <div class="kit-disc disc-sunday-dots"></div>
+          <div class="kit-circle-name">Sunday Dots</div>
+          <div class="kit-circle-feel">Precise</div>
+        </a>
+        <a href="kits/art-gallery/ballet-light.html" class="kit-circle">
+          <div class="kit-disc disc-ballet-light"></div>
+          <div class="kit-circle-name">Ballet Light</div>
+          <div class="kit-circle-feel">Quiet</div>
+        </a>
+        <a href="kits/art-gallery/rouge-poster.html" class="kit-circle">
+          <div class="kit-disc disc-rouge-poster"></div>
+          <div class="kit-circle-name">Rouge Poster</div>
+          <div class="kit-circle-feel">Loud</div>
+        </a>
+      </div>
+    </div>
 
   </div>
 </section>
@@ -1197,9 +1486,9 @@ footer {
   glow.style.cssText = `
     position: fixed;
     top: 0; left: 0;
-    width: 900px; height: 900px;
+    width: 600px; height: 600px;
     border-radius: 50%;
-    background: radial-gradient(ellipse, rgba(107,63,160,0.38) 0%, rgba(155,111,208,0.18) 35%, transparent 70%);
+    background: radial-gradient(ellipse, rgba(107,63,160,0.22) 0%, rgba(155,111,208,0.08) 35%, transparent 70%);
     pointer-events: none;
     z-index: 0;
     transform: translate(-50%, -50%);

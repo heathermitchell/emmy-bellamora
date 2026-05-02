@@ -1,0 +1,1279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mint Condition — Sugar on Top Brand Kit · Emmy Bellamora</title>
+<meta name="description" content="Mint Condition is the morning after rain. Clean, warm, focused — for the person who wants simplicity without minimalism. Eight materials, three-font Rainwashed Suite, full brand kit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   MINT CONDITION — FULL MATERIAL STANDARD
+   The Rainwashed Suite: Fraunces / Lora / Manrope
+   The morning after it rained all night.
+   ============================================================ */
+
+:root {
+  /* Texture variables */
+  --tex-spearmint:    url('../../assets/textures/mint-condition/texture-spearmint.png');
+  --tex-eucalyptus:   url('../../assets/textures/mint-condition/texture-eucalyptus.png');
+  --tex-evergreen:    url('../../assets/textures/mint-condition/texture-evergreen.png');
+  --tex-aloe-honey:   url('../../assets/textures/mint-condition/texture-aloe-honey.png');
+  --tex-rain-glass:   url('../../assets/textures/mint-condition/texture-rain-glass.png');
+  --tex-lime-leaf:    url('../../assets/textures/mint-condition/texture-lime-leaf.png');
+  --tex-slate-moss:   url('../../assets/textures/mint-condition/texture-slate-moss.png');
+  --tex-morning:      url('../../assets/textures/mint-condition/texture-morning-glass.png');
+
+  /* Color palette */
+  --mc-spearmint:   #6DBAA1;
+  --mc-eucalyptus:  #A8D5C8;
+  --mc-evergreen:   #1E4D3D;
+  --mc-aloe-honey:  #C8B88A;
+  --mc-rain-glass:  #C4CDD0;
+  --mc-lime-leaf:   #8ED4A2;
+  --mc-slate-moss:  #3A4A42;
+  --mc-morning:     #F5F9F7;
+
+  /* Typography */
+  --font-mc-display: 'Fraunces', serif;
+  --font-mc-subhead: 'Lora', serif;
+  --font-mc-body:    'Manrope', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-mc-body);
+  background-color: var(--mc-evergreen);
+  color: var(--mc-morning);
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   TEXTURE MIXIN PATTERN
+   background: [texture] + color overlay
+   ============================================================ */
+
+.tex-spearmint {
+  background-image: var(--tex-spearmint);
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  position: relative;
+}
+.tex-spearmint::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--mc-spearmint);
+  mix-blend-mode: multiply;
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.tex-eucalyptus {
+  background-image: var(--tex-eucalyptus);
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  position: relative;
+}
+.tex-eucalyptus::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--mc-eucalyptus);
+  mix-blend-mode: multiply;
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.tex-evergreen {
+  background-image: var(--tex-evergreen);
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  position: relative;
+}
+.tex-evergreen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--mc-evergreen);
+  mix-blend-mode: multiply;
+  opacity: 0.78;
+  pointer-events: none;
+}
+
+.tex-aloe-honey {
+  background-image: var(--tex-aloe-honey);
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  position: relative;
+}
+.tex-aloe-honey::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--mc-aloe-honey);
+  mix-blend-mode: multiply;
+  opacity: 0.68;
+  pointer-events: none;
+}
+
+.tex-rain-glass {
+  background-image: var(--tex-rain-glass);
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  position: relative;
+}
+.tex-rain-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--mc-rain-glass);
+  mix-blend-mode: multiply;
+  opacity: 0.60;
+  pointer-events: none;
+}
+
+.tex-lime-leaf {
+  background-image: var(--tex-lime-leaf);
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  position: relative;
+}
+.tex-lime-leaf::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--mc-lime-leaf);
+  mix-blend-mode: multiply;
+  opacity: 0.65;
+  pointer-events: none;
+}
+
+.tex-slate-moss {
+  background-image: var(--tex-slate-moss);
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  position: relative;
+}
+.tex-slate-moss::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--mc-slate-moss);
+  mix-blend-mode: multiply;
+  opacity: 0.75;
+  pointer-events: none;
+}
+
+.tex-morning {
+  background-image: var(--tex-morning);
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  position: relative;
+}
+.tex-morning::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--mc-morning);
+  mix-blend-mode: multiply;
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* ============================================================
+   MINT CONDITION ANIMATIONS
+   leafSettle: leaves drifting down and settling
+   dewRise: dew droplets forming and rising
+   ============================================================ */
+
+@keyframes leafSettle {
+  0%   { transform: translateY(-20px) rotate(-15deg) scale(0.8); opacity: 0; }
+  30%  { opacity: 0.6; }
+  70%  { transform: translateY(0px) rotate(5deg) scale(1); opacity: 0.6; }
+  85%  { transform: translateY(2px) rotate(-2deg); opacity: 0.5; }
+  100% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.35; }
+}
+
+@keyframes dewRise {
+  0%   { transform: translateY(0) scale(0.4); opacity: 0; }
+  20%  { opacity: 0.7; }
+  60%  { transform: translateY(-30px) scale(1.1); opacity: 0.5; }
+  100% { transform: translateY(-60px) scale(0.6); opacity: 0; }
+}
+
+/* ============================================================
+   GLOBAL ELEMENTS
+   ============================================================ */
+
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: rgba(30, 77, 61, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(109, 186, 161, 0.2);
+}
+
+.nav-logo {
+  font-family: var(--font-mc-display);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--mc-eucalyptus);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-mc-body);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mc-rain-glass);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover { color: var(--mc-lime-leaf); }
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-mc-body);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  padding: 0.9rem 2.4rem;
+  font-size: 0.82rem;
+  background: var(--mc-spearmint);
+  color: var(--mc-evergreen);
+}
+
+.btn-primary:hover {
+  background: var(--mc-lime-leaf);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  padding: 0.85rem 2.2rem;
+  font-size: 0.8rem;
+  border: 1.5px solid var(--mc-eucalyptus);
+  color: var(--mc-eucalyptus);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background: var(--mc-eucalyptus);
+  color: var(--mc-evergreen);
+  transform: translateY(-2px);
+}
+
+/* Section inner positioning */
+section > * { position: relative; z-index: 1; }
+
+/* ============================================================
+   HERO — Spearmint fresh matte
+   ============================================================ */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 8rem 2rem 5rem;
+  overflow: hidden;
+}
+
+/* Animated dew drops in hero */
+.hero-dew {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.dew-drop {
+  position: absolute;
+  width: 6px;
+  height: 8px;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: rgba(168, 213, 200, 0.4);
+  animation: dewRise 4s ease-in infinite;
+}
+
+.dew-drop:nth-child(1)  { left: 8%;  bottom: 20%; animation-delay: 0s;    animation-duration: 3.8s; width: 4px; height: 6px; }
+.dew-drop:nth-child(2)  { left: 15%; bottom: 35%; animation-delay: 0.6s;  animation-duration: 4.2s; }
+.dew-drop:nth-child(3)  { left: 25%; bottom: 15%; animation-delay: 1.2s;  animation-duration: 3.5s; width: 5px; height: 7px; }
+.dew-drop:nth-child(4)  { left: 38%; bottom: 45%; animation-delay: 0.3s;  animation-duration: 4.8s; }
+.dew-drop:nth-child(5)  { left: 52%; bottom: 25%; animation-delay: 1.8s;  animation-duration: 3.9s; width: 4px; height: 5px; }
+.dew-drop:nth-child(6)  { left: 62%; bottom: 55%; animation-delay: 0.9s;  animation-duration: 4.5s; }
+.dew-drop:nth-child(7)  { left: 75%; bottom: 18%; animation-delay: 2.1s;  animation-duration: 3.7s; width: 5px; height: 7px; }
+.dew-drop:nth-child(8)  { left: 85%; bottom: 38%; animation-delay: 1.5s;  animation-duration: 4.1s; }
+.dew-drop:nth-child(9)  { left: 92%; bottom: 28%; animation-delay: 0.4s;  animation-duration: 4.6s; width: 4px; height: 6px; }
+.dew-drop:nth-child(10) { left: 45%; bottom: 60%; animation-delay: 2.4s;  animation-duration: 3.6s; }
+
+/* Settling leaves */
+.hero-leaves {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.leaf {
+  position: absolute;
+  font-size: 1.4rem;
+  animation: leafSettle 6s ease-out infinite;
+  opacity: 0;
+}
+
+.leaf:nth-child(1) { left: 10%; top: -5%;  animation-delay: 0s;   animation-duration: 7s; }
+.leaf:nth-child(2) { left: 30%; top: -8%;  animation-delay: 1.5s; animation-duration: 8s; font-size: 1rem; }
+.leaf:nth-child(3) { left: 55%; top: -4%;  animation-delay: 3s;   animation-duration: 6.5s; }
+.leaf:nth-child(4) { left: 72%; top: -6%;  animation-delay: 0.8s; animation-duration: 7.5s; font-size: 1.1rem; }
+.leaf:nth-child(5) { left: 88%; top: -3%;  animation-delay: 2.2s; animation-duration: 9s; font-size: 0.9rem; }
+
+.hero-eyebrow {
+  font-family: var(--font-mc-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mc-lime-leaf);
+  margin-bottom: 1.2rem;
+}
+
+.hero-title {
+  font-family: var(--font-mc-display);
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  font-weight: 500;
+  line-height: 1.0;
+  color: var(--mc-morning);
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.02em;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--mc-eucalyptus);
+}
+
+.hero-subline {
+  font-family: var(--font-mc-subhead);
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  font-style: italic;
+  color: var(--mc-eucalyptus);
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+.hero-scene {
+  font-family: var(--font-mc-body);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(245, 249, 247, 0.75);
+  max-width: 560px;
+  margin-bottom: 3rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ============================================================
+   INSIDE THE KIT — Lime Leaf gloss
+   ============================================================ */
+
+.inside {
+  padding: 6rem 2rem;
+  overflow: hidden;
+}
+
+.inside-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-mc-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.inside .section-label { color: var(--mc-evergreen); }
+
+.section-title {
+  font-family: var(--font-mc-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.inside .section-title { color: var(--mc-evergreen); }
+
+.section-intro {
+  font-family: var(--font-mc-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.75;
+  max-width: 560px;
+  margin-bottom: 3rem;
+}
+
+.inside .section-intro { color: rgba(30, 77, 61, 0.8); }
+
+/* Carousel */
+.carousel-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-slide {
+  flex: 0 0 calc(33.333% - 1rem);
+  min-width: 280px;
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid rgba(30, 77, 61, 0.2);
+}
+
+.slide-thumb {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thumb-icon {
+  font-size: 3rem;
+  opacity: 0.8;
+}
+
+.slide-info {
+  padding: 1.2rem 1.4rem;
+  background: rgba(30, 77, 61, 0.08);
+}
+
+.slide-name {
+  font-family: var(--font-mc-display);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--mc-evergreen);
+  margin-bottom: 0.3rem;
+}
+
+.slide-desc {
+  font-family: var(--font-mc-body);
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: rgba(30, 77, 61, 0.7);
+  line-height: 1.5;
+}
+
+.carousel-nav {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(30, 77, 61, 0.25);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.carousel-dot.active { background: var(--mc-evergreen); }
+
+/* ============================================================
+   PAINTING A BRAND — Evergreen wet stone
+   ============================================================ */
+
+.painting {
+  padding: 7rem 2rem;
+  overflow: hidden;
+}
+
+.painting-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.painting .section-label { color: var(--mc-eucalyptus); opacity: 0.7; }
+.painting .section-title { color: var(--mc-morning); }
+.painting .section-intro { color: rgba(245, 249, 247, 0.7); }
+
+.painting-visual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.paint-swatch {
+  border-radius: 2px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 160px;
+  position: relative;
+  overflow: hidden;
+}
+
+.paint-swatch-name {
+  font-family: var(--font-mc-display);
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.paint-swatch-hex {
+  font-family: var(--font-mc-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   THE PALETTE — Burgundy / Spearmint horizontal row
+   ============================================================ */
+
+.palette-section {
+  padding: 6rem 2rem;
+  overflow: hidden;
+}
+
+.palette-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.palette-section .section-label { color: var(--mc-aloe-honey); opacity: 0.8; }
+.palette-section .section-title { color: var(--mc-morning); }
+.palette-section .section-intro { color: rgba(245, 249, 247, 0.7); }
+
+.palette-row {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0;
+  margin-top: 3rem;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.palette-chip {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0.8rem;
+  cursor: default;
+  transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.palette-chip:hover { transform: scaleY(1.05); z-index: 1; }
+
+.palette-chip-name {
+  font-family: var(--font-mc-body);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.palette-chip-hex {
+  font-family: var(--font-mc-body);
+  font-size: 0.58rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  opacity: 0.75;
+  margin-top: 0.15rem;
+}
+
+/* ============================================================
+   THE TYPE SUITE — Morning Glass
+   ============================================================ */
+
+.type-section {
+  padding: 7rem 2rem;
+  overflow: hidden;
+}
+
+.type-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.type-section .section-label { color: var(--mc-slate-moss); }
+.type-section .section-title { color: var(--mc-slate-moss); }
+.type-section .section-intro { color: rgba(58, 74, 66, 0.75); }
+
+.type-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.type-card {
+  border-radius: 2px;
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(109, 186, 161, 0.25);
+  background: rgba(245, 249, 247, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.type-card-role {
+  font-family: var(--font-mc-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--mc-spearmint);
+  margin-bottom: 1rem;
+}
+
+.type-card-specimen {
+  margin-bottom: 1.2rem;
+  line-height: 1.2;
+}
+
+.type-card-meta {
+  font-family: var(--font-mc-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: rgba(58, 74, 66, 0.65);
+  line-height: 1.6;
+}
+
+.type-card-meta strong {
+  color: var(--mc-slate-moss);
+  font-weight: 600;
+}
+
+/* ============================================================
+   THE RULE — Slate Moss matte stone
+   ============================================================ */
+
+.rule-section {
+  padding: 5rem 2rem;
+  overflow: hidden;
+}
+
+.rule-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.rule-quote {
+  font-family: var(--font-mc-subhead);
+  font-size: clamp(1.3rem, 2.8vw, 1.9rem);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--mc-morning);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.rule-attr {
+  font-family: var(--font-mc-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--mc-lime-leaf);
+}
+
+/* ============================================================
+   COMBOS — Rain Glass
+   ============================================================ */
+
+.combos-section {
+  padding: 7rem 2rem;
+  overflow: hidden;
+}
+
+.combos-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.combos-section .section-label { color: rgba(30, 77, 61, 0.65); }
+.combos-section .section-title { color: var(--mc-slate-moss); }
+.combos-section .section-intro { color: rgba(58, 74, 66, 0.75); }
+
+.combos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.combo-card {
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(30, 77, 61, 0.08);
+}
+
+.combo-preview {
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1.5rem;
+  gap: 0.4rem;
+}
+
+.combo-headline {
+  font-family: var(--font-mc-display);
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.combo-body-text {
+  font-family: var(--font-mc-body);
+  font-size: 0.8rem;
+  font-weight: 300;
+  line-height: 1.5;
+  opacity: 0.8;
+}
+
+.combo-label {
+  padding: 1rem 1.2rem;
+  background: rgba(30, 77, 61, 0.06);
+  border-top: 1px solid rgba(30, 77, 61, 0.1);
+}
+
+.combo-label-text {
+  font-family: var(--font-mc-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--mc-slate-moss);
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   CTA — Spearmint fresh
+   ============================================================ */
+
+.cta-section {
+  padding: 8rem 2rem;
+  overflow: hidden;
+}
+
+.cta-inner {
+  max-width: 700px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cta-section .section-label { color: var(--mc-lime-leaf); }
+.cta-title {
+  font-family: var(--font-mc-display);
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 500;
+  color: var(--mc-morning);
+  line-height: 1.15;
+  margin-bottom: 1.2rem;
+  letter-spacing: -0.01em;
+}
+
+.cta-title em {
+  font-style: italic;
+  color: var(--mc-eucalyptus);
+}
+
+.cta-sub {
+  font-family: var(--font-mc-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(245, 249, 247, 0.72);
+  margin-bottom: 2.5rem;
+}
+
+.cta-actions {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.site-footer {
+  padding: 2.5rem 2rem;
+  border-top: 1px solid rgba(109, 186, 161, 0.15);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--mc-evergreen);
+}
+
+.footer-brand {
+  font-family: var(--font-mc-display);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--mc-eucalyptus);
+}
+
+.footer-note {
+  font-family: var(--font-mc-body);
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: rgba(196, 205, 208, 0.5);
+  letter-spacing: 0.06em;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .painting-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .type-cards { grid-template-columns: 1fr; }
+  .combos-grid { grid-template-columns: 1fr 1fr; }
+  .palette-row { grid-template-columns: repeat(4, 1fr); }
+  .carousel-slide { flex: 0 0 80%; }
+}
+
+@media (max-width: 600px) {
+  .site-nav { padding: 0.8rem 1.2rem; }
+  .nav-links { display: none; }
+  .combos-grid { grid-template-columns: 1fr; }
+  .palette-row { grid-template-columns: repeat(4, 1fr); }
+  .carousel-slide { flex: 0 0 90%; }
+  .site-footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav class="site-nav">
+  <a href="../../index.html" class="nav-logo">Emmy Bellamora</a>
+  <ul class="nav-links">
+    <li><a href="../../index.html">Home</a></li>
+    <li><a href="../../index.html#kits">All Kits</a></li>
+    <li><a href="../../index.html#services">Work With Emmy</a></li>
+  </ul>
+</nav>
+
+<!-- ============================================================
+     HERO — Spearmint fresh matte
+     ============================================================ -->
+<section class="hero tex-spearmint">
+  <div class="hero-dew">
+    <div class="dew-drop"></div>
+    <div class="dew-drop"></div>
+    <div class="dew-drop"></div>
+    <div class="dew-drop"></div>
+    <div class="dew-drop"></div>
+    <div class="dew-drop"></div>
+    <div class="dew-drop"></div>
+    <div class="dew-drop"></div>
+    <div class="dew-drop"></div>
+    <div class="dew-drop"></div>
+  </div>
+  <div class="hero-leaves">
+    <span class="leaf">🌿</span>
+    <span class="leaf">🍃</span>
+    <span class="leaf">🌿</span>
+    <span class="leaf">🍃</span>
+    <span class="leaf">🌿</span>
+  </div>
+  <p class="hero-eyebrow">Sugar on Top · Kit 05</p>
+  <h1 class="hero-title">Mint<br><em>Condition</em></h1>
+  <p class="hero-subline">The morning after it rained all night.</p>
+  <p class="hero-scene">Clean lines. Open space. The one warm color that changes everything. For the person who craves simplicity — but not minimalism. She wants focus, not absence. This is the kit that breathes.</p>
+  <div class="hero-actions">
+    <a href="#" class="btn btn-primary">Get This Kit — $29</a>
+    <a href="#inside" class="btn btn-outline">See What's Inside</a>
+  </div>
+</section>
+
+<!-- ============================================================
+     INSIDE THE KIT — Lime Leaf gloss
+     ============================================================ -->
+<section id="inside" class="inside tex-lime-leaf">
+  <div class="inside-inner">
+    <p class="section-label">Everything in the box</p>
+    <h2 class="section-title" style="color: var(--mc-evergreen);">What you're actually getting</h2>
+    <p class="section-intro">Not just colors. A whole material world you can step into and start using the same day.</p>
+
+    <div class="carousel-wrap">
+      <div class="carousel-track" id="carouselTrack">
+
+        <div class="carousel-slide">
+          <div class="slide-thumb tex-spearmint" style="height:200px;">
+            <div class="thumb-icon">🎨</div>
+          </div>
+          <div class="slide-info">
+            <div class="slide-name">Brand Board</div>
+            <div class="slide-desc">All 8 colors, 3 fonts, and material textures assembled in one presentation-ready layout. Your whole palette at a glance.</div>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="slide-thumb tex-rain-glass" style="height:200px;">
+            <div class="thumb-icon">🪨</div>
+          </div>
+          <div class="slide-info">
+            <div class="slide-name">Material Samples</div>
+            <div class="slide-desc">All 8 textures as individual PNG files — pressed leaf, frosted glass, wet stone, raw linen, and four more.</div>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="slide-thumb tex-aloe-honey" style="height:200px;">
+            <div class="thumb-icon">📋</div>
+          </div>
+          <div class="slide-info">
+            <div class="slide-name">Color Cheat Sheet</div>
+            <div class="slide-desc">Every hex code, which colors pair together, and what mood each combination creates. Designer-brain, ready to use.</div>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="slide-thumb tex-evergreen" style="height:200px;">
+            <div class="thumb-icon">🌿</div>
+          </div>
+          <div class="slide-info">
+            <div class="slide-name">Texture Vault</div>
+            <div class="slide-desc">Seamlessly tileable surface textures for every color. Layer them in Canva, Figma, or Procreate for instant material depth.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="carousel-nav">
+      <button class="carousel-dot active" onclick="goToSlide(0)"></button>
+      <button class="carousel-dot" onclick="goToSlide(1)"></button>
+      <button class="carousel-dot" onclick="goToSlide(2)"></button>
+      <button class="carousel-dot" onclick="goToSlide(3)"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PAINTING A BRAND — Evergreen dark wet stone
+     ============================================================ -->
+<section class="painting tex-evergreen">
+  <div class="painting-inner">
+    <div class="painting-text">
+      <p class="section-label">What this kit feels like</p>
+      <h2 class="section-title">Clean isn't cold.<br><em>It's focused.</em></h2>
+      <p class="section-intro">Mint Condition is built around one truth: green is the easiest color for the human eye to process. Add one warm earth tone (Aloe Honey) and you don't have a clinical palette — you have a spa. A greenhouse. A window seat with good light.</p>
+      <p class="section-intro" style="margin-top: 1rem;">Eight colors, all with personality. Eight textures, all from nature. Fraunces headlines that feel cultivated, not cold. Lora italic for the sentences you want people to slow down for. Manrope that disappears — so the colors can do the talking.</p>
+    </div>
+    <div class="painting-visual">
+      <div class="paint-swatch tex-spearmint" style="color: var(--mc-morning);">
+        <span class="paint-swatch-name">Spearmint</span>
+        <span class="paint-swatch-hex">#6DBAA1</span>
+      </div>
+      <div class="paint-swatch tex-evergreen" style="color: var(--mc-morning);">
+        <span class="paint-swatch-name">Evergreen</span>
+        <span class="paint-swatch-hex">#1E4D3D</span>
+      </div>
+      <div class="paint-swatch tex-aloe-honey" style="color: var(--mc-evergreen);">
+        <span class="paint-swatch-name">Aloe Honey</span>
+        <span class="paint-swatch-hex">#C8B88A</span>
+      </div>
+      <div class="paint-swatch tex-lime-leaf" style="color: var(--mc-evergreen);">
+        <span class="paint-swatch-name">Lime Leaf</span>
+        <span class="paint-swatch-hex">#8ED4A2</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE PALETTE — Aloe Honey linen
+     ============================================================ -->
+<section class="palette-section tex-aloe-honey">
+  <div class="palette-inner">
+    <p class="section-label">The full eight</p>
+    <h2 class="section-title" style="color: var(--mc-evergreen);">All Eight Materials</h2>
+    <p class="section-intro" style="color: rgba(30, 77, 61, 0.8);">Every color has a texture. Every texture has a mood. Together they build a brand that feels like something real.</p>
+
+    <div class="palette-row">
+      <div class="palette-chip tex-spearmint">
+        <span class="palette-chip-name" style="color: var(--mc-morning);">Spearmint</span>
+        <span class="palette-chip-hex" style="color: var(--mc-morning);">#6DBAA1</span>
+      </div>
+      <div class="palette-chip tex-eucalyptus">
+        <span class="palette-chip-name" style="color: var(--mc-evergreen);">Eucalyptus</span>
+        <span class="palette-chip-hex" style="color: var(--mc-evergreen);">#A8D5C8</span>
+      </div>
+      <div class="palette-chip tex-evergreen">
+        <span class="palette-chip-name" style="color: var(--mc-morning);">Evergreen</span>
+        <span class="palette-chip-hex" style="color: var(--mc-morning);">#1E4D3D</span>
+      </div>
+      <div class="palette-chip tex-aloe-honey">
+        <span class="palette-chip-name" style="color: var(--mc-evergreen);">Aloe Honey</span>
+        <span class="palette-chip-hex" style="color: var(--mc-evergreen);">#C8B88A</span>
+      </div>
+      <div class="palette-chip tex-rain-glass">
+        <span class="palette-chip-name" style="color: var(--mc-evergreen);">Rain Glass</span>
+        <span class="palette-chip-hex" style="color: var(--mc-evergreen);">#C4CDD0</span>
+      </div>
+      <div class="palette-chip tex-lime-leaf">
+        <span class="palette-chip-name" style="color: var(--mc-evergreen);">Lime Leaf</span>
+        <span class="palette-chip-hex" style="color: var(--mc-evergreen);">#8ED4A2</span>
+      </div>
+      <div class="palette-chip tex-slate-moss">
+        <span class="palette-chip-name" style="color: var(--mc-morning);">Slate Moss</span>
+        <span class="palette-chip-hex" style="color: var(--mc-morning);">#3A4A42</span>
+      </div>
+      <div class="palette-chip tex-morning">
+        <span class="palette-chip-name" style="color: var(--mc-slate-moss);">Morning Glass</span>
+        <span class="palette-chip-hex" style="color: var(--mc-slate-moss);">#F5F9F7</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE TYPE SUITE — Morning Glass clean
+     ============================================================ -->
+<section class="type-section tex-morning">
+  <div class="type-inner">
+    <p class="section-label">The Rainwashed Suite</p>
+    <h2 class="section-title">Three fonts.<br>One clear window.</h2>
+    <p class="section-intro">Fraunces grounds. Lora slows. Manrope disappears. Like clean glass on a rainy morning — you're not supposed to notice the glass.</p>
+
+    <div class="type-cards">
+      <div class="type-card">
+        <div class="type-card-role">Display · Fraunces</div>
+        <div class="type-card-specimen">
+          <span style="font-family: 'Fraunces', serif; font-size: 2.4rem; font-weight: 500; color: var(--mc-evergreen); line-height: 1.1;">Clean,<br><em>focused,</em><br>warm.</span>
+        </div>
+        <div class="type-card-meta">
+          <strong>Use for:</strong> Headlines, hero text, pull quotes<br>
+          <strong>Weights:</strong> 400–600, regular + italic<br>
+          <strong>Why:</strong> Grown in a greenhouse, not carved in stone
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-card-role">Subhead · Lora</div>
+        <div class="type-card-specimen">
+          <span style="font-family: 'Lora', serif; font-size: 1.25rem; font-style: italic; font-weight: 400; color: var(--mc-spearmint); line-height: 1.5;">The morning after rain. Clear, unhurried, human.</span>
+        </div>
+        <div class="type-card-meta">
+          <strong>Use for:</strong> Subheads, pull quotes, emphasis<br>
+          <strong>Weights:</strong> 400–500, italic primary<br>
+          <strong>Why:</strong> Calmer than Cormorant, warmer than Playfair
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-card-role">Body · Manrope</div>
+        <div class="type-card-specimen">
+          <span style="font-family: 'Manrope', sans-serif; font-size: 0.95rem; font-weight: 300; color: var(--mc-slate-moss); line-height: 1.8;">Clean without sterile. Warm without casual. Modern geometric sans with softened terminals — the invisible workhorse.</span>
+        </div>
+        <div class="type-card-meta">
+          <strong>Use for:</strong> Body text, captions, buttons<br>
+          <strong>Weights:</strong> 300–600<br>
+          <strong>Why:</strong> Lets the colors do the talking
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE RULE — Slate Moss matte stone
+     ============================================================ -->
+<section class="rule-section tex-slate-moss">
+  <div class="rule-inner">
+    <p class="rule-quote">"Aloe Honey is the one warm color in a cool palette — and it changes everything. Without it, Mint Condition would be clinical. With it, it's a spa."</p>
+    <p class="rule-attr">Emmy Bellamora · The color psychology of Mint Condition</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     COLOR COMBOS — Rain Glass
+     ============================================================ -->
+<section class="combos-section tex-rain-glass">
+  <div class="combos-inner">
+    <p class="section-label">How to use them</p>
+    <h2 class="section-title">The pairings that work</h2>
+    <p class="section-intro">Eight colors, endless combinations — but some are unmistakably Mint Condition. These are the essential five.</p>
+
+    <div class="combos-grid">
+      <div class="combo-card">
+        <div class="combo-preview" style="background: var(--mc-spearmint);">
+          <div class="combo-headline" style="color: var(--mc-morning);">The Signature</div>
+          <div class="combo-body-text" style="color: rgba(245,249,247,0.85);">Spearmint + Morning Glass — fresh, breathable, unmistakably you.</div>
+        </div>
+        <div class="combo-label">
+          <span class="combo-label-text">#6DBAA1 on #F5F9F7 · Fresh authority</span>
+        </div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-preview" style="background: var(--mc-evergreen);">
+          <div class="combo-headline" style="color: var(--mc-morning);">Serious Content</div>
+          <div class="combo-body-text" style="color: rgba(245,249,247,0.75);">Evergreen + Morning Glass — authoritative but alive.</div>
+        </div>
+        <div class="combo-label">
+          <span class="combo-label-text">#1E4D3D on #F5F9F7 · Deep authority</span>
+        </div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-preview" style="background: var(--mc-spearmint);">
+          <div class="combo-headline" style="color: var(--mc-evergreen);">Clarity Meets Comfort</div>
+          <div class="combo-body-text" style="color: rgba(30,77,61,0.8);">Spearmint + Aloe Honey — where cool meets warm.</div>
+        </div>
+        <div class="combo-label">
+          <span class="combo-label-text">#C8B88A + #6DBAA1 · The warmth that humanizes</span>
+        </div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-preview" style="background: var(--mc-eucalyptus);">
+          <div class="combo-headline" style="color: var(--mc-slate-moss);">Serene Minimal</div>
+          <div class="combo-body-text" style="color: rgba(58,74,66,0.8);">Eucalyptus + Rain Glass — the calmest version of this kit.</div>
+        </div>
+        <div class="combo-label">
+          <span class="combo-label-text">#A8D5C8 + #C4CDD0 · All cool, all calm</span>
+        </div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-preview" style="background: var(--mc-evergreen);">
+          <div class="combo-headline" style="color: var(--mc-lime-leaf);">Energy in Structure</div>
+          <div class="combo-body-text" style="color: rgba(168,213,200,0.8);">Evergreen + Lime Leaf — dark and bright. Power with a pop.</div>
+        </div>
+        <div class="combo-label">
+          <span class="combo-label-text">#8ED4A2 on #1E4D3D · Alive in the dark</span>
+        </div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-preview" style="background: var(--mc-morning);">
+          <div class="combo-headline" style="font-family: 'Fraunces', serif; font-style: italic; color: var(--mc-spearmint);">Any morning</div>
+          <div class="combo-body-text" style="color: var(--mc-slate-moss);">Morning Glass background + Spearmint type — the hero pairing for light mode.</div>
+        </div>
+        <div class="combo-label">
+          <span class="combo-label-text">#6DBAA1 on #F5F9F7 · Clean hero mode</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA — Spearmint fresh
+     ============================================================ -->
+<section class="cta-section tex-spearmint">
+  <div class="cta-inner">
+    <p class="section-label">Get the kit</p>
+    <h2 class="cta-title">Your brain on <em>clarity.</em></h2>
+    <p class="cta-sub">Eight material textures, three fonts that know exactly what they're doing, and a palette built from the psychology of green. Mint Condition is for the person who knows exactly what she wants — and just needed someone to name it.</p>
+    <div class="cta-actions">
+      <a href="#" class="btn btn-primary" style="background: var(--mc-evergreen); color: var(--mc-morning);">Get Mint Condition — $29</a>
+      <a href="../../index.html#kits" class="btn btn-outline" style="border-color: var(--mc-evergreen); color: var(--mc-evergreen);">See All Six Kits</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <span class="footer-brand">Emmy Bellamora</span>
+  <span class="footer-note">Mint Condition · Sugar on Top · Kit 05 of 06</span>
+</footer>
+
+<script>
+// Carousel
+let currentSlide = 0;
+const track = document.getElementById('carouselTrack');
+const dots = document.querySelectorAll('.carousel-dot');
+const slideCount = 4;
+
+function getSlideWidth() {
+  const slide = track.querySelector('.carousel-slide');
+  return slide ? slide.offsetWidth + 24 : 0; // 24 = gap
+}
+
+function goToSlide(n) {
+  currentSlide = Math.max(0, Math.min(n, slideCount - 1));
+  track.style.transform = `translateX(-${currentSlide * getSlideWidth()}px)`;
+  dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+}
+
+// Touch swipe
+let touchStart = 0;
+track.addEventListener('touchstart', e => touchStart = e.touches[0].clientX);
+track.addEventListener('touchend', e => {
+  const diff = touchStart - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 40) goToSlide(currentSlide + (diff > 0 ? 1 : -1));
+});
+</script>
+
+</body>
+</html>

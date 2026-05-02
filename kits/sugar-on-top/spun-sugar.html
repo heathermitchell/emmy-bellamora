@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spun Sugar — Sugar on Top Brand Kit · Emmy Bellamora</title>
+<meta name="description" content="Spun Sugar is a lavender sky bleeding into rose — soft as cloud, certain as morning light. For the person who knows softness takes more courage than bold.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Italiana&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================================
+   SPUN SUGAR — FULL MATERIAL STANDARD
+   The Dawn Edition: Italiana / EB Garamond / Jost
+   Ethereal. Dreamy. The softest thing that's still brave.
+   ============================================================ */
+
+:root {
+  /* Texture variables */
+  --tex-cotton:     url('../../assets/textures/spun-sugar/texture-cotton-wisp.png');
+  --tex-dawn:       url('../../assets/textures/spun-sugar/texture-dawn-blush.png');
+  --tex-lilac:      url('../../assets/textures/spun-sugar/texture-lilac-dusk.png');
+  --tex-mist:       url('../../assets/textures/spun-sugar/texture-morning-mist.png');
+  --tex-peach:      url('../../assets/textures/spun-sugar/texture-peach-silk.png');
+  --tex-plum:       url('../../assets/textures/spun-sugar/texture-plum-shadow.png');
+  --tex-linen:      url('../../assets/textures/spun-sugar/texture-cloud-linen.png');
+  --tex-pearl:      url('../../assets/textures/spun-sugar/texture-pearl-dust.png');
+
+  /* Color palette */
+  --ss-cotton:   #E8D5E0;
+  --ss-dawn:     #EABFB9;
+  --ss-lilac:    #7E6B8A;
+  --ss-mist:     #B8C8D4;
+  --ss-peach:    #F0C8A8;
+  --ss-plum:     #4A3550;
+  --ss-linen:    #FDF5F0;
+  --ss-pearl:    #F0E6EE;
+
+  /* Typography */
+  --font-ss-display: 'Italiana', serif;
+  --font-ss-subhead: 'EB Garamond', serif;
+  --font-ss-body:    'Jost', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-ss-body);
+  background-color: var(--ss-plum);
+  color: var(--ss-linen);
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   TEXTURE MIXIN PATTERN
+   ============================================================ */
+
+.tex-cotton {
+  background-image: var(--tex-cotton);
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  position: relative;
+}
+.tex-cotton::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--ss-cotton);
+  mix-blend-mode: multiply;
+  opacity: 0.60;
+  pointer-events: none;
+}
+
+.tex-dawn {
+  background-image: var(--tex-dawn);
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  position: relative;
+}
+.tex-dawn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--ss-dawn);
+  mix-blend-mode: multiply;
+  opacity: 0.62;
+  pointer-events: none;
+}
+
+.tex-lilac {
+  background-image: var(--tex-lilac);
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  position: relative;
+}
+.tex-lilac::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--ss-lilac);
+  mix-blend-mode: multiply;
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.tex-mist {
+  background-image: var(--tex-mist);
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  position: relative;
+}
+.tex-mist::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--ss-mist);
+  mix-blend-mode: multiply;
+  opacity: 0.58;
+  pointer-events: none;
+}
+
+.tex-peach {
+  background-image: var(--tex-peach);
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  position: relative;
+}
+.tex-peach::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--ss-peach);
+  mix-blend-mode: multiply;
+  opacity: 0.60;
+  pointer-events: none;
+}
+
+.tex-plum {
+  background-image: var(--tex-plum);
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  position: relative;
+}
+.tex-plum::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--ss-plum);
+  mix-blend-mode: multiply;
+  opacity: 0.78;
+  pointer-events: none;
+}
+
+.tex-linen {
+  background-image: var(--tex-linen);
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  position: relative;
+}
+.tex-linen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--ss-linen);
+  mix-blend-mode: multiply;
+  opacity: 0.50;
+  pointer-events: none;
+}
+
+.tex-pearl {
+  background-image: var(--tex-pearl);
+  background-size: 400px 400px;
+  background-repeat: repeat;
+  position: relative;
+}
+.tex-pearl::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--ss-pearl);
+  mix-blend-mode: screen;
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+/* ============================================================
+   SPUN SUGAR ANIMATIONS
+   cloudDrift: clouds drifting softly across
+   petalFloat: petals floating down
+   ============================================================ */
+
+@keyframes cloudDrift {
+  0%   { transform: translateX(-10px) translateY(0); opacity: 0; }
+  15%  { opacity: 0.35; }
+  85%  { opacity: 0.35; }
+  100% { transform: translateX(10px) translateY(-5px); opacity: 0; }
+}
+
+@keyframes petalFloat {
+  0%   { transform: translateY(-30px) rotate(-20deg) scale(0.7); opacity: 0; }
+  25%  { opacity: 0.5; }
+  75%  { transform: translateY(20px) rotate(10deg) scale(1); opacity: 0.4; }
+  100% { transform: translateY(40px) rotate(5deg) scale(0.8); opacity: 0; }
+}
+
+/* ============================================================
+   GLOBAL ELEMENTS
+   ============================================================ */
+
+.site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: rgba(74, 53, 80, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(232, 213, 224, 0.15);
+}
+
+.nav-logo {
+  font-family: var(--font-ss-display);
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--ss-cotton);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-ss-body);
+  font-size: 0.8rem;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ss-mist);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.nav-links a:hover { color: var(--ss-pearl); }
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-ss-body);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  padding: 0.9rem 2.4rem;
+  font-size: 0.82rem;
+  background: var(--ss-lilac);
+  color: var(--ss-linen);
+}
+
+.btn-primary:hover {
+  background: var(--ss-plum);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  padding: 0.85rem 2.2rem;
+  font-size: 0.8rem;
+  font-weight: 300;
+  border: 1px solid rgba(232, 213, 224, 0.5);
+  color: var(--ss-cotton);
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background: rgba(232, 213, 224, 0.1);
+  border-color: var(--ss-cotton);
+  transform: translateY(-2px);
+}
+
+/* Section inner positioning */
+section > * { position: relative; z-index: 1; }
+
+/* ============================================================
+   HERO — Cotton Wisp soft
+   ============================================================ */
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 8rem 2rem 5rem;
+  overflow: hidden;
+}
+
+/* Floating petals */
+.hero-petals {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.petal {
+  position: absolute;
+  font-size: 1.2rem;
+  animation: petalFloat 8s ease-in-out infinite;
+  opacity: 0;
+}
+
+.petal:nth-child(1) { left: 8%;  top: 0%; animation-delay: 0s;   animation-duration: 9s; }
+.petal:nth-child(2) { left: 22%; top: 0%; animation-delay: 1.5s; animation-duration: 10s; font-size: 0.9rem; }
+.petal:nth-child(3) { left: 40%; top: 0%; animation-delay: 3s;   animation-duration: 8.5s; }
+.petal:nth-child(4) { left: 60%; top: 0%; animation-delay: 1s;   animation-duration: 11s; font-size: 1rem; }
+.petal:nth-child(5) { left: 78%; top: 0%; animation-delay: 2.5s; animation-duration: 9.5s; font-size: 0.8rem; }
+.petal:nth-child(6) { left: 90%; top: 0%; animation-delay: 4s;   animation-duration: 8s; }
+
+/* Cloud wisps */
+.hero-clouds {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.cloud-wisp {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  animation: cloudDrift 12s ease-in-out infinite;
+}
+
+.cloud-wisp:nth-child(1) { width: 300px; height: 120px; background: rgba(232, 213, 224, 0.15); left: -5%;  top: 20%; animation-delay: 0s; }
+.cloud-wisp:nth-child(2) { width: 200px; height: 80px;  background: rgba(234, 191, 185, 0.12); left: 60%; top: 40%; animation-delay: 3s; }
+.cloud-wisp:nth-child(3) { width: 250px; height: 100px; background: rgba(184, 200, 212, 0.10); left: 30%; top: 65%; animation-delay: 6s; }
+
+.hero-eyebrow {
+  font-family: var(--font-ss-body);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ss-peach);
+  margin-bottom: 1.5rem;
+}
+
+.hero-title {
+  font-family: var(--font-ss-display);
+  font-size: clamp(4rem, 9vw, 8rem);
+  font-weight: 400;
+  line-height: 1.0;
+  color: var(--ss-plum);
+  margin-bottom: 0.8rem;
+  letter-spacing: 0.02em;
+}
+
+.hero-subline {
+  font-family: var(--font-ss-subhead);
+  font-size: clamp(1.1rem, 2.2vw, 1.4rem);
+  font-style: italic;
+  color: var(--ss-lilac);
+  margin-bottom: 2rem;
+  font-weight: 400;
+}
+
+.hero-scene {
+  font-family: var(--font-ss-body);
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.85;
+  color: rgba(74, 53, 80, 0.72);
+  max-width: 540px;
+  margin-bottom: 3rem;
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ============================================================
+   INSIDE THE KIT — Dawn Blush watercolor
+   ============================================================ */
+
+.inside {
+  padding: 6rem 2rem;
+  overflow: hidden;
+}
+
+.inside-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: var(--font-ss-body);
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.inside .section-label { color: rgba(74, 53, 80, 0.6); }
+
+.section-title {
+  font-family: var(--font-ss-display);
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.inside .section-title { color: var(--ss-plum); }
+
+.section-intro {
+  font-family: var(--font-ss-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  max-width: 560px;
+  margin-bottom: 3rem;
+}
+
+.inside .section-intro { color: rgba(74, 53, 80, 0.72); }
+
+/* Carousel */
+.carousel-wrap { position: relative; overflow: hidden; }
+
+.carousel-track {
+  display: flex;
+  gap: 1.5rem;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.carousel-slide {
+  flex: 0 0 calc(33.333% - 1rem);
+  min-width: 280px;
+  border-radius: 2px;
+  overflow: hidden;
+  border: 1px solid rgba(74, 53, 80, 0.12);
+}
+
+.slide-thumb {
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.thumb-icon { font-size: 3rem; opacity: 0.7; }
+
+.slide-info {
+  padding: 1.2rem 1.4rem;
+  background: rgba(74, 53, 80, 0.05);
+}
+
+.slide-name {
+  font-family: var(--font-ss-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--ss-plum);
+  margin-bottom: 0.3rem;
+}
+
+.slide-desc {
+  font-family: var(--font-ss-body);
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: rgba(74, 53, 80, 0.65);
+  line-height: 1.55;
+}
+
+.carousel-nav {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(74, 53, 80, 0.2);
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.carousel-dot.active { background: var(--ss-lilac); }
+
+/* ============================================================
+   PAINTING A BRAND — Plum Shadow crushed velvet
+   ============================================================ */
+
+.painting {
+  padding: 7rem 2rem;
+  overflow: hidden;
+}
+
+.painting-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+.painting .section-label { color: var(--ss-mist); opacity: 0.7; }
+.painting .section-title { color: var(--ss-pearl); }
+.painting .section-intro { color: rgba(240, 230, 238, 0.72); }
+
+.painting-visual {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.paint-swatch {
+  border-radius: 2px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 160px;
+  position: relative;
+  overflow: hidden;
+}
+
+.paint-swatch-name {
+  font-family: var(--font-ss-display);
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-bottom: 0.2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.paint-swatch-hex {
+  font-family: var(--font-ss-body);
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  opacity: 0.7;
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   THE PALETTE — Cotton Wisp
+   ============================================================ */
+
+.palette-section {
+  padding: 6rem 2rem;
+  overflow: hidden;
+}
+
+.palette-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.palette-section .section-label { color: var(--ss-lilac); opacity: 0.75; }
+.palette-section .section-title { color: var(--ss-plum); }
+.palette-section .section-intro { color: rgba(74, 53, 80, 0.72); }
+
+.palette-row {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0;
+  margin-top: 3rem;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.palette-chip {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 0.8rem;
+  cursor: default;
+  transition: transform 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.palette-chip:hover { transform: scaleY(1.05); z-index: 1; }
+
+.palette-chip-name {
+  font-family: var(--font-ss-body);
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.palette-chip-hex {
+  font-family: var(--font-ss-body);
+  font-size: 0.58rem;
+  font-weight: 300;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+  margin-top: 0.15rem;
+}
+
+/* ============================================================
+   THE TYPE SUITE — Cloud Linen
+   ============================================================ */
+
+.type-section {
+  padding: 7rem 2rem;
+  overflow: hidden;
+}
+
+.type-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.type-section .section-label { color: var(--ss-lilac); }
+.type-section .section-title { color: var(--ss-plum); }
+.type-section .section-intro { color: rgba(74, 53, 80, 0.72); }
+
+.type-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.type-card {
+  border-radius: 2px;
+  padding: 2.5rem 2rem;
+  border: 1px solid rgba(126, 107, 138, 0.15);
+  background: rgba(253, 245, 240, 0.65);
+  backdrop-filter: blur(4px);
+}
+
+.type-card-role {
+  font-family: var(--font-ss-body);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ss-lilac);
+  margin-bottom: 1rem;
+}
+
+.type-card-specimen {
+  margin-bottom: 1.2rem;
+  line-height: 1.2;
+}
+
+.type-card-meta {
+  font-family: var(--font-ss-body);
+  font-size: 0.75rem;
+  font-weight: 300;
+  color: rgba(74, 53, 80, 0.65);
+  line-height: 1.6;
+}
+
+.type-card-meta strong {
+  color: var(--ss-plum);
+  font-weight: 500;
+}
+
+/* ============================================================
+   THE RULE — Lilac Dusk suede
+   ============================================================ */
+
+.rule-section {
+  padding: 5rem 2rem;
+  overflow: hidden;
+}
+
+.rule-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.rule-quote {
+  font-family: var(--font-ss-subhead);
+  font-size: clamp(1.3rem, 2.8vw, 1.9rem);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--ss-linen);
+  line-height: 1.55;
+  margin-bottom: 1.5rem;
+}
+
+.rule-attr {
+  font-family: var(--font-ss-body);
+  font-size: 0.75rem;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ss-peach);
+}
+
+/* ============================================================
+   COMBOS — Morning Mist condensation
+   ============================================================ */
+
+.combos-section {
+  padding: 7rem 2rem;
+  overflow: hidden;
+}
+
+.combos-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.combos-section .section-label { color: rgba(74, 53, 80, 0.55); }
+.combos-section .section-title { color: var(--ss-plum); }
+.combos-section .section-intro { color: rgba(74, 53, 80, 0.72); }
+
+.combos-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  margin-top: 3rem;
+}
+
+.combo-card {
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgba(74, 53, 80, 0.08);
+}
+
+.combo-preview {
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1.5rem;
+  gap: 0.4rem;
+}
+
+.combo-headline {
+  font-family: var(--font-ss-display);
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.combo-body-text {
+  font-family: var(--font-ss-body);
+  font-size: 0.82rem;
+  font-weight: 300;
+  line-height: 1.5;
+  opacity: 0.8;
+}
+
+.combo-label {
+  padding: 1rem 1.2rem;
+  background: rgba(74, 53, 80, 0.04);
+  border-top: 1px solid rgba(74, 53, 80, 0.08);
+}
+
+.combo-label-text {
+  font-family: var(--font-ss-body);
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: var(--ss-plum);
+  letter-spacing: 0.05em;
+}
+
+/* ============================================================
+   CTA — Plum Shadow velvet
+   ============================================================ */
+
+.cta-section {
+  padding: 8rem 2rem;
+  overflow: hidden;
+}
+
+.cta-inner {
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.cta-section .section-label { color: var(--ss-peach); }
+
+.cta-title {
+  font-family: var(--font-ss-display);
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 400;
+  color: var(--ss-pearl);
+  line-height: 1.1;
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.02em;
+}
+
+.cta-sub {
+  font-family: var(--font-ss-body);
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(240, 230, 238, 0.68);
+  margin-bottom: 2.5rem;
+}
+
+.cta-actions {
+  display: flex;
+  gap: 1.2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.site-footer {
+  padding: 2.5rem 2rem;
+  border-top: 1px solid rgba(232, 213, 224, 0.12);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--ss-plum);
+}
+
+.footer-brand {
+  font-family: var(--font-ss-display);
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--ss-cotton);
+}
+
+.footer-note {
+  font-family: var(--font-ss-body);
+  font-size: 0.72rem;
+  font-weight: 300;
+  color: rgba(184, 200, 212, 0.45);
+  letter-spacing: 0.06em;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .painting-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .type-cards { grid-template-columns: 1fr; }
+  .combos-grid { grid-template-columns: 1fr 1fr; }
+  .palette-row { grid-template-columns: repeat(4, 1fr); }
+  .carousel-slide { flex: 0 0 80%; }
+}
+
+@media (max-width: 600px) {
+  .site-nav { padding: 0.8rem 1.2rem; }
+  .nav-links { display: none; }
+  .combos-grid { grid-template-columns: 1fr; }
+  .palette-row { grid-template-columns: repeat(4, 1fr); }
+  .carousel-slide { flex: 0 0 90%; }
+  .site-footer { flex-direction: column; gap: 0.8rem; text-align: center; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     NAV
+     ============================================================ -->
+<nav class="site-nav">
+  <a href="../../index.html" class="nav-logo">Emmy Bellamora</a>
+  <ul class="nav-links">
+    <li><a href="../../index.html">Home</a></li>
+    <li><a href="../../index.html#kits">All Kits</a></li>
+    <li><a href="../../index.html#services">Work With Emmy</a></li>
+  </ul>
+</nav>
+
+<!-- ============================================================
+     HERO — Cotton Wisp
+     ============================================================ -->
+<section class="hero tex-cotton">
+  <div class="hero-petals">
+    <span class="petal">🌸</span>
+    <span class="petal">🌷</span>
+    <span class="petal">🌸</span>
+    <span class="petal">🌷</span>
+    <span class="petal">🌸</span>
+    <span class="petal">🌷</span>
+  </div>
+  <div class="hero-clouds">
+    <div class="cloud-wisp"></div>
+    <div class="cloud-wisp"></div>
+    <div class="cloud-wisp"></div>
+  </div>
+  <p class="hero-eyebrow">Sugar on Top · Kit 04</p>
+  <h1 class="hero-title">Spun Sugar</h1>
+  <p class="hero-subline">Ethereal. Dreamy. The softest thing that's still brave.</p>
+  <p class="hero-scene">Early morning. That hour when the light isn't quite decided yet — lavender sky bleeding into rose, everything soft-edged. This is the kit for the person who equates softness with strength. When she walks into a room, people feel calmer. Her brand should feel like that too.</p>
+  <div class="hero-actions">
+    <a href="#" class="btn btn-primary">Get This Kit — $29</a>
+    <a href="#inside" class="btn btn-outline">See What's Inside</a>
+  </div>
+</section>
+
+<!-- ============================================================
+     INSIDE THE KIT — Dawn Blush watercolor
+     ============================================================ -->
+<section id="inside" class="inside tex-dawn">
+  <div class="inside-inner">
+    <p class="section-label">Everything in the box</p>
+    <h2 class="section-title">What you're actually getting</h2>
+    <p class="section-intro">Not just colors. A whole material world — cotton, silk, velvet, watercolor — that you can step into and start using the same day.</p>
+
+    <div class="carousel-wrap">
+      <div class="carousel-track" id="carouselTrack">
+
+        <div class="carousel-slide">
+          <div class="slide-thumb tex-cotton" style="height:200px;">
+            <div class="thumb-icon">🎨</div>
+          </div>
+          <div class="slide-info">
+            <div class="slide-name">Brand Board</div>
+            <div class="slide-desc">All 8 colors, 3 fonts, and material textures assembled in one presentation-ready layout. Your whole palette at a glance.</div>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="slide-thumb tex-plum" style="height:200px;">
+            <div class="thumb-icon">🪡</div>
+          </div>
+          <div class="slide-info">
+            <div class="slide-name">Material Samples</div>
+            <div class="slide-desc">All 8 textures as individual PNG files — cotton, watercolor, suede, silk, crushed velvet, and three more soft surfaces.</div>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="slide-thumb tex-peach" style="height:200px;">
+            <div class="thumb-icon">📋</div>
+          </div>
+          <div class="slide-info">
+            <div class="slide-name">Color Cheat Sheet</div>
+            <div class="slide-desc">Every hex code, which colors pair together, and what mood each combination creates — all the designer brain you need.</div>
+          </div>
+        </div>
+
+        <div class="carousel-slide">
+          <div class="slide-thumb tex-lilac" style="height:200px;">
+            <div class="thumb-icon">✨</div>
+          </div>
+          <div class="slide-info">
+            <div class="slide-name">Texture Vault</div>
+            <div class="slide-desc">Seamlessly tileable surface textures for every color. Layer them in Canva, Figma, or Procreate for instant material depth.</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="carousel-nav">
+      <button class="carousel-dot active" onclick="goToSlide(0)"></button>
+      <button class="carousel-dot" onclick="goToSlide(1)"></button>
+      <button class="carousel-dot" onclick="goToSlide(2)"></button>
+      <button class="carousel-dot" onclick="goToSlide(3)"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PAINTING A BRAND — Plum Shadow crushed velvet
+     ============================================================ -->
+<section class="painting tex-plum">
+  <div class="painting-inner">
+    <div class="painting-text">
+      <p class="section-label">What this kit feels like</p>
+      <h2 class="section-title">Softness isn't absence.<br><em>It's presence.</em></h2>
+      <p class="section-intro">Spun Sugar is built on a truth most brands get wrong: soft ≠ weak. Lavender-pinks lower heart rate. Cool misty blues feel like the moment clarity arrives. Crushed velvet plum adds the shadow that makes everything else glow.</p>
+      <p class="section-intro" style="margin-top: 1rem;">Italiana at large sizes is the typographic equivalent of watercolor on silk. EB Garamond italic is the whispered sentence you lean in for. Jost Light floats — invisible at 300 weight, letting the colors breathe around it.</p>
+    </div>
+    <div class="painting-visual">
+      <div class="paint-swatch tex-cotton" style="color: var(--ss-plum);">
+        <span class="paint-swatch-name">Cotton Wisp</span>
+        <span class="paint-swatch-hex">#E8D5E0</span>
+      </div>
+      <div class="paint-swatch tex-plum" style="color: var(--ss-pearl);">
+        <span class="paint-swatch-name">Plum Shadow</span>
+        <span class="paint-swatch-hex">#4A3550</span>
+      </div>
+      <div class="paint-swatch tex-lilac" style="color: var(--ss-linen);">
+        <span class="paint-swatch-name">Lilac Dusk</span>
+        <span class="paint-swatch-hex">#7E6B8A</span>
+      </div>
+      <div class="paint-swatch tex-peach" style="color: var(--ss-plum);">
+        <span class="paint-swatch-name">Peach Silk</span>
+        <span class="paint-swatch-hex">#F0C8A8</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE PALETTE — Cotton Wisp
+     ============================================================ -->
+<section class="palette-section tex-cotton">
+  <div class="palette-inner">
+    <p class="section-label">The full eight</p>
+    <h2 class="section-title">All Eight Materials</h2>
+    <p class="section-intro">From pearl shimmer to crushed velvet shadow. Every color has texture. Every texture has a mood.</p>
+
+    <div class="palette-row">
+      <div class="palette-chip tex-cotton">
+        <span class="palette-chip-name" style="color: var(--ss-plum);">Cotton Wisp</span>
+        <span class="palette-chip-hex" style="color: var(--ss-plum);">#E8D5E0</span>
+      </div>
+      <div class="palette-chip tex-dawn">
+        <span class="palette-chip-name" style="color: var(--ss-plum);">Dawn Blush</span>
+        <span class="palette-chip-hex" style="color: var(--ss-plum);">#EABFB9</span>
+      </div>
+      <div class="palette-chip tex-lilac">
+        <span class="palette-chip-name" style="color: var(--ss-linen);">Lilac Dusk</span>
+        <span class="palette-chip-hex" style="color: var(--ss-linen);">#7E6B8A</span>
+      </div>
+      <div class="palette-chip tex-mist">
+        <span class="palette-chip-name" style="color: var(--ss-plum);">Morning Mist</span>
+        <span class="palette-chip-hex" style="color: var(--ss-plum);">#B8C8D4</span>
+      </div>
+      <div class="palette-chip tex-peach">
+        <span class="palette-chip-name" style="color: var(--ss-plum);">Peach Silk</span>
+        <span class="palette-chip-hex" style="color: var(--ss-plum);">#F0C8A8</span>
+      </div>
+      <div class="palette-chip tex-plum">
+        <span class="palette-chip-name" style="color: var(--ss-pearl);">Plum Shadow</span>
+        <span class="palette-chip-hex" style="color: var(--ss-pearl);">#4A3550</span>
+      </div>
+      <div class="palette-chip tex-linen">
+        <span class="palette-chip-name" style="color: var(--ss-plum);">Cloud Linen</span>
+        <span class="palette-chip-hex" style="color: var(--ss-plum);">#FDF5F0</span>
+      </div>
+      <div class="palette-chip tex-pearl">
+        <span class="palette-chip-name" style="color: var(--ss-plum);">Pearl Dust</span>
+        <span class="palette-chip-hex" style="color: var(--ss-plum);">#F0E6EE</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE TYPE SUITE — Cloud Linen
+     ============================================================ -->
+<section class="type-section tex-linen">
+  <div class="type-inner">
+    <p class="section-label">The Dawn Edition</p>
+    <h2 class="section-title">Three fonts. One dream.</h2>
+    <p class="section-intro">Italiana arrives. EB Garamond stays. Jost clears the way. Softness that doesn't fall apart when you look at it closely.</p>
+
+    <div class="type-cards">
+      <div class="type-card">
+        <div class="type-card-role">Display · Italiana</div>
+        <div class="type-card-specimen">
+          <span style="font-family: 'Italiana', serif; font-size: 2.8rem; font-weight: 400; color: var(--ss-plum); line-height: 1.1;">Soft as<br>cloud.</span>
+        </div>
+        <div class="type-card-meta">
+          <strong>Use for:</strong> Headlines, hero text only<br>
+          <strong>Weight:</strong> 400 (single weight — all you need)<br>
+          <strong>Why:</strong> Watercolor on silk — use large, never small
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-card-role">Subhead · EB Garamond</div>
+        <div class="type-card-specimen">
+          <span style="font-family: 'EB Garamond', serif; font-size: 1.25rem; font-style: italic; font-weight: 400; color: var(--ss-lilac); line-height: 1.55;">The whispered sentence you lean in for. Clear, unhurried, human.</span>
+        </div>
+        <div class="type-card-meta">
+          <strong>Use for:</strong> Subheads, pull quotes, body serif<br>
+          <strong>Weights:</strong> 400–500, italic primary<br>
+          <strong>Why:</strong> Warmth + readability + beautiful italic
+        </div>
+      </div>
+      <div class="type-card">
+        <div class="type-card-role">Body · Jost</div>
+        <div class="type-card-specimen">
+          <span style="font-family: 'Jost', sans-serif; font-size: 0.95rem; font-weight: 300; color: var(--ss-plum); line-height: 1.85;">Geometric sans at 300 weight — it genuinely floats. Delicate without fragile. Exactly right for a palette that whispers instead of shouts.</span>
+        </div>
+        <div class="type-card-meta">
+          <strong>Use for:</strong> Body text, captions, buttons<br>
+          <strong>Weights:</strong> 300–500<br>
+          <strong>Why:</strong> The clean clothes she put on after the dream
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     THE RULE — Lilac Dusk suede
+     ============================================================ -->
+<section class="rule-section tex-lilac">
+  <div class="rule-inner">
+    <p class="rule-quote">"Softness ≠ fragile. This palette takes more courage than dark and moody. It requires confidence to lead with gentleness."</p>
+    <p class="rule-attr">Emmy Bellamora · The psychology of Spun Sugar</p>
+  </div>
+</section>
+
+<!-- ============================================================
+     COLOR COMBOS — Morning Mist
+     ============================================================ -->
+<section class="combos-section tex-mist">
+  <div class="combos-inner">
+    <p class="section-label">How to use them</p>
+    <h2 class="section-title">The pairings that work</h2>
+    <p class="section-intro">Eight colors, built to layer. Some pairings are unmistakably Spun Sugar. These are the essential five.</p>
+
+    <div class="combos-grid">
+      <div class="combo-card">
+        <div class="combo-preview" style="background: var(--ss-cotton);">
+          <div class="combo-headline" style="color: var(--ss-plum);">The Signature</div>
+          <div class="combo-body-text" style="color: rgba(74,53,80,0.8);">Cotton Wisp + Dawn Blush — dreamy, warm, enveloping. The palette's whole mood in two colors.</div>
+        </div>
+        <div class="combo-label">
+          <span class="combo-label-text">#E8D5E0 + #EABFB9 · Soft power</span>
+        </div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-preview" style="background: var(--ss-plum);">
+          <div class="combo-headline" style="font-family: 'Italiana', serif; color: var(--ss-linen);">Readable Elegance</div>
+          <div class="combo-body-text" style="color: rgba(253,245,240,0.72);">Lilac Dusk + Cloud Linen — the content pairing. Elegant and legible.</div>
+        </div>
+        <div class="combo-label">
+          <span class="combo-label-text">#7E6B8A on #FDF5F0 · Content pairing</span>
+        </div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-preview" style="background: var(--ss-dawn);">
+          <div class="combo-headline" style="color: var(--ss-mist);">Sunrise Through Fog</div>
+          <div class="combo-body-text" style="color: rgba(74,53,80,0.75);">Dawn Blush + Morning Mist — warm meets cool, like that exact hour.</div>
+        </div>
+        <div class="combo-label">
+          <span class="combo-label-text">#EABFB9 + #B8C8D4 · Soft contrast</span>
+        </div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-preview" style="background: var(--ss-plum);">
+          <div class="combo-headline" style="font-family: 'Italiana', serif; color: var(--ss-pearl);">Maximum Depth</div>
+          <div class="combo-body-text" style="color: rgba(240,230,238,0.75);">Plum Shadow + Pearl Dust — dark and light without harsh edges. The drama of this palette.</div>
+        </div>
+        <div class="combo-label">
+          <span class="combo-label-text">#F0E6EE on #4A3550 · Dreamy contrast</span>
+        </div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-preview" style="background: var(--ss-peach);">
+          <div class="combo-headline" style="color: var(--ss-plum);">Golden Hour</div>
+          <div class="combo-body-text" style="color: rgba(74,53,80,0.75);">Peach Silk + Cotton Wisp — all warmth. The light-on-skin version of this kit.</div>
+        </div>
+        <div class="combo-label">
+          <span class="combo-label-text">#F0C8A8 + #E8D5E0 · Warm and soft</span>
+        </div>
+      </div>
+
+      <div class="combo-card">
+        <div class="combo-preview" style="background: var(--ss-linen);">
+          <div class="combo-headline" style="font-family: 'Italiana', serif; color: var(--ss-lilac);">Light Mode</div>
+          <div class="combo-body-text" style="color: rgba(74,53,80,0.65);">Cloud Linen + Lilac Dusk type — the hero background pairing. Clean, dreamy, all air.</div>
+        </div>
+        <div class="combo-label">
+          <span class="combo-label-text">#7E6B8A on #FDF5F0 · Hero light</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA — Plum Shadow
+     ============================================================ -->
+<section class="cta-section tex-plum">
+  <div class="cta-inner">
+    <p class="section-label">Get the kit</p>
+    <h2 class="cta-title">Soft as cloud.<br>Certain as morning.</h2>
+    <p class="cta-sub">Eight material textures, three fonts that know exactly what they're doing, and a palette built on the psychology of lavender-pink. Spun Sugar is for the person who leads with gentleness — and knows that takes more courage than bold.</p>
+    <div class="cta-actions">
+      <a href="#" class="btn btn-primary" style="background: var(--ss-cotton); color: var(--ss-plum);">Get Spun Sugar — $29</a>
+      <a href="../../index.html#kits" class="btn btn-outline">See All Six Kits</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer class="site-footer">
+  <span class="footer-brand">Emmy Bellamora</span>
+  <span class="footer-note">Spun Sugar · Sugar on Top · Kit 04 of 06</span>
+</footer>
+
+<script>
+// Carousel
+let currentSlide = 0;
+const track = document.getElementById('carouselTrack');
+const dots = document.querySelectorAll('.carousel-dot');
+const slideCount = 4;
+
+function getSlideWidth() {
+  const slide = track.querySelector('.carousel-slide');
+  return slide ? slide.offsetWidth + 24 : 0;
+}
+
+function goToSlide(n) {
+  currentSlide = Math.max(0, Math.min(n, slideCount - 1));
+  track.style.transform = `translateX(-${currentSlide * getSlideWidth()}px)`;
+  dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
+}
+
+// Touch swipe
+let touchStart = 0;
+track.addEventListener('touchstart', e => touchStart = e.touches[0].clientX);
+track.addEventListener('touchend', e => {
+  const diff = touchStart - e.changedTouches[0].clientX;
+  if (Math.abs(diff) > 40) goToSlide(currentSlide + (diff > 0 ? 1 : -1));
+});
+</script>
+
+</body>
+</html>

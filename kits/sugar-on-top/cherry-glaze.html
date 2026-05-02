@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cherry Glaze — Sugar on Top Brand Kit · Emmy Bellamora</title>
+<meta name="description" content="Cherry Glaze is the lipstick she puts on before a meeting she's going to own. Bold, lacquered, confident without being loud. Eight material-named colors, The Lacquer Suite typography, full brand kit.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&family=DM+Serif+Display:ital@0;1&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* CHERRY GLAZE — built 2026-05-02: nothing is flat, everything is material. Red lacquer, black leather, burgundy silk, brushed copper, lip-gloss pink, matte slate stone, porcelain ceramic, soft smoke. */
+:root {
+  --tex-maraschino:   url('../../assets/textures/cherry-glaze/texture-maraschino.png');
+  --tex-black-cherry: url('../../assets/textures/cherry-glaze/texture-black-cherry.png');
+  --tex-burgundy:     url('../../assets/textures/cherry-glaze/texture-burgundy-silk.png');
+  --tex-copper:       url('../../assets/textures/cherry-glaze/texture-copper-flame.png');
+  --tex-rose:         url('../../assets/textures/cherry-glaze/texture-rose-gloss.png');
+  --tex-porcelain:    url('../../assets/textures/cherry-glaze/texture-porcelain.png');
+  --tex-slate:        url('../../assets/textures/cherry-glaze/texture-charcoal-slate.png');
+  --tex-smoke:        url('../../assets/textures/cherry-glaze/texture-smoke.png');
+  /* Emmy brand tokens */
+  --deep-night: #0D0A14; --amethyst: #6B3FA0; --amethyst-light: #9B6FD0; --violet-dusk: #2D1B4E; --fairy-silver: #C8B8E8; --moonpetal: #E8D8F8; --snowflake: #F5F0FF;
+  /* Cherry Glaze palette */
+  --cg-maraschino: #B51E3C;
+  --cg-black-cherry: #3A0E1C;
+  --cg-burgundy: #7A1B35;
+  --cg-copper: #C47335;
+  --cg-rose: #D4758A;
+  --cg-slate: #36323A;
+  --cg-porcelain: #FFF5F0;
+  --cg-smoke: #8A7F85;
+  /* Typography */
+  --font-emmy-display: 'Cormorant Garamond', serif;
+  --font-emmy-body: 'Jost', sans-serif;
+  --font-cg-display: 'DM Serif Display', serif;
+  --font-cg-subhead: 'Libre Baskerville', serif;
+  --font-cg-body: 'Outfit', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--cg-black-cherry); color: var(--cg-porcelain); font-family: var(--font-emmy-body); font-weight: 300; overflow-x: hidden; line-height: 1.7; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--cg-black-cherry); }
+::-webkit-scrollbar-thumb { background: var(--cg-maraschino); border-radius: 2px; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(13,10,20,0.95) 0%, transparent 100%); backdrop-filter: blur(2px); }
+.nav-name { font-family: var(--font-emmy-display); font-size: 1.1rem; font-weight: 300; font-style: italic; color: var(--fairy-silver); letter-spacing: 0.05em; text-decoration: none; transition: color 0.3s ease; }
+.nav-name:hover { color: var(--moonpetal); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fairy-silver); text-decoration: none; transition: color 0.3s ease; opacity: 0.7; }
+.nav-links a:hover { color: var(--moonpetal); opacity: 1; }
+.breadcrumb { max-width: 1200px; margin: 0 auto; padding: 4.75rem 3rem 0.5rem; display: flex; align-items: center; gap: 0.6rem; font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cg-copper); opacity: 0.55; }
+.breadcrumb a { color: inherit; text-decoration: none; transition: color 0.3s ease, opacity 0.3s ease; }
+.breadcrumb a:hover { color: var(--cg-porcelain); opacity: 1; }
+.breadcrumb-sep { opacity: 0.45; }
+
+/* Cherry Glaze animation — lacquer drops falling, copper gloss rising */
+@keyframes lacquerDrop { 0% { transform: translateY(-80px) scaleY(0.4); opacity: 0; } 15% { opacity: 0.7; transform: translateY(0) scaleY(0.9); } 55% { transform: translateY(40vh) scaleY(1.05); opacity: 0.35; } 100% { transform: translateY(90vh) scaleY(0.6); opacity: 0; } }
+@keyframes glossRise { 0% { transform: translateY(0) scale(1); opacity: 0; } 10% { opacity: 0.55; } 100% { transform: translateY(-45vh) scale(0.5); opacity: 0; } }
+.drips { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.drip { position: absolute; border-radius: 50% 50% 65% 65%; background: radial-gradient(ellipse at 40% 25%, rgba(181,30,60,0.9) 0%, rgba(122,27,53,0.6) 45%, rgba(58,14,28,0.25) 100%); animation-fill-mode: both; animation-iteration-count: infinite; animation-timing-function: ease-in; }
+.drip-1 { width: 7px;  height: 13px; top: 0; left: 12%; animation: lacquerDrop 12s 0s infinite; }
+.drip-2 { width: 5px;  height: 8px;  top: 0; left: 28%; animation: lacquerDrop 15s 2.8s infinite; }
+.drip-3 { width: 9px;  height: 15px; top: 0; left: 48%; animation: lacquerDrop 10s 4.5s infinite; }
+.drip-4 { width: 6px;  height: 10px; top: 0; left: 66%; animation: lacquerDrop 13s 1.4s infinite; }
+.drip-5 { width: 8px;  height: 13px; top: 0; left: 80%; animation: lacquerDrop 11s 6.2s infinite; }
+.gloss { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(196,115,53,0.8) 0%, rgba(196,115,53,0.3) 100%); animation-fill-mode: both; animation-iteration-count: infinite; animation-timing-function: ease-out; }
+.gloss-1 { width: 4px; height: 4px; bottom: 10%; left: 20%; animation: glossRise 9s 1.1s infinite; }
+.gloss-2 { width: 3px; height: 3px; bottom: 6%;  left: 42%; animation: glossRise 11s 3.5s infinite; }
+.gloss-3 { width: 5px; height: 5px; bottom: 14%; left: 62%; animation: glossRise 13s 2.0s infinite; }
+.gloss-4 { width: 3px; height: 3px; bottom: 5%;  left: 76%; animation: glossRise 10s 5.4s infinite; }
+.gloss-5 { width: 4px; height: 4px; bottom: 9%;  left: 88%; animation: glossRise 12s 0.6s infinite; }
+
+/* HERO */
+.kit-hero { margin: 1.5rem 0 0; padding: 0; position: relative; }
+.kit-hero-inner { border-radius: 0; overflow: hidden; position: relative; min-height: 380px; padding: 4rem 0; display: flex; flex-direction: column; justify-content: center; background-image: radial-gradient(ellipse at 70% 25%, rgba(255,200,210,0.3) 0%, rgba(212,117,138,0.15) 22%, transparent 45%), radial-gradient(ellipse at 10% 80%, rgba(58,14,28,0.75) 0%, rgba(58,14,28,0.45) 30%, transparent 58%), radial-gradient(ellipse at 50% 50%, rgba(212,117,138,0.25) 0%, transparent 48%), linear-gradient(135deg, rgba(58,14,28,0.88) 0%, rgba(122,27,53,0.72) 45%, rgba(212,117,138,0.38) 100%), var(--tex-rose); background-size: auto, auto, auto, auto, cover; background-blend-mode: normal, normal, normal, multiply, normal; }
+.kit-hero-inner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 68% 32%, rgba(196,115,53,0.22) 0%, transparent 50%), radial-gradient(ellipse at 8% 72%, rgba(58,14,28,0.6) 0%, transparent 55%); pointer-events: none; z-index: 1; }
+.kit-hero-inner::after { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent 0px, transparent 4px, rgba(181,30,60,0.025) 4px, rgba(181,30,60,0.025) 5px); pointer-events: none; z-index: 1; }
+.kit-hero-wrap { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 3rem; position: relative; z-index: 2; }
+.kit-hero-content { position: relative; z-index: 1; max-width: 720px; }
+.kit-hero-meta { font-family: var(--font-cg-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cg-copper); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.85rem; }
+.kit-hero-meta::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--cg-copper); opacity: 0.7; }
+.kit-hero-name { font-family: var(--font-cg-display); font-size: clamp(3.5rem, 7vw, 6rem); color: var(--cg-porcelain); line-height: 1.0; letter-spacing: -0.01em; margin-bottom: 1.5rem; text-shadow: 0 2px 32px rgba(0,0,0,0.5), 0 4px 64px rgba(0,0,0,0.3); }
+.kit-hero-tagline { font-family: var(--font-cg-subhead); font-style: italic; font-size: clamp(1.1rem, 1.8vw, 1.4rem); color: var(--cg-porcelain); line-height: 1.6; opacity: 0.95; text-shadow: 0 2px 20px rgba(0,0,0,0.6); max-width: 580px; }
+
+/* PAINTING — on black cherry leather */
+.painting-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 65% 50%, rgba(181,30,60,0.5) 0%, transparent 62%), linear-gradient(to bottom, rgba(58,14,28,0.55) 0%, rgba(122,27,53,0.45) 100%), var(--tex-maraschino); background-size: auto, auto, cover; }
+.painting-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(196,115,53,0.07) 0%, transparent 55%); pointer-events: none; }
+.painting-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
+.painting-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; }
+.painting-label { font-family: var(--font-emmy-body); font-size: 0.58rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amethyst-light); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 1rem; }
+.painting-label::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--amethyst-light); opacity: 0.6; }
+.painting-title { font-family: var(--font-emmy-display); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.15; margin-bottom: 1.5rem; }
+.painting-attribution { font-family: var(--font-emmy-body); font-size: 0.7rem; font-weight: 300; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.7; margin-bottom: 2rem; }
+.painting-body p { font-family: var(--font-emmy-body); font-size: 0.92rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); margin-bottom: 1.5rem; opacity: 0.88; }
+.painting-body p strong { color: var(--moonpetal); font-weight: 400; }
+.painting-body p em { color: var(--cg-copper); font-style: italic; }
+
+/* PALETTE — on burgundy silk */
+.palette-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% 0%, rgba(58,14,28,0.55) 0%, transparent 52%), radial-gradient(ellipse at 50% 100%, rgba(58,14,28,0.65) 0%, transparent 52%), linear-gradient(to bottom, rgba(58,14,28,0.46) 0%, rgba(58,14,28,0.42) 50%, rgba(58,14,28,0.50) 100%), var(--tex-burgundy); background-size: auto, auto, auto, cover; }
+.palette-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
+.palette-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
+.palette-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
+.palette-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
+.palette-intro em { color: var(--moonpetal); font-style: italic; }
+.palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.palette-card { border-radius: 12px; overflow: hidden; background: rgba(58,14,28,0.65); border: 1px solid rgba(255,245,240,0.08); box-shadow: 0 4px 24px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.25); transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
+.palette-card:hover { border-color: rgba(196,115,53,0.4); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(196,115,53,0.1); }
+.palette-swatch { width: 100%; aspect-ratio: 1.4; position: relative; background-size: cover; background-position: center; }
+.palette-swatch::after { content: ''; position: absolute; inset: 0; }
+.swatch-maraschino  { background-image: var(--tex-maraschino); }   .swatch-maraschino::after  { background: var(--cg-maraschino); mix-blend-mode: multiply; opacity: 0.38; }
+.swatch-black-cherry{ background-image: var(--tex-black-cherry); } .swatch-black-cherry::after{ background: var(--cg-black-cherry); mix-blend-mode: multiply; opacity: 0.55; }
+.swatch-burgundy    { background-image: var(--tex-burgundy); }     .swatch-burgundy::after    { background: var(--cg-burgundy); mix-blend-mode: multiply; opacity: 0.42; }
+.swatch-copper      { background-image: var(--tex-copper); }       .swatch-copper::after      { background: var(--cg-copper); mix-blend-mode: multiply; opacity: 0.40; }
+.swatch-rose        { background-image: var(--tex-rose); }         .swatch-rose::after        { background: var(--cg-rose); mix-blend-mode: multiply; opacity: 0.38; }
+.swatch-slate       { background-image: var(--tex-slate); }        .swatch-slate::after       { background: var(--cg-slate); mix-blend-mode: multiply; opacity: 0.52; }
+.swatch-porcelain   { background-image: var(--tex-porcelain); }    .swatch-porcelain::after   { background: var(--cg-porcelain); mix-blend-mode: screen; opacity: 0.35; }
+.swatch-smoke       { background-image: var(--tex-smoke); }        .swatch-smoke::after       { background: var(--cg-smoke); mix-blend-mode: multiply; opacity: 0.40; }
+.palette-card-body { padding: 1.25rem 1.25rem 1.5rem; }
+.palette-role { font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--amethyst-light); opacity: 0.7; margin-bottom: 0.4rem; }
+.palette-name { font-family: var(--font-emmy-display); font-size: 1.15rem; font-weight: 300; font-style: italic; color: var(--snowflake); margin-bottom: 0.4rem; line-height: 1.2; }
+.palette-hex { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.6; text-transform: uppercase; margin-bottom: 0.75rem; }
+.palette-feel { font-family: var(--font-emmy-body); font-size: 0.72rem; font-weight: 300; line-height: 1.6; color: var(--fairy-silver); opacity: 0.8; }
+
+/* TYPE — on porcelain ceramic */
+.type-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
+.type-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: end; }
+.type-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
+.type-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
+.type-intro strong { color: var(--moonpetal); font-weight: 400; }
+.type-card { background-image: linear-gradient(to bottom right, rgba(255,245,240,0.97) 0%, rgba(255,250,248,0.97) 100%), var(--tex-porcelain); background-size: auto, cover; background-blend-mode: multiply; border-radius: 16px; padding: 4rem 3.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.25); }
+.type-card::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(42deg, transparent 0px, transparent 4px, rgba(58,14,28,0.015) 4px, rgba(58,14,28,0.015) 5px); pointer-events: none; }
+.type-card-meta { font-family: var(--font-cg-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cg-burgundy); opacity: 0.7; margin-bottom: 1rem; position: relative; }
+.type-card-display { font-family: var(--font-cg-display); font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.0; color: var(--cg-black-cherry); margin-bottom: 0.5rem; letter-spacing: -0.015em; position: relative; }
+.type-card-name { font-family: var(--font-cg-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cg-burgundy); opacity: 0.65; margin-top: 1rem; margin-bottom: 2rem; position: relative; }
+.type-card-subhead { font-family: var(--font-cg-subhead); font-style: italic; font-weight: 400; font-size: clamp(1.4rem, 2.4vw, 1.9rem); color: var(--cg-maraschino); line-height: 1.4; margin-bottom: 1.5rem; max-width: 720px; position: relative; }
+.type-card-body { font-family: var(--font-cg-body); font-weight: 300; font-size: 1rem; line-height: 1.75; color: var(--cg-slate); max-width: 620px; position: relative; }
+.type-rule { background-image: linear-gradient(to bottom, rgba(54,50,58,0.92) 0%, rgba(54,50,58,0.88) 100%), var(--tex-slate); background-size: auto, cover; border-radius: 16px; padding: 3.5rem 3.5rem; text-align: center; font-family: var(--font-cg-subhead); font-style: italic; font-weight: 400; font-size: clamp(1.3rem, 2.4vw, 1.9rem); line-height: 1.5; color: var(--cg-porcelain); position: relative; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.55); }
+.type-rule::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-48deg, transparent 0px, transparent 3px, rgba(181,30,60,0.02) 3px, rgba(181,30,60,0.02) 4px); pointer-events: none; }
+.type-rule em { color: var(--cg-copper); font-style: italic; position: relative; }
+
+/* COMBOS */
+.combo-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
+.combo-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: end; }
+.combo-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
+.combo-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
+.combo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.combo-card { border-radius: 14px; overflow: hidden; aspect-ratio: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; position: relative; transition: transform 0.35s ease, box-shadow 0.35s ease; box-shadow: 0 4px 24px rgba(0,0,0,0.45); background-size: cover; background-position: center; }
+.combo-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.55); }
+.combo-card::before { content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: 14px; }
+.combo-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.12) 45%, transparent 70%); pointer-events: none; border-radius: 14px; }
+.combo-text { position: relative; z-index: 1; }
+.combo-name { font-family: var(--font-cg-display); font-size: 1.5rem; line-height: 1.1; margin-bottom: 0.4rem; }
+.combo-pair { font-family: var(--font-cg-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.8; }
+.combo-1 { background-image: var(--tex-black-cherry); color: var(--cg-porcelain); } .combo-1::before { background: linear-gradient(135deg, rgba(58,14,28,0.75) 0%, rgba(196,115,53,0.38) 100%); }
+.combo-2 { background-image: var(--tex-porcelain);    color: var(--cg-black-cherry); } .combo-2::before { background: linear-gradient(135deg, rgba(255,245,240,0.82) 0%, rgba(196,115,53,0.22) 100%); } .combo-2::after { background: linear-gradient(to top, rgba(255,245,240,0.65) 0%, rgba(255,245,240,0.1) 45%, transparent 70%); }
+.combo-3 { background-image: var(--tex-maraschino);   color: var(--cg-porcelain); } .combo-3::before { background: linear-gradient(135deg, rgba(58,14,28,0.62) 0%, rgba(181,30,60,0.52) 100%); }
+.combo-4 { background-image: var(--tex-copper);       color: var(--cg-black-cherry); } .combo-4::before { background: linear-gradient(135deg, rgba(196,115,53,0.52) 0%, rgba(255,245,240,0.48) 100%); } .combo-4::after { background: linear-gradient(to top, rgba(196,115,53,0.6) 0%, rgba(196,115,53,0.1) 45%, transparent 70%); }
+.combo-5 { background-image: var(--tex-burgundy);     color: var(--cg-porcelain); } .combo-5::before { background: linear-gradient(135deg, rgba(122,27,53,0.72) 0%, rgba(196,115,53,0.38) 100%); }
+.combo-6 { background-image: var(--tex-slate);        color: var(--cg-porcelain); } .combo-6::before { background: linear-gradient(135deg, rgba(54,50,58,0.75) 0%, rgba(181,30,60,0.38) 100%); }
+
+/* INSIDE — on copper flame */
+.inside-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% -10%, rgba(196,115,53,0.20) 0%, transparent 52%), linear-gradient(to bottom, rgba(58,14,28,0.48) 0%, rgba(58,14,28,0.42) 100%), var(--tex-copper); background-size: auto, auto, cover; }
+.inside-section::before { content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 80%; height: 200%; background: radial-gradient(ellipse, rgba(196,115,53,0.08) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+.inside-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 2; }
+.inside-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
+.inside-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
+.inside-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
+.inside-intro em { color: var(--moonpetal); font-style: italic; }
+.inside-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 3rem; align-items: start; }
+.carousel { position: relative; }
+.carousel-stage { position: relative; aspect-ratio: 4/3; overflow: hidden; border-radius: 14px; cursor: pointer; background: transparent; box-shadow: 0 8px 48px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.35); }
+.carousel-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center; overflow: hidden; pointer-events: none; }
+.carousel-slide.active { opacity: 1; z-index: 2; pointer-events: auto; }
+.mockup-stage { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 2rem; position: relative; overflow: hidden; }
+.mock-brand-board { background-image: linear-gradient(to bottom right, rgba(255,245,240,0.99) 0%, rgba(255,250,248,0.98) 100%), var(--tex-porcelain); background-size: auto, cover; background-blend-mode: multiply; width: 100%; height: 100%; border-radius: 8px; padding: 2rem; display: grid; grid-template-rows: auto 1fr auto; gap: 1.25rem; font-family: var(--font-cg-body); }
+.mbb-header { text-align: center; border-bottom: 1px solid rgba(58,14,28,0.12); padding-bottom: 1rem; }
+.mbb-eyebrow { font-family: var(--font-cg-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cg-burgundy); opacity: 0.65; margin-bottom: 0.4rem; }
+.mbb-title { font-family: var(--font-cg-display); font-size: 2.2rem; color: var(--cg-black-cherry); line-height: 1; margin-bottom: 0.35rem; }
+.mbb-tagline { font-family: var(--font-cg-subhead); font-style: italic; font-size: 0.78rem; color: var(--cg-burgundy); opacity: 0.85; }
+.mbb-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.mbb-palette { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; align-content: start; }
+.mbb-swatch { aspect-ratio: 1; border-radius: 4px; position: relative; background-size: cover; background-position: center; }
+.mbb-type { display: flex; flex-direction: column; justify-content: center; gap: 0.5rem; padding-left: 0.5rem; border-left: 1px solid rgba(58,14,28,0.1); }
+.mbb-type-display { font-family: var(--font-cg-display); font-size: 1.2rem; color: var(--cg-maraschino); line-height: 1; }
+.mbb-type-sub { font-family: var(--font-cg-subhead); font-style: italic; font-size: 0.7rem; color: var(--cg-burgundy); opacity: 0.75; }
+.mbb-type-body { font-family: var(--font-cg-body); font-weight: 300; font-size: 0.55rem; color: var(--cg-slate); line-height: 1.5; }
+.mbb-footer { text-align: center; font-family: var(--font-cg-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cg-burgundy); opacity: 0.55; border-top: 1px solid rgba(58,14,28,0.12); padding-top: 0.75rem; }
+.mock-cheat-sheet { background-image: linear-gradient(to bottom, rgba(255,245,240,0.99) 0%, rgba(255,250,248,0.98) 100%), var(--tex-porcelain); background-size: auto, cover; background-blend-mode: multiply; width: 100%; height: 100%; border-radius: 8px; padding: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+.mcs-header { font-family: var(--font-cg-display); font-size: 1.2rem; color: var(--cg-black-cherry); border-bottom: 1px solid rgba(58,14,28,0.12); padding-bottom: 0.5rem; }
+.mcs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; flex: 1; }
+.mcs-cell { border-radius: 4px; padding: 0.6rem 0.75rem; font-family: var(--font-cg-body); display: flex; flex-direction: column; justify-content: space-between; min-height: 0; position: relative; overflow: hidden; background-size: cover; background-position: center; }
+.mcs-cell-name { font-family: var(--font-cg-display); font-style: italic; font-size: 0.85rem; line-height: 1.1; position: relative; z-index: 1; }
+.mcs-cell-meta { font-size: 0.45rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.75; position: relative; z-index: 1; }
+.mock-texture { width: 100%; height: 100%; border-radius: 8px; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); gap: 4px; padding: 4px; background: var(--cg-black-cherry); }
+.mock-texture-cell { border-radius: 4px; position: relative; overflow: hidden; background-size: cover; background-position: center; }
+.mock-texture-cell::after { content: attr(data-name); position: absolute; bottom: 0.4rem; left: 0.5rem; font-family: var(--font-cg-body); font-size: 0.45rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.9); text-shadow: 0 1px 6px rgba(0,0,0,0.85); }
+.mock-playground { width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1rem; padding: 1.25rem; background-image: radial-gradient(ellipse at 20% 80%, rgba(196,115,53,0.10) 0%, transparent 55%), radial-gradient(ellipse at 80% 20%, rgba(181,30,60,0.08) 0%, transparent 50%), var(--tex-copper); background-size: auto, auto, cover; }
+.mp-sample { border-radius: 4px; padding: 1rem 1rem 0.85rem; display: flex; flex-direction: column; position: relative; overflow: hidden; text-align: center; background-size: cover; background-position: center; }
+.mp-sample-swatch { flex: 1; border-radius: 3px; margin-bottom: 0.85rem; min-height: 0; background-size: cover; background-position: center; }
+.mp-sample-name { font-family: var(--font-cg-body); font-size: 0.42rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 0.35rem; opacity: 0.85; }
+.mp-sample-tagline { font-family: var(--font-cg-subhead); font-style: italic; font-size: 0.6rem; line-height: 1.4; opacity: 0.85; }
+.carousel-caption-row { padding: 1.25rem 0.25rem 0.5rem; display: flex; flex-direction: column; gap: 0.25rem; text-align: center; }
+.caption-label { font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amethyst-light); opacity: 0.65; transition: opacity 0.4s ease; }
+.caption-name { font-family: var(--font-emmy-display); font-size: 0.95rem; font-weight: 300; font-style: italic; color: var(--fairy-silver); opacity: 0.8; transition: opacity 0.4s ease; }
+.carousel-dots { display: flex; justify-content: center; gap: 0.55rem; padding: 0.75rem 0 0; }
+.carousel-dot { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: rgba(200,184,232,0.25); border: none; cursor: pointer; padding: 0; transition: background 0.4s ease, width 0.4s ease; }
+.carousel-dot:hover { background: rgba(200,184,232,0.5); }
+.carousel-dot.active { background: var(--cg-maraschino); width: 1.4rem; border-radius: 100px; }
+.inside-list { padding-top: 0.5rem; }
+.inside-list-title { font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cg-copper); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.85rem; }
+.inside-list-title::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--cg-copper); opacity: 0.7; }
+.inside-item { padding: 1.1rem 0; border-bottom: 1px solid rgba(255,245,240,0.08); display: grid; grid-template-columns: 2rem 1fr; gap: 0.75rem; align-items: start; }
+.inside-item:first-of-type { border-top: 1px solid rgba(255,245,240,0.08); }
+.inside-icon { font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.1em; color: var(--cg-copper); opacity: 0.85; padding-top: 0.2rem; }
+.inside-text strong { display: block; font-family: var(--font-emmy-body); font-size: 0.85rem; font-weight: 400; color: var(--moonpetal); margin-bottom: 0.3rem; letter-spacing: 0.02em; }
+.inside-text span { font-family: var(--font-emmy-body); font-size: 0.72rem; font-weight: 300; color: var(--fairy-silver); opacity: 0.78; line-height: 1.6; }
+
+/* CTA — on rose gloss */
+.cta-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% 50%, rgba(181,30,60,0.22) 0%, transparent 62%), radial-gradient(ellipse at 50% 100%, rgba(58,14,28,0.75) 0%, transparent 52%), linear-gradient(to bottom, rgba(58,14,28,0.50) 0%, rgba(58,14,28,0.55) 100%), var(--tex-black-cherry); background-size: auto, auto, auto, cover; }
+.cta-section::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-45deg, transparent 0px, transparent 4px, rgba(181,30,60,0.02) 4px, rgba(181,30,60,0.02) 5px); pointer-events: none; }
+.cta-inner { max-width: 900px; margin: 0 auto; padding: 0 3rem; text-align: center; position: relative; z-index: 1; }
+.cta-label { font-family: var(--font-emmy-body); font-size: 0.58rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amethyst-light); margin-bottom: 1.25rem; }
+.cta-big { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.15; margin-bottom: 1.5rem; text-shadow: 0 2px 24px rgba(0,0,0,0.45); }
+.cta-sub { font-family: var(--font-emmy-body); font-size: 1rem; color: var(--fairy-silver); opacity: 0.85; line-height: 1.8; margin-bottom: 2.5rem; max-width: 580px; margin-left: auto; margin-right: auto; }
+.cta-buttons { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
+.btn-primary { display: inline-block; padding: 0.95rem 2.5rem; background: var(--cg-maraschino); color: var(--cg-porcelain); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: background 0.3s ease, transform 0.2s ease; }
+.btn-primary:hover { background: var(--cg-burgundy); transform: translateY(-1px); }
+.btn-ghost { display: inline-block; padding: 0.95rem 2.5rem; border: 1px solid rgba(200,184,232,0.3); color: var(--fairy-silver); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: border-color 0.3s ease, color 0.3s ease; }
+.btn-ghost:hover { border-color: var(--fairy-silver); color: var(--moonpetal); }
+footer { padding: 3rem; border-top: 1px solid rgba(255,245,240,0.06); display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+.footer-name { font-family: var(--font-emmy-display); font-style: italic; font-size: 1rem; color: var(--fairy-silver); opacity: 0.5; }
+.footer-note { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 300; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.35; }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+@media (max-width: 900px) {
+  nav { padding: 1.25rem 1.5rem; } .nav-links { gap: 1.5rem; } .breadcrumb { padding: 4.25rem 1.5rem 0.4rem; }
+  .kit-hero-wrap { padding: 0 1.5rem; } .kit-hero-inner { padding: 3rem 0; min-height: 320px; }
+  .painting-inner, .palette-inner, .inside-inner { padding: 0 1.5rem; }
+  .type-section, .combo-section { padding: 5rem 1.5rem; }
+  .painting-section, .palette-section, .inside-section, .cta-section { padding: 5rem 0; }
+  .cta-inner { padding: 0 1.5rem; }
+  .painting-grid, .palette-header, .type-header, .combo-header, .inside-header, .inside-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .palette-grid { grid-template-columns: repeat(2, 1fr); } .combo-grid { grid-template-columns: 1fr 1fr; }
+  .type-card { padding: 3rem 2rem; } .type-rule { padding: 2.5rem 2rem; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 3rem 1.5rem; }
+}
+@media (max-width: 600px) {
+  .nav-links { display: none; } .palette-grid { grid-template-columns: 1fr; } .combo-grid { grid-template-columns: 1fr; } .cta-buttons { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-name">Emmy Bellamora</a>
+  <ul class="nav-links">
+    <li><a href="../../index.html#about">About</a></li>
+    <li><a href="../../index.html#work">Work</a></li>
+    <li><a href="../../index.html#approach">Approach</a></li>
+    <li><a href="../../index.html#working-together">Together</a></li>
+    <li><a href="../../index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="breadcrumb">
+  <a href="../../index.html">Emmy</a><span class="breadcrumb-sep">/</span>
+  <a href="../../index.html#work">Brand Kits</a><span class="breadcrumb-sep">/</span>
+  <a href="../../index.html#work">Sugar on Top</a><span class="breadcrumb-sep">/</span>
+  <span>Cherry Glaze</span>
+</div>
+
+<section class="kit-hero">
+  <div class="kit-hero-inner">
+    <div class="drips" aria-hidden="true">
+      <span class="drip drip-1"></span><span class="drip drip-2"></span><span class="drip drip-3"></span>
+      <span class="drip drip-4"></span><span class="drip drip-5"></span>
+    </div>
+    <span class="gloss gloss-1" aria-hidden="true"></span><span class="gloss gloss-2" aria-hidden="true"></span>
+    <span class="gloss gloss-3" aria-hidden="true"></span><span class="gloss gloss-4" aria-hidden="true"></span>
+    <span class="gloss gloss-5" aria-hidden="true"></span>
+    <div class="kit-hero-wrap">
+      <div class="kit-hero-content">
+        <div class="kit-hero-meta">Sugar on Top &middot; Kit 06</div>
+        <h1 class="kit-hero-name">Cherry Glaze</h1>
+        <p class="kit-hero-tagline">The lipstick she puts on before a meeting she&rsquo;s going to own. Bold, lacquered, confident &mdash; for the brand that already knows what it&rsquo;s worth.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="inside-section">
+  <div class="drips" aria-hidden="true">
+    <span class="drip drip-2"></span><span class="drip drip-4"></span><span class="drip drip-5"></span>
+  </div>
+  <div class="inside-inner">
+    <div class="inside-header">
+      <h2 class="inside-title reveal">Inside the kit.</h2>
+      <p class="inside-intro reveal">Brand kits should be <em>complete worlds</em>, not single files. Flip through to see what arrives when Cherry Glaze becomes yours.</p>
+    </div>
+    <div class="inside-grid">
+      <div class="carousel reveal" id="kit-carousel">
+        <div class="carousel-stage">
+          <div class="carousel-slide active" data-slide="0">
+            <div class="mockup-stage">
+              <div class="mock-brand-board">
+                <div class="mbb-header">
+                  <div class="mbb-eyebrow">Sugar on Top &middot; Brand Board</div>
+                  <div class="mbb-title">Cherry Glaze</div>
+                  <div class="mbb-tagline">Bold. Lacquered. Ready to own the room.</div>
+                </div>
+                <div class="mbb-body">
+                  <div class="mbb-palette">
+                    <div class="mbb-swatch swatch-maraschino"></div><div class="mbb-swatch swatch-black-cherry"></div>
+                    <div class="mbb-swatch swatch-burgundy"></div><div class="mbb-swatch swatch-copper"></div>
+                    <div class="mbb-swatch swatch-rose"></div><div class="mbb-swatch swatch-slate"></div>
+                    <div class="mbb-swatch swatch-porcelain"></div><div class="mbb-swatch swatch-smoke"></div>
+                  </div>
+                  <div class="mbb-type">
+                    <div class="mbb-type-display">Enter.</div>
+                    <div class="mbb-type-sub">DM Serif Display &middot; Libre Baskerville &middot; Outfit</div>
+                    <div class="mbb-type-body">Editorial authority, classic warmth, and a modern workhorse. The Lacquer Suite &mdash; three fonts that each do one thing perfectly.</div>
+                  </div>
+                </div>
+                <div class="mbb-footer">By Emmy Bellamora &middot; Sugar on Top Collection</div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-slide" data-slide="1">
+            <div class="mockup-stage" style="padding:0;">
+              <div class="mock-playground">
+                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(58,14,28,0.82),rgba(58,14,28,0.65)),var(--tex-black-cherry);background-size:auto,cover;color:var(--cg-porcelain);">
+                  <div class="mp-sample-swatch" style="background-image:var(--tex-black-cherry);background-size:cover;"></div>
+                  <div class="mp-sample-name" style="color:var(--cg-copper);">Black Cherry</div>
+                  <div class="mp-sample-tagline">Where red goes at night.<br>Rich, heavy, leather-dark.</div>
+                </div>
+                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(181,30,60,0.62),rgba(58,14,28,0.68)),var(--tex-maraschino);background-size:auto,cover;color:var(--cg-porcelain);">
+                  <div class="mp-sample-swatch" style="background-image:var(--tex-maraschino);background-size:cover;"></div>
+                  <div class="mp-sample-name" style="color:var(--cg-copper);">Maraschino</div>
+                  <div class="mp-sample-tagline">High-gloss lacquer.<br>Attention without desperation.</div>
+                </div>
+                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(196,115,53,0.58),rgba(58,14,28,0.68)),var(--tex-copper);background-size:auto,cover;color:var(--cg-porcelain);">
+                  <div class="mp-sample-swatch" style="background-image:var(--tex-copper);background-size:cover;"></div>
+                  <div class="mp-sample-name" style="color:var(--cg-copper);">Copper Flame</div>
+                  <div class="mp-sample-tagline">Candlelight on the table.<br>The warmth that breaks the red.</div>
+                </div>
+                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(255,245,240,0.6),rgba(58,14,28,0.62)),var(--tex-porcelain);background-size:auto,cover;color:var(--cg-black-cherry);">
+                  <div class="mp-sample-swatch" style="background-image:var(--tex-porcelain);background-size:cover;"></div>
+                  <div class="mp-sample-name" style="color:var(--cg-burgundy);">Porcelain</div>
+                  <div class="mp-sample-tagline">White plate under the cherry.<br>Clean but never cold.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-slide" data-slide="2">
+            <div class="mockup-stage">
+              <div class="mock-cheat-sheet">
+                <div class="mcs-header">Color Combinations</div>
+                <div class="mcs-grid">
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(58,14,28,0.92),rgba(196,115,53,0.58)),var(--tex-black-cherry);background-size:auto,cover;color:var(--cg-porcelain);"><div class="mcs-cell-name">The Signature</div><div class="mcs-cell-meta">Maraschino &times; Porcelain &middot; AAA</div></div>
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(255,245,240,0.97),rgba(196,115,53,0.2)),var(--tex-porcelain);background-size:auto,cover;color:var(--cg-black-cherry);border:1px solid rgba(58,14,28,0.08);"><div class="mcs-cell-name">White Plate</div><div class="mcs-cell-meta">Burgundy &times; Porcelain &middot; AA</div></div>
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(122,27,53,0.90),rgba(196,115,53,0.5)),var(--tex-burgundy);background-size:auto,cover;color:var(--cg-porcelain);"><div class="mcs-cell-name">Evening Silk</div><div class="mcs-cell-meta">Burgundy &times; Copper &middot; AA</div></div>
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(58,14,28,0.90),rgba(181,30,60,0.48)),var(--tex-black-cherry);background-size:auto,cover;color:var(--cg-porcelain);"><div class="mcs-cell-name">All Red</div><div class="mcs-cell-meta">Cherry &times; Maraschino &middot; AA</div></div>
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(196,115,53,0.90),rgba(255,245,240,0.6)),var(--tex-copper);background-size:auto,cover;color:var(--cg-black-cherry);"><div class="mcs-cell-name">Candlelight</div><div class="mcs-cell-meta">Copper &times; Porcelain &middot; AA</div></div>
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(212,117,138,0.85),rgba(255,245,240,0.65)),var(--tex-rose);background-size:auto,cover;color:var(--cg-black-cherry);"><div class="mcs-cell-name">Soft Approach</div><div class="mcs-cell-meta">Rose &times; Porcelain &middot; AA</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-slide" data-slide="3">
+            <div class="mockup-stage" style="padding:1rem;">
+              <div class="mock-texture">
+                <div class="mock-texture-cell" data-name="Maraschino"    style="background-image:linear-gradient(to bottom,rgba(181,30,60,0.45),rgba(58,14,28,0.35)),var(--tex-maraschino);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Black Cherry"  style="background-image:linear-gradient(to bottom,rgba(58,14,28,0.55),rgba(58,14,28,0.45)),var(--tex-black-cherry);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Burgundy Silk" style="background-image:linear-gradient(to bottom,rgba(122,27,53,0.52),rgba(58,14,28,0.38)),var(--tex-burgundy);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Copper Flame"  style="background-image:linear-gradient(to bottom,rgba(196,115,53,0.52),rgba(58,14,28,0.32)),var(--tex-copper);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Rose Gloss"    style="background-image:linear-gradient(to bottom,rgba(212,117,138,0.52),rgba(58,14,28,0.38)),var(--tex-rose);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Porcelain"     style="background-image:linear-gradient(to bottom,rgba(255,245,240,0.62),rgba(255,250,248,0.5)),var(--tex-porcelain);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Slate"         style="background-image:linear-gradient(to bottom,rgba(54,50,58,0.58),rgba(54,50,58,0.48)),var(--tex-slate);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Smoke"         style="background-image:linear-gradient(to bottom,rgba(138,127,133,0.55),rgba(58,14,28,0.45)),var(--tex-smoke);background-size:auto,cover;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-dots">
+          <button class="carousel-dot active" data-go="0" aria-label="Brand Board"></button>
+          <button class="carousel-dot" data-go="1" aria-label="Material Samples"></button>
+          <button class="carousel-dot" data-go="2" aria-label="Cheat Sheet"></button>
+          <button class="carousel-dot" data-go="3" aria-label="Texture Vault"></button>
+        </div>
+        <div class="carousel-caption-row">
+          <div class="caption-label" id="caption-label">Brand Board</div>
+          <div class="caption-name" id="caption-name">The kit at a glance</div>
+        </div>
+      </div>
+      <div class="inside-list reveal">
+        <div class="inside-list-title">Everything Included</div>
+        <div class="inside-item"><div class="inside-icon">01</div><div class="inside-text"><strong>Whole Box Color Palette</strong><span>Eight materially-named colors with hex codes, role descriptions, and texture notes.</span></div></div>
+        <div class="inside-item"><div class="inside-icon">02</div><div class="inside-text"><strong>Typography System</strong><span>DM Serif Display + Libre Baskerville + Outfit. The Lacquer Suite. The fonts of a woman who doesn&rsquo;t need to raise her voice.</span></div></div>
+        <div class="inside-item"><div class="inside-icon">03</div><div class="inside-text"><strong>Brand Board</strong><span>One page that captures the entire kit at a glance &mdash; for presentations or quick reference.</span></div></div>
+        <div class="inside-item"><div class="inside-icon">04</div><div class="inside-text"><strong>Color Combinations Cheat Sheet</strong><span>Pre-vetted combinations with WCAG contrast scores. Bold AND accessible.</span></div></div>
+        <div class="inside-item"><div class="inside-icon">05</div><div class="inside-text"><strong>Tier-2 Playground</strong><span>Full sandbox of the kit in motion &mdash; layouts, social tiles, link-in-bio templates.</span></div></div>
+        <div class="inside-item"><div class="inside-icon">06</div><div class="inside-text"><strong>Texture Vault</strong><span>Eight high-res material textures &mdash; red lacquer, black leather, burgundy silk, brushed copper, rose gloss, porcelain, charcoal slate, soft smoke.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="painting-section">
+  <div class="painting-inner">
+    <div class="painting-grid">
+      <div class="reveal">
+        <div class="painting-label">The Scene Behind It</div>
+        <h2 class="painting-title">A corner booth.<br>The menu has no <em style="color:var(--cg-copper);font-style:italic;">prices.</em></h2>
+        <p class="painting-attribution">A scene, not a painting &mdash; built from feeling first.</p>
+      </div>
+      <div class="painting-body reveal">
+        <p>Red leather seats, low lighting, cocktails with one-word names. She&rsquo;s not dressed up &mdash; she just <strong>looks like she belongs here.</strong> There&rsquo;s a confidence that isn&rsquo;t loud. It&rsquo;s built into how she holds her glass. How she orders. How she takes up exactly the right amount of space.</p>
+        <p>Cherry Glaze is for the brand that already knows what it delivers. The deep red in this kit &mdash; Maraschino &mdash; is not fire-engine, not tomato. It is <em>the glossy red of a cherry on a white plate.</em> Specific. Intentional. Attention without desperation.</p>
+        <p>The leather underneath it is Black Cherry: almost-black with red still glowing inside. The copper accent is the candlelight at the table &mdash; the warmth that keeps the palette from going cold. And then there&rsquo;s Porcelain: <strong>the white plate that lets the cherry be the cherry.</strong></p>
+        <p>This is not aggressive. Bold and loud are two different things. This is the person who charges what her work is worth and doesn&rsquo;t apologize for it &mdash; <em>because the visual language matches what she actually delivers.</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="palette-section">
+  <div class="palette-inner">
+    <div class="palette-header">
+      <h2 class="palette-title reveal">The Whole Box.<br>Every color material.</h2>
+      <p class="palette-intro reveal">Eight colors. Each one named for what it actually <em>is</em>, because &ldquo;red&rdquo; tells you nothing and <em>Maraschino</em> tells you everything. <em>Nothing here is flat. Every surface has depth.</em></p>
+    </div>
+    <div class="palette-grid">
+      <div class="palette-card reveal"><div class="palette-swatch swatch-maraschino"></div><div class="palette-card-body"><div class="palette-role">Primary Bold</div><div class="palette-name">Maraschino</div><div class="palette-hex">#B51E3C</div><p class="palette-feel">True cherry red &mdash; not fire-engine, not tomato. The deep, glazed red of a maraschino cherry on a white plate. High-gloss lacquer. Attention without desperation.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-black-cherry"></div><div class="palette-card-body"><div class="palette-role">Signature Dark</div><div class="palette-name">Black Cherry</div><div class="palette-hex">#3A0E1C</div><p class="palette-feel">Where red goes at night. Almost-black with red still glowing underneath. The leather in the corner booth. Deep matte grain, heavy and rich.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-burgundy"></div><div class="palette-card-body"><div class="palette-role">Rich Mid</div><div class="palette-name">Burgundy Silk</div><div class="palette-hex">#7A1B35</div><p class="palette-feel">Wine in crystal. Silk charmeuse drape, liquid and luminous. The red between the extremes &mdash; depth and sophistication. The color she wears when she means business.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-copper"></div><div class="palette-card-body"><div class="palette-role">Warm Accent</div><div class="palette-name">Copper Flame</div><div class="palette-hex">#C47335</div><p class="palette-feel">The candlelight at the table. Brushed metallic warm sheen. The accent that breaks the monochrome red and brings the whole palette alive. Without this, all drama. With it, warmth.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-rose"></div><div class="palette-card-body"><div class="palette-role">Pink Lift</div><div class="palette-name">Rose Gloss</div><div class="palette-hex">#D4758A</div><p class="palette-feel">Cherry&rsquo;s softer side. Lip-gloss finish, smooth and luminous. The color that makes Cherry Glaze approachable without softening its edge.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-slate"></div><div class="palette-card-body"><div class="palette-role">Cool Contrast</div><div class="palette-name">Charcoal Slate</div><div class="palette-hex">#36323A</div><p class="palette-feel">Not black &mdash; warm dark gray with the faintest purple cast. Matte stone, cool and structural. The bones of the kit. For text, for borders, for the moments when the reds need to rest.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-porcelain"></div><div class="palette-card-body"><div class="palette-role">Cream</div><div class="palette-name">Porcelain</div><div class="palette-hex">#FFF5F0</div><p class="palette-feel">White with the warmth of a blush. Glazed ceramic, slight sheen. The white plate under the cherry &mdash; clean but never cold. The surface that lets Maraschino do its best work.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-smoke"></div><div class="palette-card-body"><div class="palette-role">True Neutral</div><div class="palette-name">Smoke</div><div class="palette-hex">#8A7F85</div><p class="palette-feel">Warm gray-mauve. Breath in cold air. The breathing room &mdash; soft-focus and diffuse, the color that prevents the palette from being relentless. Where red rests between appearances.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="type-section">
+  <div class="type-header">
+    <h2 class="type-title reveal">Three fonts.<br>The Lacquer Suite.</h2>
+    <p class="type-intro reveal"><strong>DM Serif Display commands. Libre Baskerville holds. Outfit works.</strong> Like a red lip, a great blazer, and the right shoes &mdash; each one knows its job. All three are free Google Fonts, forever yours.</p>
+  </div>
+  <div class="type-card reveal">
+    <div class="type-card-meta">Headline &middot; DM Serif Display 400</div>
+    <div class="type-card-display">She walked in.</div>
+    <div class="type-card-name">DM Serif Display 400, 72pt &middot; Black Cherry</div>
+  </div>
+  <div class="type-card reveal">
+    <div class="type-card-meta">Subhead &middot; Libre Baskerville 400 italic</div>
+    <p class="type-card-subhead">Classic editorial warmth. The conversation that follows the entrance &mdash; interesting, informed, unhurried. She has presence without performance.</p>
+    <div class="type-card-name">Libre Baskerville 400 italic, 28pt &middot; Maraschino on Porcelain</div>
+  </div>
+  <div class="type-card reveal">
+    <div class="type-card-meta">Body &middot; Outfit 300&ndash;500</div>
+    <p class="type-card-body">Outfit earns its name. At 300 weight it steps aside &mdash; contemporary and clean, invisible enough to let the reds do the talking. At 500 weight with uppercase tracking it becomes the sharp caption voice. One font, two modes. The workhorse who knows when to be seen and when to stay out of the way.</p>
+    <div class="type-card-name">Outfit 300, 16pt &middot; Charcoal Slate on Porcelain</div>
+  </div>
+  <div class="type-rule reveal">The rule:<br><em>DM Serif commands. Libre Baskerville holds. Outfit works. Like a red lip and a white shirt &mdash; simple and devastating.</em></div>
+</section>
+
+<section class="combo-section">
+  <div class="combo-header">
+    <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
+    <p class="combo-intro reveal">A color swatch on white tells you nothing. What matters is how a color <em>behaves</em> next to other colors. These are the signature pairings &mdash; the combinations Cherry Glaze was built for.</p>
+  </div>
+  <div class="combo-grid">
+    <div class="combo-card combo-1 reveal"><div class="combo-text"><div class="combo-pair">The Signature</div><div class="combo-name">Maraschino &amp; Black Cherry</div></div></div>
+    <div class="combo-card combo-2 reveal"><div class="combo-text"><div class="combo-pair">White Plate</div><div class="combo-name">Cherry on Porcelain</div></div></div>
+    <div class="combo-card combo-3 reveal"><div class="combo-text"><div class="combo-pair">All Red</div><div class="combo-name">Red on Red World</div></div></div>
+    <div class="combo-card combo-4 reveal"><div class="combo-text"><div class="combo-pair">Evening Version</div><div class="combo-name">Copper &amp; Black Cherry</div></div></div>
+    <div class="combo-card combo-5 reveal"><div class="combo-text"><div class="combo-pair">Elevated Content</div><div class="combo-name">Burgundy on Porcelain</div></div></div>
+    <div class="combo-card combo-6 reveal"><div class="combo-text"><div class="combo-pair">The Structure</div><div class="combo-name">Slate &amp; Maraschino</div></div></div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-label">Take it Home</div>
+    <h2 class="cta-big reveal">Make Cherry Glaze<br>your brand.</h2>
+    <p class="cta-sub reveal">The kit is available now. If you want a custom kit built specifically for your world &mdash; or if you&rsquo;d like Emmy to translate Cherry Glaze into a full website &mdash; that&rsquo;s available too.</p>
+    <div class="cta-buttons reveal">
+      <a href="mailto:hello@emmybellamora.com?subject=Cherry Glaze Kit" class="btn-primary">Get the Kit</a>
+      <a href="../../index.html#working-together" class="btn-ghost">Talk to Emmy</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Emmy Bellamora</div>
+  <div class="footer-note">Creative Director &middot; Cognitive UX Designer &middot; Fairy With Bite 🧚‍♀️</div>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+(function () {
+  const carousel = document.getElementById('kit-carousel');
+  if (!carousel) return;
+  const stage = carousel.querySelector('.carousel-stage');
+  const slides = carousel.querySelectorAll('.carousel-slide');
+  const dots = carousel.querySelectorAll('.carousel-dot');
+  const captionLabel = document.getElementById('caption-label');
+  const captionName = document.getElementById('caption-name');
+  const total = slides.length;
+  let current = 0;
+  const captions = [
+    { label: 'Brand Board',      name: 'The kit at a glance' },
+    { label: 'Material Samples', name: 'The textures in the kit' },
+    { label: 'Cheat Sheet',      name: 'Combinations, vetted for accessibility' },
+    { label: 'Texture Vault',    name: 'Eight materials — nothing is flat' }
+  ];
+  function go(i) {
+    current = (i + total) % total;
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === current));
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === current));
+    if (captions[current]) { captionLabel.textContent = captions[current].label; captionName.textContent = captions[current].name; }
+  }
+  stage.addEventListener('click', () => go(current + 1));
+  dots.forEach((dot) => dot.addEventListener('click', (e) => { e.stopPropagation(); go(parseInt(dot.dataset.go, 10)); }));
+  document.addEventListener('keydown', (e) => {
+    const rect = carousel.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      if (e.key === 'ArrowLeft') go(current - 1);
+      if (e.key === 'ArrowRight') go(current + 1);
+    }
+  });
+})();
+</script>
+</body>
+</html>

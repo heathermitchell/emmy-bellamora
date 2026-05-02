@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Electric Sherbet — Sugar on Top Brand Kit · Emmy Bellamora</title>
+<meta name="description" content="Electric Sherbet is dopamine in a color palette. Fizzy, fearless, unapologetically bright — for the person who's tired of being told to keep it professional. Professional is beige. She's not beige.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&family=Space+Grotesk:wght@300;400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+/* ELECTRIC SHERBET — built 2026-05-02: nothing is flat, everything is material. Wet citrus, neon glow, sparkling effervescence, matte velvet, acid green, deep shimmer, warm cream, dark satin. */
+:root {
+  --tex-tangerine:  url('../../assets/textures/electric-sherbet/texture-tangerine-fizz.png');
+  --tex-fuchsia:    url('../../assets/textures/electric-sherbet/texture-fuchsia-shock.png');
+  --tex-lemon:      url('../../assets/textures/electric-sherbet/texture-lemon-zap.png');
+  --tex-raspberry:  url('../../assets/textures/electric-sherbet/texture-raspberry-velvet.png');
+  --tex-lime:       url('../../assets/textures/electric-sherbet/texture-lime-volt.png');
+  --tex-grape:      url('../../assets/textures/electric-sherbet/texture-twilight-grape.png');
+  --tex-cream:      url('../../assets/textures/electric-sherbet/texture-sherbet-cream.png');
+  --tex-midnight:   url('../../assets/textures/electric-sherbet/texture-midnight-mango.png');
+  /* Emmy brand tokens */
+  --deep-night: #0D0A14; --amethyst: #6B3FA0; --amethyst-light: #9B6FD0; --fairy-silver: #C8B8E8; --moonpetal: #E8D8F8; --snowflake: #F5F0FF;
+  /* Electric Sherbet palette */
+  --es-tangerine: #FF6B35;
+  --es-fuchsia: #E8356D;
+  --es-lemon: #FFD23F;
+  --es-raspberry: #8B1A4A;
+  --es-lime: #B8E62E;
+  --es-grape: #4A2060;
+  --es-cream: #FFF0E0;
+  --es-midnight: #2A1525;
+  /* Typography */
+  --font-emmy-display: 'Cormorant Garamond', serif;
+  --font-emmy-body: 'Jost', sans-serif;
+  --font-es-display: 'Space Grotesk', sans-serif;
+  --font-es-subhead: 'Bricolage Grotesque', sans-serif;
+  --font-es-body: 'DM Sans', sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--es-midnight); color: var(--es-cream); font-family: var(--font-emmy-body); font-weight: 300; overflow-x: hidden; line-height: 1.7; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--es-midnight); }
+::-webkit-scrollbar-thumb { background: var(--es-fuchsia); border-radius: 2px; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(13,10,20,0.95) 0%, transparent 100%); backdrop-filter: blur(2px); }
+.nav-name { font-family: var(--font-emmy-display); font-size: 1.1rem; font-weight: 300; font-style: italic; color: var(--fairy-silver); letter-spacing: 0.05em; text-decoration: none; transition: color 0.3s ease; }
+.nav-name:hover { color: var(--moonpetal); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a { font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fairy-silver); text-decoration: none; transition: color 0.3s ease; opacity: 0.7; }
+.nav-links a:hover { color: var(--moonpetal); opacity: 1; }
+.breadcrumb { max-width: 1200px; margin: 0 auto; padding: 4.75rem 3rem 0.5rem; display: flex; align-items: center; gap: 0.6rem; font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--es-tangerine); opacity: 0.55; }
+.breadcrumb a { color: inherit; text-decoration: none; transition: color 0.3s ease, opacity 0.3s ease; }
+.breadcrumb a:hover { color: var(--es-cream); opacity: 1; }
+.breadcrumb-sep { opacity: 0.45; }
+
+/* Electric Sherbet animation — citrus fizz bubbles rising, electric sparks */
+@keyframes fizzRise { 0% { transform: translateY(0) scale(1); opacity: 0; } 8% { opacity: 0.7; } 100% { transform: translateY(-55vh) scale(0.3); opacity: 0; } }
+@keyframes sparkFlash { 0%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1.2); } }
+.drips { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
+.fizz { position: absolute; border-radius: 50%; animation-fill-mode: both; animation-iteration-count: infinite; animation-timing-function: ease-out; }
+.fizz-1 { width: 6px; height: 6px; background: radial-gradient(circle, rgba(255,107,53,0.9), transparent); bottom: 8%;  left: 15%; animation: fizzRise 7s 0.5s infinite; }
+.fizz-2 { width: 4px; height: 4px; background: radial-gradient(circle, rgba(232,53,109,0.9), transparent); bottom: 5%;  left: 30%; animation: fizzRise 9s 1.8s infinite; }
+.fizz-3 { width: 7px; height: 7px; background: radial-gradient(circle, rgba(255,210,63,0.9), transparent);  bottom: 12%; left: 48%; animation: fizzRise 6s 3.2s infinite; }
+.fizz-4 { width: 4px; height: 4px; background: radial-gradient(circle, rgba(184,230,46,0.9), transparent);  bottom: 6%;  left: 64%; animation: fizzRise 10s 0.9s infinite; }
+.fizz-5 { width: 5px; height: 5px; background: radial-gradient(circle, rgba(255,107,53,0.9), transparent);  bottom: 9%;  left: 80%; animation: fizzRise 8s 4.5s infinite; }
+.fizz-6 { width: 3px; height: 3px; background: radial-gradient(circle, rgba(232,53,109,0.9), transparent); bottom: 4%;  left: 90%; animation: fizzRise 11s 2.3s infinite; }
+.spark { position: absolute; border-radius: 2px; animation-fill-mode: both; animation-iteration-count: infinite; }
+.spark-1 { width: 3px; height: 3px; background: var(--es-lemon);   top: 25%; left: 72%; animation: sparkFlash 4s 0.7s infinite; }
+.spark-2 { width: 2px; height: 2px; background: var(--es-lime);    top: 40%; left: 88%; animation: sparkFlash 5s 2.1s infinite; }
+.spark-3 { width: 4px; height: 4px; background: var(--es-fuchsia); top: 65%; left: 82%; animation: sparkFlash 3.5s 1.3s infinite; }
+
+/* HERO */
+.kit-hero { margin: 1.5rem 0 0; padding: 0; position: relative; }
+.kit-hero-inner { overflow: hidden; position: relative; min-height: 380px; padding: 4rem 0; display: flex; flex-direction: column; justify-content: center; background-image: radial-gradient(ellipse at 25% 30%, rgba(255,107,53,0.55) 0%, rgba(255,107,53,0.25) 22%, transparent 48%), radial-gradient(ellipse at 75% 70%, rgba(232,53,109,0.50) 0%, rgba(232,53,109,0.22) 25%, transparent 50%), radial-gradient(ellipse at 55% 15%, rgba(255,210,63,0.30) 0%, transparent 38%), linear-gradient(135deg, rgba(42,21,37,0.88) 0%, rgba(74,32,96,0.75) 55%, rgba(232,53,109,0.35) 100%), var(--tex-tangerine); background-size: auto, auto, auto, auto, cover; background-blend-mode: normal, normal, normal, multiply, normal; }
+.kit-hero-inner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 20% 35%, rgba(255,107,53,0.28) 0%, transparent 52%), radial-gradient(ellipse at 78% 68%, rgba(184,230,46,0.12) 0%, transparent 45%); pointer-events: none; z-index: 1; }
+.kit-hero-wrap { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 3rem; position: relative; z-index: 2; }
+.kit-hero-content { position: relative; z-index: 1; max-width: 720px; }
+.kit-hero-meta { font-family: var(--font-es-body); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--es-lemon); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.85rem; }
+.kit-hero-meta::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--es-lemon); opacity: 0.7; }
+.kit-hero-name { font-family: var(--font-es-display); font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 700; color: var(--es-cream); line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 1.5rem; text-shadow: 0 0 40px rgba(255,107,53,0.5), 0 2px 32px rgba(0,0,0,0.4); }
+.kit-hero-tagline { font-family: var(--font-es-subhead); font-size: clamp(1.1rem, 1.8vw, 1.4rem); color: var(--es-cream); line-height: 1.6; opacity: 0.95; text-shadow: 0 2px 20px rgba(0,0,0,0.5); max-width: 580px; }
+
+/* PAINTING — on midnight mango satin */
+.painting-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 60% 50%, rgba(42,21,37,0.6) 0%, transparent 62%), linear-gradient(to bottom, rgba(42,21,37,0.45) 0%, rgba(42,21,37,0.38) 100%), var(--tex-midnight); background-size: auto, auto, cover; }
+.painting-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(255,107,53,0.06) 0%, transparent 50%); pointer-events: none; }
+.painting-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
+.painting-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; }
+.painting-label { font-family: var(--font-emmy-body); font-size: 0.58rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amethyst-light); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 1rem; }
+.painting-label::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--amethyst-light); opacity: 0.6; }
+.painting-title { font-family: var(--font-emmy-display); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.15; margin-bottom: 1.5rem; }
+.painting-attribution { font-family: var(--font-emmy-body); font-size: 0.7rem; font-weight: 300; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.7; margin-bottom: 2rem; }
+.painting-body p { font-family: var(--font-emmy-body); font-size: 0.92rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); margin-bottom: 1.5rem; opacity: 0.88; }
+.painting-body p strong { color: var(--moonpetal); font-weight: 400; }
+.painting-body p em { color: var(--es-tangerine); font-style: italic; }
+
+/* PALETTE — on twilight grape */
+.palette-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% 0%, rgba(42,21,37,0.55) 0%, transparent 50%), radial-gradient(ellipse at 50% 100%, rgba(42,21,37,0.65) 0%, transparent 52%), linear-gradient(to bottom, rgba(42,21,37,0.46) 0%, rgba(42,21,37,0.42) 50%, rgba(42,21,37,0.50) 100%), var(--tex-grape); background-size: auto, auto, auto, cover; }
+.palette-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
+.palette-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
+.palette-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
+.palette-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
+.palette-intro em { color: var(--moonpetal); font-style: italic; }
+.palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.palette-card { border-radius: 12px; overflow: hidden; background: rgba(42,21,37,0.65); border: 1px solid rgba(255,240,224,0.07); box-shadow: 0 4px 24px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.25); transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
+.palette-card:hover { border-color: rgba(255,107,53,0.4); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(255,107,53,0.15); }
+.palette-swatch { width: 100%; aspect-ratio: 1.4; position: relative; background-size: cover; background-position: center; }
+.palette-swatch::after { content: ''; position: absolute; inset: 0; }
+.swatch-tangerine { background-image: var(--tex-tangerine); } .swatch-tangerine::after { background: var(--es-tangerine); mix-blend-mode: multiply; opacity: 0.35; }
+.swatch-fuchsia   { background-image: var(--tex-fuchsia); }   .swatch-fuchsia::after   { background: var(--es-fuchsia); mix-blend-mode: multiply; opacity: 0.38; }
+.swatch-lemon     { background-image: var(--tex-lemon); }     .swatch-lemon::after     { background: var(--es-lemon); mix-blend-mode: multiply; opacity: 0.32; }
+.swatch-raspberry { background-image: var(--tex-raspberry); } .swatch-raspberry::after { background: var(--es-raspberry); mix-blend-mode: multiply; opacity: 0.50; }
+.swatch-lime      { background-image: var(--tex-lime); }      .swatch-lime::after      { background: var(--es-lime); mix-blend-mode: multiply; opacity: 0.30; }
+.swatch-grape     { background-image: var(--tex-grape); }     .swatch-grape::after     { background: var(--es-grape); mix-blend-mode: multiply; opacity: 0.55; }
+.swatch-cream     { background-image: var(--tex-cream); }     .swatch-cream::after     { background: var(--es-cream); mix-blend-mode: screen; opacity: 0.35; }
+.swatch-midnight  { background-image: var(--tex-midnight); }  .swatch-midnight::after  { background: var(--es-midnight); mix-blend-mode: multiply; opacity: 0.58; }
+.palette-card-body { padding: 1.25rem 1.25rem 1.5rem; }
+.palette-role { font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--amethyst-light); opacity: 0.7; margin-bottom: 0.4rem; }
+.palette-name { font-family: var(--font-emmy-display); font-size: 1.15rem; font-weight: 300; font-style: italic; color: var(--snowflake); margin-bottom: 0.4rem; line-height: 1.2; }
+.palette-hex { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.6; text-transform: uppercase; margin-bottom: 0.75rem; }
+.palette-feel { font-family: var(--font-emmy-body); font-size: 0.72rem; font-weight: 300; line-height: 1.6; color: var(--fairy-silver); opacity: 0.8; }
+
+/* TYPE — on sherbet cream */
+.type-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
+.type-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: end; }
+.type-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
+.type-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
+.type-intro strong { color: var(--moonpetal); font-weight: 400; }
+.type-card { background-image: linear-gradient(to bottom right, rgba(255,240,224,0.97) 0%, rgba(255,245,235,0.97) 100%), var(--tex-cream); background-size: auto, cover; background-blend-mode: multiply; border-radius: 16px; padding: 4rem 3.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.2); }
+.type-card::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(42deg, transparent 0px, transparent 4px, rgba(42,21,37,0.012) 4px, rgba(42,21,37,0.012) 5px); pointer-events: none; }
+.type-card-meta { font-family: var(--font-es-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--es-raspberry); opacity: 0.7; margin-bottom: 1rem; position: relative; }
+.type-card-display { font-family: var(--font-es-display); font-weight: 700; font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.0; color: var(--es-midnight); margin-bottom: 0.5rem; letter-spacing: -0.025em; position: relative; }
+.type-card-name { font-family: var(--font-es-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--es-raspberry); opacity: 0.65; margin-top: 1rem; margin-bottom: 2rem; position: relative; }
+.type-card-subhead { font-family: var(--font-es-subhead); font-weight: 400; font-size: clamp(1.4rem, 2.4vw, 1.9rem); color: var(--es-fuchsia); line-height: 1.4; margin-bottom: 1.5rem; max-width: 720px; position: relative; }
+.type-card-body { font-family: var(--font-es-body); font-weight: 300; font-size: 1rem; line-height: 1.8; color: var(--es-midnight); max-width: 620px; position: relative; }
+/* Rule card — on raspberry velvet */
+.type-rule { background-image: linear-gradient(to bottom, rgba(139,26,74,0.90) 0%, rgba(42,21,37,0.88) 100%), var(--tex-raspberry); background-size: auto, cover; border-radius: 16px; padding: 3.5rem 3.5rem; text-align: center; font-family: var(--font-es-subhead); font-weight: 500; font-size: clamp(1.3rem, 2.4vw, 1.9rem); line-height: 1.5; color: var(--es-cream); position: relative; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.55); }
+.type-rule::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-48deg, transparent 0px, transparent 3px, rgba(255,107,53,0.025) 3px, rgba(255,107,53,0.025) 4px); pointer-events: none; }
+.type-rule em { color: var(--es-lemon); font-style: italic; position: relative; }
+
+/* COMBOS */
+.combo-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
+.combo-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: end; }
+.combo-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
+.combo-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
+.combo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.combo-card { border-radius: 14px; overflow: hidden; aspect-ratio: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; position: relative; transition: transform 0.35s ease, box-shadow 0.35s ease; box-shadow: 0 4px 24px rgba(0,0,0,0.45); background-size: cover; background-position: center; }
+.combo-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.55); }
+.combo-card::before { content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: 14px; }
+.combo-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 45%, transparent 70%); pointer-events: none; border-radius: 14px; }
+.combo-text { position: relative; z-index: 1; }
+.combo-name { font-family: var(--font-es-display); font-weight: 700; font-size: 1.4rem; line-height: 1.1; margin-bottom: 0.4rem; letter-spacing: -0.01em; }
+.combo-pair { font-family: var(--font-es-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.8; }
+.combo-1 { background-image: var(--tex-tangerine);  color: var(--es-midnight); } .combo-1::before { background: linear-gradient(135deg, rgba(255,107,53,0.72) 0%, rgba(232,53,109,0.55) 100%); } .combo-1::after { background: linear-gradient(to top, rgba(42,21,37,0.7) 0%, rgba(42,21,37,0.1) 45%, transparent 70%); }
+.combo-2 { background-image: var(--tex-grape);      color: var(--es-cream); }    .combo-2::before { background: linear-gradient(135deg, rgba(74,32,96,0.78) 0%, rgba(184,230,46,0.35) 100%); }
+.combo-3 { background-image: var(--tex-fuchsia);    color: var(--es-cream); }    .combo-3::before { background: linear-gradient(135deg, rgba(42,21,37,0.62) 0%, rgba(232,53,109,0.50) 100%); }
+.combo-4 { background-image: var(--tex-lemon);      color: var(--es-midnight); } .combo-4::before { background: linear-gradient(135deg, rgba(255,210,63,0.68) 0%, rgba(255,107,53,0.45) 100%); } .combo-4::after { background: linear-gradient(to top, rgba(42,21,37,0.65) 0%, rgba(42,21,37,0.08) 45%, transparent 70%); }
+.combo-5 { background-image: var(--tex-midnight);   color: var(--es-cream); }    .combo-5::before { background: linear-gradient(135deg, rgba(42,21,37,0.72) 0%, rgba(255,107,53,0.40) 100%); }
+.combo-6 { background-image: var(--tex-lime);       color: var(--es-midnight); } .combo-6::before { background: linear-gradient(135deg, rgba(184,230,46,0.68) 0%, rgba(74,32,96,0.42) 100%); } .combo-6::after { background: linear-gradient(to top, rgba(42,21,37,0.65) 0%, rgba(42,21,37,0.08) 45%, transparent 70%); }
+
+/* INSIDE — on tangerine fizz */
+.inside-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% -10%, rgba(255,107,53,0.22) 0%, transparent 50%), linear-gradient(to bottom, rgba(42,21,37,0.50) 0%, rgba(42,21,37,0.44) 100%), var(--tex-tangerine); background-size: auto, auto, cover; }
+.inside-section::before { content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 80%; height: 200%; background: radial-gradient(ellipse, rgba(255,107,53,0.07) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+.inside-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 2; }
+.inside-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
+.inside-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
+.inside-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
+.inside-intro em { color: var(--moonpetal); font-style: italic; }
+.inside-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 3rem; align-items: start; }
+.carousel { position: relative; }
+.carousel-stage { position: relative; aspect-ratio: 4/3; overflow: hidden; border-radius: 14px; cursor: pointer; background: transparent; box-shadow: 0 8px 48px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.35); }
+.carousel-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center; overflow: hidden; pointer-events: none; }
+.carousel-slide.active { opacity: 1; z-index: 2; pointer-events: auto; }
+.mockup-stage { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 2rem; position: relative; overflow: hidden; }
+.mock-brand-board { background-image: linear-gradient(to bottom right, rgba(255,240,224,0.99) 0%, rgba(255,245,235,0.98) 100%), var(--tex-cream); background-size: auto, cover; background-blend-mode: multiply; width: 100%; height: 100%; border-radius: 8px; padding: 2rem; display: grid; grid-template-rows: auto 1fr auto; gap: 1.25rem; }
+.mbb-header { text-align: center; border-bottom: 1px solid rgba(42,21,37,0.12); padding-bottom: 1rem; }
+.mbb-eyebrow { font-family: var(--font-es-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--es-raspberry); opacity: 0.65; margin-bottom: 0.4rem; }
+.mbb-title { font-family: var(--font-es-display); font-weight: 700; font-size: 1.8rem; color: var(--es-midnight); line-height: 1; margin-bottom: 0.35rem; letter-spacing: -0.02em; }
+.mbb-tagline { font-family: var(--font-es-subhead); font-size: 0.78rem; color: var(--es-raspberry); opacity: 0.85; }
+.mbb-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.mbb-palette { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; align-content: start; }
+.mbb-swatch { aspect-ratio: 1; border-radius: 4px; position: relative; background-size: cover; background-position: center; }
+.mbb-type { display: flex; flex-direction: column; justify-content: center; gap: 0.5rem; padding-left: 0.5rem; border-left: 1px solid rgba(42,21,37,0.1); }
+.mbb-type-display { font-family: var(--font-es-display); font-weight: 700; font-size: 1.2rem; color: var(--es-fuchsia); line-height: 1; letter-spacing: -0.02em; }
+.mbb-type-sub { font-family: var(--font-es-subhead); font-size: 0.7rem; color: var(--es-raspberry); opacity: 0.75; }
+.mbb-type-body { font-family: var(--font-es-body); font-weight: 300; font-size: 0.55rem; color: var(--es-midnight); line-height: 1.5; }
+.mbb-footer { text-align: center; font-family: var(--font-es-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--es-raspberry); opacity: 0.55; border-top: 1px solid rgba(42,21,37,0.12); padding-top: 0.75rem; }
+.mock-cheat-sheet { background-image: linear-gradient(to bottom, rgba(255,240,224,0.99) 0%, rgba(255,245,235,0.98) 100%), var(--tex-cream); background-size: auto, cover; background-blend-mode: multiply; width: 100%; height: 100%; border-radius: 8px; padding: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+.mcs-header { font-family: var(--font-es-display); font-weight: 700; font-size: 1.2rem; color: var(--es-midnight); border-bottom: 1px solid rgba(42,21,37,0.12); padding-bottom: 0.5rem; letter-spacing: -0.01em; }
+.mcs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; flex: 1; }
+.mcs-cell { border-radius: 4px; padding: 0.6rem 0.75rem; font-family: var(--font-es-body); display: flex; flex-direction: column; justify-content: space-between; min-height: 0; position: relative; overflow: hidden; background-size: cover; background-position: center; }
+.mcs-cell-name { font-family: var(--font-es-display); font-weight: 700; font-size: 0.85rem; line-height: 1.1; position: relative; z-index: 1; letter-spacing: -0.01em; }
+.mcs-cell-meta { font-size: 0.45rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.75; position: relative; z-index: 1; }
+.mock-texture { width: 100%; height: 100%; border-radius: 8px; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); gap: 4px; padding: 4px; background: var(--es-midnight); }
+.mock-texture-cell { border-radius: 4px; position: relative; overflow: hidden; background-size: cover; background-position: center; }
+.mock-texture-cell::after { content: attr(data-name); position: absolute; bottom: 0.4rem; left: 0.5rem; font-family: var(--font-es-body); font-size: 0.45rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.9); text-shadow: 0 1px 6px rgba(0,0,0,0.85); }
+.mock-playground { width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1rem; padding: 1.25rem; background-image: radial-gradient(ellipse at 20% 80%, rgba(255,107,53,0.12) 0%, transparent 55%), radial-gradient(ellipse at 80% 20%, rgba(232,53,109,0.10) 0%, transparent 50%), var(--tex-tangerine); background-size: auto, auto, cover; }
+.mp-sample { border-radius: 4px; padding: 1rem 1rem 0.85rem; display: flex; flex-direction: column; position: relative; overflow: hidden; text-align: center; background-size: cover; background-position: center; }
+.mp-sample-swatch { flex: 1; border-radius: 3px; margin-bottom: 0.85rem; min-height: 0; background-size: cover; background-position: center; }
+.mp-sample-name { font-family: var(--font-es-body); font-size: 0.42rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 0.35rem; opacity: 0.85; }
+.mp-sample-tagline { font-family: var(--font-es-subhead); font-size: 0.6rem; line-height: 1.4; opacity: 0.85; }
+.carousel-caption-row { padding: 1.25rem 0.25rem 0.5rem; display: flex; flex-direction: column; gap: 0.25rem; text-align: center; }
+.caption-label { font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amethyst-light); opacity: 0.65; transition: opacity 0.4s ease; }
+.caption-name { font-family: var(--font-emmy-display); font-size: 0.95rem; font-weight: 300; font-style: italic; color: var(--fairy-silver); opacity: 0.8; transition: opacity 0.4s ease; }
+.carousel-dots { display: flex; justify-content: center; gap: 0.55rem; padding: 0.75rem 0 0; }
+.carousel-dot { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: rgba(200,184,232,0.25); border: none; cursor: pointer; padding: 0; transition: background 0.4s ease, width 0.4s ease; }
+.carousel-dot:hover { background: rgba(200,184,232,0.5); }
+.carousel-dot.active { background: var(--es-tangerine); width: 1.4rem; border-radius: 100px; }
+.inside-list { padding-top: 0.5rem; }
+.inside-list-title { font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--es-lemon); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.85rem; }
+.inside-list-title::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--es-lemon); opacity: 0.7; }
+.inside-item { padding: 1.1rem 0; border-bottom: 1px solid rgba(255,240,224,0.08); display: grid; grid-template-columns: 2rem 1fr; gap: 0.75rem; align-items: start; }
+.inside-item:first-of-type { border-top: 1px solid rgba(255,240,224,0.08); }
+.inside-icon { font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.1em; color: var(--es-lemon); opacity: 0.85; padding-top: 0.2rem; }
+.inside-text strong { display: block; font-family: var(--font-emmy-body); font-size: 0.85rem; font-weight: 400; color: var(--moonpetal); margin-bottom: 0.3rem; letter-spacing: 0.02em; }
+.inside-text span { font-family: var(--font-emmy-body); font-size: 0.72rem; font-weight: 300; color: var(--fairy-silver); opacity: 0.78; line-height: 1.6; }
+
+/* CTA — on fuchsia shock */
+.cta-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% 50%, rgba(232,53,109,0.25) 0%, transparent 62%), radial-gradient(ellipse at 50% 100%, rgba(42,21,37,0.8) 0%, transparent 52%), linear-gradient(to bottom, rgba(42,21,37,0.52) 0%, rgba(42,21,37,0.58) 100%), var(--tex-fuchsia); background-size: auto, auto, auto, cover; }
+.cta-section::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-45deg, transparent 0px, transparent 4px, rgba(232,53,109,0.02) 4px, rgba(232,53,109,0.02) 5px); pointer-events: none; }
+.cta-inner { max-width: 900px; margin: 0 auto; padding: 0 3rem; text-align: center; position: relative; z-index: 1; }
+.cta-label { font-family: var(--font-emmy-body); font-size: 0.58rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amethyst-light); margin-bottom: 1.25rem; }
+.cta-big { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.15; margin-bottom: 1.5rem; text-shadow: 0 2px 24px rgba(0,0,0,0.45); }
+.cta-sub { font-family: var(--font-emmy-body); font-size: 1rem; color: var(--fairy-silver); opacity: 0.85; line-height: 1.8; margin-bottom: 2.5rem; max-width: 580px; margin-left: auto; margin-right: auto; }
+.cta-buttons { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
+.btn-primary { display: inline-block; padding: 0.95rem 2.5rem; background: var(--es-fuchsia); color: var(--es-cream); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: background 0.3s ease, transform 0.2s ease; }
+.btn-primary:hover { background: var(--es-raspberry); transform: translateY(-1px); }
+.btn-ghost { display: inline-block; padding: 0.95rem 2.5rem; border: 1px solid rgba(200,184,232,0.3); color: var(--fairy-silver); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: border-color 0.3s ease, color 0.3s ease; }
+.btn-ghost:hover { border-color: var(--fairy-silver); color: var(--moonpetal); }
+footer { padding: 3rem; border-top: 1px solid rgba(255,240,224,0.06); display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
+.footer-name { font-family: var(--font-emmy-display); font-style: italic; font-size: 1rem; color: var(--fairy-silver); opacity: 0.5; }
+.footer-note { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 300; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.35; }
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+@media (max-width: 900px) {
+  nav { padding: 1.25rem 1.5rem; } .nav-links { gap: 1.5rem; } .breadcrumb { padding: 4.25rem 1.5rem 0.4rem; }
+  .kit-hero-wrap { padding: 0 1.5rem; } .kit-hero-inner { padding: 3rem 0; min-height: 320px; }
+  .painting-inner, .palette-inner, .inside-inner { padding: 0 1.5rem; }
+  .type-section, .combo-section { padding: 5rem 1.5rem; }
+  .painting-section, .palette-section, .inside-section, .cta-section { padding: 5rem 0; }
+  .cta-inner { padding: 0 1.5rem; }
+  .painting-grid, .palette-header, .type-header, .combo-header, .inside-header, .inside-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .palette-grid { grid-template-columns: repeat(2, 1fr); } .combo-grid { grid-template-columns: 1fr 1fr; }
+  .type-card { padding: 3rem 2rem; } .type-rule { padding: 2.5rem 2rem; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 3rem 1.5rem; }
+}
+@media (max-width: 600px) {
+  .nav-links { display: none; } .palette-grid { grid-template-columns: 1fr; } .combo-grid { grid-template-columns: 1fr; } .cta-buttons { flex-direction: column; align-items: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="../../index.html" class="nav-name">Emmy Bellamora</a>
+  <ul class="nav-links">
+    <li><a href="../../index.html#about">About</a></li>
+    <li><a href="../../index.html#work">Work</a></li>
+    <li><a href="../../index.html#approach">Approach</a></li>
+    <li><a href="../../index.html#working-together">Together</a></li>
+    <li><a href="../../index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<div class="breadcrumb">
+  <a href="../../index.html">Emmy</a><span class="breadcrumb-sep">/</span>
+  <a href="../../index.html#work">Brand Kits</a><span class="breadcrumb-sep">/</span>
+  <a href="../../index.html#work">Sugar on Top</a><span class="breadcrumb-sep">/</span>
+  <span>Electric Sherbet</span>
+</div>
+
+<section class="kit-hero">
+  <div class="kit-hero-inner">
+    <div class="drips" aria-hidden="true">
+      <span class="fizz fizz-1"></span><span class="fizz fizz-2"></span><span class="fizz fizz-3"></span>
+      <span class="fizz fizz-4"></span><span class="fizz fizz-5"></span><span class="fizz fizz-6"></span>
+      <span class="spark spark-1"></span><span class="spark spark-2"></span><span class="spark spark-3"></span>
+    </div>
+    <div class="kit-hero-wrap">
+      <div class="kit-hero-content">
+        <div class="kit-hero-meta">Sugar on Top &middot; Kit 03</div>
+        <h1 class="kit-hero-name">Electric Sherbet</h1>
+        <p class="kit-hero-tagline">Dopamine hit. Fizzy, fearless, unapologetically bright &mdash; for the person who&rsquo;s tired of being told to keep it professional. Professional is beige. She&rsquo;s not beige.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="inside-section">
+  <div class="drips" aria-hidden="true">
+    <span class="fizz fizz-2"></span><span class="fizz fizz-4"></span><span class="fizz fizz-6"></span>
+  </div>
+  <div class="inside-inner">
+    <div class="inside-header">
+      <h2 class="inside-title reveal">Inside the kit.</h2>
+      <p class="inside-intro reveal">Brand kits should be <em>complete worlds</em>, not single files. Flip through to see what arrives when Electric Sherbet becomes yours.</p>
+    </div>
+    <div class="inside-grid">
+      <div class="carousel reveal" id="kit-carousel">
+        <div class="carousel-stage">
+          <div class="carousel-slide active" data-slide="0">
+            <div class="mockup-stage">
+              <div class="mock-brand-board">
+                <div class="mbb-header">
+                  <div class="mbb-eyebrow">Sugar on Top &middot; Brand Board</div>
+                  <div class="mbb-title">Electric Sherbet</div>
+                  <div class="mbb-tagline">Fizzy. Fearless. Not beige.</div>
+                </div>
+                <div class="mbb-body">
+                  <div class="mbb-palette">
+                    <div class="mbb-swatch swatch-tangerine"></div><div class="mbb-swatch swatch-fuchsia"></div>
+                    <div class="mbb-swatch swatch-lemon"></div><div class="mbb-swatch swatch-raspberry"></div>
+                    <div class="mbb-swatch swatch-lime"></div><div class="mbb-swatch swatch-grape"></div>
+                    <div class="mbb-swatch swatch-cream"></div><div class="mbb-swatch swatch-midnight"></div>
+                  </div>
+                  <div class="mbb-type">
+                    <div class="mbb-type-display">LOUD.</div>
+                    <div class="mbb-type-sub">Space Grotesk &middot; Bricolage &middot; DM Sans</div>
+                    <div class="mbb-type-body">Geometric but warm. Punchy at headline scale. Three sans-serifs that match the energy without competing with the palette.</div>
+                  </div>
+                </div>
+                <div class="mbb-footer">By Emmy Bellamora &middot; Sugar on Top Collection</div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-slide" data-slide="1">
+            <div class="mockup-stage" style="padding:0;">
+              <div class="mock-playground">
+                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(255,107,53,0.75),rgba(42,21,37,0.65)),var(--tex-tangerine);background-size:auto,cover;color:var(--es-cream);">
+                  <div class="mp-sample-swatch" style="background-image:var(--tex-tangerine);background-size:cover;"></div>
+                  <div class="mp-sample-name" style="color:var(--es-lemon);">Tangerine Fizz</div>
+                  <div class="mp-sample-tagline">Wet citrus glow.<br>Party orange.</div>
+                </div>
+                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(232,53,109,0.72),rgba(42,21,37,0.65)),var(--tex-fuchsia);background-size:auto,cover;color:var(--es-cream);">
+                  <div class="mp-sample-swatch" style="background-image:var(--tex-fuchsia);background-size:cover;"></div>
+                  <div class="mp-sample-name" style="color:var(--es-lemon);">Fuchsia Shock</div>
+                  <div class="mp-sample-tagline">Neon sign in the window.<br>No permission asked.</div>
+                </div>
+                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(184,230,46,0.70),rgba(42,21,37,0.65)),var(--tex-lime);background-size:auto,cover;color:var(--es-midnight);">
+                  <div class="mp-sample-swatch" style="background-image:var(--tex-lime);background-size:cover;"></div>
+                  <div class="mp-sample-name" style="color:var(--es-grape);">Lime Volt</div>
+                  <div class="mp-sample-tagline">The surprise ingredient.<br>Citrus meets neon.</div>
+                </div>
+                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(74,32,96,0.78),rgba(42,21,37,0.65)),var(--tex-grape);background-size:auto,cover;color:var(--es-cream);">
+                  <div class="mp-sample-swatch" style="background-image:var(--tex-grape);background-size:cover;"></div>
+                  <div class="mp-sample-name" style="color:var(--es-lemon);">Twilight Grape</div>
+                  <div class="mp-sample-tagline">The night sky behind it.<br>Gives the brights somewhere to land.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-slide" data-slide="2">
+            <div class="mockup-stage">
+              <div class="mock-cheat-sheet">
+                <div class="mcs-header">Color Combinations</div>
+                <div class="mcs-grid">
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(255,107,53,0.88),rgba(232,53,109,0.70)),var(--tex-tangerine);background-size:auto,cover;color:var(--es-midnight);"><div class="mcs-cell-name">The Signature</div><div class="mcs-cell-meta">Tangerine &times; Fuchsia &middot; AA</div></div>
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(74,32,96,0.90),rgba(184,230,46,0.45)),var(--tex-grape);background-size:auto,cover;color:var(--es-cream);"><div class="mcs-cell-name">Electric Surprise</div><div class="mcs-cell-meta">Lime &times; Grape &middot; AA</div></div>
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(232,53,109,0.88),rgba(74,32,96,0.65)),var(--tex-fuchsia);background-size:auto,cover;color:var(--es-cream);"><div class="mcs-cell-name">Neon Night</div><div class="mcs-cell-meta">Fuchsia &times; Grape &middot; AA</div></div>
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(255,240,224,0.96),rgba(255,210,63,0.35)),var(--tex-cream);background-size:auto,cover;color:var(--es-midnight);border:1px solid rgba(42,21,37,0.08);"><div class="mcs-cell-name">Daylight Mode</div><div class="mcs-cell-meta">Tangerine &times; Cream &middot; AA</div></div>
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(255,210,63,0.85),rgba(232,53,109,0.55)),var(--tex-lemon);background-size:auto,cover;color:var(--es-midnight);"><div class="mcs-cell-name">Pure Dopamine</div><div class="mcs-cell-meta">Lemon &times; Fuchsia &middot; AA</div></div>
+                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(42,21,37,0.90),rgba(255,107,53,0.45)),var(--tex-midnight);background-size:auto,cover;color:var(--es-cream);"><div class="mcs-cell-name">Dark Ground</div><div class="mcs-cell-meta">Midnight &times; Tangerine &middot; AA</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-slide" data-slide="3">
+            <div class="mockup-stage" style="padding:1rem;">
+              <div class="mock-texture">
+                <div class="mock-texture-cell" data-name="Tangerine" style="background-image:linear-gradient(to bottom,rgba(255,107,53,0.48),rgba(42,21,37,0.35)),var(--tex-tangerine);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Fuchsia"   style="background-image:linear-gradient(to bottom,rgba(232,53,109,0.52),rgba(42,21,37,0.38)),var(--tex-fuchsia);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Lemon Zap" style="background-image:linear-gradient(to bottom,rgba(255,210,63,0.55),rgba(42,21,37,0.30)),var(--tex-lemon);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Raspberry" style="background-image:linear-gradient(to bottom,rgba(139,26,74,0.55),rgba(42,21,37,0.40)),var(--tex-raspberry);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Lime Volt" style="background-image:linear-gradient(to bottom,rgba(184,230,46,0.55),rgba(42,21,37,0.30)),var(--tex-lime);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Grape"     style="background-image:linear-gradient(to bottom,rgba(74,32,96,0.58),rgba(42,21,37,0.45)),var(--tex-grape);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Cream"     style="background-image:linear-gradient(to bottom,rgba(255,240,224,0.62),rgba(255,245,235,0.50)),var(--tex-cream);background-size:auto,cover;"></div>
+                <div class="mock-texture-cell" data-name="Midnight"  style="background-image:linear-gradient(to bottom,rgba(42,21,37,0.60),rgba(42,21,37,0.50)),var(--tex-midnight);background-size:auto,cover;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-dots">
+          <button class="carousel-dot active" data-go="0" aria-label="Brand Board"></button>
+          <button class="carousel-dot" data-go="1" aria-label="Material Samples"></button>
+          <button class="carousel-dot" data-go="2" aria-label="Cheat Sheet"></button>
+          <button class="carousel-dot" data-go="3" aria-label="Texture Vault"></button>
+        </div>
+        <div class="carousel-caption-row">
+          <div class="caption-label" id="caption-label">Brand Board</div>
+          <div class="caption-name" id="caption-name">The kit at a glance</div>
+        </div>
+      </div>
+      <div class="inside-list reveal">
+        <div class="inside-list-title">Everything Included</div>
+        <div class="inside-item"><div class="inside-icon">01</div><div class="inside-text"><strong>Whole Box Color Palette</strong><span>Eight materially-named colors with hex codes, role descriptions, and texture notes.</span></div></div>
+        <div class="inside-item"><div class="inside-icon">02</div><div class="inside-text"><strong>Typography System</strong><span>Space Grotesk + Bricolage Grotesque + DM Sans. The Rooftop Suite. All-sans, all energy, all personality.</span></div></div>
+        <div class="inside-item"><div class="inside-icon">03</div><div class="inside-text"><strong>Brand Board</strong><span>One page that captures the entire kit at a glance &mdash; for presentations or quick reference.</span></div></div>
+        <div class="inside-item"><div class="inside-icon">04</div><div class="inside-text"><strong>Color Combinations Cheat Sheet</strong><span>Pre-vetted combinations with WCAG contrast scores. Bright AND accessible.</span></div></div>
+        <div class="inside-item"><div class="inside-icon">05</div><div class="inside-text"><strong>Tier-2 Playground</strong><span>Full sandbox of the kit in motion &mdash; layouts, social tiles, link-in-bio templates.</span></div></div>
+        <div class="inside-item"><div class="inside-icon">06</div><div class="inside-text"><strong>Texture Vault</strong><span>Eight high-res material textures &mdash; wet citrus, neon glow, effervescent lemon, raspberry velvet, lime volt, twilight grape, sherbet cream, midnight satin.</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="painting-section">
+  <div class="painting-inner">
+    <div class="painting-grid">
+      <div class="reveal">
+        <div class="painting-label">The Scene Behind It</div>
+        <h2 class="painting-title">A rooftop.<br>Golden hour.<br><em style="color:var(--es-tangerine);font-style:italic;">Music you feel.</em></h2>
+        <p class="painting-attribution">A scene, not a painting &mdash; built from feeling first.</p>
+      </div>
+      <div class="painting-body reveal">
+        <p>Someone just handed you a drink that&rsquo;s the color of a sunset &mdash; orange bleeding into hot pink. The music is loud enough to feel in your chest. You&rsquo;re wearing something that makes people look twice. <strong>You don&rsquo;t care. Actually, you do care. You love it.</strong></p>
+        <p>Electric Sherbet is for the person who&rsquo;s tired of being told to keep it professional. Professional is beige. She&rsquo;s not beige. She&rsquo;s been careful for long enough and the brand that doesn&rsquo;t look like her is the brand she can&rsquo;t get behind.</p>
+        <p>Tangerine Fizz is not construction-cone orange &mdash; it&rsquo;s <em>party orange</em>. The orange of a fresh cocktail catching sunset light. Fuchsia Shock is not bubblegum &mdash; it&rsquo;s the neon sign in the window that says &ldquo;yes, tonight, here.&rdquo; Lime Volt is the ingredient that takes &ldquo;warm brights&rdquo; and makes it <strong>Electric Sherbet.</strong></p>
+        <p>Twilight Grape holds it all. The sky behind the rooftop. Gives the brights somewhere to land. <em>Without the depth, there&rsquo;s no contrast. Without the contrast, there&rsquo;s no pop.</em></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="palette-section">
+  <div class="palette-inner">
+    <div class="palette-header">
+      <h2 class="palette-title reveal">The Whole Box.<br>Every color material.</h2>
+      <p class="palette-intro reveal">Eight colors. Each one named for what it actually <em>is</em>. Not &ldquo;orange.&rdquo; Not &ldquo;pink.&rdquo; <em>Tangerine Fizz. Fuchsia Shock. Lime Volt.</em> These colors aren&rsquo;t decorating &mdash; they&rsquo;re saying something.</p>
+    </div>
+    <div class="palette-grid">
+      <div class="palette-card reveal"><div class="palette-swatch swatch-tangerine"></div><div class="palette-card-body"><div class="palette-role">Primary Bright</div><div class="palette-name">Tangerine Fizz</div><div class="palette-hex">#FF6B35</div><p class="palette-feel">Fresh-squeezed orange with sparkling water. Electric, warm, alive. Not construction-cone orange. Party orange &mdash; the color of a cocktail catching golden-hour light.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-fuchsia"></div><div class="palette-card-body"><div class="palette-role">Signature Pink</div><div class="palette-name">Fuchsia Shock</div><div class="palette-hex">#E8356D</div><p class="palette-feel">Hot pink that didn&rsquo;t ask permission. The neon sign in the window. Confident without trying. This color self-selects &mdash; people who love it know immediately.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-lemon"></div><div class="palette-card-body"><div class="palette-role">Citrus Yellow</div><div class="palette-name">Lemon Zap</div><div class="palette-hex">#FFD23F</div><p class="palette-feel">Sunshine concentrated. The fizz at the top of the drink. Effervescent and sparkling, tiny light points dancing. Pure optimism in a color.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-raspberry"></div><div class="palette-card-body"><div class="palette-role">Deep Warm</div><div class="palette-name">Raspberry Velvet</div><div class="palette-hex">#8B1A4A</div><p class="palette-feel">Where the party gets intimate. Fuchsia&rsquo;s older sister &mdash; she&rsquo;s been here before and she&rsquo;s staying late. Plush matte velvet, deep and rich.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-lime"></div><div class="palette-card-body"><div class="palette-role">Electric Accent</div><div class="palette-name">Lime Volt</div><div class="palette-hex">#B8E62E</div><p class="palette-feel">The surprise ingredient. The thing that makes this palette pop instead of just &ldquo;bright.&rdquo; Citrus meets neon, almost luminescent. Without it, warm brights. With it, Electric Sherbet.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-grape"></div><div class="palette-card-body"><div class="palette-role">Cool Contrast</div><div class="palette-name">Twilight Grape</div><div class="palette-hex">#4A2060</div><p class="palette-feel">The sky behind the rooftop. Deep matte with subtle shimmer, giving all this energy somewhere to land. Without the depth, the brights have no pop.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-cream"></div><div class="palette-card-body"><div class="palette-role">Warm Neutral</div><div class="palette-name">Sherbet Cream</div><div class="palette-hex">#FFF0E0</div><p class="palette-feel">The palate cleanser. Warm cream with the faintest peach blush &mdash; smooth and matte. Breathing room. The surface that makes the brights readable.</p></div></div>
+      <div class="palette-card reveal"><div class="palette-swatch swatch-midnight"></div><div class="palette-card-body"><div class="palette-role">Dark Ground</div><div class="palette-name">Midnight Mango</div><div class="palette-hex">#2A1525</div><p class="palette-feel">The darkest dark &mdash; warm, fruity even in shadow. Not black (black would kill this palette). Dark satin with warm undertone visible in light. Holds the whole thing together.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="type-section">
+  <div class="type-header">
+    <h2 class="type-title reveal">Three fonts.<br>The Rooftop Suite.</h2>
+    <p class="type-intro reveal"><strong>Space Grotesk brings the energy. Bricolage adds the warmth. DM Sans does the work.</strong> All sans-serif &mdash; no serifs would fight this palette. All free Google Fonts, forever yours.</p>
+  </div>
+  <div class="type-card reveal">
+    <div class="type-card-meta">Headline &middot; Space Grotesk 700</div>
+    <div class="type-card-display">LOUD.</div>
+    <div class="type-card-name">Space Grotesk 700, 72pt &middot; Midnight Mango</div>
+  </div>
+  <div class="type-card reveal">
+    <div class="type-card-meta">Subhead &middot; Bricolage Grotesque 400</div>
+    <p class="type-card-subhead">The sentence that makes someone lean forward. Bricolage shifts personality at different sizes &mdash; playful small, powerful big. The warmth that keeps geometric from going cold.</p>
+    <div class="type-card-name">Bricolage Grotesque 400, 28pt &middot; Fuchsia Shock on Sherbet Cream</div>
+  </div>
+  <div class="type-card reveal">
+    <div class="type-card-meta">Body &middot; DM Sans 300&ndash;500</div>
+    <p class="type-card-body">DM Sans earns the name. Soft geometric sans that reads clean without feeling corporate. The rounded openness matches Electric Sherbet&rsquo;s energy &mdash; friendly, approachable, not intimidating. At light weights on dark it&rsquo;s effortless. The rounded terminals add warmth that pure geometrics wouldn&rsquo;t bring.</p>
+    <div class="type-card-name">DM Sans 300, 16pt &middot; Midnight Mango on Sherbet Cream</div>
+  </div>
+  <div class="type-rule reveal">The rule:<br><em>Space Grotesk brings the energy. Bricolage adds the warmth. DM Sans does the work. Let them each do their thing.</em></div>
+</section>
+
+<section class="combo-section">
+  <div class="combo-header">
+    <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
+    <p class="combo-intro reveal">A color swatch on white tells you nothing. What matters is how a color <em>behaves</em> next to other colors. These are the signature pairings &mdash; the combinations Electric Sherbet was built for.</p>
+  </div>
+  <div class="combo-grid">
+    <div class="combo-card combo-1 reveal"><div class="combo-text"><div class="combo-pair">The Signature</div><div class="combo-name">Sunset in a Glass</div></div></div>
+    <div class="combo-card combo-2 reveal"><div class="combo-text"><div class="combo-pair">Electric Surprise</div><div class="combo-name">Lime &amp; Grape</div></div></div>
+    <div class="combo-card combo-3 reveal"><div class="combo-text"><div class="combo-pair">Neon Night</div><div class="combo-name">Fuchsia on Dark</div></div></div>
+    <div class="combo-card combo-4 reveal"><div class="combo-text"><div class="combo-pair">Pure Dopamine</div><div class="combo-name">Lemon &amp; Fuchsia</div></div></div>
+    <div class="combo-card combo-5 reveal"><div class="combo-text"><div class="combo-pair">Dark Ground</div><div class="combo-name">Midnight &amp; Tangerine</div></div></div>
+    <div class="combo-card combo-6 reveal"><div class="combo-text"><div class="combo-pair">Acid Remix</div><div class="combo-name">Lime on Midnight</div></div></div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-inner">
+    <div class="cta-label">Take it Home</div>
+    <h2 class="cta-big reveal">Make Electric Sherbet<br>your brand.</h2>
+    <p class="cta-sub reveal">The kit is available now. If you want a custom kit built specifically for your world &mdash; or if you&rsquo;d like Emmy to translate Electric Sherbet into a full website &mdash; that&rsquo;s available too.</p>
+    <div class="cta-buttons reveal">
+      <a href="mailto:hello@emmybellamora.com?subject=Electric Sherbet Kit" class="btn-primary">Get the Kit</a>
+      <a href="../../index.html#working-together" class="btn-ghost">Talk to Emmy</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-name">Emmy Bellamora</div>
+  <div class="footer-note">Creative Director &middot; Cognitive UX Designer &middot; Fairy With Bite 🧚‍♀️</div>
+</footer>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+(function () {
+  const carousel = document.getElementById('kit-carousel');
+  if (!carousel) return;
+  const stage = carousel.querySelector('.carousel-stage');
+  const slides = carousel.querySelectorAll('.carousel-slide');
+  const dots = carousel.querySelectorAll('.carousel-dot');
+  const captionLabel = document.getElementById('caption-label');
+  const captionName = document.getElementById('caption-name');
+  const total = slides.length;
+  let current = 0;
+  const captions = [
+    { label: 'Brand Board',      name: 'The kit at a glance' },
+    { label: 'Material Samples', name: 'The textures in the kit' },
+    { label: 'Cheat Sheet',      name: 'Combinations, vetted for accessibility' },
+    { label: 'Texture Vault',    name: 'Eight materials — nothing is flat' }
+  ];
+  function go(i) {
+    current = (i + total) % total;
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === current));
+    dots.forEach((d, idx) => d.classList.toggle('active', idx === current));
+    if (captions[current]) { captionLabel.textContent = captions[current].label; captionName.textContent = captions[current].name; }
+  }
+  stage.addEventListener('click', () => go(current + 1));
+  dots.forEach((dot) => dot.addEventListener('click', (e) => { e.stopPropagation(); go(parseInt(dot.dataset.go, 10)); }));
+  document.addEventListener('keydown', (e) => {
+    const rect = carousel.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      if (e.key === 'ArrowLeft') go(current - 1);
+      if (e.key === 'ArrowRight') go(current + 1);
+    }
+  });
+})();
+</script>
+</body>
+</html>
