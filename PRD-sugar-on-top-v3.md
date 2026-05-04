@@ -50,20 +50,24 @@ The premise is solid. The gap that prompted this PRD was *me working without the
 These are the things that make a kit "V3." Each kit's checklist in §5 verifies all of these.
 
 **Structure:**
-1. **Tier-card architecture** — two large clickable cards (Tier 1 / Tier 2) replacing the old 4-card carousel-of-thumbnails, where applicable. Some kits (Cherry Glaze) have richer designed-mockup carousels that should be preserved — see per-kit notes.
-2. **Palette chip structure** — color block on top, material texture middle, label band on bottom. Three layers per chip.
+1. **Tier-card architecture** — two large clickable cards (Tier 1 / Tier 2) for $188 / $388 sales-page entry points. Carousel-of-thumbnails (when present) gets replaced or supplemented; richer carousels (Cherry Glaze) keep + add tier-cards as a separate block.
+2. **Rich palette card structure** — each color presented as: flat color block (top) + textured material swatch (below) + role label + name + hex + descriptive feel sentence. The Cherry Glaze pattern is the V3 standard. Spun Sugar and Mint Condition's minimal "color + material + name + hex" chips need to be upgraded to match.
 3. **Palette section signature title** — "Eight colors. Eight materials. *One palette.*" (Voice variant per kit OK; the architectural promise must be present.)
 4. **Real CTA above button** — the line that calls her, not a directive. (See `emmys-design-principles.md` → "The Call to Action Is Not the Button".) Each kit's CTA names what she stops doing or lets herself be — specific to that kit's mood.
-5. **Pricing model** — $188 (Tier 1) / $388 (Tier 2). Hero and CTA must agree.
+5. **Pricing model** — $188 (Tier 1) / $388 (Tier 2). Hero and CTA and tier-cards must agree.
 
-**Visual rhythm (the rule I missed):**
+**Visual rhythm:**
 6. **Alternating section backgrounds** — sections that *contain* material content (palette chips, type cards, combo cards, kit-contents/tier cards) sit on near-white flats (`#FAF9F8` or kit equivalent). Sections that *are* the material moment (hero, painting/feature, CTA) keep textured backgrounds. Texture and flat alternate. Never material-on-material — within a section OR between adjacent sections.
-7. **Visible CTA buttons** — outline buttons must have sufficient contrast against their hero background. (Spun Sugar V3 fix: was cotton-wisp on cotton-wisp; now plum on cotton-wisp. Same check for every kit.)
+7. **Hero texture ≠ adjacent tier-card-visual texture** — *(Pattern caught second-time on Mint Condition 2026-05-04, after first surfacing on Spun Sugar.)* The tier card directly below the hero must use a different material than the hero itself. Echo = visual cacophony at the section seam. Pick a complementary material from the kit's palette that gives the eye a clear handoff.
+8. **Card-vs-background contrast** — *(Pattern caught on Mint Condition 2026-05-04: Evergreen palette card blended into evergreen Painting section background.)* Palette cards, color blocks, and any container-on-background element must read as *distinct objects*, not blend holes. When section bg color and a palette color are in the same value range, add a real visible border, lift via shadow, or background-color shift. Test the dark-on-dark and light-on-light edge cases specifically.
+9. **Combo card text contrast** — *(Pattern caught on Mint Condition 2026-05-04: spearmint body text on spearmint card.)* Body text on combo cards needs a real value shift from the card background. Same-color-family backgrounds (green text on green bg, pink text on pink bg) require a shift in lightness, not just hue. If the named colors are too close in value, fall back to a kit neutral (porcelain, evergreen, etc.) for the body text.
+10. **Visible CTA buttons** — outline buttons must have sufficient contrast against their hero background. (Spun Sugar V3 fix: was cotton-wisp on cotton-wisp; now plum on cotton-wisp. Same check for every kit.)
 
 **Polish:**
-8. **No half-sections** — sections complete in viewport at common breakpoints. Deliberate viewport rhythm.
-9. **Type readability** — title sizes large enough to read; eyebrow/intro text not so pale it's hard to scan. (Heather's catch on Spun Sugar tonight: pairing card titles unreadable on Dawn Blush; the fix is a sizing pass, not just color.)
-10. **No stale code** — remove obsolete carousel JS, dead variables, broken cross-references between kits (e.g., Cherry Glaze inheriting Velvet Noir variables).
+11. **No half-sections** — sections complete in viewport at common breakpoints. Deliberate viewport rhythm.
+12. **Hero title sizing** — *(Pattern caught second-time on Mint Condition 2026-05-04, after first surfacing on Spun Sugar.)* Hero kit-name must read at full strength. If I'm second-guessing whether it's "kind of small" — that's the signal it IS too small. Bump it up. Color value matters too: light text on light hero bg needs to go darker even if it "matches" the kit family.
+13. **Type readability across all card titles** — combo card titles, tier card titles, palette card names, type-card-meta. Sizing pass on every title element, not just hero. Eyebrow/intro text not so pale it's hard to scan.
+14. **No stale code** — remove obsolete carousel JS, dead variables, broken cross-references between kits (e.g., Cherry Glaze inheriting Velvet Noir variables).
 
 ### 4.2 The five kits to bring to V3
 
@@ -128,8 +132,9 @@ For each kit, verify all of these are true before checking the kit's master box:
 ### Per-kit master boxes
 
 - [ ] **Velvet Noir** — V3 complete
-- [ ] **Mint Condition** — V3 complete (currently in-progress; see 4.2.2)
-- [ ] **Cherry Glaze** — V3 complete (with documented different-different exception)
+- [ ] **Mint Condition** — V3 final-stage shape (Heather review pending). Tier-cards, alternating bgs, real CTA, hero title bigger+darker, Tier 1 visual swap, paint-swatch borders, combo card text contrast, rich palette card structure with role + feel descriptions all shipped 2026-05-04 sessions 8-10.
+- [ ] **Spun Sugar** — V3 final-stage shape (Heather review pending). Hero title sized up, Tier 1 visual swapped (cotton → dawn), pairing card titles + body sized up for readability, rich palette card structure with role + feel descriptions all shipped 2026-05-04 session 10.
+- [ ] **Cherry Glaze** — V3 final-stage shape (Heather review pending). Alternating bgs, real CTA, palette signature title, rich palette cards with color blocks, tier-card entry block, hero title sizing all shipped 2026-05-04 session 10. Different-different exception preserved (designed-mockup carousel + richer palette card structure already in place from build).
 - [ ] **Electric Sherbet** — V3 complete
 - [ ] **Salted Caramel** — V3 complete (incl. buttermilk regen)
 
@@ -148,6 +153,8 @@ For each kit, verify all of these are true before checking the kit's master box:
 - **2026-05-04** `defines_done: agent`. Brand kits are Emmy's authority per 2026-03-11 / 2026-03-30 grants. Heather's eye remains data, not gating.
 - **2026-05-04** Different-different is the philosophy: shared V3 skeleton (the items in 4.1), each kit's visual language preserved. Cherry Glaze's designed-mockup carousel is the documented exception case.
 - **2026-05-04** Pre-commit discipline added (4.3) as the response to tonight's gap: I miss material-on-material even when I agree with the rule. Screenshot + checklist is the scaffold.
+- **2026-05-04 (late session)** Pattern-level rules added to V3 ruleset after Heather caught second-time issues on Mint Condition: hero-tex ≠ adjacent-tier-card-tex (rule 7), card-vs-bg contrast (rule 8), combo card text contrast (rule 9), hero title sizing (rule 12). Each surfaced first as a single-kit fix and then again on the next kit — the second appearance is what justifies pattern-level codification.
+- **2026-05-04 (late session)** Rich palette card structure (color block + material + role + name + hex + feel description) is the V3 standard, applied across all kits. Cherry Glaze pattern wins because it's a richer brand-coaching artifact, not just a color reference. Spun Sugar and Mint Condition upgraded tonight; the three remaining kits get this from the start.
 
 ---
 
