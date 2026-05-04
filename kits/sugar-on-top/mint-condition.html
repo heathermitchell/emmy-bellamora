@@ -378,17 +378,18 @@ section > * { position: relative; z-index: 1; }
 
 .hero-title {
   font-family: var(--font-mc-display);
-  font-size: clamp(3.5rem, 8vw, 7rem);
-  font-weight: 500;
+  font-size: clamp(4.5rem, 10vw, 9rem);
+  font-weight: 600;
   line-height: 1.0;
-  color: var(--mc-morning);
+  color: var(--mc-evergreen);
   margin-bottom: 0.6rem;
   letter-spacing: -0.02em;
 }
 
 .hero-title em {
   font-style: italic;
-  color: var(--mc-eucalyptus);
+  color: var(--mc-evergreen);
+  opacity: 0.78;
 }
 
 .hero-subline {
@@ -632,6 +633,8 @@ section > * { position: relative; z-index: 1; }
   min-height: 160px;
   position: relative;
   overflow: hidden;
+  border: 1px solid rgba(245, 249, 247, 0.18);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
 }
 
 .paint-swatch-name {
@@ -673,8 +676,8 @@ section > * { position: relative; z-index: 1; }
 
 .palette-row {
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  gap: 1rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
   margin-top: 3rem;
 }
 
@@ -682,50 +685,71 @@ section > * { position: relative; z-index: 1; }
   display: flex;
   flex-direction: column;
   cursor: default;
-  transition: transform 0.3s ease;
-  border-radius: 2px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 4px;
   overflow: hidden;
   border: 1px solid rgba(30, 77, 61, 0.12);
+  background: var(--mc-morning);
+  box-shadow: 0 2px 12px rgba(30, 77, 61, 0.06);
 }
 
-.palette-chip:hover { transform: translateY(-3px); }
+.palette-chip:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(30, 77, 61, 0.12); }
 
 .palette-chip-color {
-  aspect-ratio: 1;
   width: 100%;
+  aspect-ratio: 2.6;
 }
 
 .palette-chip-material {
-  aspect-ratio: 1;
   width: 100%;
+  aspect-ratio: 2.6;
 }
 
 .palette-chip-label {
   background: var(--mc-morning);
-  padding: 0.6rem 0.5rem 0.7rem;
-  text-align: center;
-  border-top: 1px solid rgba(30, 77, 61, 0.12);
+  padding: 1rem 1.1rem 1.25rem;
+  border-top: 1px solid rgba(30, 77, 61, 0.08);
+}
+
+.palette-chip-role {
+  display: block;
+  font-family: var(--font-mc-body);
+  font-size: 0.55rem;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mc-spearmint);
+  margin-bottom: 0.5rem;
 }
 
 .palette-chip-name {
   display: block;
-  font-family: var(--font-mc-body);
-  font-size: 0.62rem;
+  font-family: var(--font-mc-display);
+  font-size: 1.1rem;
   font-weight: 500;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  line-height: 1.3;
   color: var(--mc-evergreen);
+  margin-bottom: 0.3rem;
+  line-height: 1.2;
 }
 
 .palette-chip-hex {
   display: block;
   font-family: var(--font-mc-body);
-  font-size: 0.58rem;
+  font-size: 0.62rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: rgba(30, 77, 61, 0.55);
+  text-transform: uppercase;
+  margin-bottom: 0.7rem;
+}
+
+.palette-chip-feel {
+  display: block;
+  font-family: var(--font-mc-body);
+  font-size: 0.78rem;
   font-weight: 300;
-  letter-spacing: 0.05em;
-  color: rgba(30, 77, 61, 0.65);
-  margin-top: 0.2rem;
+  line-height: 1.6;
+  color: rgba(30, 77, 61, 0.78);
 }
 
 /* ============================================================
@@ -1050,7 +1074,7 @@ section > * { position: relative; z-index: 1; }
     <div class="tier-cards">
 
       <a href="#" class="tier-card tier-1">
-        <div class="tier-card-visual tex-spearmint"></div>
+        <div class="tier-card-visual tex-lime-leaf"></div>
         <div class="tier-card-body">
           <div class="tier-card-eyebrow">Tier 1 · The Kit</div>
           <h3 class="tier-card-title">The Kit — $188</h3>
@@ -1119,64 +1143,80 @@ section > * { position: relative; z-index: 1; }
         <div class="palette-chip-color" style="background-color: #6DBAA1;"></div>
         <div class="palette-chip-material tex-spearmint"></div>
         <div class="palette-chip-label">
+          <span class="palette-chip-role">Primary Fresh</span>
           <span class="palette-chip-name">Spearmint</span>
           <span class="palette-chip-hex">#6DBAA1</span>
+          <p class="palette-chip-feel">A green that wakes up the room. Pressed leaves with morning dew still on them — clean, alive, and unmistakably the signature.</p>
         </div>
       </div>
       <div class="palette-chip">
         <div class="palette-chip-color" style="background-color: #A8D5C8;"></div>
         <div class="palette-chip-material tex-eucalyptus"></div>
         <div class="palette-chip-label">
+          <span class="palette-chip-role">Soft Cool</span>
           <span class="palette-chip-name">Eucalyptus</span>
           <span class="palette-chip-hex">#A8D5C8</span>
+          <p class="palette-chip-feel">The shade between mint and water. Steam rising off a teacup. The breath that softens everything else in the palette.</p>
         </div>
       </div>
       <div class="palette-chip">
         <div class="palette-chip-color" style="background-color: #1E4D3D;"></div>
         <div class="palette-chip-material tex-evergreen"></div>
         <div class="palette-chip-label">
+          <span class="palette-chip-role">Anchor Dark</span>
           <span class="palette-chip-name">Evergreen</span>
           <span class="palette-chip-hex">#1E4D3D</span>
+          <p class="palette-chip-feel">The deep wet stone after rain. Heavy, grounded, certain. The dark that lets every other color in this kit feel like a window opening.</p>
         </div>
       </div>
       <div class="palette-chip">
         <div class="palette-chip-color" style="background-color: #C8B88A;"></div>
         <div class="palette-chip-material tex-aloe-honey"></div>
         <div class="palette-chip-label">
+          <span class="palette-chip-role">Warm Accent</span>
           <span class="palette-chip-name">Aloe Honey</span>
           <span class="palette-chip-hex">#C8B88A</span>
+          <p class="palette-chip-feel">The one warm color in a cool palette — and it changes everything. Without it, clinical. With it, a spa. Raw linen, candlelit.</p>
         </div>
       </div>
       <div class="palette-chip">
         <div class="palette-chip-color" style="background-color: #C4CDD0;"></div>
         <div class="palette-chip-material tex-rain-glass"></div>
         <div class="palette-chip-label">
+          <span class="palette-chip-role">Cool Neutral</span>
           <span class="palette-chip-name">Rain Glass</span>
           <span class="palette-chip-hex">#C4CDD0</span>
+          <p class="palette-chip-feel">Frosted glass between you and the morning. Cool, calm, slightly luminous — the breathing room when the greens need a pause.</p>
         </div>
       </div>
       <div class="palette-chip">
         <div class="palette-chip-color" style="background-color: #8ED4A2;"></div>
         <div class="palette-chip-material tex-lime-leaf"></div>
         <div class="palette-chip-label">
+          <span class="palette-chip-role">Bright Pop</span>
           <span class="palette-chip-name">Lime Leaf</span>
           <span class="palette-chip-hex">#8ED4A2</span>
+          <p class="palette-chip-feel">The young green of new growth. Glossy, awake, a little electric. The note that keeps Mint Condition from ever reading sleepy.</p>
         </div>
       </div>
       <div class="palette-chip">
         <div class="palette-chip-color" style="background-color: #3A4A42;"></div>
         <div class="palette-chip-material tex-slate-moss"></div>
         <div class="palette-chip-label">
+          <span class="palette-chip-role">Structural Dark</span>
           <span class="palette-chip-name">Slate Moss</span>
           <span class="palette-chip-hex">#3A4A42</span>
+          <p class="palette-chip-feel">Wet stone in the woods. Cooler and denser than Evergreen — for text, for borders, for the bones of a layout that needs to hold its shape.</p>
         </div>
       </div>
       <div class="palette-chip">
         <div class="palette-chip-color" style="background-color: #F5F9F7;"></div>
         <div class="palette-chip-material tex-morning"></div>
         <div class="palette-chip-label">
+          <span class="palette-chip-role">Hero Light</span>
           <span class="palette-chip-name">Morning Glass</span>
           <span class="palette-chip-hex">#F5F9F7</span>
+          <p class="palette-chip-feel">The whitest white in the kit, with the faintest mint cast. Clean glass on a rainy morning. The surface that lets every green do its best work.</p>
         </div>
       </div>
     </div>
@@ -1252,8 +1292,8 @@ section > * { position: relative; z-index: 1; }
     <div class="combos-grid">
       <div class="combo-card">
         <div class="combo-preview" style="background: var(--mc-spearmint);">
-          <div class="combo-headline" style="color: var(--mc-morning);">The Signature</div>
-          <div class="combo-body-text" style="color: rgba(245,249,247,0.85);">Spearmint + Morning Glass — fresh, breathable, unmistakably you.</div>
+          <div class="combo-headline" style="color: var(--mc-evergreen);">The Signature</div>
+          <div class="combo-body-text" style="color: rgba(30,77,61,0.85);">Spearmint + Morning Glass — fresh, breathable, unmistakably you.</div>
         </div>
         <div class="combo-label">
           <span class="combo-label-text">#6DBAA1 on #F5F9F7 · Fresh authority</span>
@@ -1271,9 +1311,9 @@ section > * { position: relative; z-index: 1; }
       </div>
 
       <div class="combo-card">
-        <div class="combo-preview" style="background: var(--mc-spearmint);">
+        <div class="combo-preview" style="background: var(--mc-aloe-honey);">
           <div class="combo-headline" style="color: var(--mc-evergreen);">Clarity Meets Comfort</div>
-          <div class="combo-body-text" style="color: rgba(30,77,61,0.8);">Spearmint + Aloe Honey — where cool meets warm.</div>
+          <div class="combo-body-text" style="color: rgba(30,77,61,0.85);">Spearmint + Aloe Honey — where cool meets warm.</div>
         </div>
         <div class="combo-label">
           <span class="combo-label-text">#C8B88A + #6DBAA1 · The warmth that humanizes</span>
@@ -1293,7 +1333,7 @@ section > * { position: relative; z-index: 1; }
       <div class="combo-card">
         <div class="combo-preview" style="background: var(--mc-evergreen);">
           <div class="combo-headline" style="color: var(--mc-lime-leaf);">Energy in Structure</div>
-          <div class="combo-body-text" style="color: rgba(168,213,200,0.8);">Evergreen + Lime Leaf — dark and bright. Power with a pop.</div>
+          <div class="combo-body-text" style="color: rgba(142,212,162,0.95);">Evergreen + Lime Leaf — dark and bright. Power with a pop.</div>
         </div>
         <div class="combo-label">
           <span class="combo-label-text">#8ED4A2 on #1E4D3D · Alive in the dark</span>
