@@ -598,42 +598,58 @@ section > * { position: relative; z-index: 1; }
 .palette-row {
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  gap: 0;
+  gap: 1rem;
   margin-top: 3rem;
-  border-radius: 2px;
-  overflow: hidden;
 }
 
 .palette-chip {
-  aspect-ratio: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
-  padding: 0.8rem;
   cursor: default;
   transition: transform 0.3s ease;
-  position: relative;
+  border-radius: 2px;
   overflow: hidden;
+  border: 1px solid rgba(74, 53, 80, 0.08);
 }
 
-.palette-chip:hover { transform: scaleY(1.05); z-index: 1; }
+.palette-chip:hover { transform: translateY(-3px); }
+
+.palette-chip-color {
+  aspect-ratio: 1;
+  width: 100%;
+}
+
+.palette-chip-material {
+  aspect-ratio: 1;
+  width: 100%;
+}
+
+.palette-chip-label {
+  background: #FAF9F8;
+  padding: 0.6rem 0.5rem 0.7rem;
+  text-align: center;
+  border-top: 1px solid rgba(74, 53, 80, 0.08);
+}
 
 .palette-chip-name {
+  display: block;
   font-family: var(--font-ss-body);
-  font-size: 0.6rem;
+  font-size: 0.62rem;
   font-weight: 400;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   line-height: 1.3;
+  color: var(--ss-plum);
 }
 
 .palette-chip-hex {
+  display: block;
   font-family: var(--font-ss-body);
   font-size: 0.58rem;
   font-weight: 300;
   letter-spacing: 0.05em;
-  opacity: 0.7;
-  margin-top: 0.15rem;
+  color: rgba(74, 53, 80, 0.6);
+  margin-top: 0.2rem;
 }
 
 /* ============================================================
@@ -1013,38 +1029,79 @@ section > * { position: relative; z-index: 1; }
     <p class="section-intro">Every color arrives with its own texture — from pearl shimmer to crushed velvet shadow. Hex codes, names, and material PNGs, all in the kit.</p>
 
     <div class="palette-row">
-      <div class="palette-chip tex-cotton">
-        <span class="palette-chip-name" style="color: var(--ss-plum);">Cotton Wisp</span>
-        <span class="palette-chip-hex" style="color: var(--ss-plum);">#E8D5E0</span>
+
+      <div class="palette-chip">
+        <div class="palette-chip-color" style="background-color: #E8D5E0;"></div>
+        <div class="palette-chip-material tex-cotton"></div>
+        <div class="palette-chip-label">
+          <span class="palette-chip-name">Cotton Wisp</span>
+          <span class="palette-chip-hex">#E8D5E0</span>
+        </div>
       </div>
-      <div class="palette-chip tex-dawn">
-        <span class="palette-chip-name" style="color: var(--ss-plum);">Dawn Blush</span>
-        <span class="palette-chip-hex" style="color: var(--ss-plum);">#EABFB9</span>
+
+      <div class="palette-chip">
+        <div class="palette-chip-color" style="background-color: #EABFB9;"></div>
+        <div class="palette-chip-material tex-dawn"></div>
+        <div class="palette-chip-label">
+          <span class="palette-chip-name">Dawn Blush</span>
+          <span class="palette-chip-hex">#EABFB9</span>
+        </div>
       </div>
-      <div class="palette-chip tex-lilac">
-        <span class="palette-chip-name" style="color: var(--ss-linen);">Lilac Dusk</span>
-        <span class="palette-chip-hex" style="color: var(--ss-linen);">#7E6B8A</span>
+
+      <div class="palette-chip">
+        <div class="palette-chip-color" style="background-color: #7E6B8A;"></div>
+        <div class="palette-chip-material tex-lilac"></div>
+        <div class="palette-chip-label">
+          <span class="palette-chip-name">Lilac Dusk</span>
+          <span class="palette-chip-hex">#7E6B8A</span>
+        </div>
       </div>
-      <div class="palette-chip tex-mist">
-        <span class="palette-chip-name" style="color: var(--ss-plum);">Morning Mist</span>
-        <span class="palette-chip-hex" style="color: var(--ss-plum);">#B8C8D4</span>
+
+      <div class="palette-chip">
+        <div class="palette-chip-color" style="background-color: #B8C8D4;"></div>
+        <div class="palette-chip-material tex-mist"></div>
+        <div class="palette-chip-label">
+          <span class="palette-chip-name">Morning Mist</span>
+          <span class="palette-chip-hex">#B8C8D4</span>
+        </div>
       </div>
-      <div class="palette-chip tex-peach">
-        <span class="palette-chip-name" style="color: var(--ss-plum);">Peach Silk</span>
-        <span class="palette-chip-hex" style="color: var(--ss-plum);">#F0C8A8</span>
+
+      <div class="palette-chip">
+        <div class="palette-chip-color" style="background-color: #F0C8A8;"></div>
+        <div class="palette-chip-material tex-peach"></div>
+        <div class="palette-chip-label">
+          <span class="palette-chip-name">Peach Silk</span>
+          <span class="palette-chip-hex">#F0C8A8</span>
+        </div>
       </div>
-      <div class="palette-chip tex-plum">
-        <span class="palette-chip-name" style="color: var(--ss-pearl);">Plum Shadow</span>
-        <span class="palette-chip-hex" style="color: var(--ss-pearl);">#4A3550</span>
+
+      <div class="palette-chip">
+        <div class="palette-chip-color" style="background-color: #4A3550;"></div>
+        <div class="palette-chip-material tex-plum"></div>
+        <div class="palette-chip-label">
+          <span class="palette-chip-name">Plum Shadow</span>
+          <span class="palette-chip-hex">#4A3550</span>
+        </div>
       </div>
-      <div class="palette-chip tex-linen">
-        <span class="palette-chip-name" style="color: var(--ss-plum);">Cloud Linen</span>
-        <span class="palette-chip-hex" style="color: var(--ss-plum);">#FDF5F0</span>
+
+      <div class="palette-chip">
+        <div class="palette-chip-color" style="background-color: #FDF5F0;"></div>
+        <div class="palette-chip-material tex-linen"></div>
+        <div class="palette-chip-label">
+          <span class="palette-chip-name">Cloud Linen</span>
+          <span class="palette-chip-hex">#FDF5F0</span>
+        </div>
       </div>
-      <div class="palette-chip tex-pearl">
-        <span class="palette-chip-name" style="color: var(--ss-plum);">Pearl Dust</span>
-        <span class="palette-chip-hex" style="color: var(--ss-plum);">#F0E6EE</span>
+
+      <div class="palette-chip">
+        <div class="palette-chip-color" style="background-color: #F0E6EE;"></div>
+        <div class="palette-chip-material tex-pearl"></div>
+        <div class="palette-chip-label">
+          <span class="palette-chip-name">Pearl Dust</span>
+          <span class="palette-chip-hex">#F0E6EE</span>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -1185,7 +1242,7 @@ section > * { position: relative; z-index: 1; }
 <section class="cta-section tex-dawn">
   <div class="cta-inner">
     <p class="section-label">Get the kit</p>
-    <h2 class="cta-title">As soft as a cloud.<br>As certain as morning.</h2>
+    <h2 class="cta-title">Soft as cloud.<br>Certain as morning.</h2>
     <p class="cta-sub">Eight material textures, three fonts that know exactly what they're doing, and a palette built on the psychology of lavender-pink. Spun Sugar is for the person who leads with gentleness — and knows that takes more courage than bold.</p>
     <div class="cta-actions">
       <a href="#" class="btn btn-primary" style="background: var(--ss-plum); color: var(--ss-linen);">Get Spun Sugar — $188</a>
