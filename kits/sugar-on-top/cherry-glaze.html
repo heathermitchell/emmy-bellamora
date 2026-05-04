@@ -97,7 +97,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .painting-body p em { color: var(--cg-copper); font-style: italic; }
 
 /* PALETTE — on burgundy silk */
-.palette-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% 0%, rgba(58,14,28,0.55) 0%, transparent 52%), radial-gradient(ellipse at 50% 100%, rgba(58,14,28,0.65) 0%, transparent 52%), linear-gradient(to bottom, rgba(58,14,28,0.46) 0%, rgba(58,14,28,0.42) 50%, rgba(58,14,28,0.50) 100%), var(--tex-burgundy); background-size: auto, auto, auto, cover; }
+.palette-section { position: relative; padding: 7rem 0; overflow: hidden; background-color: var(--cg-black-cherry); }
 .palette-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
 .palette-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
 .palette-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
@@ -123,7 +123,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .palette-feel { font-family: var(--font-emmy-body); font-size: 0.72rem; font-weight: 300; line-height: 1.6; color: var(--fairy-silver); opacity: 0.8; }
 
 /* TYPE — on porcelain ceramic */
-.type-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
+.type-section { padding: 7rem 0; background-color: var(--cg-black-cherry); }
+.type-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
 .type-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: end; }
 .type-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
 .type-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
@@ -140,7 +141,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .type-rule em { color: var(--cg-copper); font-style: italic; position: relative; }
 
 /* COMBOS */
-.combo-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
+.combo-section { padding: 7rem 0; background-color: var(--cg-black-cherry); }
+.combo-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; }
 .combo-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: end; }
 .combo-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
 .combo-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
@@ -163,7 +165,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .combo-6 { background-image: var(--tex-slate);        color: var(--cg-maraschino); } .combo-6::before { background: linear-gradient(135deg, rgba(54,50,58,0.75) 0%, rgba(181,30,60,0.38) 100%); }
 
 /* INSIDE — on copper flame */
-.inside-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% -10%, rgba(196,115,53,0.20) 0%, transparent 52%), linear-gradient(to bottom, rgba(58,14,28,0.48) 0%, rgba(58,14,28,0.42) 100%), var(--tex-copper); background-size: auto, auto, cover; }
+.inside-section { position: relative; padding: 7rem 0; overflow: hidden; background-color: var(--cg-black-cherry); }
 .inside-section::before { content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 80%; height: 200%; background: radial-gradient(ellipse, rgba(196,115,53,0.08) 0%, transparent 60%); pointer-events: none; z-index: 0; }
 .inside-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 2; }
 .inside-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
@@ -448,40 +450,44 @@ footer { padding: 3rem; border-top: 1px solid rgba(255,245,240,0.06); display: f
 </section>
 
 <section class="type-section">
-  <div class="type-header">
-    <h2 class="type-title reveal">Three fonts.<br>The Lacquer Suite.</h2>
-    <p class="type-intro reveal"><strong>DM Serif Display commands. Libre Baskerville holds. Outfit works.</strong> Like a red lip, a great blazer, and the right shoes &mdash; each one knows its job. All three are free Google Fonts, forever yours.</p>
+  <div class="type-inner">
+    <div class="type-header">
+      <h2 class="type-title reveal">Three fonts.<br>The Lacquer Suite.</h2>
+      <p class="type-intro reveal"><strong>DM Serif Display commands. Libre Baskerville holds. Outfit works.</strong> Like a red lip, a great blazer, and the right shoes &mdash; each one knows its job. All three are free Google Fonts, forever yours.</p>
+    </div>
+    <div class="type-card reveal">
+      <div class="type-card-meta">Headline &middot; DM Serif Display 400</div>
+      <div class="type-card-display">She walked in.</div>
+      <div class="type-card-name">DM Serif Display 400, 72pt &middot; Black Cherry</div>
+    </div>
+    <div class="type-card reveal">
+      <div class="type-card-meta">Subhead &middot; Libre Baskerville 400 italic</div>
+      <p class="type-card-subhead">Classic editorial warmth. The conversation that follows the entrance &mdash; interesting, informed, unhurried. She has presence without performance.</p>
+      <div class="type-card-name">Libre Baskerville 400 italic, 28pt &middot; Maraschino on Porcelain</div>
+    </div>
+    <div class="type-card reveal">
+      <div class="type-card-meta">Body &middot; Outfit 300&ndash;500</div>
+      <p class="type-card-body">Outfit earns its name. At 300 weight it steps aside &mdash; contemporary and clean, invisible enough to let the reds do the talking. At 500 weight with uppercase tracking it becomes the sharp caption voice. One font, two modes. The workhorse who knows when to be seen and when to stay out of the way.</p>
+      <div class="type-card-name">Outfit 300, 16pt &middot; Charcoal Slate on Porcelain</div>
+    </div>
+    <div class="type-rule reveal">The rule:<br><em>DM Serif commands. Libre Baskerville holds. Outfit works. Like a red lip and a white shirt &mdash; simple and devastating.</em></div>
   </div>
-  <div class="type-card reveal">
-    <div class="type-card-meta">Headline &middot; DM Serif Display 400</div>
-    <div class="type-card-display">She walked in.</div>
-    <div class="type-card-name">DM Serif Display 400, 72pt &middot; Black Cherry</div>
-  </div>
-  <div class="type-card reveal">
-    <div class="type-card-meta">Subhead &middot; Libre Baskerville 400 italic</div>
-    <p class="type-card-subhead">Classic editorial warmth. The conversation that follows the entrance &mdash; interesting, informed, unhurried. She has presence without performance.</p>
-    <div class="type-card-name">Libre Baskerville 400 italic, 28pt &middot; Maraschino on Porcelain</div>
-  </div>
-  <div class="type-card reveal">
-    <div class="type-card-meta">Body &middot; Outfit 300&ndash;500</div>
-    <p class="type-card-body">Outfit earns its name. At 300 weight it steps aside &mdash; contemporary and clean, invisible enough to let the reds do the talking. At 500 weight with uppercase tracking it becomes the sharp caption voice. One font, two modes. The workhorse who knows when to be seen and when to stay out of the way.</p>
-    <div class="type-card-name">Outfit 300, 16pt &middot; Charcoal Slate on Porcelain</div>
-  </div>
-  <div class="type-rule reveal">The rule:<br><em>DM Serif commands. Libre Baskerville holds. Outfit works. Like a red lip and a white shirt &mdash; simple and devastating.</em></div>
 </section>
 
 <section class="combo-section">
-  <div class="combo-header">
-    <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
-    <p class="combo-intro reveal">A color swatch on white tells you nothing. What matters is how a color <em>behaves</em> next to other colors. These are the signature pairings &mdash; the combinations Cherry Glaze was built for.</p>
-  </div>
-  <div class="combo-grid">
-    <div class="combo-card combo-1 reveal"><div class="combo-text"><div class="combo-pair">The Signature</div><div class="combo-name">Maraschino &amp; Black Cherry</div></div></div>
-    <div class="combo-card combo-2 reveal"><div class="combo-text"><div class="combo-pair">White Plate</div><div class="combo-name">Cherry on Porcelain</div></div></div>
-    <div class="combo-card combo-3 reveal"><div class="combo-text"><div class="combo-pair">All Red</div><div class="combo-name">Red on Red World</div></div></div>
-    <div class="combo-card combo-4 reveal"><div class="combo-text"><div class="combo-pair">Evening Version</div><div class="combo-name">Copper &amp; Black Cherry</div></div></div>
-    <div class="combo-card combo-5 reveal"><div class="combo-text"><div class="combo-pair">Elevated Content</div><div class="combo-name">Burgundy on Porcelain</div></div></div>
-    <div class="combo-card combo-6 reveal"><div class="combo-text"><div class="combo-pair">The Structure</div><div class="combo-name">Slate &amp; Maraschino</div></div></div>
+  <div class="combo-inner">
+    <div class="combo-header">
+      <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
+      <p class="combo-intro reveal">A color swatch on white tells you nothing. What matters is how a color <em>behaves</em> next to other colors. These are the signature pairings &mdash; the combinations Cherry Glaze was built for.</p>
+    </div>
+    <div class="combo-grid">
+      <div class="combo-card combo-1 reveal"><div class="combo-text"><div class="combo-pair">The Signature</div><div class="combo-name">Maraschino &amp; Black Cherry</div></div></div>
+      <div class="combo-card combo-2 reveal"><div class="combo-text"><div class="combo-pair">White Plate</div><div class="combo-name">Cherry on Porcelain</div></div></div>
+      <div class="combo-card combo-3 reveal"><div class="combo-text"><div class="combo-pair">All Red</div><div class="combo-name">Red on Red World</div></div></div>
+      <div class="combo-card combo-4 reveal"><div class="combo-text"><div class="combo-pair">Evening Version</div><div class="combo-name">Copper &amp; Black Cherry</div></div></div>
+      <div class="combo-card combo-5 reveal"><div class="combo-text"><div class="combo-pair">Elevated Content</div><div class="combo-name">Burgundy on Porcelain</div></div></div>
+      <div class="combo-card combo-6 reveal"><div class="combo-text"><div class="combo-pair">The Structure</div><div class="combo-name">Slate &amp; Maraschino</div></div></div>
+    </div>
   </div>
 </section>
 
