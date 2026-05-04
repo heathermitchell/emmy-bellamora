@@ -151,12 +151,15 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .combo-text { position: relative; z-index: 1; }
 .combo-name { font-family: var(--font-es-display); font-weight: 700; font-size: 1.4rem; line-height: 1.1; margin-bottom: 0.4rem; letter-spacing: -0.01em; }
 .combo-pair { font-family: var(--font-es-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.8; }
+/* Combo cards demonstrate their named pairings literally:
+   text color = the named accent color in the pairing,
+   background = the texture + gradient of the named base color. */
 .combo-1 { background-image: var(--tex-tangerine);  color: var(--es-midnight); } .combo-1::before { background: linear-gradient(135deg, rgba(255,107,53,0.72) 0%, rgba(232,53,109,0.55) 100%); } .combo-1::after { background: linear-gradient(to top, rgba(42,21,37,0.7) 0%, rgba(42,21,37,0.1) 45%, transparent 70%); }
-.combo-2 { background-image: var(--tex-grape);      color: var(--es-cream); }    .combo-2::before { background: linear-gradient(135deg, rgba(74,32,96,0.78) 0%, rgba(184,230,46,0.35) 100%); }
-.combo-3 { background-image: var(--tex-fuchsia);    color: var(--es-cream); }    .combo-3::before { background: linear-gradient(135deg, rgba(42,21,37,0.62) 0%, rgba(232,53,109,0.50) 100%); }
-.combo-4 { background-image: var(--tex-lemon);      color: var(--es-midnight); } .combo-4::before { background: linear-gradient(135deg, rgba(255,210,63,0.68) 0%, rgba(255,107,53,0.45) 100%); } .combo-4::after { background: linear-gradient(to top, rgba(42,21,37,0.65) 0%, rgba(42,21,37,0.08) 45%, transparent 70%); }
-.combo-5 { background-image: var(--tex-midnight);   color: var(--es-cream); }    .combo-5::before { background: linear-gradient(135deg, rgba(42,21,37,0.72) 0%, rgba(255,107,53,0.40) 100%); }
-.combo-6 { background-image: var(--tex-lime);       color: var(--es-midnight); } .combo-6::before { background: linear-gradient(135deg, rgba(184,230,46,0.68) 0%, rgba(74,32,96,0.42) 100%); } .combo-6::after { background: linear-gradient(to top, rgba(42,21,37,0.65) 0%, rgba(42,21,37,0.08) 45%, transparent 70%); }
+.combo-2 { background-image: var(--tex-grape);      color: var(--es-lime); }     .combo-2::before { background: linear-gradient(135deg, rgba(74,32,96,0.78) 0%, rgba(184,230,46,0.35) 100%); }
+.combo-3 { background-image: var(--tex-fuchsia);    color: var(--es-midnight); } .combo-3::before { background: linear-gradient(135deg, rgba(42,21,37,0.62) 0%, rgba(232,53,109,0.50) 100%); }
+.combo-4 { background-image: var(--tex-lemon);      color: var(--es-fuchsia); }  .combo-4::before { background: linear-gradient(135deg, rgba(255,210,63,0.68) 0%, rgba(255,107,53,0.45) 100%); } .combo-4::after { background: linear-gradient(to top, rgba(42,21,37,0.65) 0%, rgba(42,21,37,0.08) 45%, transparent 70%); }
+.combo-5 { background-image: var(--tex-midnight);   color: var(--es-tangerine); }.combo-5::before { background: linear-gradient(135deg, rgba(42,21,37,0.72) 0%, rgba(255,107,53,0.40) 100%); }
+.combo-6 { background-image: var(--tex-midnight);   color: var(--es-lime); }     .combo-6::before { background: linear-gradient(135deg, rgba(42,21,37,0.72) 0%, rgba(184,230,46,0.45) 100%); } .combo-6::after { background: linear-gradient(to top, rgba(42,21,37,0.65) 0%, rgba(42,21,37,0.08) 45%, transparent 70%); }
 
 /* INSIDE — on tangerine fizz */
 .inside-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% -10%, rgba(255,107,53,0.22) 0%, transparent 50%), linear-gradient(to bottom, rgba(42,21,37,0.50) 0%, rgba(42,21,37,0.44) 100%), var(--tex-tangerine); background-size: auto, auto, cover; }

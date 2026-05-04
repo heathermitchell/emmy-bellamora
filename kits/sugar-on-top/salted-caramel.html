@@ -143,12 +143,15 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .combo-name { font-family: var(--font-sc-display); font-weight: 700; font-size: 1.5rem; line-height: 1.1; margin-bottom: 0.4rem; }
 .combo-pair { font-family: var(--font-sc-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.8; }
 /* Each combo uses a different texture */
-.combo-1 { background-image: var(--tex-molasses); color: var(--sc-buttermilk); } .combo-1::before { background: linear-gradient(135deg, rgba(61,34,18,0.7) 0%, rgba(232,185,96,0.4) 100%); }
-.combo-2 { background-image: var(--tex-buttermilk); color: var(--sc-molasses); } .combo-2::before { background: linear-gradient(135deg, rgba(251,243,228,0.75) 0%, rgba(232,185,96,0.25) 100%); } .combo-2::after { background: linear-gradient(to top, rgba(251,243,228,0.6) 0%, rgba(251,243,228,0.1) 45%, transparent 70%); }
-.combo-3 { background-image: var(--tex-liquid-caramel); color: var(--sc-buttermilk); } .combo-3::before { background: linear-gradient(135deg, rgba(61,34,18,0.6) 0%, rgba(232,185,96,0.5) 100%); }
-.combo-4 { background-image: var(--tex-whipped-cream); color: var(--sc-molasses); } .combo-4::before { background: linear-gradient(135deg, rgba(196,145,117,0.5) 0%, rgba(255,250,242,0.55) 100%); } .combo-4::after { background: linear-gradient(to top, rgba(255,250,242,0.7) 0%, rgba(255,250,242,0.15) 45%, transparent 70%); }
+/* Combo cards demonstrate their named pairings literally:
+   text color = the named accent color in the pairing,
+   background = the texture + gradient of the named base color. */
+.combo-1 { background-image: var(--tex-molasses); color: var(--sc-liquid-caramel); } .combo-1::before { background: linear-gradient(135deg, rgba(61,34,18,0.7) 0%, rgba(232,185,96,0.4) 100%); }
+.combo-2 { background-image: var(--tex-buttermilk); color: var(--sc-liquid-caramel); } .combo-2::before { background: linear-gradient(135deg, rgba(251,243,228,0.75) 0%, rgba(232,185,96,0.25) 100%); } .combo-2::after { background: linear-gradient(to top, rgba(251,243,228,0.6) 0%, rgba(251,243,228,0.1) 45%, transparent 70%); }
+.combo-3 { background-image: var(--tex-molasses); color: var(--sc-liquid-caramel); } .combo-3::before { background: linear-gradient(135deg, rgba(61,34,18,0.6) 0%, rgba(232,185,96,0.5) 100%); }
+.combo-4 { background-image: var(--tex-whipped-cream); color: var(--sc-cinnamon); } .combo-4::before { background: linear-gradient(135deg, rgba(196,145,117,0.5) 0%, rgba(255,250,242,0.55) 100%); } .combo-4::after { background: linear-gradient(to top, rgba(255,250,242,0.7) 0%, rgba(255,250,242,0.15) 45%, transparent 70%); }
 .combo-5 { background-image: var(--tex-burnt-sugar); color: var(--sc-buttermilk); } .combo-5::before { background: linear-gradient(135deg, rgba(107,62,38,0.68) 0%, rgba(232,185,96,0.42) 100%); }
-.combo-6 { background-image: var(--tex-clove); color: var(--sc-buttermilk); } .combo-6::before { background: linear-gradient(135deg, rgba(61,34,18,0.72) 0%, rgba(196,145,117,0.4) 100%); }
+.combo-6 { background-image: var(--tex-molasses); color: var(--sc-buttermilk); } .combo-6::before { background: linear-gradient(135deg, rgba(61,34,18,0.72) 0%, rgba(107,62,38,0.5) 100%); }
 
 /* INSIDE — on amber glass glow */
 .inside-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% -10%, rgba(232,185,96,0.18) 0%, transparent 52%), linear-gradient(to bottom, rgba(61,34,18,0.42) 0%, rgba(61,34,18,0.38) 100%), var(--tex-liquid-caramel); background-size: auto, auto, cover; }
