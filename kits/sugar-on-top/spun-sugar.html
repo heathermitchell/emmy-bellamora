@@ -440,71 +440,84 @@ section > * { position: relative; z-index: 1; }
 
 .inside .section-intro { color: rgba(74, 53, 80, 0.72); }
 
-/* Carousel */
-.carousel-wrap { position: relative; overflow: hidden; }
-
-.carousel-track {
-  display: flex;
-  gap: 1.5rem;
-  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+/* Tier cards — entry to the sales pages */
+.tier-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 1.5rem;
 }
 
-.carousel-slide {
-  flex: 0 0 calc(33.333% - 1rem);
-  min-width: 280px;
+.tier-card {
+  display: flex;
+  flex-direction: column;
   border-radius: 2px;
   overflow: hidden;
   border: 1px solid rgba(74, 53, 80, 0.12);
+  background: rgba(74, 53, 80, 0.04);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s, border-color 0.4s;
 }
 
-.slide-thumb {
-  height: 200px;
+.tier-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 36px rgba(74, 53, 80, 0.18);
+  border-color: rgba(74, 53, 80, 0.28);
+}
+
+.tier-card-visual {
+  height: 240px;
+  width: 100%;
+}
+
+.tier-card-body {
+  padding: 1.8rem 1.8rem 2rem;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  gap: 0.8rem;
 }
 
-.thumb-icon { font-size: 3rem; opacity: 0.7; }
-
-.slide-info {
-  padding: 1.2rem 1.4rem;
-  background: rgba(74, 53, 80, 0.05);
+.tier-card-eyebrow {
+  font-family: var(--font-ss-body);
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ss-lilac);
 }
 
-.slide-name {
+.tier-card-title {
   font-family: var(--font-ss-display);
-  font-size: 1.1rem;
+  font-size: 1.7rem;
   font-weight: 400;
   color: var(--ss-plum);
-  margin-bottom: 0.3rem;
+  margin: 0;
+  letter-spacing: -0.01em;
 }
 
-.slide-desc {
+.tier-card-desc {
   font-family: var(--font-ss-body);
-  font-size: 0.8rem;
+  font-size: 0.92rem;
   font-weight: 300;
-  color: rgba(74, 53, 80, 0.65);
-  line-height: 1.55;
+  color: rgba(74, 53, 80, 0.72);
+  line-height: 1.6;
+  margin: 0;
 }
 
-.carousel-nav {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 1.5rem;
-  justify-content: center;
+.tier-card-cta {
+  font-family: var(--font-ss-body);
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--ss-plum);
+  margin-top: 0.4rem;
+  letter-spacing: 0.02em;
+  transition: transform 0.3s;
 }
 
-.carousel-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(74, 53, 80, 0.2);
-  border: none;
-  cursor: pointer;
-  transition: background 0.3s;
+.tier-card:hover .tier-card-cta {
+  transform: translateX(4px);
 }
-
-.carousel-dot.active { background: var(--ss-lilac); }
 
 /* ============================================================
    PAINTING A BRAND — Plum Shadow crushed velvet
@@ -868,7 +881,7 @@ section > * { position: relative; z-index: 1; }
   .type-cards { grid-template-columns: 1fr; }
   .combos-grid { grid-template-columns: 1fr 1fr; }
   .palette-row { grid-template-columns: repeat(4, 1fr); }
-  .carousel-slide { flex: 0 0 80%; }
+  .tier-cards { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 600px) {
@@ -876,7 +889,7 @@ section > * { position: relative; z-index: 1; }
   .nav-links { display: none; }
   .combos-grid { grid-template-columns: 1fr; }
   .palette-row { grid-template-columns: repeat(4, 1fr); }
-  .carousel-slide { flex: 0 0 90%; }
+  .tier-card-visual { height: 200px; }
   .site-footer { flex-direction: column; gap: 0.8rem; text-align: center; }
 }
 
@@ -932,56 +945,28 @@ section > * { position: relative; z-index: 1; }
     <h2 class="section-title">What you're actually getting</h2>
     <p class="section-intro">Not just colors. A whole material world — cotton, silk, velvet, watercolor — that you can step into and start using the same day.</p>
 
-    <div class="carousel-wrap">
-      <div class="carousel-track" id="carouselTrack">
+    <div class="tier-cards">
 
-        <div class="carousel-slide">
-          <div class="slide-thumb tex-cotton" style="height:200px;">
-            <div class="thumb-icon">🎨</div>
-          </div>
-          <div class="slide-info">
-            <div class="slide-name">Brand Board</div>
-            <div class="slide-desc">All 8 colors, 3 fonts, and material textures assembled in one presentation-ready layout. Your whole palette at a glance.</div>
-          </div>
+      <a href="#" class="tier-card tier-1">
+        <div class="tier-card-visual tex-cotton"></div>
+        <div class="tier-card-body">
+          <div class="tier-card-eyebrow">Tier 1 · The Kit</div>
+          <h3 class="tier-card-title">Spun Sugar — $188</h3>
+          <p class="tier-card-desc">Brand board, color cheat sheet, all eight material textures, and the typography system. Everything you need to use Spun Sugar the same day it arrives.</p>
+          <span class="tier-card-cta">See what's inside →</span>
         </div>
+      </a>
 
-        <div class="carousel-slide">
-          <div class="slide-thumb tex-plum" style="height:200px;">
-            <div class="thumb-icon">🪡</div>
-          </div>
-          <div class="slide-info">
-            <div class="slide-name">Material Samples</div>
-            <div class="slide-desc">All 8 textures as individual PNG files — cotton, watercolor, suede, silk, crushed velvet, and three more soft surfaces.</div>
-          </div>
+      <a href="#" class="tier-card tier-2">
+        <div class="tier-card-visual tex-lilac"></div>
+        <div class="tier-card-body">
+          <div class="tier-card-eyebrow">Tier 2 · The Playground</div>
+          <h3 class="tier-card-title">Spun Sugar Playground — $388</h3>
+          <p class="tier-card-desc">Everything in Tier 1, plus social templates, web-ready components, presentation backgrounds, and the playground that lets you mix the kit any way your brand wants.</p>
+          <span class="tier-card-cta">See the full playground →</span>
         </div>
+      </a>
 
-        <div class="carousel-slide">
-          <div class="slide-thumb tex-peach" style="height:200px;">
-            <div class="thumb-icon">📋</div>
-          </div>
-          <div class="slide-info">
-            <div class="slide-name">Color Cheat Sheet</div>
-            <div class="slide-desc">Every hex code, which colors pair together, and what mood each combination creates — all the designer brain you need.</div>
-          </div>
-        </div>
-
-        <div class="carousel-slide">
-          <div class="slide-thumb tex-lilac" style="height:200px;">
-            <div class="thumb-icon">✨</div>
-          </div>
-          <div class="slide-info">
-            <div class="slide-name">Texture Vault</div>
-            <div class="slide-desc">Seamlessly tileable surface textures for every color. Layer them in Canva, Figma, or Procreate for instant material depth.</div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-    <div class="carousel-nav">
-      <button class="carousel-dot active" onclick="goToSlide(0)"></button>
-      <button class="carousel-dot" onclick="goToSlide(1)"></button>
-      <button class="carousel-dot" onclick="goToSlide(2)"></button>
-      <button class="carousel-dot" onclick="goToSlide(3)"></button>
     </div>
   </div>
 </section>
@@ -1002,9 +987,9 @@ section > * { position: relative; z-index: 1; }
         <span class="paint-swatch-name">Cotton Wisp</span>
         <span class="paint-swatch-hex">#E8D5E0</span>
       </div>
-      <div class="paint-swatch tex-plum" style="color: var(--ss-pearl);">
-        <span class="paint-swatch-name">Plum Shadow</span>
-        <span class="paint-swatch-hex">#4A3550</span>
+      <div class="paint-swatch tex-dawn" style="color: var(--ss-plum);">
+        <span class="paint-swatch-name">Dawn Blush</span>
+        <span class="paint-swatch-hex">#EABFB9</span>
       </div>
       <div class="paint-swatch tex-lilac" style="color: var(--ss-linen);">
         <span class="paint-swatch-name">Lilac Dusk</span>
@@ -1217,32 +1202,6 @@ section > * { position: relative; z-index: 1; }
   <span class="footer-note">Spun Sugar · Sugar on Top · Kit 04 of 06</span>
 </footer>
 
-<script>
-// Carousel
-let currentSlide = 0;
-const track = document.getElementById('carouselTrack');
-const dots = document.querySelectorAll('.carousel-dot');
-const slideCount = 4;
-
-function getSlideWidth() {
-  const slide = track.querySelector('.carousel-slide');
-  return slide ? slide.offsetWidth + 24 : 0;
-}
-
-function goToSlide(n) {
-  currentSlide = Math.max(0, Math.min(n, slideCount - 1));
-  track.style.transform = `translateX(-${currentSlide * getSlideWidth()}px)`;
-  dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
-}
-
-// Touch swipe
-let touchStart = 0;
-track.addEventListener('touchstart', e => touchStart = e.touches[0].clientX);
-track.addEventListener('touchend', e => {
-  const diff = touchStart - e.changedTouches[0].clientX;
-  if (Math.abs(diff) > 40) goToSlide(currentSlide + (diff > 0 ? 1 : -1));
-});
-</script>
 
 </body>
 </html>
