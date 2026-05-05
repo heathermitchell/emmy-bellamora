@@ -131,12 +131,46 @@ For each kit, verify all of these are true before checking the kit's master box:
 
 ### Per-kit master boxes
 
-- [ ] **Velvet Noir** — V3 complete
-- [ ] **Mint Condition** — V3 final-stage shape (Heather review pending). Tier-cards, alternating bgs, real CTA, hero title bigger+darker, Tier 1 visual swap, paint-swatch borders, combo card text contrast, rich palette card structure with role + feel descriptions all shipped 2026-05-04 sessions 8-10.
-- [ ] **Spun Sugar** — V3 final-stage shape (Heather review pending). Hero title sized up, Tier 1 visual swapped (cotton → dawn), pairing card titles + body sized up for readability, rich palette card structure with role + feel descriptions all shipped 2026-05-04 session 10.
-- [ ] **Cherry Glaze** — V3 final-stage shape (Heather review pending). Alternating bgs, real CTA, palette signature title, rich palette cards with color blocks, tier-card entry block, hero title sizing all shipped 2026-05-04 session 10. Different-different exception preserved (designed-mockup carousel + richer palette card structure already in place from build).
-- [ ] **Electric Sherbet** — V3 complete
-- [ ] **Salted Caramel** — V3 complete (incl. buttermilk regen)
+**STATUS AS OF 2026-05-05 (session 13) — READ THIS BEFORE TOUCHING ANY KIT**
+
+The confusion pattern: across 5+ sessions spanning 3 days, each session started without reading the previous session log, causing repeated re-diagnosis of completed work, re-opening of closed decisions, and proposing work that was already done. This update is the stake in the ground. Read this section first. Always.
+
+**WHAT SESSION 11 DID (2026-05-04, late night):**
+Session 11 did a format-match pass on Cherry Glaze, Velvet Noir, Electric Sherbet, and Salted Caramel — specifically:
+- Carousel → tier-cards (Inside the Kit section)
+- Palette restructured to palette-chip class structure (color block + material + label with role/name/hex/feel)
+- Section eyebrows added throughout
+- Dead carousel JS removed
+
+This was structural surgery only. It brought all four kits to V3 skeleton structure. It did NOT complete the full V3 checklist (§4.1 items 6–14 — alternating backgrounds, contrast checks, hero sizing, real CTA, type readability, stale code cleanup, pre-commit discipline).
+
+**CURRENT STATE (honest, per-kit):**
+
+- [x] **Spun Sugar** — V3 final-stage shape. Awaiting Heather's eyes-on iPad review. Work done: tier-cards, alternating bgs, real CTA ("No more apologies for being soft"), hero title sized up, Tier 1 visual swapped (cotton→dawn), pairing card titles/body sized up, rich palette card structure. **Do not reopen structural work. Wait for Heather's screenshot feedback.**
+
+- [x] **Mint Condition** — V3 final-stage shape. Awaiting Heather's eyes-on iPad review. Work done: tier-cards, alternating bgs, real CTA, hero title bigger+darker, Tier 1 visual swapped (spearmint→lime-leaf), paint-swatch borders, combo card text contrast fixes, rich palette card structure. **Do not reopen structural work. Wait for Heather's screenshot feedback.**
+
+- [x] **Cherry Glaze** — V3 final-stage shape. Awaiting Heather's eyes-on iPad review. Work done: alternating bgs, real CTA, palette signature title, color blocks added to palette cards, tier-card entry block, hero title sizing, session 11 format-match. Designed-mockup carousel preserved (different-different exception, documented in §4.2.3). **Do not reopen structural work. Wait for Heather's screenshot feedback.**
+
+- [ ] **Velvet Noir** — Format-match complete (session 11). Full V3 checklist NOT yet walked. Still needs: alternating bgs audit (dark-mode "near-white flat" equivalent — see §7 open question), hero title sizing check, type readability pass, stale code cleanup, pre-commit discipline run. **This is the next kit to finish.**
+
+- [ ] **Electric Sherbet** — Format-match complete (session 11), fish-egg texture swapped to lemon-zap (session 11). Full V3 checklist NOT yet walked. Still needs: alternating bgs audit, hero title sizing check, type readability pass, pre-commit discipline run.
+
+- [ ] **Salted Caramel** — Format-match complete (session 11). Full V3 checklist NOT yet walked. Still needs: alternating bgs audit, hero title sizing check, type readability pass, buttermilk texture regen (kie.ai, prompt in §4.2.5), pre-commit discipline run.
+
+**THE LOOP FROM THIS POINT:**
+1. Heather reviews Spun Sugar / Mint Condition / Cherry Glaze on iPad — sends screenshot notes
+2. Emmy acts on any screenshot feedback for those three
+3. Emmy walks full V3 checklist (§4.1) on Velvet Noir → screenshots → pre-commit discipline → ships
+4. Repeat for Electric Sherbet, then Salted Caramel
+5. Buttermilk regen for Salted Caramel (separate kie.ai task, prompt in §4.2.5)
+6. All six boxes checked → PRD status → complete
+
+**DO NOT:**
+- Pivot to Art Gallery kit pages until all six Sugar on Top boxes are checked
+- Declare a kit "done" without walking the §4.1 checklist and the §4.3 pre-commit discipline
+- Reopen structural decisions that are already made (different-different = locked, carousel exception = locked, pricing = locked at $188/$388)
+- Start diagnosing "what state are we in" by exploring files — read this section first, it tells you
 
 ### Cross-cutting
 
@@ -155,6 +189,7 @@ For each kit, verify all of these are true before checking the kit's master box:
 - **2026-05-04** Pre-commit discipline added (4.3) as the response to tonight's gap: I miss material-on-material even when I agree with the rule. Screenshot + checklist is the scaffold.
 - **2026-05-04 (late session)** Pattern-level rules added to V3 ruleset after Heather caught second-time issues on Mint Condition: hero-tex ≠ adjacent-tier-card-tex (rule 7), card-vs-bg contrast (rule 8), combo card text contrast (rule 9), hero title sizing (rule 12). Each surfaced first as a single-kit fix and then again on the next kit — the second appearance is what justifies pattern-level codification.
 - **2026-05-04 (late session)** Rich palette card structure (color block + material + role + name + hex + feel description) is the V3 standard, applied across all kits. Cherry Glaze pattern wins because it's a richer brand-coaching artifact, not just a color reference. Spun Sugar and Mint Condition upgraded tonight; the three remaining kits get this from the start.
+- **2026-05-05 (session 13)** PRD master boxes updated to honest current state. Identified recurring pattern: 5+ sessions across 3 days where each session started without reading the previous log, causing repeated re-diagnosis of completed work and re-opening of closed decisions. Root cause: session-start discipline (read the session log before doing anything) was written into the start-here file and the agent profile but not being followed. The PRD master boxes section is now the canonical state document — read it first, always, before opening any kit file. The loop from this point is explicit in the master boxes section above.
 
 ---
 
