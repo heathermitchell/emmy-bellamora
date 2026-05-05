@@ -94,8 +94,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .painting-body p strong { color: var(--moonpetal); font-weight: 400; }
 .painting-body p em { color: var(--es-tangerine); font-style: italic; }
 
-/* PALETTE — on twilight grape */
-.palette-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% 0%, rgba(42,21,37,0.55) 0%, transparent 50%), radial-gradient(ellipse at 50% 100%, rgba(42,21,37,0.65) 0%, transparent 52%), linear-gradient(to bottom, rgba(42,21,37,0.46) 0%, rgba(42,21,37,0.42) 50%, rgba(42,21,37,0.50) 100%), var(--tex-grape); background-size: auto, auto, auto, cover; }
+/* PALETTE — flat dark (V3: alternating bgs — palette follows painting texture, must be flat) */
+.palette-section { position: relative; padding: 7rem 0; overflow: hidden; background: var(--es-midnight); }
 .palette-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
 .palette-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
 .palette-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
@@ -173,62 +173,16 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .combo-5 { background-image: var(--tex-midnight);   color: var(--es-tangerine); }.combo-5::before { background: linear-gradient(135deg, rgba(42,21,37,0.72) 0%, rgba(255,107,53,0.40) 100%); }
 .combo-6 { background-image: var(--tex-midnight);   color: var(--es-lime); }     .combo-6::before { background: linear-gradient(135deg, rgba(42,21,37,0.72) 0%, rgba(184,230,46,0.45) 100%); } .combo-6::after { background: linear-gradient(to top, rgba(42,21,37,0.65) 0%, rgba(42,21,37,0.08) 45%, transparent 70%); }
 
-/* INSIDE — on tangerine fizz */
-.inside-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% -10%, rgba(74,32,96,0.35) 0%, transparent 50%), linear-gradient(to bottom, rgba(42,21,37,0.62) 0%, rgba(42,21,37,0.55) 100%), var(--tex-lemon); background-size: auto, auto, cover; }
-.inside-section::before { content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 80%; height: 200%; background: radial-gradient(ellipse, rgba(255,107,53,0.07) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+/* INSIDE — flat dark (V3: alternating bgs — hero is tangerine texture, inside must be flat) */
+.inside-section { position: relative; padding: 7rem 0; overflow: hidden; background: #1E0D1A; }
+.inside-section::before { content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 80%; height: 200%; background: radial-gradient(ellipse, rgba(255,107,53,0.05) 0%, transparent 60%); pointer-events: none; z-index: 0; }
 .inside-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 2; }
 .inside-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
 .inside-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
 .inside-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
 .inside-intro em { color: var(--moonpetal); font-style: italic; }
 .inside-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 3rem; align-items: start; }
-.carousel { position: relative; }
-.carousel-stage { position: relative; aspect-ratio: 4/3; overflow: hidden; border-radius: 14px; cursor: pointer; background: transparent; box-shadow: 0 8px 48px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.35); }
-.carousel-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center; overflow: hidden; pointer-events: none; }
-.carousel-slide.active { opacity: 1; z-index: 2; pointer-events: auto; }
-.mockup-stage { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 2rem; position: relative; overflow: hidden; }
-.mock-brand-board { background-image: linear-gradient(to bottom right, rgba(255,240,224,0.99) 0%, rgba(255,245,235,0.98) 100%), var(--tex-cream); background-size: auto, cover; background-blend-mode: multiply; width: 100%; height: 100%; border-radius: 8px; padding: 2rem; display: grid; grid-template-rows: auto 1fr auto; gap: 1.25rem; }
-.mbb-header { text-align: center; border-bottom: 1px solid rgba(42,21,37,0.12); padding-bottom: 1rem; }
-.mbb-eyebrow { font-family: var(--font-es-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--es-raspberry); opacity: 0.65; margin-bottom: 0.4rem; }
-.mbb-title { font-family: var(--font-es-display); font-weight: 700; font-size: 1.8rem; color: var(--es-midnight); line-height: 1; margin-bottom: 0.35rem; letter-spacing: -0.02em; }
-.mbb-tagline { font-family: var(--font-es-subhead); font-size: 0.78rem; color: var(--es-raspberry); opacity: 0.85; }
-.mbb-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.mbb-palette { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; align-content: start; }
-.mbb-swatch { aspect-ratio: 1; border-radius: 4px; position: relative; background-size: cover; background-position: center; }
-.mbb-type { display: flex; flex-direction: column; justify-content: center; gap: 0.5rem; padding-left: 0.5rem; border-left: 1px solid rgba(42,21,37,0.1); }
-.mbb-type-display { font-family: var(--font-es-display); font-weight: 700; font-size: 1.2rem; color: var(--es-fuchsia); line-height: 1; letter-spacing: -0.02em; }
-.mbb-type-sub { font-family: var(--font-es-subhead); font-size: 0.7rem; color: var(--es-raspberry); opacity: 0.75; }
-.mbb-type-body { font-family: var(--font-es-body); font-weight: 300; font-size: 0.55rem; color: var(--es-midnight); line-height: 1.5; }
-.mbb-footer { text-align: center; font-family: var(--font-es-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--es-raspberry); opacity: 0.55; border-top: 1px solid rgba(42,21,37,0.12); padding-top: 0.75rem; }
-.mock-cheat-sheet { background-image: linear-gradient(to bottom, rgba(255,240,224,0.99) 0%, rgba(255,245,235,0.98) 100%), var(--tex-cream); background-size: auto, cover; background-blend-mode: multiply; width: 100%; height: 100%; border-radius: 8px; padding: 2rem; display: flex; flex-direction: column; gap: 1rem; }
-.mcs-header { font-family: var(--font-es-display); font-weight: 700; font-size: 1.2rem; color: var(--es-midnight); border-bottom: 1px solid rgba(42,21,37,0.12); padding-bottom: 0.5rem; letter-spacing: -0.01em; }
-.mcs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; flex: 1; }
-.mcs-cell { border-radius: 4px; padding: 0.6rem 0.75rem; font-family: var(--font-es-body); display: flex; flex-direction: column; justify-content: space-between; min-height: 0; position: relative; overflow: hidden; background-size: cover; background-position: center; }
-.mcs-cell-name { font-family: var(--font-es-display); font-weight: 700; font-size: 0.85rem; line-height: 1.1; position: relative; z-index: 1; letter-spacing: -0.01em; }
-.mcs-cell-meta { font-size: 0.45rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.75; position: relative; z-index: 1; }
-.mock-texture { width: 100%; height: 100%; border-radius: 8px; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); gap: 4px; padding: 4px; background: var(--es-midnight); }
-.mock-texture-cell { border-radius: 4px; position: relative; overflow: hidden; background-size: cover; background-position: center; }
-.mock-texture-cell::after { content: attr(data-name); position: absolute; bottom: 0.4rem; left: 0.5rem; font-family: var(--font-es-body); font-size: 0.45rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.9); text-shadow: 0 1px 6px rgba(0,0,0,0.85); }
-.mock-playground { width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1rem; padding: 1.25rem; background-image: radial-gradient(ellipse at 20% 80%, rgba(255,107,53,0.12) 0%, transparent 55%), radial-gradient(ellipse at 80% 20%, rgba(232,53,109,0.10) 0%, transparent 50%), var(--tex-tangerine); background-size: auto, auto, cover; }
-.mp-sample { border-radius: 4px; padding: 1rem 1rem 0.85rem; display: flex; flex-direction: column; position: relative; overflow: hidden; text-align: center; background-size: cover; background-position: center; }
-.mp-sample-swatch { flex: 1; border-radius: 3px; margin-bottom: 0.85rem; min-height: 0; background-size: cover; background-position: center; }
-.mp-sample-name { font-family: var(--font-es-body); font-size: 0.42rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 0.35rem; opacity: 0.85; }
-.mp-sample-tagline { font-family: var(--font-es-subhead); font-size: 0.6rem; line-height: 1.4; opacity: 0.85; }
-.carousel-caption-row { padding: 1.25rem 0.25rem 0.5rem; display: flex; flex-direction: column; gap: 0.25rem; text-align: center; }
-.caption-label { font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amethyst-light); opacity: 0.65; transition: opacity 0.4s ease; }
-.caption-name { font-family: var(--font-emmy-display); font-size: 0.95rem; font-weight: 300; font-style: italic; color: var(--fairy-silver); opacity: 0.8; transition: opacity 0.4s ease; }
-.carousel-dots { display: flex; justify-content: center; gap: 0.55rem; padding: 0.75rem 0 0; }
-.carousel-dot { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: rgba(200,184,232,0.25); border: none; cursor: pointer; padding: 0; transition: background 0.4s ease, width 0.4s ease; }
-.carousel-dot:hover { background: rgba(200,184,232,0.5); }
-.carousel-dot.active { background: var(--es-tangerine); width: 1.4rem; border-radius: 100px; }
-.inside-list { padding-top: 0.5rem; }
-.inside-list-title { font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--es-lemon); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.85rem; }
-.inside-list-title::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--es-lemon); opacity: 0.7; }
-.inside-item { padding: 1.1rem 0; border-bottom: 1px solid rgba(255,240,224,0.08); display: grid; grid-template-columns: 2rem 1fr; gap: 0.75rem; align-items: start; }
-.inside-item:first-of-type { border-top: 1px solid rgba(255,240,224,0.08); }
-.inside-icon { font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.1em; color: var(--es-lemon); opacity: 0.85; padding-top: 0.2rem; }
-.inside-text strong { display: block; font-family: var(--font-emmy-body); font-size: 0.85rem; font-weight: 400; color: var(--moonpetal); margin-bottom: 0.3rem; letter-spacing: 0.02em; }
-.inside-text span { font-family: var(--font-emmy-body); font-size: 0.72rem; font-weight: 300; color: var(--fairy-silver); opacity: 0.78; line-height: 1.6; }
+/* Carousel + mockup CSS removed V3 — carousel replaced with tier-cards in session 11 */
 
 /* CTA — on fuchsia shock */
 .cta-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% 50%, rgba(232,53,109,0.25) 0%, transparent 62%), radial-gradient(ellipse at 50% 100%, rgba(42,21,37,0.8) 0%, transparent 52%), linear-gradient(to bottom, rgba(42,21,37,0.52) 0%, rgba(42,21,37,0.58) 100%), var(--tex-fuchsia); background-size: auto, auto, auto, cover; }
@@ -240,8 +194,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .cta-buttons { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
 .btn-primary { display: inline-block; padding: 0.95rem 2.5rem; background: var(--es-fuchsia); color: var(--es-cream); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: background 0.3s ease, transform 0.2s ease; }
 .btn-primary:hover { background: var(--es-raspberry); transform: translateY(-1px); }
-.btn-ghost { display: inline-block; padding: 0.95rem 2.5rem; border: 1px solid rgba(200,184,232,0.3); color: var(--fairy-silver); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: border-color 0.3s ease, color 0.3s ease; }
-.btn-ghost:hover { border-color: var(--fairy-silver); color: var(--moonpetal); }
+.btn-ghost { display: inline-block; padding: 0.95rem 2.5rem; border: 1px solid rgba(255,240,224,0.5); color: var(--es-cream); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: border-color 0.3s ease, color 0.3s ease; }
+.btn-ghost:hover { border-color: var(--es-cream); color: #fff; }
 footer { padding: 3rem; border-top: 1px solid rgba(255,240,224,0.06); display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
 .footer-name { font-family: var(--font-emmy-display); font-style: italic; font-size: 1rem; color: var(--fairy-silver); opacity: 0.5; }
 .footer-note { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 300; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.35; }
@@ -360,9 +314,9 @@ footer { padding: 3rem; border-top: 1px solid rgba(255,240,224,0.06); display: f
     <div class="palette-header">
       <div>
         <p class="section-eyebrow reveal">The full eight</p>
-        <h2 class="palette-title reveal">The Whole Box.<br><em>Every color material.</em></h2>
+        <h2 class="palette-title reveal">Eight colors.<br>Eight materials.<br><em>One palette.</em></h2>
       </div>
-      <p class="palette-intro reveal">Eight colors. Each one named for what it actually <em>is</em>. Not &ldquo;orange.&rdquo; Not &ldquo;pink.&rdquo; <em>Tangerine Fizz. Fuchsia Shock. Lime Volt.</em> These colors aren&rsquo;t decorating &mdash; they&rsquo;re saying something.</p>
+      <p class="palette-intro reveal">Not &ldquo;orange.&rdquo; Not &ldquo;pink.&rdquo; <em>Tangerine Fizz. Fuchsia Shock. Lime Volt.</em> Each one named for what it actually <em>is</em> &mdash; because these colors aren&rsquo;t decorating, they&rsquo;re saying something.</p>
     </div>
     <div class="palette-row">
       <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #FF6B35;"></div><div class="palette-chip-material chip-tangerine"></div><div class="palette-chip-label"><span class="palette-chip-role">Primary Bright</span><span class="palette-chip-name">Tangerine Fizz</span><span class="palette-chip-hex">#FF6B35</span><p class="palette-chip-feel">Fresh-squeezed orange with sparkling water. Electric, warm, alive. Not construction-cone orange. Party orange &mdash; the color of a cocktail catching golden-hour light.</p></div></div>
@@ -424,8 +378,8 @@ footer { padding: 3rem; border-top: 1px solid rgba(255,240,224,0.06); display: f
 <section class="cta-section">
   <div class="cta-inner">
     <div class="cta-label">Take it Home</div>
-    <h2 class="cta-big reveal">Make Electric Sherbet<br>your brand.</h2>
-    <p class="cta-sub reveal">The kit is available now. If you want a custom kit built specifically for your world &mdash; or if you&rsquo;d like Emmy to translate Electric Sherbet into a full website &mdash; that&rsquo;s available too.</p>
+    <h2 class="cta-big reveal">You&rsquo;ve been keeping<br>it professional<br>long enough.</h2>
+    <p class="cta-sub reveal">Electric Sherbet is for the person who doesn&rsquo;t need permission to be loud. The kit is available now. If you want a custom kit built for your world, or if you&rsquo;d like Emmy to translate Electric Sherbet into a full website &mdash; that&rsquo;s available too.</p>
     <div class="cta-buttons reveal">
       <a href="mailto:hello@emmybellamora.com?subject=Electric Sherbet Kit" class="btn-primary">Get Electric Sherbet — $188</a>
       <a href="../../index.html#working-together" class="btn-ghost">Talk to Emmy</a>
@@ -448,38 +402,7 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 reveals.forEach(el => observer.observe(el));
 
-(function () {
-  const carousel = document.getElementById('kit-carousel');
-  if (!carousel) return;
-  const stage = carousel.querySelector('.carousel-stage');
-  const slides = carousel.querySelectorAll('.carousel-slide');
-  const dots = carousel.querySelectorAll('.carousel-dot');
-  const captionLabel = document.getElementById('caption-label');
-  const captionName = document.getElementById('caption-name');
-  const total = slides.length;
-  let current = 0;
-  const captions = [
-    { label: 'Brand Board',      name: 'The kit at a glance' },
-    { label: 'Material Samples', name: 'The textures in the kit' },
-    { label: 'Cheat Sheet',      name: 'Combinations, vetted for accessibility' },
-    { label: 'Texture Vault',    name: 'Eight materials — nothing is flat' }
-  ];
-  function go(i) {
-    current = (i + total) % total;
-    slides.forEach((s, idx) => s.classList.toggle('active', idx === current));
-    dots.forEach((d, idx) => d.classList.toggle('active', idx === current));
-    if (captions[current]) { captionLabel.textContent = captions[current].label; captionName.textContent = captions[current].name; }
-  }
-  stage.addEventListener('click', () => go(current + 1));
-  dots.forEach((dot) => dot.addEventListener('click', (e) => { e.stopPropagation(); go(parseInt(dot.dataset.go, 10)); }));
-  document.addEventListener('keydown', (e) => {
-    const rect = carousel.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-      if (e.key === 'ArrowLeft') go(current - 1);
-      if (e.key === 'ArrowRight') go(current + 1);
-    }
-  });
-})();
+// Carousel JS removed V3 — carousel replaced with tier-cards in session 11
 </script>
 </body>
 </html>
