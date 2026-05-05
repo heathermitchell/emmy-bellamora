@@ -101,24 +101,36 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .palette-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
 .palette-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
 .palette-intro em { color: var(--moonpetal); font-style: italic; }
-.palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-.palette-card { border-radius: 12px; overflow: hidden; background: rgba(42,21,37,0.65); border: 1px solid rgba(255,240,224,0.07); box-shadow: 0 4px 24px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.25); transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
-.palette-card:hover { border-color: rgba(255,107,53,0.4); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(255,107,53,0.15); }
-.palette-swatch { width: 100%; aspect-ratio: 1.4; position: relative; background-size: cover; background-position: center; }
-.palette-swatch::after { content: ''; position: absolute; inset: 0; }
-.swatch-tangerine { background-image: var(--tex-tangerine); } .swatch-tangerine::after { background: var(--es-tangerine); mix-blend-mode: multiply; opacity: 0.35; }
-.swatch-fuchsia   { background-image: var(--tex-fuchsia); }   .swatch-fuchsia::after   { background: var(--es-fuchsia); mix-blend-mode: multiply; opacity: 0.38; }
-.swatch-lemon     { background-image: var(--tex-lemon); }     .swatch-lemon::after     { background: var(--es-lemon); mix-blend-mode: multiply; opacity: 0.32; }
-.swatch-raspberry { background-image: var(--tex-raspberry); } .swatch-raspberry::after { background: var(--es-raspberry); mix-blend-mode: multiply; opacity: 0.50; }
-.swatch-lime      { background-image: var(--tex-lime); }      .swatch-lime::after      { background: var(--es-lime); mix-blend-mode: multiply; opacity: 0.30; }
-.swatch-grape     { background-image: var(--tex-grape); }     .swatch-grape::after     { background: var(--es-grape); mix-blend-mode: multiply; opacity: 0.55; }
-.swatch-cream     { background-image: var(--tex-cream); }     .swatch-cream::after     { background: var(--es-cream); mix-blend-mode: screen; opacity: 0.35; }
-.swatch-midnight  { background-image: var(--tex-midnight); }  .swatch-midnight::after  { background: var(--es-midnight); mix-blend-mode: multiply; opacity: 0.58; }
-.palette-card-body { padding: 1.25rem 1.25rem 1.5rem; }
-.palette-role { font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--amethyst-light); opacity: 0.7; margin-bottom: 0.4rem; }
-.palette-name { font-family: var(--font-emmy-display); font-size: 1.15rem; font-weight: 300; font-style: italic; color: var(--snowflake); margin-bottom: 0.4rem; line-height: 1.2; }
-.palette-hex { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.6; text-transform: uppercase; margin-bottom: 0.75rem; }
-.palette-feel { font-family: var(--font-emmy-body); font-size: 0.72rem; font-weight: 300; line-height: 1.6; color: var(--fairy-silver); opacity: 0.8; }
+.section-eyebrow { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--es-tangerine); opacity: 0.85; margin-bottom: 1rem; }
+.tier-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.tier-card { display: flex; flex-direction: column; border-radius: 4px; overflow: hidden; border: 1px solid rgba(255,107,53,0.25); background: rgba(42,21,37,0.4); text-decoration: none; color: inherit; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s, border-color 0.4s; }
+.tier-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.5); border-color: rgba(255,107,53,0.55); }
+.tier-card-visual { height: 240px; width: 100%; background-size: cover; background-position: center; }
+.tier-card-body { padding: 2rem 2rem 2.2rem; display: flex; flex-direction: column; gap: 0.85rem; }
+.tier-card-eyebrow { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--es-tangerine); }
+.tier-card-title { font-family: var(--font-emmy-display); font-size: 1.7rem; font-weight: 300; font-style: italic; color: var(--es-cream); margin: 0; line-height: 1.2; }
+.tier-card-desc { font-family: var(--font-emmy-body); font-size: 0.88rem; font-weight: 300; color: var(--fairy-silver); opacity: 0.85; line-height: 1.7; margin: 0; }
+.tier-card-cta { font-family: var(--font-emmy-body); font-size: 0.7rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--es-tangerine); margin-top: 0.5rem; transition: transform 0.3s; }
+.tier-card:hover .tier-card-cta { transform: translateX(4px); }
+.palette-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-top: 3rem; }
+.palette-chip { display: flex; flex-direction: column; cursor: default; transition: transform 0.3s ease, box-shadow 0.3s ease; border-radius: 4px; overflow: hidden; border: 1px solid rgba(255,240,224,0.07); background: rgba(42,21,37,0.65); box-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+.palette-chip:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 2px 8px rgba(255,107,53,0.15); border-color: rgba(255,107,53,0.4); }
+.palette-chip-color { width: 100%; aspect-ratio: 2.6; }
+.palette-chip-material { width: 100%; aspect-ratio: 2.6; position: relative; background-size: cover; background-position: center; }
+.palette-chip-material::after { content: ''; position: absolute; inset: 0; }
+.chip-tangerine { background-image: var(--tex-tangerine); } .chip-tangerine::after { background: var(--es-tangerine); mix-blend-mode: multiply; opacity: 0.35; }
+.chip-fuchsia   { background-image: var(--tex-fuchsia); }   .chip-fuchsia::after   { background: var(--es-fuchsia); mix-blend-mode: multiply; opacity: 0.38; }
+.chip-lemon     { background-image: var(--tex-lemon); }     .chip-lemon::after     { background: var(--es-lemon); mix-blend-mode: multiply; opacity: 0.32; }
+.chip-raspberry { background-image: var(--tex-raspberry); } .chip-raspberry::after { background: var(--es-raspberry); mix-blend-mode: multiply; opacity: 0.50; }
+.chip-lime      { background-image: var(--tex-lime); }      .chip-lime::after      { background: var(--es-lime); mix-blend-mode: multiply; opacity: 0.30; }
+.chip-grape     { background-image: var(--tex-grape); }     .chip-grape::after     { background: var(--es-grape); mix-blend-mode: multiply; opacity: 0.55; }
+.chip-cream     { background-image: var(--tex-cream); }     .chip-cream::after     { background: var(--es-cream); mix-blend-mode: screen; opacity: 0.35; }
+.chip-midnight  { background-image: var(--tex-midnight); }  .chip-midnight::after  { background: var(--es-midnight); mix-blend-mode: multiply; opacity: 0.58; }
+.palette-chip-label { background: rgba(42,21,37,0.85); padding: 1rem 1.1rem 1.25rem; text-align: left; border-top: 1px solid rgba(255,240,224,0.06); }
+.palette-chip-role { display: block; font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--es-tangerine); opacity: 0.85; margin-bottom: 0.5rem; }
+.palette-chip-name { display: block; font-family: var(--font-emmy-display); font-size: 1.1rem; font-weight: 400; color: var(--es-cream); margin-bottom: 0.3rem; line-height: 1.2; letter-spacing: 0; text-transform: none; }
+.palette-chip-hex { display: block; font-family: var(--font-emmy-body); font-size: 0.62rem; font-weight: 400; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.6; text-transform: uppercase; margin-bottom: 0.7rem; }
+.palette-chip-feel { display: block; font-family: var(--font-emmy-body); font-size: 0.78rem; font-weight: 300; line-height: 1.6; color: var(--fairy-silver); opacity: 0.78; }
 
 /* TYPE — on sherbet cream */
 .type-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
@@ -162,7 +174,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .combo-6 { background-image: var(--tex-midnight);   color: var(--es-lime); }     .combo-6::before { background: linear-gradient(135deg, rgba(42,21,37,0.72) 0%, rgba(184,230,46,0.45) 100%); } .combo-6::after { background: linear-gradient(to top, rgba(42,21,37,0.65) 0%, rgba(42,21,37,0.08) 45%, transparent 70%); }
 
 /* INSIDE — on tangerine fizz */
-.inside-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% -10%, rgba(255,107,53,0.22) 0%, transparent 50%), linear-gradient(to bottom, rgba(42,21,37,0.50) 0%, rgba(42,21,37,0.44) 100%), var(--tex-tangerine); background-size: auto, auto, cover; }
+.inside-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% -10%, rgba(74,32,96,0.35) 0%, transparent 50%), linear-gradient(to bottom, rgba(42,21,37,0.62) 0%, rgba(42,21,37,0.55) 100%), var(--tex-lemon); background-size: auto, auto, cover; }
 .inside-section::before { content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 80%; height: 200%; background: radial-gradient(ellipse, rgba(255,107,53,0.07) 0%, transparent 60%); pointer-events: none; z-index: 0; }
 .inside-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 2; }
 .inside-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
@@ -290,119 +302,37 @@ footer { padding: 3rem; border-top: 1px solid rgba(255,240,224,0.06); display: f
   </div>
 </section>
 
-<section class="inside-section">
+<section id="inside" class="inside-section">
   <div class="drips" aria-hidden="true">
     <span class="fizz fizz-2"></span><span class="fizz fizz-4"></span><span class="fizz fizz-6"></span>
   </div>
   <div class="inside-inner">
     <div class="inside-header">
-      <h2 class="inside-title reveal">Inside the kit.</h2>
-      <p class="inside-intro reveal">Brand kits should be <em>complete worlds</em>, not single files. Flip through to see what arrives when Electric Sherbet becomes yours.</p>
+      <div>
+        <p class="section-eyebrow reveal">Everything in the box</p>
+        <h2 class="inside-title reveal">What you&rsquo;re actually getting.</h2>
+      </div>
+      <p class="inside-intro reveal">Not just colors. A whole material world &mdash; wet citrus, neon glow, lime volt, twilight grape &mdash; that you can step into and start using the same day.</p>
     </div>
-    <div class="inside-grid">
-      <div class="carousel reveal" id="kit-carousel">
-        <div class="carousel-stage">
-          <div class="carousel-slide active" data-slide="0">
-            <div class="mockup-stage">
-              <div class="mock-brand-board">
-                <div class="mbb-header">
-                  <div class="mbb-eyebrow">Sugar on Top &middot; Brand Board</div>
-                  <div class="mbb-title">Electric Sherbet</div>
-                  <div class="mbb-tagline">Fizzy. Fearless. Not beige.</div>
-                </div>
-                <div class="mbb-body">
-                  <div class="mbb-palette">
-                    <div class="mbb-swatch swatch-tangerine"></div><div class="mbb-swatch swatch-fuchsia"></div>
-                    <div class="mbb-swatch swatch-lemon"></div><div class="mbb-swatch swatch-raspberry"></div>
-                    <div class="mbb-swatch swatch-lime"></div><div class="mbb-swatch swatch-grape"></div>
-                    <div class="mbb-swatch swatch-cream"></div><div class="mbb-swatch swatch-midnight"></div>
-                  </div>
-                  <div class="mbb-type">
-                    <div class="mbb-type-display">LOUD.</div>
-                    <div class="mbb-type-sub">Space Grotesk &middot; Bricolage &middot; DM Sans</div>
-                    <div class="mbb-type-body">Geometric but warm. Punchy at headline scale. Three sans-serifs that match the energy without competing with the palette.</div>
-                  </div>
-                </div>
-                <div class="mbb-footer">By Emmy Bellamora &middot; Sugar on Top Collection</div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-slide" data-slide="1">
-            <div class="mockup-stage" style="padding:0;">
-              <div class="mock-playground">
-                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(255,107,53,0.75),rgba(42,21,37,0.65)),var(--tex-tangerine);background-size:auto,cover;color:var(--es-cream);">
-                  <div class="mp-sample-swatch" style="background-image:var(--tex-tangerine);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--es-lemon);">Tangerine Fizz</div>
-                  <div class="mp-sample-tagline">Wet citrus glow.<br>Party orange.</div>
-                </div>
-                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(232,53,109,0.72),rgba(42,21,37,0.65)),var(--tex-fuchsia);background-size:auto,cover;color:var(--es-cream);">
-                  <div class="mp-sample-swatch" style="background-image:var(--tex-fuchsia);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--es-lemon);">Fuchsia Shock</div>
-                  <div class="mp-sample-tagline">Neon sign in the window.<br>No permission asked.</div>
-                </div>
-                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(184,230,46,0.70),rgba(42,21,37,0.65)),var(--tex-lime);background-size:auto,cover;color:var(--es-midnight);">
-                  <div class="mp-sample-swatch" style="background-image:var(--tex-lime);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--es-grape);">Lime Volt</div>
-                  <div class="mp-sample-tagline">The surprise ingredient.<br>Citrus meets neon.</div>
-                </div>
-                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(74,32,96,0.78),rgba(42,21,37,0.65)),var(--tex-grape);background-size:auto,cover;color:var(--es-cream);">
-                  <div class="mp-sample-swatch" style="background-image:var(--tex-grape);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--es-lemon);">Twilight Grape</div>
-                  <div class="mp-sample-tagline">The night sky behind it.<br>Gives the brights somewhere to land.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-slide" data-slide="2">
-            <div class="mockup-stage">
-              <div class="mock-cheat-sheet">
-                <div class="mcs-header">Color Combinations</div>
-                <div class="mcs-grid">
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(255,107,53,0.88),rgba(232,53,109,0.70)),var(--tex-tangerine);background-size:auto,cover;color:var(--es-midnight);"><div class="mcs-cell-name">The Signature</div><div class="mcs-cell-meta">Tangerine &times; Fuchsia &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(74,32,96,0.90),rgba(184,230,46,0.45)),var(--tex-grape);background-size:auto,cover;color:var(--es-cream);"><div class="mcs-cell-name">Electric Surprise</div><div class="mcs-cell-meta">Lime &times; Grape &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(232,53,109,0.88),rgba(74,32,96,0.65)),var(--tex-fuchsia);background-size:auto,cover;color:var(--es-cream);"><div class="mcs-cell-name">Neon Night</div><div class="mcs-cell-meta">Fuchsia &times; Grape &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(255,240,224,0.96),rgba(255,210,63,0.35)),var(--tex-cream);background-size:auto,cover;color:var(--es-midnight);border:1px solid rgba(42,21,37,0.08);"><div class="mcs-cell-name">Daylight Mode</div><div class="mcs-cell-meta">Tangerine &times; Cream &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(255,210,63,0.85),rgba(232,53,109,0.55)),var(--tex-lemon);background-size:auto,cover;color:var(--es-midnight);"><div class="mcs-cell-name">Pure Dopamine</div><div class="mcs-cell-meta">Lemon &times; Fuchsia &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(42,21,37,0.90),rgba(255,107,53,0.45)),var(--tex-midnight);background-size:auto,cover;color:var(--es-cream);"><div class="mcs-cell-name">Dark Ground</div><div class="mcs-cell-meta">Midnight &times; Tangerine &middot; AA</div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-slide" data-slide="3">
-            <div class="mockup-stage" style="padding:1rem;">
-              <div class="mock-texture">
-                <div class="mock-texture-cell" data-name="Tangerine" style="background-image:linear-gradient(to bottom,rgba(255,107,53,0.48),rgba(42,21,37,0.35)),var(--tex-tangerine);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Fuchsia"   style="background-image:linear-gradient(to bottom,rgba(232,53,109,0.52),rgba(42,21,37,0.38)),var(--tex-fuchsia);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Lemon Zap" style="background-image:linear-gradient(to bottom,rgba(255,210,63,0.55),rgba(42,21,37,0.30)),var(--tex-lemon);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Raspberry" style="background-image:linear-gradient(to bottom,rgba(139,26,74,0.55),rgba(42,21,37,0.40)),var(--tex-raspberry);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Lime Volt" style="background-image:linear-gradient(to bottom,rgba(184,230,46,0.55),rgba(42,21,37,0.30)),var(--tex-lime);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Grape"     style="background-image:linear-gradient(to bottom,rgba(74,32,96,0.58),rgba(42,21,37,0.45)),var(--tex-grape);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Cream"     style="background-image:linear-gradient(to bottom,rgba(255,240,224,0.62),rgba(255,245,235,0.50)),var(--tex-cream);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Midnight"  style="background-image:linear-gradient(to bottom,rgba(42,21,37,0.60),rgba(42,21,37,0.50)),var(--tex-midnight);background-size:auto,cover;"></div>
-              </div>
-            </div>
-          </div>
+    <div class="tier-cards">
+      <a href="#" class="tier-card tier-1 reveal">
+        <div class="tier-card-visual" style="background-image: linear-gradient(135deg, rgba(42,21,37,0.55), rgba(255,107,53,0.4)), var(--tex-tangerine);"></div>
+        <div class="tier-card-body">
+          <div class="tier-card-eyebrow">Tier 1 &middot; The Kit</div>
+          <h3 class="tier-card-title">The Kit &mdash; $188</h3>
+          <p class="tier-card-desc">Brand board, color cheat sheet, eight material textures, and the Rooftop Suite typography system. Everything to use Electric Sherbet the same day it arrives.</p>
+          <span class="tier-card-cta">See what's inside &rarr;</span>
         </div>
-        <div class="carousel-dots">
-          <button class="carousel-dot active" data-go="0" aria-label="Brand Board"></button>
-          <button class="carousel-dot" data-go="1" aria-label="Material Samples"></button>
-          <button class="carousel-dot" data-go="2" aria-label="Cheat Sheet"></button>
-          <button class="carousel-dot" data-go="3" aria-label="Texture Vault"></button>
+      </a>
+      <a href="#" class="tier-card tier-2 reveal">
+        <div class="tier-card-visual" style="background-image: linear-gradient(135deg, rgba(42,21,37,0.55), rgba(232,53,109,0.4)), var(--tex-fuchsia);"></div>
+        <div class="tier-card-body">
+          <div class="tier-card-eyebrow">Tier 2 &middot; The Playground</div>
+          <h3 class="tier-card-title">The Playground &mdash; $388</h3>
+          <p class="tier-card-desc">Everything in Tier 1, plus social templates, web-ready components, and the playground that lets you mix the kit any way your brand wants.</p>
+          <span class="tier-card-cta">See the full playground &rarr;</span>
         </div>
-        <div class="carousel-caption-row">
-          <div class="caption-label" id="caption-label">Brand Board</div>
-          <div class="caption-name" id="caption-name">The kit at a glance</div>
-        </div>
-      </div>
-      <div class="inside-list reveal">
-        <div class="inside-list-title">Everything Included</div>
-        <div class="inside-item"><div class="inside-icon">01</div><div class="inside-text"><strong>Whole Box Color Palette</strong><span>Eight materially-named colors with hex codes, role descriptions, and texture notes.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">02</div><div class="inside-text"><strong>Typography System</strong><span>Space Grotesk + Bricolage Grotesque + DM Sans. The Rooftop Suite. All-sans, all energy, all personality.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">03</div><div class="inside-text"><strong>Brand Board</strong><span>One page that captures the entire kit at a glance &mdash; for presentations or quick reference.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">04</div><div class="inside-text"><strong>Color Combinations Cheat Sheet</strong><span>Pre-vetted combinations with WCAG contrast scores. Bright AND accessible.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">05</div><div class="inside-text"><strong>Tier-2 Playground</strong><span>Full sandbox of the kit in motion &mdash; layouts, social tiles, link-in-bio templates.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">06</div><div class="inside-text"><strong>Texture Vault</strong><span>Eight high-res material textures &mdash; wet citrus, neon glow, effervescent lemon, raspberry velvet, lime volt, twilight grape, sherbet cream, midnight satin.</span></div></div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -428,25 +358,31 @@ footer { padding: 3rem; border-top: 1px solid rgba(255,240,224,0.06); display: f
 <section class="palette-section">
   <div class="palette-inner">
     <div class="palette-header">
-      <h2 class="palette-title reveal">The Whole Box.<br>Every color material.</h2>
+      <div>
+        <p class="section-eyebrow reveal">The full eight</p>
+        <h2 class="palette-title reveal">The Whole Box.<br><em>Every color material.</em></h2>
+      </div>
       <p class="palette-intro reveal">Eight colors. Each one named for what it actually <em>is</em>. Not &ldquo;orange.&rdquo; Not &ldquo;pink.&rdquo; <em>Tangerine Fizz. Fuchsia Shock. Lime Volt.</em> These colors aren&rsquo;t decorating &mdash; they&rsquo;re saying something.</p>
     </div>
-    <div class="palette-grid">
-      <div class="palette-card reveal"><div class="palette-swatch swatch-tangerine"></div><div class="palette-card-body"><div class="palette-role">Primary Bright</div><div class="palette-name">Tangerine Fizz</div><div class="palette-hex">#FF6B35</div><p class="palette-feel">Fresh-squeezed orange with sparkling water. Electric, warm, alive. Not construction-cone orange. Party orange &mdash; the color of a cocktail catching golden-hour light.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-fuchsia"></div><div class="palette-card-body"><div class="palette-role">Signature Pink</div><div class="palette-name">Fuchsia Shock</div><div class="palette-hex">#E8356D</div><p class="palette-feel">Hot pink that didn&rsquo;t ask permission. The neon sign in the window. Confident without trying. This color self-selects &mdash; people who love it know immediately.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-lemon"></div><div class="palette-card-body"><div class="palette-role">Citrus Yellow</div><div class="palette-name">Lemon Zap</div><div class="palette-hex">#FFD23F</div><p class="palette-feel">Sunshine concentrated. The fizz at the top of the drink. Effervescent and sparkling, tiny light points dancing. Pure optimism in a color.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-raspberry"></div><div class="palette-card-body"><div class="palette-role">Deep Warm</div><div class="palette-name">Raspberry Velvet</div><div class="palette-hex">#8B1A4A</div><p class="palette-feel">Where the party gets intimate. Fuchsia&rsquo;s older sister &mdash; she&rsquo;s been here before and she&rsquo;s staying late. Plush matte velvet, deep and rich.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-lime"></div><div class="palette-card-body"><div class="palette-role">Electric Accent</div><div class="palette-name">Lime Volt</div><div class="palette-hex">#B8E62E</div><p class="palette-feel">The surprise ingredient. The thing that makes this palette pop instead of just &ldquo;bright.&rdquo; Citrus meets neon, almost luminescent. Without it, warm brights. With it, Electric Sherbet.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-grape"></div><div class="palette-card-body"><div class="palette-role">Cool Contrast</div><div class="palette-name">Twilight Grape</div><div class="palette-hex">#4A2060</div><p class="palette-feel">The sky behind the rooftop. Deep matte with subtle shimmer, giving all this energy somewhere to land. Without the depth, the brights have no pop.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-cream"></div><div class="palette-card-body"><div class="palette-role">Warm Neutral</div><div class="palette-name">Sherbet Cream</div><div class="palette-hex">#FFF0E0</div><p class="palette-feel">The palate cleanser. Warm cream with the faintest peach blush &mdash; smooth and matte. Breathing room. The surface that makes the brights readable.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-midnight"></div><div class="palette-card-body"><div class="palette-role">Dark Ground</div><div class="palette-name">Midnight Mango</div><div class="palette-hex">#2A1525</div><p class="palette-feel">The darkest dark &mdash; warm, fruity even in shadow. Not black (black would kill this palette). Dark satin with warm undertone visible in light. Holds the whole thing together.</p></div></div>
+    <div class="palette-row">
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #FF6B35;"></div><div class="palette-chip-material chip-tangerine"></div><div class="palette-chip-label"><span class="palette-chip-role">Primary Bright</span><span class="palette-chip-name">Tangerine Fizz</span><span class="palette-chip-hex">#FF6B35</span><p class="palette-chip-feel">Fresh-squeezed orange with sparkling water. Electric, warm, alive. Not construction-cone orange. Party orange &mdash; the color of a cocktail catching golden-hour light.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #E8356D;"></div><div class="palette-chip-material chip-fuchsia"></div><div class="palette-chip-label"><span class="palette-chip-role">Signature Pink</span><span class="palette-chip-name">Fuchsia Shock</span><span class="palette-chip-hex">#E8356D</span><p class="palette-chip-feel">Hot pink that didn&rsquo;t ask permission. The neon sign in the window. Confident without trying. This color self-selects &mdash; people who love it know immediately.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #FFD23F;"></div><div class="palette-chip-material chip-lemon"></div><div class="palette-chip-label"><span class="palette-chip-role">Citrus Yellow</span><span class="palette-chip-name">Lemon Zap</span><span class="palette-chip-hex">#FFD23F</span><p class="palette-chip-feel">Sunshine concentrated. The fizz at the top of the drink. Effervescent and sparkling, tiny light points dancing. Pure optimism in a color.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #8B1A4A;"></div><div class="palette-chip-material chip-raspberry"></div><div class="palette-chip-label"><span class="palette-chip-role">Deep Warm</span><span class="palette-chip-name">Raspberry Velvet</span><span class="palette-chip-hex">#8B1A4A</span><p class="palette-chip-feel">Where the party gets intimate. Fuchsia&rsquo;s older sister &mdash; she&rsquo;s been here before and she&rsquo;s staying late. Plush matte velvet, deep and rich.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #B8E62E;"></div><div class="palette-chip-material chip-lime"></div><div class="palette-chip-label"><span class="palette-chip-role">Electric Accent</span><span class="palette-chip-name">Lime Volt</span><span class="palette-chip-hex">#B8E62E</span><p class="palette-chip-feel">The surprise ingredient. The thing that makes this palette pop instead of just &ldquo;bright.&rdquo; Citrus meets neon, almost luminescent. Without it, warm brights. With it, Electric Sherbet.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #4A2060;"></div><div class="palette-chip-material chip-grape"></div><div class="palette-chip-label"><span class="palette-chip-role">Cool Contrast</span><span class="palette-chip-name">Twilight Grape</span><span class="palette-chip-hex">#4A2060</span><p class="palette-chip-feel">The sky behind the rooftop. Deep matte with subtle shimmer, giving all this energy somewhere to land. Without the depth, the brights have no pop.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #FFF0E0;"></div><div class="palette-chip-material chip-cream"></div><div class="palette-chip-label"><span class="palette-chip-role">Warm Neutral</span><span class="palette-chip-name">Sherbet Cream</span><span class="palette-chip-hex">#FFF0E0</span><p class="palette-chip-feel">The palate cleanser. Warm cream with the faintest peach blush &mdash; smooth and matte. Breathing room. The surface that makes the brights readable.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #2A1525;"></div><div class="palette-chip-material chip-midnight"></div><div class="palette-chip-label"><span class="palette-chip-role">Dark Ground</span><span class="palette-chip-name">Midnight Mango</span><span class="palette-chip-hex">#2A1525</span><p class="palette-chip-feel">The darkest dark &mdash; warm, fruity even in shadow. Not black (black would kill this palette). Dark satin with warm undertone visible in light. Holds the whole thing together.</p></div></div>
     </div>
   </div>
 </section>
 
 <section class="type-section">
   <div class="type-header">
-    <h2 class="type-title reveal">Three fonts.<br>The Rooftop Suite.</h2>
+    <div>
+      <p class="section-eyebrow reveal">The Rooftop Suite</p>
+      <h2 class="type-title reveal">Three fonts.<br>One suite.</h2>
+    </div>
     <p class="type-intro reveal"><strong>Space Grotesk brings the energy. Bricolage adds the warmth. DM Sans does the work.</strong> All sans-serif &mdash; no serifs would fight this palette. All free Google Fonts, forever yours.</p>
   </div>
   <div class="type-card reveal">
@@ -469,7 +405,10 @@ footer { padding: 3rem; border-top: 1px solid rgba(255,240,224,0.06); display: f
 
 <section class="combo-section">
   <div class="combo-header">
-    <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
+    <div>
+      <p class="section-eyebrow reveal">How to use them</p>
+      <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
+    </div>
     <p class="combo-intro reveal">A color swatch on white tells you nothing. What matters is how a color <em>behaves</em> next to other colors. These are the signature pairings &mdash; the combinations Electric Sherbet was built for.</p>
   </div>
   <div class="combo-grid">
