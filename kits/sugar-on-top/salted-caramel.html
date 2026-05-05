@@ -83,8 +83,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .painting-body p strong { color: var(--moonpetal); font-weight: 400; }
 .painting-body p em { color: var(--sc-liquid-caramel); font-style: italic; }
 
-/* PALETTE — on cinnamon texture */
-.palette-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% 0%, rgba(61,34,18,0.55) 0%, transparent 55%), radial-gradient(ellipse at 50% 100%, rgba(61,34,18,0.65) 0%, transparent 55%), linear-gradient(to bottom, rgba(61,34,18,0.44) 0%, rgba(61,34,18,0.40) 50%, rgba(61,34,18,0.48) 100%), var(--tex-cinnamon-dust); background-size: auto, auto, auto, cover; }
+/* PALETTE — flat dark (V3: alternating bgs — palette follows painting texture, must be flat) */
+.palette-section { position: relative; padding: 7rem 0; overflow: hidden; background: var(--sc-molasses); }
 .palette-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
 .palette-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
 .palette-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
@@ -166,63 +166,16 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .combo-5 { background-image: var(--tex-burnt-sugar); color: var(--sc-buttermilk); } .combo-5::before { background: linear-gradient(135deg, rgba(107,62,38,0.68) 0%, rgba(232,185,96,0.42) 100%); }
 .combo-6 { background-image: var(--tex-molasses); color: var(--sc-buttermilk); } .combo-6::before { background: linear-gradient(135deg, rgba(61,34,18,0.72) 0%, rgba(107,62,38,0.5) 100%); }
 
-/* INSIDE — on amber glass glow */
-.inside-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% -10%, rgba(232,185,96,0.18) 0%, transparent 52%), linear-gradient(to bottom, rgba(61,34,18,0.42) 0%, rgba(61,34,18,0.38) 100%), var(--tex-liquid-caramel); background-size: auto, auto, cover; }
-.inside-section::before { content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 80%; height: 200%; background: radial-gradient(ellipse, rgba(232,185,96,0.07) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+/* INSIDE — flat dark (V3: alternating bgs — hero is burnt-sugar texture, inside must be flat) */
+.inside-section { position: relative; padding: 7rem 0; overflow: hidden; background: #2D1608; }
+.inside-section::before { content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 80%; height: 200%; background: radial-gradient(ellipse, rgba(232,185,96,0.05) 0%, transparent 60%); pointer-events: none; z-index: 0; }
 .inside-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 2; }
 .inside-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
 .inside-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
 .inside-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
 .inside-intro em { color: var(--moonpetal); font-style: italic; }
 .inside-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 3rem; align-items: start; }
-.carousel { position: relative; }
-.carousel-stage { position: relative; aspect-ratio: 4/3; overflow: hidden; border-radius: 14px; cursor: pointer; background: transparent; box-shadow: 0 8px 48px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.3); }
-.carousel-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center; overflow: hidden; pointer-events: none; }
-.carousel-slide.active { opacity: 1; z-index: 2; pointer-events: auto; }
-.mockup-stage { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 2rem; position: relative; overflow: hidden; }
-/* Mockup surfaces — linen paper */
-.mock-brand-board { background-image: linear-gradient(to bottom right, rgba(251,243,228,0.99) 0%, rgba(255,250,242,0.98) 100%), var(--tex-buttermilk); background-size: auto, cover; background-blend-mode: multiply; width: 100%; height: 100%; border-radius: 8px; padding: 2rem; display: grid; grid-template-rows: auto 1fr auto; gap: 1.25rem; font-family: var(--font-sc-body); }
-.mbb-header { text-align: center; border-bottom: 1px solid rgba(107,62,38,0.15); padding-bottom: 1rem; }
-.mbb-eyebrow { font-family: var(--font-sc-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sc-clove); opacity: 0.65; margin-bottom: 0.4rem; }
-.mbb-title { font-family: var(--font-sc-display); font-weight: 700; font-size: 2.2rem; color: var(--sc-molasses); line-height: 1; margin-bottom: 0.35rem; }
-.mbb-tagline { font-family: var(--font-sc-subhead); font-style: italic; font-size: 0.78rem; color: var(--sc-clove); opacity: 0.85; }
-.mbb-body { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.mbb-palette { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; align-content: start; }
-.mbb-swatch { aspect-ratio: 1; border-radius: 4px; position: relative; background-size: cover; background-position: center; }
-.mbb-type { display: flex; flex-direction: column; justify-content: center; gap: 0.5rem; padding-left: 0.5rem; border-left: 1px solid rgba(107,62,38,0.12); }
-.mbb-type-display { font-family: var(--font-sc-display); font-weight: 700; font-size: 1.2rem; color: var(--sc-burnt-sugar); line-height: 1; }
-.mbb-type-sub { font-family: var(--font-sc-subhead); font-style: italic; font-size: 0.7rem; color: var(--sc-clove); opacity: 0.75; }
-.mbb-type-body { font-family: var(--font-sc-body); font-weight: 300; font-size: 0.55rem; color: var(--sc-clove); line-height: 1.5; }
-.mbb-footer { text-align: center; font-family: var(--font-sc-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--sc-clove); opacity: 0.55; border-top: 1px solid rgba(107,62,38,0.15); padding-top: 0.75rem; }
-.mock-cheat-sheet { background-image: linear-gradient(to bottom, rgba(251,243,228,0.99) 0%, rgba(255,250,242,0.98) 100%), var(--tex-buttermilk); background-size: auto, cover; background-blend-mode: multiply; width: 100%; height: 100%; border-radius: 8px; padding: 2rem; display: flex; flex-direction: column; gap: 1rem; }
-.mcs-header { font-family: var(--font-sc-display); font-weight: 700; font-size: 1.2rem; color: var(--sc-molasses); border-bottom: 1px solid rgba(107,62,38,0.15); padding-bottom: 0.5rem; }
-.mcs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem; flex: 1; }
-.mcs-cell { border-radius: 4px; padding: 0.6rem 0.75rem; font-family: var(--font-sc-body); display: flex; flex-direction: column; justify-content: space-between; min-height: 0; position: relative; overflow: hidden; background-size: cover; background-position: center; }
-.mcs-cell-name { font-family: var(--font-sc-display); font-weight: 700; font-style: italic; font-size: 0.85rem; line-height: 1.1; position: relative; z-index: 1; }
-.mcs-cell-meta { font-size: 0.45rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.75; position: relative; z-index: 1; }
-.mock-texture { width: 100%; height: 100%; border-radius: 8px; display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(2, 1fr); gap: 4px; padding: 4px; background: var(--sc-molasses); }
-.mock-texture-cell { border-radius: 4px; position: relative; overflow: hidden; background-size: cover; background-position: center; }
-.mock-texture-cell::after { content: attr(data-name); position: absolute; bottom: 0.4rem; left: 0.5rem; font-family: var(--font-sc-body); font-size: 0.45rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.9); text-shadow: 0 1px 6px rgba(0,0,0,0.8); }
-.mock-playground { width: 100%; height: 100%; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 1rem; padding: 1.25rem; background-image: radial-gradient(ellipse at 20% 80%, rgba(232,185,96,0.08) 0%, transparent 55%), radial-gradient(ellipse at 80% 20%, rgba(196,145,117,0.07) 0%, transparent 50%), var(--tex-liquid-caramel); background-size: auto, auto, cover; }
-.mp-sample { border-radius: 4px; padding: 1rem 1rem 0.85rem; display: flex; flex-direction: column; position: relative; overflow: hidden; text-align: center; background-size: cover; background-position: center; }
-.mp-sample-swatch { flex: 1; border-radius: 3px; margin-bottom: 0.85rem; min-height: 0; background-size: cover; background-position: center; }
-.mp-sample-name { font-family: var(--font-sc-body); font-size: 0.42rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; margin-bottom: 0.35rem; opacity: 0.85; }
-.mp-sample-tagline { font-family: var(--font-sc-subhead); font-style: italic; font-size: 0.6rem; line-height: 1.4; opacity: 0.85; }
-.carousel-caption-row { padding: 1.25rem 0.25rem 0.5rem; display: flex; flex-direction: column; gap: 0.25rem; text-align: center; }
-.caption-label { font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--amethyst-light); opacity: 0.65; transition: opacity 0.4s ease; }
-.caption-name { font-family: var(--font-emmy-display); font-size: 0.95rem; font-weight: 300; font-style: italic; color: var(--fairy-silver); opacity: 0.8; transition: opacity 0.4s ease; }
-.carousel-dots { display: flex; justify-content: center; gap: 0.55rem; padding: 0.75rem 0 0; }
-.carousel-dot { width: 0.4rem; height: 0.4rem; border-radius: 50%; background: rgba(200,184,232,0.25); border: none; cursor: pointer; padding: 0; transition: background 0.4s ease, width 0.4s ease; }
-.carousel-dot:hover { background: rgba(200,184,232,0.5); }
-.carousel-dot.active { background: var(--amethyst-light); width: 1.4rem; border-radius: 100px; }
-.inside-list { padding-top: 0.5rem; }
-.inside-list-title { font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sc-liquid-caramel); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.85rem; }
-.inside-list-title::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--sc-liquid-caramel); opacity: 0.7; }
-.inside-item { padding: 1.1rem 0; border-bottom: 1px solid rgba(200,184,232,0.1); display: grid; grid-template-columns: 2rem 1fr; gap: 0.75rem; align-items: start; }
-.inside-item:first-of-type { border-top: 1px solid rgba(200,184,232,0.1); }
-.inside-icon { font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.1em; color: var(--sc-liquid-caramel); opacity: 0.85; padding-top: 0.2rem; }
-.inside-text strong { display: block; font-family: var(--font-emmy-body); font-size: 0.85rem; font-weight: 400; color: var(--moonpetal); margin-bottom: 0.3rem; letter-spacing: 0.02em; }
-.inside-text span { font-family: var(--font-emmy-body); font-size: 0.72rem; font-weight: 300; color: var(--fairy-silver); opacity: 0.78; line-height: 1.6; }
+/* Carousel + mockup CSS removed V3 — carousel replaced with tier-cards in session 11 */
 
 /* CTA — on fleur de sel */
 .cta-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% 50%, rgba(232,185,96,0.18) 0%, transparent 60%), radial-gradient(ellipse at 50% 100%, rgba(61,34,18,0.7) 0%, transparent 55%), linear-gradient(to bottom, rgba(61,34,18,0.48) 0%, rgba(61,34,18,0.52) 100%), var(--tex-fleur-de-sel); background-size: auto, auto, auto, cover; }
@@ -234,8 +187,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .cta-buttons { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
 .btn-primary { display: inline-block; padding: 0.95rem 2.5rem; background: var(--amethyst); color: var(--snowflake); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: background 0.3s ease, transform 0.2s ease; }
 .btn-primary:hover { background: var(--amethyst-light); transform: translateY(-1px); }
-.btn-ghost { display: inline-block; padding: 0.95rem 2.5rem; border: 1px solid rgba(200,184,232,0.3); color: var(--fairy-silver); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: border-color 0.3s ease, color 0.3s ease; }
-.btn-ghost:hover { border-color: var(--fairy-silver); color: var(--moonpetal); }
+.btn-ghost { display: inline-block; padding: 0.95rem 2.5rem; border: 1px solid rgba(251,243,228,0.55); color: var(--sc-buttermilk); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: border-color 0.3s ease, color 0.3s ease; }
+.btn-ghost:hover { border-color: var(--sc-buttermilk); color: #fff; }
 footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
 .footer-name { font-family: var(--font-emmy-display); font-style: italic; font-size: 1rem; color: var(--fairy-silver); opacity: 0.5; }
 .footer-note { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 300; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.35; }
@@ -357,9 +310,9 @@ footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: f
     <div class="palette-header">
       <div>
         <p class="section-eyebrow reveal">The full eight</p>
-        <h2 class="palette-title reveal">The Whole Box.<br><em>Every color material.</em></h2>
+        <h2 class="palette-title reveal">Eight colors.<br>Eight materials.<br><em>One palette.</em></h2>
       </div>
-      <p class="palette-intro reveal">Eight colors. Each one named for what it actually <em>is</em>, because "beige" tells you nothing and <em>Fleur de Sel</em> tells you everything. <em>Nothing here is flat. Everything is edible.</em></p>
+      <p class="palette-intro reveal">Each one named for what it actually <em>is</em>, because &ldquo;beige&rdquo; tells you nothing and <em>Fleur de Sel</em> tells you everything. <em>Nothing here is flat. Everything is edible.</em></p>
     </div>
     <div class="palette-row">
       <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #A0622E;"></div><div class="palette-chip-material chip-burnt-sugar"></div><div class="palette-chip-label"><span class="palette-chip-role">Signature Warm</span><span class="palette-chip-name">Burnt Sugar</span><span class="palette-chip-hex">#A0622E</span><p class="palette-chip-feel">That exact moment sugar crosses over into caramel &mdash; amber-brown, matte, slightly rough. The color of a handmade ceramic mug that keeps your coffee warm.</p></div></div>
@@ -421,8 +374,8 @@ footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: f
 <section class="cta-section">
   <div class="cta-inner">
     <div class="cta-label">Take it Home</div>
-    <h2 class="cta-big reveal">Make Salted Caramel<br>your brand.</h2>
-    <p class="cta-sub reveal">The kit is available now. If you want a custom kit built specifically for your world &mdash; or if you'd like Emmy to translate Salted Caramel into a full website &mdash; that's available too.</p>
+    <h2 class="cta-big reveal">Your brand should feel<br>like somewhere<br>people want to stay.</h2>
+    <p class="cta-sub reveal">Salted Caramel is for the brand that doesn&rsquo;t perform warmth &mdash; it just is warm. The kit is available now. If you want a custom kit built for your world, or if you&rsquo;d like Emmy to translate Salted Caramel into a full website &mdash; that&rsquo;s available too.</p>
     <div class="cta-buttons reveal">
       <a href="mailto:hello@emmybellamora.com?subject=Salted Caramel Kit" class="btn-primary">Get Salted Caramel — $188</a>
       <a href="../../index.html#working-together" class="btn-ghost">Talk to Emmy</a>
@@ -445,38 +398,7 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 reveals.forEach(el => observer.observe(el));
 
-(function () {
-  const carousel = document.getElementById('kit-carousel');
-  if (!carousel) return;
-  const stage = carousel.querySelector('.carousel-stage');
-  const slides = carousel.querySelectorAll('.carousel-slide');
-  const dots = carousel.querySelectorAll('.carousel-dot');
-  const captionLabel = document.getElementById('caption-label');
-  const captionName = document.getElementById('caption-name');
-  const total = slides.length;
-  let current = 0;
-  const captions = [
-    { label: 'Brand Board',      name: 'The kit at a glance' },
-    { label: 'Material Samples', name: 'The textures in the kit' },
-    { label: 'Cheat Sheet',      name: 'Combinations, vetted for accessibility' },
-    { label: 'Texture Vault',    name: 'Eight materials — nothing is flat' }
-  ];
-  function go(i) {
-    current = (i + total) % total;
-    slides.forEach((s, idx) => s.classList.toggle('active', idx === current));
-    dots.forEach((d, idx) => d.classList.toggle('active', idx === current));
-    if (captions[current]) { captionLabel.textContent = captions[current].label; captionName.textContent = captions[current].name; }
-  }
-  stage.addEventListener('click', () => go(current + 1));
-  dots.forEach((dot) => dot.addEventListener('click', (e) => { e.stopPropagation(); go(parseInt(dot.dataset.go, 10)); }));
-  document.addEventListener('keydown', (e) => {
-    const rect = carousel.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-      if (e.key === 'ArrowLeft') go(current - 1);
-      if (e.key === 'ArrowRight') go(current + 1);
-    }
-  });
-})();
+// Carousel JS removed V3 — carousel replaced with tier-cards in session 11
 </script>
 </body>
 </html>
