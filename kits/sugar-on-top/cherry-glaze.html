@@ -83,6 +83,9 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .kit-hero-name { font-family: var(--font-cg-display); font-size: clamp(4.5rem, 10vw, 9rem); font-weight: 500; color: var(--cg-porcelain); line-height: 1.0; letter-spacing: -0.01em; margin-bottom: 1.5rem; text-shadow: 0 2px 32px rgba(0,0,0,0.5), 0 4px 64px rgba(0,0,0,0.3); }
 .kit-hero-tagline { font-family: var(--font-cg-subhead); font-style: italic; font-size: clamp(1.1rem, 1.8vw, 1.4rem); color: var(--cg-porcelain); line-height: 1.6; opacity: 0.95; text-shadow: 0 2px 20px rgba(0,0,0,0.6); max-width: 580px; }
 
+/* SECTION EYEBROW — used in inside, palette, type, combo headers (consistency with Spun Sugar / Mint Condition) */
+.section-eyebrow { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--cg-copper); opacity: 0.85; margin-bottom: 1rem; }
+
 /* PAINTING — on black cherry leather */
 .painting-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 65% 50%, rgba(181,30,60,0.5) 0%, transparent 62%), linear-gradient(to bottom, rgba(58,14,28,0.55) 0%, rgba(122,27,53,0.45) 100%), var(--tex-maraschino); background-size: auto, auto, cover; }
 .painting-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(196,115,53,0.07) 0%, transparent 55%); pointer-events: none; }
@@ -103,25 +106,25 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .palette-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
 .palette-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
 .palette-intro em { color: var(--moonpetal); font-style: italic; }
-.palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-.palette-card { border-radius: 12px; overflow: hidden; background: rgba(58,14,28,0.65); border: 1px solid rgba(255,245,240,0.08); box-shadow: 0 4px 24px rgba(0,0,0,0.4), 0 1px 4px rgba(0,0,0,0.25); transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
-.palette-card:hover { border-color: rgba(196,115,53,0.4); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 2px 8px rgba(196,115,53,0.1); }
-.palette-color-block { width: 100%; aspect-ratio: 2.8; }
-.palette-swatch { width: 100%; aspect-ratio: 1.4; position: relative; background-size: cover; background-position: center; }
-.palette-swatch::after { content: ''; position: absolute; inset: 0; }
-.swatch-maraschino  { background-image: var(--tex-maraschino); }   .swatch-maraschino::after  { background: var(--cg-maraschino); mix-blend-mode: multiply; opacity: 0.38; }
-.swatch-black-cherry{ background-image: var(--tex-black-cherry); } .swatch-black-cherry::after{ background: var(--cg-black-cherry); mix-blend-mode: multiply; opacity: 0.55; }
-.swatch-burgundy    { background-image: var(--tex-burgundy); }     .swatch-burgundy::after    { background: var(--cg-burgundy); mix-blend-mode: multiply; opacity: 0.42; }
-.swatch-copper      { background-image: var(--tex-copper); }       .swatch-copper::after      { background: var(--cg-copper); mix-blend-mode: multiply; opacity: 0.40; }
-.swatch-rose        { background-image: var(--tex-rose); }         .swatch-rose::after        { background: var(--cg-rose); mix-blend-mode: multiply; opacity: 0.38; }
-.swatch-slate       { background-image: var(--tex-slate); }        .swatch-slate::after       { background: var(--cg-slate); mix-blend-mode: multiply; opacity: 0.52; }
-.swatch-porcelain   { background-image: var(--tex-porcelain); }    .swatch-porcelain::after   { background: var(--cg-porcelain); mix-blend-mode: screen; opacity: 0.35; }
-.swatch-smoke       { background-image: var(--tex-smoke); }        .swatch-smoke::after       { background: var(--cg-smoke); mix-blend-mode: multiply; opacity: 0.40; }
-.palette-card-body { padding: 1.25rem 1.25rem 1.5rem; }
-.palette-role { font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--amethyst-light); opacity: 0.7; margin-bottom: 0.4rem; }
-.palette-name { font-family: var(--font-emmy-display); font-size: 1.15rem; font-weight: 300; font-style: italic; color: var(--snowflake); margin-bottom: 0.4rem; line-height: 1.2; }
-.palette-hex { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.6; text-transform: uppercase; margin-bottom: 0.75rem; }
-.palette-feel { font-family: var(--font-emmy-body); font-size: 0.72rem; font-weight: 300; line-height: 1.6; color: var(--fairy-silver); opacity: 0.8; }
+.palette-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-top: 3rem; }
+.palette-chip { display: flex; flex-direction: column; cursor: default; transition: transform 0.3s ease, box-shadow 0.3s ease; border-radius: 4px; overflow: hidden; border: 1px solid rgba(255,245,240,0.08); background: rgba(58,14,28,0.65); box-shadow: 0 2px 12px rgba(0,0,0,0.4); }
+.palette-chip:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 2px 8px rgba(196,115,53,0.1); border-color: rgba(196,115,53,0.4); }
+.palette-chip-color { width: 100%; aspect-ratio: 2.6; }
+.palette-chip-material { width: 100%; aspect-ratio: 2.6; position: relative; background-size: cover; background-position: center; }
+.palette-chip-material::after { content: ''; position: absolute; inset: 0; }
+.chip-maraschino  { background-image: var(--tex-maraschino); }   .chip-maraschino::after  { background: var(--cg-maraschino); mix-blend-mode: multiply; opacity: 0.38; }
+.chip-black-cherry{ background-image: var(--tex-black-cherry); } .chip-black-cherry::after{ background: var(--cg-black-cherry); mix-blend-mode: multiply; opacity: 0.55; }
+.chip-burgundy    { background-image: var(--tex-burgundy); }     .chip-burgundy::after    { background: var(--cg-burgundy); mix-blend-mode: multiply; opacity: 0.42; }
+.chip-copper      { background-image: var(--tex-copper); }       .chip-copper::after      { background: var(--cg-copper); mix-blend-mode: multiply; opacity: 0.40; }
+.chip-rose        { background-image: var(--tex-rose); }         .chip-rose::after        { background: var(--cg-rose); mix-blend-mode: multiply; opacity: 0.38; }
+.chip-slate       { background-image: var(--tex-slate); }        .chip-slate::after       { background: var(--cg-slate); mix-blend-mode: multiply; opacity: 0.52; }
+.chip-porcelain   { background-image: var(--tex-porcelain); }    .chip-porcelain::after   { background: var(--cg-porcelain); mix-blend-mode: screen; opacity: 0.35; }
+.chip-smoke       { background-image: var(--tex-smoke); }        .chip-smoke::after       { background: var(--cg-smoke); mix-blend-mode: multiply; opacity: 0.40; }
+.palette-chip-label { background: rgba(58,14,28,0.85); padding: 1rem 1.1rem 1.25rem; text-align: left; border-top: 1px solid rgba(255,245,240,0.06); }
+.palette-chip-role { display: block; font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--cg-copper); opacity: 0.85; margin-bottom: 0.5rem; }
+.palette-chip-name { display: block; font-family: var(--font-emmy-display); font-size: 1.1rem; font-weight: 400; color: var(--cg-porcelain); margin-bottom: 0.3rem; line-height: 1.2; letter-spacing: 0; text-transform: none; }
+.palette-chip-hex { display: block; font-family: var(--font-emmy-body); font-size: 0.62rem; font-weight: 400; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.6; text-transform: uppercase; margin-bottom: 0.7rem; }
+.palette-chip-feel { display: block; font-family: var(--font-emmy-body); font-size: 0.78rem; font-weight: 300; line-height: 1.6; color: var(--fairy-silver); opacity: 0.78; }
 
 /* TYPE — on porcelain ceramic */
 .type-section { padding: 7rem 0; background-color: var(--cg-black-cherry); }
@@ -313,119 +316,34 @@ footer { padding: 3rem; border-top: 1px solid rgba(255,245,240,0.06); display: f
   </div>
 </section>
 
-<section class="inside-section">
-  <div class="drips" aria-hidden="true">
-    <span class="drip drip-2"></span><span class="drip drip-4"></span><span class="drip drip-5"></span>
-  </div>
+<section id="inside" class="inside-section">
   <div class="inside-inner">
     <div class="inside-header">
-      <h2 class="inside-title reveal">Inside the kit.</h2>
-      <p class="inside-intro reveal">Brand kits should be <em>complete worlds</em>, not single files. Flip through to see what arrives when Cherry Glaze becomes yours.</p>
+      <div>
+        <p class="section-eyebrow reveal">Everything in the box</p>
+        <h2 class="inside-title reveal">What you&rsquo;re actually getting.</h2>
+      </div>
+      <p class="inside-intro reveal">Not just colors. A whole material world &mdash; red lacquer, black leather, burgundy silk, brushed copper &mdash; that you can step into and start using the same day.</p>
     </div>
-    <div class="inside-grid">
-      <div class="carousel reveal" id="kit-carousel">
-        <div class="carousel-stage">
-          <div class="carousel-slide active" data-slide="0">
-            <div class="mockup-stage">
-              <div class="mock-brand-board">
-                <div class="mbb-header">
-                  <div class="mbb-eyebrow">Sugar on Top &middot; Brand Board</div>
-                  <div class="mbb-title">Cherry Glaze</div>
-                  <div class="mbb-tagline">Bold. Lacquered. Ready to own the room.</div>
-                </div>
-                <div class="mbb-body">
-                  <div class="mbb-palette">
-                    <div class="mbb-swatch swatch-maraschino"></div><div class="mbb-swatch swatch-black-cherry"></div>
-                    <div class="mbb-swatch swatch-burgundy"></div><div class="mbb-swatch swatch-copper"></div>
-                    <div class="mbb-swatch swatch-rose"></div><div class="mbb-swatch swatch-slate"></div>
-                    <div class="mbb-swatch swatch-porcelain"></div><div class="mbb-swatch swatch-smoke"></div>
-                  </div>
-                  <div class="mbb-type">
-                    <div class="mbb-type-display">Enter.</div>
-                    <div class="mbb-type-sub">DM Serif Display &middot; Libre Baskerville &middot; Outfit</div>
-                    <div class="mbb-type-body">Editorial authority, classic warmth, and a modern workhorse. The Lacquer Suite &mdash; three fonts that each do one thing perfectly.</div>
-                  </div>
-                </div>
-                <div class="mbb-footer">By Emmy Bellamora &middot; Sugar on Top Collection</div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-slide" data-slide="1">
-            <div class="mockup-stage" style="padding:0;">
-              <div class="mock-playground">
-                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(58,14,28,0.82),rgba(58,14,28,0.65)),var(--tex-black-cherry);background-size:auto,cover;color:var(--cg-porcelain);">
-                  <div class="mp-sample-swatch" style="background-image:var(--tex-black-cherry);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--cg-copper);">Black Cherry</div>
-                  <div class="mp-sample-tagline">Where red goes at night.<br>Rich, heavy, leather-dark.</div>
-                </div>
-                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(181,30,60,0.62),rgba(58,14,28,0.68)),var(--tex-maraschino);background-size:auto,cover;color:var(--cg-porcelain);">
-                  <div class="mp-sample-swatch" style="background-image:var(--tex-maraschino);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--cg-copper);">Maraschino</div>
-                  <div class="mp-sample-tagline">High-gloss lacquer.<br>Attention without desperation.</div>
-                </div>
-                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(196,115,53,0.58),rgba(58,14,28,0.68)),var(--tex-copper);background-size:auto,cover;color:var(--cg-porcelain);">
-                  <div class="mp-sample-swatch" style="background-image:var(--tex-copper);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--cg-copper);">Copper Flame</div>
-                  <div class="mp-sample-tagline">Candlelight on the table.<br>The warmth that breaks the red.</div>
-                </div>
-                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(255,245,240,0.6),rgba(58,14,28,0.62)),var(--tex-porcelain);background-size:auto,cover;color:var(--cg-black-cherry);">
-                  <div class="mp-sample-swatch" style="background-image:var(--tex-porcelain);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--cg-burgundy);">Porcelain</div>
-                  <div class="mp-sample-tagline">White plate under the cherry.<br>Clean but never cold.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-slide" data-slide="2">
-            <div class="mockup-stage">
-              <div class="mock-cheat-sheet">
-                <div class="mcs-header">Color Combinations</div>
-                <div class="mcs-grid">
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(58,14,28,0.92),rgba(196,115,53,0.58)),var(--tex-black-cherry);background-size:auto,cover;color:var(--cg-porcelain);"><div class="mcs-cell-name">The Signature</div><div class="mcs-cell-meta">Maraschino &times; Porcelain &middot; AAA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(255,245,240,0.97),rgba(196,115,53,0.2)),var(--tex-porcelain);background-size:auto,cover;color:var(--cg-black-cherry);border:1px solid rgba(58,14,28,0.08);"><div class="mcs-cell-name">White Plate</div><div class="mcs-cell-meta">Burgundy &times; Porcelain &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(122,27,53,0.90),rgba(196,115,53,0.5)),var(--tex-burgundy);background-size:auto,cover;color:var(--cg-porcelain);"><div class="mcs-cell-name">Evening Silk</div><div class="mcs-cell-meta">Burgundy &times; Copper &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(58,14,28,0.90),rgba(181,30,60,0.48)),var(--tex-black-cherry);background-size:auto,cover;color:var(--cg-porcelain);"><div class="mcs-cell-name">All Red</div><div class="mcs-cell-meta">Cherry &times; Maraschino &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(196,115,53,0.90),rgba(255,245,240,0.6)),var(--tex-copper);background-size:auto,cover;color:var(--cg-black-cherry);"><div class="mcs-cell-name">Candlelight</div><div class="mcs-cell-meta">Copper &times; Porcelain &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(212,117,138,0.85),rgba(255,245,240,0.65)),var(--tex-rose);background-size:auto,cover;color:var(--cg-black-cherry);"><div class="mcs-cell-name">Soft Approach</div><div class="mcs-cell-meta">Rose &times; Porcelain &middot; AA</div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-slide" data-slide="3">
-            <div class="mockup-stage" style="padding:1rem;">
-              <div class="mock-texture">
-                <div class="mock-texture-cell" data-name="Maraschino"    style="background-image:linear-gradient(to bottom,rgba(181,30,60,0.45),rgba(58,14,28,0.35)),var(--tex-maraschino);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Black Cherry"  style="background-image:linear-gradient(to bottom,rgba(58,14,28,0.55),rgba(58,14,28,0.45)),var(--tex-black-cherry);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Burgundy Silk" style="background-image:linear-gradient(to bottom,rgba(122,27,53,0.52),rgba(58,14,28,0.38)),var(--tex-burgundy);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Copper Flame"  style="background-image:linear-gradient(to bottom,rgba(196,115,53,0.52),rgba(58,14,28,0.32)),var(--tex-copper);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Rose Gloss"    style="background-image:linear-gradient(to bottom,rgba(212,117,138,0.52),rgba(58,14,28,0.38)),var(--tex-rose);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Porcelain"     style="background-image:linear-gradient(to bottom,rgba(255,245,240,0.62),rgba(255,250,248,0.5)),var(--tex-porcelain);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Slate"         style="background-image:linear-gradient(to bottom,rgba(54,50,58,0.58),rgba(54,50,58,0.48)),var(--tex-slate);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Smoke"         style="background-image:linear-gradient(to bottom,rgba(138,127,133,0.55),rgba(58,14,28,0.45)),var(--tex-smoke);background-size:auto,cover;"></div>
-              </div>
-            </div>
-          </div>
+    <div class="tier-cards">
+      <a href="#" class="tier-card tier-1 reveal">
+        <div class="tier-card-visual" style="background-image: linear-gradient(135deg, rgba(58,14,28,0.65), rgba(122,27,53,0.4)), var(--tex-burgundy);"></div>
+        <div class="tier-card-body">
+          <div class="tier-card-eyebrow">Tier 1 &middot; The Kit</div>
+          <h3 class="tier-card-title">The Kit &mdash; $188</h3>
+          <p class="tier-card-desc">Brand board, color cheat sheet, eight material textures, and the Lacquer Suite typography system. Everything to use Cherry Glaze the same day it arrives.</p>
+          <span class="tier-card-cta">See what's inside &rarr;</span>
         </div>
-        <div class="carousel-dots">
-          <button class="carousel-dot active" data-go="0" aria-label="Brand Board"></button>
-          <button class="carousel-dot" data-go="1" aria-label="Material Samples"></button>
-          <button class="carousel-dot" data-go="2" aria-label="Cheat Sheet"></button>
-          <button class="carousel-dot" data-go="3" aria-label="Texture Vault"></button>
+      </a>
+      <a href="#" class="tier-card tier-2 reveal">
+        <div class="tier-card-visual" style="background-image: linear-gradient(135deg, rgba(58,14,28,0.55), rgba(196,115,53,0.4)), var(--tex-copper);"></div>
+        <div class="tier-card-body">
+          <div class="tier-card-eyebrow">Tier 2 &middot; The Playground</div>
+          <h3 class="tier-card-title">The Playground &mdash; $388</h3>
+          <p class="tier-card-desc">Everything in Tier 1, plus social templates, web-ready components, and the playground that lets you mix the kit any way your brand wants.</p>
+          <span class="tier-card-cta">See the full playground &rarr;</span>
         </div>
-        <div class="carousel-caption-row">
-          <div class="caption-label" id="caption-label">Brand Board</div>
-          <div class="caption-name" id="caption-name">The kit at a glance</div>
-        </div>
-      </div>
-      <div class="inside-list reveal">
-        <div class="inside-list-title">Everything Included</div>
-        <div class="inside-item"><div class="inside-icon">01</div><div class="inside-text"><strong>Whole Box Color Palette</strong><span>Eight materially-named colors with hex codes, role descriptions, and texture notes.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">02</div><div class="inside-text"><strong>Typography System</strong><span>DM Serif Display + Libre Baskerville + Outfit. The Lacquer Suite. The fonts of a woman who doesn&rsquo;t need to raise her voice.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">03</div><div class="inside-text"><strong>Brand Board</strong><span>One page that captures the entire kit at a glance &mdash; for presentations or quick reference.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">04</div><div class="inside-text"><strong>Color Combinations Cheat Sheet</strong><span>Pre-vetted combinations with WCAG contrast scores. Bold AND accessible.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">05</div><div class="inside-text"><strong>Tier-2 Playground</strong><span>Full sandbox of the kit in motion &mdash; layouts, social tiles, link-in-bio templates.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">06</div><div class="inside-text"><strong>Texture Vault</strong><span>Eight high-res material textures &mdash; red lacquer, black leather, burgundy silk, brushed copper, rose gloss, porcelain, charcoal slate, soft smoke.</span></div></div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -451,18 +369,21 @@ footer { padding: 3rem; border-top: 1px solid rgba(255,245,240,0.06); display: f
 <section class="palette-section">
   <div class="palette-inner">
     <div class="palette-header">
-      <h2 class="palette-title reveal">Eight colors. Eight materials.<br><em>One palette.</em></h2>
+      <div>
+        <p class="section-eyebrow reveal">The full eight</p>
+        <h2 class="palette-title reveal">Eight colors. Eight materials.<br><em>One palette.</em></h2>
+      </div>
       <p class="palette-intro reveal">Every color named for what it actually <em>is</em>, because &ldquo;red&rdquo; tells you nothing and <em>Maraschino</em> tells you everything. <em>Nothing here is flat. Every surface has depth.</em></p>
     </div>
-    <div class="palette-grid">
-      <div class="palette-card reveal"><div class="palette-color-block" style="background-color: #B51E3C;"></div><div class="palette-swatch swatch-maraschino"></div><div class="palette-card-body"><div class="palette-role">Primary Bold</div><div class="palette-name">Maraschino</div><div class="palette-hex">#B51E3C</div><p class="palette-feel">True cherry red &mdash; not fire-engine, not tomato. The deep, glazed red of a maraschino cherry on a white plate. High-gloss lacquer. Attention without desperation.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-color-block" style="background-color: #3A0E1C;"></div><div class="palette-swatch swatch-black-cherry"></div><div class="palette-card-body"><div class="palette-role">Signature Dark</div><div class="palette-name">Black Cherry</div><div class="palette-hex">#3A0E1C</div><p class="palette-feel">Where red goes at night. Almost-black with red still glowing underneath. The leather in the corner booth. Deep matte grain, heavy and rich.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-color-block" style="background-color: #7A1B35;"></div><div class="palette-swatch swatch-burgundy"></div><div class="palette-card-body"><div class="palette-role">Rich Mid</div><div class="palette-name">Burgundy Silk</div><div class="palette-hex">#7A1B35</div><p class="palette-feel">Wine in crystal. Silk charmeuse drape, liquid and luminous. The red between the extremes &mdash; depth and sophistication. The color she wears when she means business.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-color-block" style="background-color: #C47335;"></div><div class="palette-swatch swatch-copper"></div><div class="palette-card-body"><div class="palette-role">Warm Accent</div><div class="palette-name">Copper Flame</div><div class="palette-hex">#C47335</div><p class="palette-feel">The candlelight at the table. Brushed metallic warm sheen. The accent that breaks the monochrome red and brings the whole palette alive. Without this, all drama. With it, warmth.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-color-block" style="background-color: #D4758A;"></div><div class="palette-swatch swatch-rose"></div><div class="palette-card-body"><div class="palette-role">Pink Lift</div><div class="palette-name">Rose Gloss</div><div class="palette-hex">#D4758A</div><p class="palette-feel">Cherry&rsquo;s softer side. Lip-gloss finish, smooth and luminous. The color that makes Cherry Glaze approachable without softening its edge.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-color-block" style="background-color: #36323A;"></div><div class="palette-swatch swatch-slate"></div><div class="palette-card-body"><div class="palette-role">Cool Contrast</div><div class="palette-name">Charcoal Slate</div><div class="palette-hex">#36323A</div><p class="palette-feel">Not black &mdash; warm dark gray with the faintest purple cast. Matte stone, cool and structural. The bones of the kit. For text, for borders, for the moments when the reds need to rest.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-color-block" style="background-color: #FFF5F0;"></div><div class="palette-swatch swatch-porcelain"></div><div class="palette-card-body"><div class="palette-role">Cream</div><div class="palette-name">Porcelain</div><div class="palette-hex">#FFF5F0</div><p class="palette-feel">White with the warmth of a blush. Glazed ceramic, slight sheen. The white plate under the cherry &mdash; clean but never cold. The surface that lets Maraschino do its best work.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-color-block" style="background-color: #8A7F85;"></div><div class="palette-swatch swatch-smoke"></div><div class="palette-card-body"><div class="palette-role">True Neutral</div><div class="palette-name">Smoke</div><div class="palette-hex">#8A7F85</div><p class="palette-feel">Warm gray-mauve. Breath in cold air. The breathing room &mdash; soft-focus and diffuse, the color that prevents the palette from being relentless. Where red rests between appearances.</p></div></div>
+    <div class="palette-row">
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #B51E3C;"></div><div class="palette-chip-material chip-maraschino"></div><div class="palette-chip-label"><span class="palette-chip-role">Primary Bold</span><span class="palette-chip-name">Maraschino</span><span class="palette-chip-hex">#B51E3C</span><p class="palette-chip-feel">True cherry red &mdash; not fire-engine, not tomato. The deep, glazed red of a maraschino cherry on a white plate. High-gloss lacquer. Attention without desperation.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #3A0E1C;"></div><div class="palette-chip-material chip-black-cherry"></div><div class="palette-chip-label"><span class="palette-chip-role">Signature Dark</span><span class="palette-chip-name">Black Cherry</span><span class="palette-chip-hex">#3A0E1C</span><p class="palette-chip-feel">Where red goes at night. Almost-black with red still glowing underneath. The leather in the corner booth. Deep matte grain, heavy and rich.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #7A1B35;"></div><div class="palette-chip-material chip-burgundy"></div><div class="palette-chip-label"><span class="palette-chip-role">Rich Mid</span><span class="palette-chip-name">Burgundy Silk</span><span class="palette-chip-hex">#7A1B35</span><p class="palette-chip-feel">Wine in crystal. Silk charmeuse drape, liquid and luminous. The red between the extremes &mdash; depth and sophistication. The color she wears when she means business.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #C47335;"></div><div class="palette-chip-material chip-copper"></div><div class="palette-chip-label"><span class="palette-chip-role">Warm Accent</span><span class="palette-chip-name">Copper Flame</span><span class="palette-chip-hex">#C47335</span><p class="palette-chip-feel">The candlelight at the table. Brushed metallic warm sheen. The accent that breaks the monochrome red and brings the whole palette alive. Without this, all drama. With it, warmth.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #D4758A;"></div><div class="palette-chip-material chip-rose"></div><div class="palette-chip-label"><span class="palette-chip-role">Pink Lift</span><span class="palette-chip-name">Rose Gloss</span><span class="palette-chip-hex">#D4758A</span><p class="palette-chip-feel">Cherry&rsquo;s softer side. Lip-gloss finish, smooth and luminous. The color that makes Cherry Glaze approachable without softening its edge.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #36323A;"></div><div class="palette-chip-material chip-slate"></div><div class="palette-chip-label"><span class="palette-chip-role">Cool Contrast</span><span class="palette-chip-name">Charcoal Slate</span><span class="palette-chip-hex">#36323A</span><p class="palette-chip-feel">Not black &mdash; warm dark gray with the faintest purple cast. Matte stone, cool and structural. The bones of the kit. For text, for borders, for the moments when the reds need to rest.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #FFF5F0;"></div><div class="palette-chip-material chip-porcelain"></div><div class="palette-chip-label"><span class="palette-chip-role">Cream</span><span class="palette-chip-name">Porcelain</span><span class="palette-chip-hex">#FFF5F0</span><p class="palette-chip-feel">White with the warmth of a blush. Glazed ceramic, slight sheen. The white plate under the cherry &mdash; clean but never cold. The surface that lets Maraschino do its best work.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #8A7F85;"></div><div class="palette-chip-material chip-smoke"></div><div class="palette-chip-label"><span class="palette-chip-role">True Neutral</span><span class="palette-chip-name">Smoke</span><span class="palette-chip-hex">#8A7F85</span><p class="palette-chip-feel">Warm gray-mauve. Breath in cold air. The breathing room &mdash; soft-focus and diffuse, the color that prevents the palette from being relentless. Where red rests between appearances.</p></div></div>
     </div>
   </div>
 </section>
@@ -470,7 +391,10 @@ footer { padding: 3rem; border-top: 1px solid rgba(255,245,240,0.06); display: f
 <section class="type-section">
   <div class="type-inner">
     <div class="type-header">
-      <h2 class="type-title reveal">Three fonts.<br>The Lacquer Suite.</h2>
+      <div>
+        <p class="section-eyebrow reveal">The Lacquer Edition</p>
+        <h2 class="type-title reveal">Three fonts.<br>One suite.</h2>
+      </div>
       <p class="type-intro reveal"><strong>DM Serif Display commands. Libre Baskerville holds. Outfit works.</strong> Like a red lip, a great blazer, and the right shoes &mdash; each one knows its job. All three are free Google Fonts, forever yours.</p>
     </div>
     <div class="type-card reveal">
@@ -495,7 +419,10 @@ footer { padding: 3rem; border-top: 1px solid rgba(255,245,240,0.06); display: f
 <section class="combo-section">
   <div class="combo-inner">
     <div class="combo-header">
-      <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
+      <div>
+        <p class="section-eyebrow reveal">How to use them</p>
+        <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
+      </div>
       <p class="combo-intro reveal">A color swatch on white tells you nothing. What matters is how a color <em>behaves</em> next to other colors. These are the signature pairings &mdash; the combinations Cherry Glaze was built for.</p>
     </div>
     <div class="combo-grid">
@@ -505,35 +432,6 @@ footer { padding: 3rem; border-top: 1px solid rgba(255,245,240,0.06); display: f
       <div class="combo-card combo-4 reveal"><div class="combo-text"><div class="combo-pair">Evening Version</div><div class="combo-name">Copper &amp; Black Cherry</div></div></div>
       <div class="combo-card combo-5 reveal"><div class="combo-text"><div class="combo-pair">Elevated Content</div><div class="combo-name">Burgundy on Porcelain</div></div></div>
       <div class="combo-card combo-6 reveal"><div class="combo-text"><div class="combo-pair">The Structure</div><div class="combo-name">Slate &amp; Maraschino</div></div></div>
-    </div>
-  </div>
-</section>
-
-<section class="tier-section">
-  <div class="tier-inner">
-    <div class="tier-header">
-      <div class="tier-eyebrow">Take it home</div>
-      <h2 class="tier-title">Two ways to make Cherry Glaze yours.</h2>
-    </div>
-    <div class="tier-cards">
-      <a href="#" class="tier-card tier-1">
-        <div class="tier-card-visual" style="background-image: linear-gradient(135deg, rgba(58,14,28,0.65), rgba(122,27,53,0.4)), var(--tex-burgundy);"></div>
-        <div class="tier-card-body">
-          <div class="tier-card-eyebrow">Tier 1 &middot; The Kit</div>
-          <h3 class="tier-card-title">The Kit &mdash; $188</h3>
-          <p class="tier-card-desc">Brand board, color cheat sheet, eight material textures, and the Lacquer Suite typography system. Everything to use Cherry Glaze the same day it arrives.</p>
-          <span class="tier-card-cta">See what's inside &rarr;</span>
-        </div>
-      </a>
-      <a href="#" class="tier-card tier-2">
-        <div class="tier-card-visual" style="background-image: linear-gradient(135deg, rgba(58,14,28,0.55), rgba(196,115,53,0.4)), var(--tex-copper);"></div>
-        <div class="tier-card-body">
-          <div class="tier-card-eyebrow">Tier 2 &middot; The Playground</div>
-          <h3 class="tier-card-title">The Playground &mdash; $388</h3>
-          <p class="tier-card-desc">Everything in Tier 1, plus social templates, web-ready components, and the playground that lets you mix the kit any way your brand wants.</p>
-          <span class="tier-card-cta">See the full playground &rarr;</span>
-        </div>
-      </a>
     </div>
   </div>
 </section>
@@ -565,38 +463,6 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 reveals.forEach(el => observer.observe(el));
 
-(function () {
-  const carousel = document.getElementById('kit-carousel');
-  if (!carousel) return;
-  const stage = carousel.querySelector('.carousel-stage');
-  const slides = carousel.querySelectorAll('.carousel-slide');
-  const dots = carousel.querySelectorAll('.carousel-dot');
-  const captionLabel = document.getElementById('caption-label');
-  const captionName = document.getElementById('caption-name');
-  const total = slides.length;
-  let current = 0;
-  const captions = [
-    { label: 'Brand Board',      name: 'The kit at a glance' },
-    { label: 'Material Samples', name: 'The textures in the kit' },
-    { label: 'Cheat Sheet',      name: 'Combinations, vetted for accessibility' },
-    { label: 'Texture Vault',    name: 'Eight materials — nothing is flat' }
-  ];
-  function go(i) {
-    current = (i + total) % total;
-    slides.forEach((s, idx) => s.classList.toggle('active', idx === current));
-    dots.forEach((d, idx) => d.classList.toggle('active', idx === current));
-    if (captions[current]) { captionLabel.textContent = captions[current].label; captionName.textContent = captions[current].name; }
-  }
-  stage.addEventListener('click', () => go(current + 1));
-  dots.forEach((dot) => dot.addEventListener('click', (e) => { e.stopPropagation(); go(parseInt(dot.dataset.go, 10)); }));
-  document.addEventListener('keydown', (e) => {
-    const rect = carousel.getBoundingClientRect();
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-      if (e.key === 'ArrowLeft') go(current - 1);
-      if (e.key === 'ArrowRight') go(current + 1);
-    }
-  });
-})();
 </script>
 </body>
 </html>
