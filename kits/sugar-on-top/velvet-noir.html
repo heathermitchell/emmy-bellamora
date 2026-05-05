@@ -81,24 +81,26 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .palette-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
 .palette-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
 .palette-intro em { color: var(--moonpetal); font-style: italic; }
-.palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-.palette-card { border-radius: 12px; overflow: hidden; background: rgba(26,15,10,0.6); border: 1px solid rgba(242,230,217,0.10); box-shadow: 0 4px 24px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.2); transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
-.palette-card:hover { border-color: rgba(196,144,155,0.4); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 2px 8px rgba(212,160,160,0.12); }
-.palette-swatch { width: 100%; aspect-ratio: 1.4; position: relative; background-size: cover; background-position: center; }
-.palette-swatch::after { content: ''; position: absolute; inset: 0; }
-.swatch-rose-fizz    { background-image: var(--tex-rose-fizz); } .swatch-rose-fizz::after    { background: var(--ss-amber-glow); mix-blend-mode: multiply; opacity: 0.45; }
-.swatch-dark-ganache { background-image: var(--tex-dark-ganache); } .swatch-dark-ganache::after { background: var(--ss-plum-vortex); mix-blend-mode: multiply; opacity: 0.5; }
-.swatch-blush-silk   { background-image: var(--tex-blush-silk); } .swatch-blush-silk::after   { background: var(--ss-coral-flame); mix-blend-mode: multiply; opacity: 0.45; }
-.swatch-rose-leaf    { background-image: var(--tex-rose-leaf); } .swatch-rose-leaf::after    { background: var(--ss-brushstroke-gold); mix-blend-mode: multiply; opacity: 0.4; }
-.swatch-truffle      { background-image: var(--tex-truffle); } .swatch-truffle::after      { background: var(--ss-rose-dust); mix-blend-mode: multiply; opacity: 0.5; }
-.swatch-velvet-drape { background-image: var(--tex-velvet-drape); } .swatch-velvet-drape::after { background: var(--ss-burnt-umber); mix-blend-mode: multiply; opacity: 0.55; }
-.swatch-cocoa-cream  { background-image: var(--tex-cocoa-cream); } .swatch-cocoa-cream::after  { background: var(--ss-canvas-cream); mix-blend-mode: screen; opacity: 0.4; }
-.swatch-meringue     { background-image: var(--tex-meringue); } .swatch-meringue::after     { background: var(--ss-twilight-slate); mix-blend-mode: screen; opacity: 0.35; }
-.palette-card-body { padding: 1.25rem 1.25rem 1.5rem; }
-.palette-role { font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--amethyst-light); opacity: 0.7; margin-bottom: 0.4rem; }
-.palette-name { font-family: var(--font-emmy-display); font-size: 1.15rem; font-weight: 300; font-style: italic; color: var(--snowflake); margin-bottom: 0.4rem; line-height: 1.2; }
-.palette-hex { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.6; text-transform: uppercase; margin-bottom: 0.75rem; }
-.palette-feel { font-family: var(--font-emmy-body); font-size: 0.72rem; font-weight: 300; line-height: 1.6; color: var(--fairy-silver); opacity: 0.8; }
+.section-eyebrow { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ss-brushstroke-gold); opacity: 0.85; margin-bottom: 1rem; }
+.palette-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-top: 3rem; }
+.palette-chip { display: flex; flex-direction: column; cursor: default; transition: transform 0.3s ease, box-shadow 0.3s ease; border-radius: 4px; overflow: hidden; border: 1px solid rgba(242,230,217,0.10); background: rgba(26,15,10,0.6); box-shadow: 0 2px 12px rgba(0,0,0,0.35); }
+.palette-chip:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.45), 0 2px 8px rgba(212,160,160,0.12); border-color: rgba(196,144,155,0.4); }
+.palette-chip-color { width: 100%; aspect-ratio: 2.6; }
+.palette-chip-material { width: 100%; aspect-ratio: 2.6; position: relative; background-size: cover; background-position: center; }
+.palette-chip-material::after { content: ''; position: absolute; inset: 0; }
+.chip-rose-fizz    { background-image: var(--tex-rose-fizz); } .chip-rose-fizz::after    { background: var(--ss-amber-glow); mix-blend-mode: multiply; opacity: 0.45; }
+.chip-dark-ganache { background-image: var(--tex-dark-ganache); } .chip-dark-ganache::after { background: var(--ss-plum-vortex); mix-blend-mode: multiply; opacity: 0.5; }
+.chip-blush-silk   { background-image: var(--tex-blush-silk); } .chip-blush-silk::after   { background: var(--ss-coral-flame); mix-blend-mode: multiply; opacity: 0.45; }
+.chip-rose-leaf    { background-image: var(--tex-rose-leaf); } .chip-rose-leaf::after    { background: var(--ss-brushstroke-gold); mix-blend-mode: multiply; opacity: 0.4; }
+.chip-truffle      { background-image: var(--tex-truffle); } .chip-truffle::after      { background: var(--ss-rose-dust); mix-blend-mode: multiply; opacity: 0.5; }
+.chip-velvet-drape { background-image: var(--tex-velvet-drape); } .chip-velvet-drape::after { background: var(--ss-burnt-umber); mix-blend-mode: multiply; opacity: 0.55; }
+.chip-cocoa-cream  { background-image: var(--tex-cocoa-cream); } .chip-cocoa-cream::after  { background: var(--ss-canvas-cream); mix-blend-mode: screen; opacity: 0.4; }
+.chip-meringue     { background-image: var(--tex-meringue); } .chip-meringue::after     { background: var(--ss-twilight-slate); mix-blend-mode: screen; opacity: 0.35; }
+.palette-chip-label { background: rgba(26,15,10,0.85); padding: 1rem 1.1rem 1.25rem; text-align: left; border-top: 1px solid rgba(242,230,217,0.06); }
+.palette-chip-role { display: block; font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ss-brushstroke-gold); opacity: 0.85; margin-bottom: 0.5rem; }
+.palette-chip-name { display: block; font-family: var(--font-emmy-display); font-size: 1.1rem; font-weight: 400; color: var(--ss-canvas-cream); margin-bottom: 0.3rem; line-height: 1.2; letter-spacing: 0; text-transform: none; }
+.palette-chip-hex { display: block; font-family: var(--font-emmy-body); font-size: 0.62rem; font-weight: 400; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.6; text-transform: uppercase; margin-bottom: 0.7rem; }
+.palette-chip-feel { display: block; font-family: var(--font-emmy-body); font-size: 0.78rem; font-weight: 300; line-height: 1.6; color: var(--fairy-silver); opacity: 0.78; }
 .type-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
 .type-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: end; }
 .type-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
@@ -135,6 +137,16 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .combo-4 { background-image: var(--tex-meringue); color: var(--ss-burnt-umber); } .combo-4::before { background: linear-gradient(135deg, rgba(184,125,125,0.55) 0%, rgba(255,245,238,0.5) 100%); } .combo-4::after { background: linear-gradient(to top, rgba(255,245,238,0.65) 0%, rgba(255,245,238,0.15) 45%, transparent 70%); }
 .combo-5 { background-image: var(--tex-truffle); color: var(--ss-coral-flame); } .combo-5::before { background: linear-gradient(135deg, rgba(107,58,42,0.65) 0%, rgba(184,125,125,0.45) 100%); }
 .combo-6 { background-image: var(--tex-velvet-drape); color: var(--ss-amber-glow); } .combo-6::before { background: linear-gradient(135deg, rgba(26,15,10,0.7) 0%, rgba(212,160,160,0.4) 100%); }
+.tier-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.tier-card { display: flex; flex-direction: column; border-radius: 4px; overflow: hidden; border: 1px solid rgba(196,144,155,0.25); background: rgba(44,24,16,0.4); text-decoration: none; color: inherit; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s, border-color 0.4s; }
+.tier-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.5); border-color: rgba(196,144,155,0.55); }
+.tier-card-visual { height: 240px; width: 100%; background-size: cover; background-position: center; }
+.tier-card-body { padding: 2rem 2rem 2.2rem; display: flex; flex-direction: column; gap: 0.85rem; }
+.tier-card-eyebrow { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ss-brushstroke-gold); }
+.tier-card-title { font-family: var(--font-emmy-display); font-size: 1.7rem; font-weight: 300; font-style: italic; color: var(--ss-canvas-cream); margin: 0; line-height: 1.2; }
+.tier-card-desc { font-family: var(--font-emmy-body); font-size: 0.88rem; font-weight: 300; color: var(--fairy-silver); opacity: 0.85; line-height: 1.7; margin: 0; }
+.tier-card-cta { font-family: var(--font-emmy-body); font-size: 0.7rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ss-brushstroke-gold); margin-top: 0.5rem; transition: transform 0.3s; }
+.tier-card:hover .tier-card-cta { transform: translateX(4px); }
 .inside-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% -10%, rgba(212,160,160,0.15) 0%, transparent 50%), linear-gradient(to bottom, rgba(44,24,16,0.4) 0%, rgba(44,24,16,0.35) 100%), var(--tex-dark-ganache); background-size: auto, auto, cover; }
 .inside-section::before { content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 80%; height: 200%; background: radial-gradient(ellipse, rgba(212,160,160,0.08) 0%, transparent 60%); pointer-events: none; z-index: 0; }
 .inside-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 2; }
@@ -262,120 +274,38 @@ footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: f
   </div>
 </section>
 
-<section class="inside-section">
+<section id="inside" class="inside-section">
   <div class="bubbles" aria-hidden="true">
     <span class="bubble bubble-1"></span><span class="bubble bubble-2"></span><span class="bubble bubble-3"></span>
     <span class="bubble bubble-4"></span><span class="bubble bubble-5"></span><span class="bubble bubble-6"></span>
   </div>
   <div class="inside-inner">
     <div class="inside-header">
-      <h2 class="inside-title reveal">Inside the kit.</h2>
-      <p class="inside-intro reveal">Brand kits should be <em>complete worlds</em>, not single files. Flip through to see what arrives when Velvet Noir becomes yours.</p>
+      <div>
+        <p class="section-eyebrow reveal">Everything in the box</p>
+        <h2 class="inside-title reveal">What you&rsquo;re actually getting.</h2>
+      </div>
+      <p class="inside-intro reveal">Not just colors. A whole material world &mdash; crushed velvet, dark ganache, pink champagne, rose foil &mdash; that you can step into and start using the same day.</p>
     </div>
-    <div class="inside-grid">
-      <div class="carousel reveal" id="kit-carousel">
-        <div class="carousel-stage">
-          <div class="carousel-slide active" data-slide="0">
-            <div class="mockup-stage">
-              <div class="mock-brand-board">
-                <div class="mbb-header">
-                  <div class="mbb-eyebrow">Sugar on Top &middot; Brand Board</div>
-                  <div class="mbb-title">Velvet Noir</div>
-                  <div class="mbb-tagline">A truffle box with pink champagne</div>
-                </div>
-                <div class="mbb-body">
-                  <div class="mbb-palette">
-                    <div class="mbb-swatch swatch-rose-fizz"></div><div class="mbb-swatch swatch-dark-ganache"></div>
-                    <div class="mbb-swatch swatch-blush-silk"></div><div class="mbb-swatch swatch-rose-leaf"></div>
-                    <div class="mbb-swatch swatch-truffle"></div><div class="mbb-swatch swatch-velvet-drape"></div>
-                    <div class="mbb-swatch swatch-cocoa-cream"></div><div class="mbb-swatch swatch-meringue"></div>
-                  </div>
-                  <div class="mbb-type">
-                    <div class="mbb-type-display">Noir.</div>
-                    <div class="mbb-type-sub">Playfair &middot; Cormorant &middot; Inter</div>
-                    <div class="mbb-type-body">High-contrast display serif, calligraphic italic subhead, and a body sans designed to disappear so the words do the work.</div>
-                  </div>
-                </div>
-                <div class="mbb-footer">By Emmy Bellamora &middot; Sugar on Top Collection</div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-slide" data-slide="1">
-            <div class="mockup-stage" style="padding:0;">
-              <div class="mock-playground">
-                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(26,15,10,0.75),rgba(26,15,10,0.6)),var(--tex-velvet-drape);background-size:auto,cover;color:var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image:var(--tex-velvet-drape);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--ss-brushstroke-gold);">Velvet Drape</div>
-                  <div class="mp-sample-tagline">Crushed velvet shadow.<br>Warm dark, never flat.</div>
-                </div>
-                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(196,144,155,0.6),rgba(44,24,16,0.65)),var(--tex-rose-leaf);background-size:auto,cover;color:var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image:var(--tex-rose-leaf);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--ss-brushstroke-gold);">Rose Leaf</div>
-                  <div class="mp-sample-tagline">Rose gold foil.<br>The detail you noticed, good.</div>
-                </div>
-                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(107,58,42,0.7),rgba(44,24,16,0.65)),var(--tex-truffle);background-size:auto,cover;color:var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image:var(--tex-truffle);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--ss-brushstroke-gold);">Truffle Interior</div>
-                  <div class="mp-sample-tagline">Matte cocoa grain.<br>Cocoa dusted, hand-rolled.</div>
-                </div>
-                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(212,160,160,0.6),rgba(44,24,16,0.6)),var(--tex-rose-fizz);background-size:auto,cover;color:var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image:var(--tex-rose-fizz);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--ss-brushstroke-gold);">Ros&eacute; Fizz</div>
-                  <div class="mp-sample-tagline">Pink champagne.<br>Where the box opens.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-slide" data-slide="2">
-            <div class="mockup-stage">
-              <div class="mock-cheat-sheet">
-                <div class="mcs-header">Color Combinations</div>
-                <div class="mcs-grid">
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(44,24,16,0.9),rgba(212,160,160,0.7)),var(--tex-dark-ganache);background-size:auto,cover;color:var(--ss-canvas-cream);"><div class="mcs-cell-name">Sunset<br>Meets Twilight</div><div class="mcs-cell-meta">Ganache &times; Ros&eacute; &middot; AAA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(242,230,217,0.92),rgba(255,245,238,0.88)),var(--tex-cocoa-cream);background-size:auto,cover;color:var(--ss-burnt-umber);border:1px solid rgba(90,50,37,0.1);"><div class="mcs-cell-name">Clean<br>Energy</div><div class="mcs-cell-meta">Ros&eacute; &times; Cream &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(44,24,16,0.88),rgba(196,144,155,0.65)),var(--tex-dark-ganache);background-size:auto,cover;color:var(--ss-brushstroke-gold);"><div class="mcs-cell-name">Evening<br>Glow</div><div class="mcs-cell-meta">Ganache &times; Rose Leaf &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(184,125,125,0.85),rgba(255,245,238,0.75)),var(--tex-blush-silk);background-size:auto,cover;color:var(--ss-canvas-cream);"><div class="mcs-cell-name">For<br>Calls to Action</div><div class="mcs-cell-meta">Blush &times; Cream &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(107,58,42,0.88),rgba(212,160,160,0.5)),var(--tex-truffle);background-size:auto,cover;color:var(--ss-canvas-cream);"><div class="mcs-cell-name">The Warm<br>Middle</div><div class="mcs-cell-meta">Truffle &times; Ros&eacute; &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(26,15,10,0.9),rgba(196,144,155,0.6)),var(--tex-velvet-drape);background-size:auto,cover;color:var(--ss-brushstroke-gold);"><div class="mcs-cell-name">Statement<br>Pairing</div><div class="mcs-cell-meta">Drape &times; Rose Leaf &middot; AA</div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="carousel-slide" data-slide="3">
-            <div class="mockup-stage" style="padding:1rem;">
-              <div class="mock-texture">
-                <div class="mock-texture-cell" data-name="Rose Fizz"    style="background-image:linear-gradient(to bottom,rgba(212,160,160,0.4),rgba(44,24,16,0.3)),var(--tex-rose-fizz);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Dark Ganache" style="background-image:linear-gradient(to bottom,rgba(44,24,16,0.5),rgba(26,15,10,0.4)),var(--tex-dark-ganache);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Blush Silk"   style="background-image:linear-gradient(to bottom,rgba(184,125,125,0.45),rgba(44,24,16,0.35)),var(--tex-blush-silk);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Rose Leaf"    style="background-image:linear-gradient(to bottom,rgba(196,144,155,0.45),rgba(44,24,16,0.35)),var(--tex-rose-leaf);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Truffle"      style="background-image:linear-gradient(to bottom,rgba(107,58,42,0.5),rgba(26,15,10,0.4)),var(--tex-truffle);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Velvet Drape" style="background-image:linear-gradient(to bottom,rgba(26,15,10,0.55),rgba(26,15,10,0.45)),var(--tex-velvet-drape);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Cocoa Cream"  style="background-image:linear-gradient(to bottom,rgba(242,230,217,0.55),rgba(255,245,238,0.45)),var(--tex-cocoa-cream);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Meringue"     style="background-image:linear-gradient(to bottom,rgba(255,245,238,0.5),rgba(242,230,217,0.4)),var(--tex-meringue);background-size:auto,cover;"></div>
-              </div>
-            </div>
-          </div>
+    <div class="tier-cards">
+      <a href="#" class="tier-card tier-1 reveal">
+        <div class="tier-card-visual" style="background-image: linear-gradient(135deg, rgba(26,15,10,0.65), rgba(44,24,16,0.4)), var(--tex-velvet-drape);"></div>
+        <div class="tier-card-body">
+          <div class="tier-card-eyebrow">Tier 1 &middot; The Kit</div>
+          <h3 class="tier-card-title">The Kit &mdash; $188</h3>
+          <p class="tier-card-desc">Brand board, color cheat sheet, eight material textures, and the Champagne Suite typography system. Everything to use Velvet Noir the same day it arrives.</p>
+          <span class="tier-card-cta">See what's inside &rarr;</span>
         </div>
-        <div class="carousel-dots">
-          <button class="carousel-dot active" data-go="0" aria-label="Brand Board"></button>
-          <button class="carousel-dot" data-go="1" aria-label="Material Samples"></button>
-          <button class="carousel-dot" data-go="2" aria-label="Cheat Sheet"></button>
-          <button class="carousel-dot" data-go="3" aria-label="Texture Vault"></button>
+      </a>
+      <a href="#" class="tier-card tier-2 reveal">
+        <div class="tier-card-visual" style="background-image: linear-gradient(135deg, rgba(26,15,10,0.55), rgba(196,144,155,0.4)), var(--tex-rose-leaf);"></div>
+        <div class="tier-card-body">
+          <div class="tier-card-eyebrow">Tier 2 &middot; The Playground</div>
+          <h3 class="tier-card-title">The Playground &mdash; $388</h3>
+          <p class="tier-card-desc">Everything in Tier 1, plus social templates, web-ready components, and the playground that lets you mix the kit any way your brand wants.</p>
+          <span class="tier-card-cta">See the full playground &rarr;</span>
         </div>
-        <div class="carousel-caption-row">
-          <div class="caption-label" id="caption-label">Brand Board</div>
-          <div class="caption-name" id="caption-name">The kit at a glance</div>
-        </div>
-      </div>
-      <div class="inside-list reveal">
-        <div class="inside-list-title">Everything Included</div>
-        <div class="inside-item"><div class="inside-icon">01</div><div class="inside-text"><strong>Whole Box Color Palette</strong><span>Eight materially-named colors with hex codes, role descriptions, and texture notes.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">02</div><div class="inside-text"><strong>Typography System</strong><span>Playfair Display + Cormorant Garamond + Inter. Display, subhead, body. With the rule that holds them together.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">03</div><div class="inside-text"><strong>Brand Board</strong><span>One page that captures the entire kit at a glance &mdash; for presentations or quick reference.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">04</div><div class="inside-text"><strong>Color Combinations Cheat Sheet</strong><span>Pre-vetted combinations with WCAG contrast scores. Beautiful AND accessible.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">05</div><div class="inside-text"><strong>Tier-2 Playground</strong><span>Full sandbox of the kit in motion &mdash; layouts, social tiles, link-in-bio templates.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">06</div><div class="inside-text"><strong>Texture Vault</strong><span>Eight high-res material textures &mdash; velvet drape, rose fizz, dark ganache, blush silk, rose leaf, truffle, cocoa cream, meringue kiss.</span></div></div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -401,25 +331,31 @@ footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: f
 <section class="palette-section">
   <div class="palette-inner">
     <div class="palette-header">
-      <h2 class="palette-title reveal">The Whole Box.<br>Every color material.</h2>
+      <div>
+        <p class="section-eyebrow reveal">The full eight</p>
+        <h2 class="palette-title reveal">The Whole Box.<br><em>Every color material.</em></h2>
+      </div>
       <p class="palette-intro reveal">Eight colors. Each one named for what it actually <em>is</em>, because "brown" tells you nothing and <em>Dark Ganache</em> tells you everything. <em>Nothing here is flat. Everything is edible.</em></p>
     </div>
-    <div class="palette-grid">
-      <div class="palette-card reveal"><div class="palette-swatch swatch-rose-fizz"></div><div class="palette-card-body"><div class="palette-role">Signature Pink</div><div class="palette-name">Ros&eacute; Fizz</div><div class="palette-hex">#D4A0A0</div><p class="palette-feel">Pink champagne in crystal. Not baby pink, not hot pink. The pink of bubbles catching candlelight. Effervescent, luminous, alive.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-dark-ganache"></div><div class="palette-card-body"><div class="palette-role">Primary Dark</div><div class="palette-name">Dark Ganache</div><div class="palette-hex">#2C1810</div><p class="palette-feel">Real dark chocolate &mdash; not black, not corporate. Warm brown-black with red undertones. The outside of the truffle box.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-blush-silk"></div><div class="palette-card-body"><div class="palette-role">Deep Blush</div><div class="palette-name">Blush Silk</div><div class="palette-hex">#B87D7D</div><p class="palette-feel">Deeper than Ros&eacute; Fizz. The silk lining of the box. Where pink gets serious.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-rose-leaf"></div><div class="palette-card-body"><div class="palette-role">Pink Foil Accent</div><div class="palette-name">Rose Leaf</div><div class="palette-hex">#C4909B</div><p class="palette-feel">The metallic warmth of rose gold foil. Not yellow gold, not copper &mdash; pink that catches light. The ribbon on the box.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-truffle"></div><div class="palette-card-body"><div class="palette-role">Rich Mid-tone</div><div class="palette-name">Truffle Interior</div><div class="palette-hex">#6B3A2A</div><p class="palette-feel">That moment you bite in &mdash; the rich brown between dark and milk. Where the flavor lives.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-velvet-drape"></div><div class="palette-card-body"><div class="palette-role">Shadow</div><div class="palette-name">Velvet Drape</div><div class="palette-hex">#1A0F0A</div><p class="palette-feel">The darkest dark &mdash; but warm. Like the shadow under heavy velvet curtains. Never cold, never flat black.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-cocoa-cream"></div><div class="palette-card-body"><div class="palette-role">Warm Neutral</div><div class="palette-name">Cocoa Cream</div><div class="palette-hex">#F2E6D9</div><p class="palette-feel">The tissue paper inside a luxury gift box. Warm, soft, never stark white.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-meringue"></div><div class="palette-card-body"><div class="palette-role">Highlight</div><div class="palette-name">Meringue Kiss</div><div class="palette-hex">#FFF5EE</div><p class="palette-feel">The lightest touch. Almost-white with the faintest blush warmth. Like powdered sugar on something decadent.</p></div></div>
+    <div class="palette-row">
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #D4A0A0;"></div><div class="palette-chip-material chip-rose-fizz"></div><div class="palette-chip-label"><span class="palette-chip-role">Signature Pink</span><span class="palette-chip-name">Ros&eacute; Fizz</span><span class="palette-chip-hex">#D4A0A0</span><p class="palette-chip-feel">Pink champagne in crystal. Not baby pink, not hot pink. The pink of bubbles catching candlelight. Effervescent, luminous, alive.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #2C1810;"></div><div class="palette-chip-material chip-dark-ganache"></div><div class="palette-chip-label"><span class="palette-chip-role">Primary Dark</span><span class="palette-chip-name">Dark Ganache</span><span class="palette-chip-hex">#2C1810</span><p class="palette-chip-feel">Real dark chocolate &mdash; not black, not corporate. Warm brown-black with red undertones. The outside of the truffle box.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #B87D7D;"></div><div class="palette-chip-material chip-blush-silk"></div><div class="palette-chip-label"><span class="palette-chip-role">Deep Blush</span><span class="palette-chip-name">Blush Silk</span><span class="palette-chip-hex">#B87D7D</span><p class="palette-chip-feel">Deeper than Ros&eacute; Fizz. The silk lining of the box. Where pink gets serious.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #C4909B;"></div><div class="palette-chip-material chip-rose-leaf"></div><div class="palette-chip-label"><span class="palette-chip-role">Pink Foil Accent</span><span class="palette-chip-name">Rose Leaf</span><span class="palette-chip-hex">#C4909B</span><p class="palette-chip-feel">The metallic warmth of rose gold foil. Not yellow gold, not copper &mdash; pink that catches light. The ribbon on the box.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #6B3A2A;"></div><div class="palette-chip-material chip-truffle"></div><div class="palette-chip-label"><span class="palette-chip-role">Rich Mid-tone</span><span class="palette-chip-name">Truffle Interior</span><span class="palette-chip-hex">#6B3A2A</span><p class="palette-chip-feel">That moment you bite in &mdash; the rich brown between dark and milk. Where the flavor lives.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #1A0F0A;"></div><div class="palette-chip-material chip-velvet-drape"></div><div class="palette-chip-label"><span class="palette-chip-role">Shadow</span><span class="palette-chip-name">Velvet Drape</span><span class="palette-chip-hex">#1A0F0A</span><p class="palette-chip-feel">The darkest dark &mdash; but warm. Like the shadow under heavy velvet curtains. Never cold, never flat black.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #F2E6D9;"></div><div class="palette-chip-material chip-cocoa-cream"></div><div class="palette-chip-label"><span class="palette-chip-role">Warm Neutral</span><span class="palette-chip-name">Cocoa Cream</span><span class="palette-chip-hex">#F2E6D9</span><p class="palette-chip-feel">The tissue paper inside a luxury gift box. Warm, soft, never stark white.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #FFF5EE;"></div><div class="palette-chip-material chip-meringue"></div><div class="palette-chip-label"><span class="palette-chip-role">Highlight</span><span class="palette-chip-name">Meringue Kiss</span><span class="palette-chip-hex">#FFF5EE</span><p class="palette-chip-feel">The lightest touch. Almost-white with the faintest blush warmth. Like powdered sugar on something decadent.</p></div></div>
     </div>
   </div>
 </section>
 
 <section class="type-section">
   <div class="type-header">
-    <h2 class="type-title reveal">Three fonts.<br>The Champagne Suite.</h2>
+    <div>
+      <p class="section-eyebrow reveal">The Champagne Suite</p>
+      <h2 class="type-title reveal">Three fonts.<br>One suite.</h2>
+    </div>
     <p class="type-intro reveal"><strong>Playfair commands. Cormorant whispers. Inter clarifies.</strong> Three fonts that never compete &mdash; each one with a different volume of voice. All three are free Google Fonts, forever yours.</p>
   </div>
   <div class="type-card reveal"><div class="type-card-meta">Headline &middot; Playfair Display 400&ndash;700</div><div class="type-card-display">Truffle box.</div><div class="type-card-name">Playfair Display 700, 72pt &middot; Dark Ganache</div></div>
@@ -430,7 +366,10 @@ footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: f
 
 <section class="combo-section">
   <div class="combo-header">
-    <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
+    <div>
+      <p class="section-eyebrow reveal">How to use them</p>
+      <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
+    </div>
     <p class="combo-intro reveal">A color swatch on white tells you nothing. What matters is how a color <em>behaves</em> next to other colors. These are the signature pairings &mdash; the combinations Velvet Noir was built for.</p>
   </div>
   <div class="combo-grid">
@@ -472,7 +411,7 @@ reveals.forEach(el => observer.observe(el));
 
 (function () {
   const carousel = document.getElementById('kit-carousel');
-  if (\!carousel) return;
+  if (!carousel) return;
   const stage = carousel.querySelector('.carousel-stage');
   const slides = carousel.querySelectorAll('.carousel-slide');
   const dots = carousel.querySelectorAll('.carousel-dot');
