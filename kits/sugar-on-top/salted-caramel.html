@@ -90,23 +90,36 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .palette-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--snowflake); line-height: 1.1; }
 .palette-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--fairy-silver); opacity: 0.85; }
 .palette-intro em { color: var(--moonpetal); font-style: italic; }
-.palette-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
-.palette-card { border-radius: 12px; overflow: hidden; background: rgba(61,34,18,0.6); border: 1px solid rgba(251,243,228,0.10); box-shadow: 0 4px 24px rgba(0,0,0,0.35), 0 1px 4px rgba(0,0,0,0.2); transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; }
-.palette-card:hover { border-color: rgba(232,185,96,0.4); transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.45), 0 2px 8px rgba(232,185,96,0.12); }
-.palette-swatch { width: 100%; aspect-ratio: 1.4; position: relative; background-size: cover; background-position: center; }
-.palette-swatch::after { content: ''; position: absolute; inset: 0; }
-/* each swatch = texture PNG + color overlay */
-.swatch-burnt-sugar   { background-image: var(--tex-burnt-sugar); }   .swatch-burnt-sugar::after   { background: var(--sc-burnt-sugar); mix-blend-mode: multiply; opacity: 0.45; }
-.swatch-liquid-caramel     { background-image: var(--tex-liquid-caramel); }     .swatch-liquid-caramel::after     { background: var(--sc-liquid-caramel); mix-blend-mode: multiply; opacity: 0.40; }
-.swatch-molasses      { background-image: var(--tex-molasses); }      .swatch-molasses::after      { background: var(--sc-molasses); mix-blend-mode: multiply; opacity: 0.55; }
-.swatch-cinnamon      { background-image: var(--tex-cinnamon-dust); } .swatch-cinnamon::after      { background: var(--sc-cinnamon); mix-blend-mode: multiply; opacity: 0.42; }
-.swatch-fleur         { background-image: var(--tex-fleur-de-sel); }  .swatch-fleur::after         { background: var(--sc-fleur); mix-blend-mode: screen; opacity: 0.35; }
-.swatch-clove         { background-image: var(--tex-clove); }         .swatch-clove::after         { background: var(--sc-clove); mix-blend-mode: multiply; opacity: 0.5; }
-.swatch-buttermilk    { background-image: var(--tex-buttermilk); }    .swatch-buttermilk::after    { background: var(--sc-buttermilk); mix-blend-mode: screen; opacity: 0.38; }
-.swatch-whipped       { background-image: var(--tex-whipped-cream); } .swatch-whipped::after       { background: var(--sc-whipped); mix-blend-mode: screen; opacity: 0.35; }
-.palette-card-body { padding: 1.25rem 1.25rem 1.5rem; }
-.palette-role { font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--amethyst-light); opacity: 0.7; margin-bottom: 0.4rem; }
-.palette-name { font-family: var(--font-emmy-display); font-size: 1.15rem; font-weight: 300; font-style: italic; color: var(--snowflake); margin-bottom: 0.4rem; line-height: 1.2; }
+.section-eyebrow { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sc-liquid-caramel); opacity: 0.85; margin-bottom: 1rem; }
+.tier-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+.tier-card { display: flex; flex-direction: column; border-radius: 4px; overflow: hidden; border: 1px solid rgba(232,185,96,0.25); background: rgba(61,34,18,0.4); text-decoration: none; color: inherit; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s, border-color 0.4s; }
+.tier-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.5); border-color: rgba(232,185,96,0.55); }
+.tier-card-visual { height: 240px; width: 100%; background-size: cover; background-position: center; }
+.tier-card-body { padding: 2rem 2rem 2.2rem; display: flex; flex-direction: column; gap: 0.85rem; }
+.tier-card-eyebrow { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sc-liquid-caramel); }
+.tier-card-title { font-family: var(--font-emmy-display); font-size: 1.7rem; font-weight: 300; font-style: italic; color: var(--sc-buttermilk); margin: 0; line-height: 1.2; }
+.tier-card-desc { font-family: var(--font-emmy-body); font-size: 0.88rem; font-weight: 300; color: var(--fairy-silver); opacity: 0.85; line-height: 1.7; margin: 0; }
+.tier-card-cta { font-family: var(--font-emmy-body); font-size: 0.7rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sc-liquid-caramel); margin-top: 0.5rem; transition: transform 0.3s; }
+.tier-card:hover .tier-card-cta { transform: translateX(4px); }
+.palette-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-top: 3rem; }
+.palette-chip { display: flex; flex-direction: column; cursor: default; transition: transform 0.3s ease, box-shadow 0.3s ease; border-radius: 4px; overflow: hidden; border: 1px solid rgba(251,243,228,0.10); background: rgba(61,34,18,0.6); box-shadow: 0 2px 12px rgba(0,0,0,0.35); }
+.palette-chip:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.45), 0 2px 8px rgba(232,185,96,0.12); border-color: rgba(232,185,96,0.4); }
+.palette-chip-color { width: 100%; aspect-ratio: 2.6; }
+.palette-chip-material { width: 100%; aspect-ratio: 2.6; position: relative; background-size: cover; background-position: center; }
+.palette-chip-material::after { content: ''; position: absolute; inset: 0; }
+.chip-burnt-sugar     { background-image: var(--tex-burnt-sugar); }     .chip-burnt-sugar::after     { background: var(--sc-burnt-sugar); mix-blend-mode: multiply; opacity: 0.45; }
+.chip-liquid-caramel  { background-image: var(--tex-liquid-caramel); }  .chip-liquid-caramel::after  { background: var(--sc-liquid-caramel); mix-blend-mode: multiply; opacity: 0.40; }
+.chip-molasses        { background-image: var(--tex-molasses); }        .chip-molasses::after        { background: var(--sc-molasses); mix-blend-mode: multiply; opacity: 0.55; }
+.chip-cinnamon        { background-image: var(--tex-cinnamon-dust); }   .chip-cinnamon::after        { background: var(--sc-cinnamon); mix-blend-mode: multiply; opacity: 0.42; }
+.chip-fleur           { background-image: var(--tex-fleur-de-sel); }    .chip-fleur::after           { background: var(--sc-fleur); mix-blend-mode: screen; opacity: 0.35; }
+.chip-clove           { background-image: var(--tex-clove); }           .chip-clove::after           { background: var(--sc-clove); mix-blend-mode: multiply; opacity: 0.5; }
+.chip-buttermilk      { background-image: var(--tex-buttermilk); }      .chip-buttermilk::after      { background: var(--sc-buttermilk); mix-blend-mode: screen; opacity: 0.38; }
+.chip-whipped         { background-image: var(--tex-whipped-cream); }   .chip-whipped::after         { background: var(--sc-whipped); mix-blend-mode: screen; opacity: 0.35; }
+.palette-chip-label { background: rgba(61,34,18,0.85); padding: 1rem 1.1rem 1.25rem; text-align: left; border-top: 1px solid rgba(251,243,228,0.06); }
+.palette-chip-role { display: block; font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sc-liquid-caramel); opacity: 0.85; margin-bottom: 0.5rem; }
+.palette-chip-name { display: block; font-family: var(--font-emmy-display); font-size: 1.1rem; font-weight: 400; color: var(--sc-buttermilk); margin-bottom: 0.3rem; line-height: 1.2; letter-spacing: 0; text-transform: none; }
+.palette-chip-hex { display: block; font-family: var(--font-emmy-body); font-size: 0.62rem; font-weight: 400; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.6; text-transform: uppercase; margin-bottom: 0.7rem; }
+.palette-chip-feel { display: block; font-family: var(--font-emmy-body); font-size: 0.78rem; font-weight: 300; line-height: 1.6; color: var(--fairy-silver); opacity: 0.78; }
 .palette-hex { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.6; text-transform: uppercase; margin-bottom: 0.75rem; }
 .palette-feel { font-family: var(--font-emmy-body); font-size: 0.72rem; font-weight: 300; line-height: 1.6; color: var(--fairy-silver); opacity: 0.8; }
 
@@ -286,123 +299,37 @@ footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: f
   </div>
 </section>
 
-<section class="inside-section">
+<section id="inside" class="inside-section">
   <div class="drips" aria-hidden="true">
     <span class="drip drip-2"></span><span class="drip drip-4"></span><span class="drip drip-5"></span>
   </div>
   <div class="inside-inner">
     <div class="inside-header">
-      <h2 class="inside-title reveal">Inside the kit.</h2>
-      <p class="inside-intro reveal">Brand kits should be <em>complete worlds</em>, not single files. Flip through to see what arrives when Salted Caramel becomes yours.</p>
+      <div>
+        <p class="section-eyebrow reveal">Everything in the box</p>
+        <h2 class="inside-title reveal">What you&rsquo;re actually getting.</h2>
+      </div>
+      <p class="inside-intro reveal">Not just colors. A whole material world &mdash; molasses wood, liquid caramel, fleur de sel, buttermilk linen &mdash; that you can step into and start using the same day.</p>
     </div>
-    <div class="inside-grid">
-      <div class="carousel reveal" id="kit-carousel">
-        <div class="carousel-stage">
-          <!-- Slide 1: Brand Board -->
-          <div class="carousel-slide active" data-slide="0">
-            <div class="mockup-stage">
-              <div class="mock-brand-board">
-                <div class="mbb-header">
-                  <div class="mbb-eyebrow">Sugar on Top &middot; Brand Board</div>
-                  <div class="mbb-title">Salted Caramel</div>
-                  <div class="mbb-tagline">Sunday morning. Warm, grounded, real.</div>
-                </div>
-                <div class="mbb-body">
-                  <div class="mbb-palette">
-                    <div class="mbb-swatch swatch-burnt-sugar"></div><div class="mbb-swatch swatch-liquid-caramel"></div>
-                    <div class="mbb-swatch swatch-molasses"></div><div class="mbb-swatch swatch-cinnamon"></div>
-                    <div class="mbb-swatch swatch-fleur"></div><div class="mbb-swatch swatch-clove"></div>
-                    <div class="mbb-swatch swatch-buttermilk"></div><div class="mbb-swatch swatch-whipped"></div>
-                  </div>
-                  <div class="mbb-type">
-                    <div class="mbb-type-display">Sunday.</div>
-                    <div class="mbb-type-sub">Fraunces &middot; Lora &middot; Work Sans</div>
-                    <div class="mbb-type-body">Optical serif with ink traps, italic serif with warmth, and a workhorse sans that stays out of the way. The Sunday Kitchen Suite.</div>
-                  </div>
-                </div>
-                <div class="mbb-footer">By Emmy Bellamora &middot; Sugar on Top Collection</div>
-              </div>
-            </div>
-          </div>
-          <!-- Slide 2: Material Samples -->
-          <div class="carousel-slide" data-slide="1">
-            <div class="mockup-stage" style="padding:0;">
-              <div class="mock-playground">
-                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(61,34,18,0.78),rgba(61,34,18,0.62)),var(--tex-molasses);background-size:auto,cover;color:var(--sc-buttermilk);">
-                  <div class="mp-sample-swatch" style="background-image:var(--tex-molasses);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--sc-liquid-caramel);">Molasses</div>
-                  <div class="mp-sample-tagline">Dark wood depth.<br>Warm, not cold.</div>
-                </div>
-                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(232,185,96,0.55),rgba(61,34,18,0.65)),var(--tex-liquid-caramel);background-size:auto,cover;color:var(--sc-buttermilk);">
-                  <div class="mp-sample-swatch" style="background-image:var(--tex-liquid-caramel);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--sc-liquid-caramel);">Liquid Caramel</div>
-                  <div class="mp-sample-tagline">Amber glass glow.<br>Light through sweetness.</div>
-                </div>
-                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(196,145,117,0.55),rgba(61,34,18,0.65)),var(--tex-cinnamon-dust);background-size:auto,cover;color:var(--sc-buttermilk);">
-                  <div class="mp-sample-swatch" style="background-image:var(--tex-cinnamon-dust);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--sc-liquid-caramel);">Cinnamon Dust</div>
-                  <div class="mp-sample-tagline">Spice on foam.<br>The smell of Sunday.</div>
-                </div>
-                <div class="mp-sample" style="background-image:linear-gradient(to bottom,rgba(212,207,196,0.55),rgba(61,34,18,0.6)),var(--tex-fleur-de-sel);background-size:auto,cover;color:var(--sc-buttermilk);">
-                  <div class="mp-sample-swatch" style="background-image:var(--tex-fleur-de-sel);background-size:cover;"></div>
-                  <div class="mp-sample-name" style="color:var(--sc-liquid-caramel);">Fleur de Sel</div>
-                  <div class="mp-sample-tagline">Salt crystals.<br>The thing that makes sweet, sweet.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Slide 3: Cheat Sheet -->
-          <div class="carousel-slide" data-slide="2">
-            <div class="mockup-stage">
-              <div class="mock-cheat-sheet">
-                <div class="mcs-header">Color Combinations</div>
-                <div class="mcs-grid">
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(61,34,18,0.9),rgba(232,185,96,0.65)),var(--tex-molasses);background-size:auto,cover;color:var(--sc-buttermilk);"><div class="mcs-cell-name">Molasses<br>&amp; Honey</div><div class="mcs-cell-meta">Deep &times; Warm &middot; AAA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(251,243,228,0.95),rgba(255,250,242,0.90)),var(--tex-buttermilk);background-size:auto,cover;color:var(--sc-clove);border:1px solid rgba(107,62,38,0.1);"><div class="mcs-cell-name">Linen<br>Morning</div><div class="mcs-cell-meta">Buttermilk &times; Clove &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(107,62,38,0.88),rgba(232,185,96,0.55)),var(--tex-clove);background-size:auto,cover;color:var(--sc-buttermilk);"><div class="mcs-cell-name">Bark<br>&amp; Gold</div><div class="mcs-cell-meta">Clove &times; Liquid Caramel &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(160,98,46,0.88),rgba(251,243,228,0.7)),var(--tex-burnt-sugar);background-size:auto,cover;color:var(--sc-buttermilk);"><div class="mcs-cell-name">Ceramic<br>Warmth</div><div class="mcs-cell-meta">Burnt Sugar &times; Cream &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(61,34,18,0.88),rgba(212,207,196,0.5)),var(--tex-molasses);background-size:auto,cover;color:var(--sc-fleur);"><div class="mcs-cell-name">Salt<br>on Dark</div><div class="mcs-cell-meta">Molasses &times; Fleur &middot; AA</div></div>
-                  <div class="mcs-cell" style="background-image:linear-gradient(to bottom right,rgba(255,250,242,0.92),rgba(251,243,228,0.88)),var(--tex-whipped-cream);background-size:auto,cover;color:var(--sc-burnt-sugar);border:1px solid rgba(107,62,38,0.1);"><div class="mcs-cell-name">Soft<br>Sunday</div><div class="mcs-cell-meta">Whipped &times; Caramel &middot; AA</div></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- Slide 4: Texture Vault -->
-          <div class="carousel-slide" data-slide="3">
-            <div class="mockup-stage" style="padding:1rem;">
-              <div class="mock-texture">
-                <div class="mock-texture-cell" data-name="Burnt Sugar"   style="background-image:linear-gradient(to bottom,rgba(160,98,46,0.45),rgba(61,34,18,0.35)),var(--tex-burnt-sugar);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Liquid Caramel"     style="background-image:linear-gradient(to bottom,rgba(232,185,96,0.5),rgba(61,34,18,0.3)),var(--tex-liquid-caramel);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Molasses"      style="background-image:linear-gradient(to bottom,rgba(61,34,18,0.55),rgba(61,34,18,0.45)),var(--tex-molasses);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Cinnamon Dust" style="background-image:linear-gradient(to bottom,rgba(196,145,117,0.5),rgba(61,34,18,0.35)),var(--tex-cinnamon-dust);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Fleur de Sel"  style="background-image:linear-gradient(to bottom,rgba(212,207,196,0.5),rgba(61,34,18,0.4)),var(--tex-fleur-de-sel);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Buttermilk"    style="background-image:linear-gradient(to bottom,rgba(251,243,228,0.6),rgba(255,250,242,0.5)),var(--tex-buttermilk);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Clove"         style="background-image:linear-gradient(to bottom,rgba(107,62,38,0.55),rgba(61,34,18,0.45)),var(--tex-clove);background-size:auto,cover;"></div>
-                <div class="mock-texture-cell" data-name="Whipped Cream" style="background-image:linear-gradient(to bottom,rgba(255,250,242,0.55),rgba(251,243,228,0.45)),var(--tex-whipped-cream);background-size:auto,cover;"></div>
-              </div>
-            </div>
-          </div>
+    <div class="tier-cards">
+      <a href="#" class="tier-card tier-1 reveal">
+        <div class="tier-card-visual" style="background-image: linear-gradient(135deg, rgba(61,34,18,0.55), rgba(160,98,46,0.4)), var(--tex-burnt-sugar);"></div>
+        <div class="tier-card-body">
+          <div class="tier-card-eyebrow">Tier 1 &middot; The Kit</div>
+          <h3 class="tier-card-title">The Kit &mdash; $188</h3>
+          <p class="tier-card-desc">Brand board, color cheat sheet, eight material textures, and the Sunday Kitchen typography suite. Everything to use Salted Caramel the same day it arrives.</p>
+          <span class="tier-card-cta">See what's inside &rarr;</span>
         </div>
-        <div class="carousel-dots">
-          <button class="carousel-dot active" data-go="0" aria-label="Brand Board"></button>
-          <button class="carousel-dot" data-go="1" aria-label="Material Samples"></button>
-          <button class="carousel-dot" data-go="2" aria-label="Cheat Sheet"></button>
-          <button class="carousel-dot" data-go="3" aria-label="Texture Vault"></button>
+      </a>
+      <a href="#" class="tier-card tier-2 reveal">
+        <div class="tier-card-visual" style="background-image: linear-gradient(135deg, rgba(61,34,18,0.55), rgba(232,185,96,0.4)), var(--tex-liquid-caramel);"></div>
+        <div class="tier-card-body">
+          <div class="tier-card-eyebrow">Tier 2 &middot; The Playground</div>
+          <h3 class="tier-card-title">The Playground &mdash; $388</h3>
+          <p class="tier-card-desc">Everything in Tier 1, plus social templates, web-ready components, and the playground that lets you mix the kit any way your brand wants.</p>
+          <span class="tier-card-cta">See the full playground &rarr;</span>
         </div>
-        <div class="carousel-caption-row">
-          <div class="caption-label" id="caption-label">Brand Board</div>
-          <div class="caption-name" id="caption-name">The kit at a glance</div>
-        </div>
-      </div>
-      <div class="inside-list reveal">
-        <div class="inside-list-title">Everything Included</div>
-        <div class="inside-item"><div class="inside-icon">01</div><div class="inside-text"><strong>Whole Box Color Palette</strong><span>Eight materially-named colors with hex codes, role descriptions, and texture notes.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">02</div><div class="inside-text"><strong>Typography System</strong><span>Fraunces + Lora + Work Sans. The Sunday Kitchen Suite. Display, subhead, body. With the rule that holds them together.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">03</div><div class="inside-text"><strong>Brand Board</strong><span>One page that captures the entire kit at a glance &mdash; for presentations or quick reference.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">04</div><div class="inside-text"><strong>Color Combinations Cheat Sheet</strong><span>Pre-vetted combinations with WCAG contrast scores. Beautiful AND accessible.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">05</div><div class="inside-text"><strong>Tier-2 Playground</strong><span>Full sandbox of the kit in motion &mdash; layouts, social tiles, link-in-bio templates.</span></div></div>
-        <div class="inside-item"><div class="inside-icon">06</div><div class="inside-text"><strong>Texture Vault</strong><span>Eight high-res material textures &mdash; burnt sugar ceramic, liquid caramel glass, molasses wood, cinnamon dust, fleur de sel, buttermilk linen, clove bark, whipped cream.</span></div></div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -428,25 +355,31 @@ footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: f
 <section class="palette-section">
   <div class="palette-inner">
     <div class="palette-header">
-      <h2 class="palette-title reveal">The Whole Box.<br>Every color material.</h2>
+      <div>
+        <p class="section-eyebrow reveal">The full eight</p>
+        <h2 class="palette-title reveal">The Whole Box.<br><em>Every color material.</em></h2>
+      </div>
       <p class="palette-intro reveal">Eight colors. Each one named for what it actually <em>is</em>, because "beige" tells you nothing and <em>Fleur de Sel</em> tells you everything. <em>Nothing here is flat. Everything is edible.</em></p>
     </div>
-    <div class="palette-grid">
-      <div class="palette-card reveal"><div class="palette-swatch swatch-burnt-sugar"></div><div class="palette-card-body"><div class="palette-role">Signature Warm</div><div class="palette-name">Burnt Sugar</div><div class="palette-hex">#A0622E</div><p class="palette-feel">That exact moment sugar crosses over into caramel &mdash; amber-brown, matte, slightly rough. The color of a handmade ceramic mug that keeps your coffee warm.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-liquid-caramel"></div><div class="palette-card-body"><div class="palette-role">Golden Accent</div><div class="palette-name">Liquid Caramel</div><div class="palette-hex">#E8B960</div><p class="palette-feel">Molten amber catching light &mdash; the moment caramel pours from the spoon. Glossy, golden-brown, alive. The sweetest color in the kit.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-molasses"></div><div class="palette-card-body"><div class="palette-role">Primary Dark</div><div class="palette-name">Molasses</div><div class="palette-hex">#3D2212</div><p class="palette-feel">The darkest thing in a spice cabinet &mdash; almost-black brown with warmth inside it. Never flat, never cold. Dark wood, not dark mood.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-cinnamon"></div><div class="palette-card-body"><div class="palette-role">Spice Mid-tone</div><div class="palette-name">Cinnamon Dust</div><div class="palette-hex">#C49175</div><p class="palette-feel">Cinnamon powder on steamed milk foam. The smell of Sunday. A warm terracotta that sits between burnt sugar and cream without fighting either one.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-fleur"></div><div class="palette-card-body"><div class="palette-role">Cool Accent</div><div class="palette-name">Fleur de Sel</div><div class="palette-hex">#D4CFC4</div><p class="palette-feel">The only cool color in a warm kit &mdash; pale mineral gray, the color of salt crystals on a dark surface. The unexpected pinch that makes everything taste more like itself.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-clove"></div><div class="palette-card-body"><div class="palette-role">Deep Mid</div><div class="palette-name">Clove</div><div class="palette-hex">#6B3E26</div><p class="palette-feel">Rich warm bark. The color of clove and cinnamon sticks before they go in. Deeper than Burnt Sugar, lighter than Molasses &mdash; the color the whole spice cabinet agrees on.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-buttermilk"></div><div class="palette-card-body"><div class="palette-role">Warm Neutral</div><div class="palette-name">Buttermilk</div><div class="palette-hex">#FBF3E4</div><p class="palette-feel">Linen that's been washed a hundred times. Warm, not stark &mdash; the color of old recipe cards and well-loved cookbooks. The cream that holds everything else.</p></div></div>
-      <div class="palette-card reveal"><div class="palette-swatch swatch-whipped"></div><div class="palette-card-body"><div class="palette-role">Highlight</div><div class="palette-name">Whipped Cream</div><div class="palette-hex">#FFFAF2</div><p class="palette-feel">The lightest possible warmth. Almost-white with the faintest cream undertone &mdash; like a dollop of fresh whipped cream before it dissolves. The softest surface in the kit.</p></div></div>
+    <div class="palette-row">
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #A0622E;"></div><div class="palette-chip-material chip-burnt-sugar"></div><div class="palette-chip-label"><span class="palette-chip-role">Signature Warm</span><span class="palette-chip-name">Burnt Sugar</span><span class="palette-chip-hex">#A0622E</span><p class="palette-chip-feel">That exact moment sugar crosses over into caramel &mdash; amber-brown, matte, slightly rough. The color of a handmade ceramic mug that keeps your coffee warm.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #E8B960;"></div><div class="palette-chip-material chip-liquid-caramel"></div><div class="palette-chip-label"><span class="palette-chip-role">Golden Accent</span><span class="palette-chip-name">Liquid Caramel</span><span class="palette-chip-hex">#E8B960</span><p class="palette-chip-feel">Molten amber catching light &mdash; the moment caramel pours from the spoon. Glossy, golden-brown, alive. The sweetest color in the kit.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #3D2212;"></div><div class="palette-chip-material chip-molasses"></div><div class="palette-chip-label"><span class="palette-chip-role">Primary Dark</span><span class="palette-chip-name">Molasses</span><span class="palette-chip-hex">#3D2212</span><p class="palette-chip-feel">The darkest thing in a spice cabinet &mdash; almost-black brown with warmth inside it. Never flat, never cold. Dark wood, not dark mood.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #C49175;"></div><div class="palette-chip-material chip-cinnamon"></div><div class="palette-chip-label"><span class="palette-chip-role">Spice Mid-tone</span><span class="palette-chip-name">Cinnamon Dust</span><span class="palette-chip-hex">#C49175</span><p class="palette-chip-feel">Cinnamon powder on steamed milk foam. The smell of Sunday. A warm terracotta that sits between burnt sugar and cream without fighting either one.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #D4CFC4;"></div><div class="palette-chip-material chip-fleur"></div><div class="palette-chip-label"><span class="palette-chip-role">Cool Accent</span><span class="palette-chip-name">Fleur de Sel</span><span class="palette-chip-hex">#D4CFC4</span><p class="palette-chip-feel">The only cool color in a warm kit &mdash; pale mineral gray, the color of salt crystals on a dark surface. The unexpected pinch that makes everything taste more like itself.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #6B3E26;"></div><div class="palette-chip-material chip-clove"></div><div class="palette-chip-label"><span class="palette-chip-role">Deep Mid</span><span class="palette-chip-name">Clove</span><span class="palette-chip-hex">#6B3E26</span><p class="palette-chip-feel">Rich warm bark. The color of clove and cinnamon sticks before they go in. Deeper than Burnt Sugar, lighter than Molasses &mdash; the color the whole spice cabinet agrees on.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #FBF3E4;"></div><div class="palette-chip-material chip-buttermilk"></div><div class="palette-chip-label"><span class="palette-chip-role">Warm Neutral</span><span class="palette-chip-name">Buttermilk</span><span class="palette-chip-hex">#FBF3E4</span><p class="palette-chip-feel">Linen that's been washed a hundred times. Warm, not stark &mdash; the color of old recipe cards and well-loved cookbooks. The cream that holds everything else.</p></div></div>
+      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #FFFAF2;"></div><div class="palette-chip-material chip-whipped"></div><div class="palette-chip-label"><span class="palette-chip-role">Highlight</span><span class="palette-chip-name">Whipped Cream</span><span class="palette-chip-hex">#FFFAF2</span><p class="palette-chip-feel">The lightest possible warmth. Almost-white with the faintest cream undertone &mdash; like a dollop of fresh whipped cream before it dissolves. The softest surface in the kit.</p></div></div>
     </div>
   </div>
 </section>
 
 <section class="type-section">
   <div class="type-header">
-    <h2 class="type-title reveal">Three fonts.<br>The Sunday Kitchen Suite.</h2>
+    <div>
+      <p class="section-eyebrow reveal">The Sunday Kitchen Suite</p>
+      <h2 class="type-title reveal">Three fonts.<br>One suite.</h2>
+    </div>
     <p class="type-intro reveal"><strong>Fraunces commands. Lora warms. Work Sans clears the table.</strong> Three fonts that feel like a kitchen at different hours of the day. All three are free Google Fonts, forever yours.</p>
   </div>
   <div class="type-card reveal">
@@ -469,7 +402,10 @@ footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: f
 
 <section class="combo-section">
   <div class="combo-header">
-    <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
+    <div>
+      <p class="section-eyebrow reveal">How to use them</p>
+      <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
+    </div>
     <p class="combo-intro reveal">A color swatch on white tells you nothing. What matters is how a color <em>behaves</em> next to other colors. These are the signature pairings &mdash; the combinations Salted Caramel was built for.</p>
   </div>
   <div class="combo-grid">
