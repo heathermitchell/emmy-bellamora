@@ -78,8 +78,8 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .painting-label { font-family: var(--font-emmy-body); font-size: 0.58rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sc-liquid-caramel); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 1rem; }
 .painting-label::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--sc-liquid-caramel); opacity: 0.6; }
 .painting-title { font-family: var(--font-emmy-display); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 300; font-style: italic; color: var(--sc-whipped); line-height: 1.15; margin-bottom: 1.5rem; }
-.painting-attribution { font-family: var(--font-emmy-body); font-size: 0.7rem; font-weight: 300; letter-spacing: 0.1em; color: var(--sc-fleur); opacity: 0.7; margin-bottom: 2rem; }
-.painting-body p { font-family: var(--font-emmy-body); font-size: 0.92rem; font-weight: 300; line-height: 1.85; color: var(--sc-buttermilk); margin-bottom: 1.5rem; opacity: 0.88; }
+.painting-attribution { font-family: var(--font-emmy-body); font-size: 0.8rem; font-weight: 300; letter-spacing: 0.1em; color: var(--sc-fleur); opacity: 0.7; margin-bottom: 2rem; }
+.painting-body p { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--sc-buttermilk); margin-bottom: 1.5rem; opacity: 0.88; }
 .painting-body p strong { color: var(--sc-liquid-caramel); font-weight: 400; }
 .painting-body p em { color: var(--sc-liquid-caramel); font-style: italic; }
 
@@ -88,7 +88,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .palette-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
 .palette-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
 .palette-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--sc-whipped); line-height: 1.1; }
-.palette-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--sc-buttermilk); opacity: 0.85; }
+.palette-intro { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--sc-buttermilk); opacity: 0.85; }
 .palette-intro em { color: var(--sc-liquid-caramel); font-style: italic; }
 .section-eyebrow { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sc-liquid-caramel); opacity: 0.85; margin-bottom: 1rem; }
 .tier-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
@@ -98,7 +98,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .tier-card-body { padding: 2rem 2rem 2.2rem; display: flex; flex-direction: column; gap: 0.85rem; }
 .tier-card-eyebrow { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sc-liquid-caramel); }
 .tier-card-title { font-family: var(--font-emmy-display); font-size: 1.7rem; font-weight: 300; font-style: italic; color: var(--sc-buttermilk); margin: 0; line-height: 1.2; }
-.tier-card-desc { font-family: var(--font-emmy-body); font-size: 0.88rem; font-weight: 300; color: var(--sc-buttermilk); opacity: 0.85; line-height: 1.7; margin: 0; }
+.tier-card-desc { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; color: var(--sc-buttermilk); opacity: 0.85; line-height: 1.7; margin: 0; }
 .tier-card-cta { font-family: var(--font-emmy-body); font-size: 0.7rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sc-liquid-caramel); margin-top: 0.5rem; transition: transform 0.3s; }
 .tier-card:hover .tier-card-cta { transform: translateX(4px); }
 .palette-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-top: 3rem; }
@@ -119,7 +119,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .palette-chip-role { display: block; font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sc-liquid-caramel); opacity: 0.85; margin-bottom: 0.5rem; }
 .palette-chip-name { display: block; font-family: var(--font-emmy-display); font-size: 1.1rem; font-weight: 400; color: var(--sc-buttermilk); margin-bottom: 0.3rem; line-height: 1.2; letter-spacing: 0; text-transform: none; }
 .palette-chip-hex { display: block; font-family: var(--font-emmy-body); font-size: 0.62rem; font-weight: 400; letter-spacing: 0.1em; color: var(--sc-fleur); opacity: 0.6; text-transform: uppercase; margin-bottom: 0.7rem; }
-.palette-chip-feel { display: block; font-family: var(--font-emmy-body); font-size: 0.78rem; font-weight: 300; line-height: 1.6; color: var(--sc-buttermilk); opacity: 0.78; }
+.palette-chip-feel { display: block; font-family: var(--font-emmy-body); font-size: 0.85rem; font-weight: 300; line-height: 1.6; color: var(--sc-buttermilk); opacity: 0.78; }
 .palette-hex { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.1em; color: var(--sc-fleur); opacity: 0.6; text-transform: uppercase; margin-bottom: 0.75rem; }
 .palette-feel { font-family: var(--font-emmy-body); font-size: 0.72rem; font-weight: 300; line-height: 1.6; color: var(--sc-buttermilk); opacity: 0.8; }
 
@@ -127,7 +127,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .type-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
 .type-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: end; }
 .type-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--sc-whipped); line-height: 1.1; }
-.type-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--sc-buttermilk); opacity: 0.85; }
+.type-intro { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--sc-buttermilk); opacity: 0.85; }
 .type-intro strong { color: var(--sc-liquid-caramel); font-weight: 400; }
 /* Type cards sit on linen */
 .type-card { background-image: linear-gradient(to bottom right, rgba(251,243,228,0.97) 0%, rgba(255,250,242,0.97) 100%), var(--tex-buttermilk); background-size: auto, cover; background-blend-mode: multiply; border-radius: 16px; padding: 4rem 3.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.2); }
@@ -146,7 +146,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .combo-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
 .combo-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: end; }
 .combo-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--sc-whipped); line-height: 1.1; }
-.combo-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--sc-buttermilk); opacity: 0.85; }
+.combo-intro { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--sc-buttermilk); opacity: 0.85; }
 .combo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
 .combo-card { border-radius: 14px; overflow: hidden; aspect-ratio: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; position: relative; transition: transform 0.35s ease, box-shadow 0.35s ease; box-shadow: 0 4px 24px rgba(0,0,0,0.4); background-size: cover; background-position: center; }
 .combo-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
@@ -172,7 +172,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .inside-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 2; }
 .inside-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
 .inside-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--sc-whipped); line-height: 1.1; }
-.inside-intro { font-family: var(--font-emmy-body); font-size: 0.95rem; font-weight: 300; line-height: 1.85; color: var(--sc-buttermilk); opacity: 0.85; }
+.inside-intro { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--sc-buttermilk); opacity: 0.85; }
 .inside-intro em { color: var(--sc-liquid-caramel); font-style: italic; }
 .inside-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 3rem; align-items: start; }
 /* Carousel + mockup CSS removed V3 — carousel replaced with tier-cards in session 11 */
