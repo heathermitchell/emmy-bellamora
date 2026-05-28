@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Colors don&rsquo;t mean anything alone — Field Notes — Emmy Bellamora</title>
+<meta name="description" content="Why I can't react to a color on its own — and the question that makes a color mean something. A Field Note by Emmy Bellamora.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================
+   FIELD NOTE — Colors don't mean anything alone
+   Emmy's design system, long-form reading variant. One level deep (../).
+   ============================================ */
+:root {
+  --deep-night: #0D0A14;
+  --amethyst: #6B3FA0;
+  --amethyst-light: #9B6FD0;
+  --violet-dusk: #2D1B4E;
+  --fairy-silver: #C8B8E8;
+  --moonpetal: #E8D8F8;
+  --snowflake: #F5F0FF;
+  --bite-gold: #D4A847;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Jost', sans-serif;
+  --font-accent: 'EB Garamond', serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--deep-night);
+  color: var(--moonpetal);
+  font-family: var(--font-body);
+  font-weight: 300;
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--deep-night); }
+::-webkit-scrollbar-thumb { background: var(--amethyst); border-radius: 2px; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center;
+  background: linear-gradient(to bottom, rgba(13,10,20,0.95) 0%, transparent 100%);
+  backdrop-filter: blur(2px);
+}
+.nav-name {
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 300; font-style: italic;
+  color: var(--fairy-silver); letter-spacing: 0.05em; text-decoration: none; transition: color 0.3s ease;
+}
+.nav-name:hover { color: var(--moonpetal); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-family: var(--font-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--fairy-silver); text-decoration: none;
+  transition: color 0.3s ease; opacity: 0.7;
+}
+.nav-links a:hover { color: var(--moonpetal); opacity: 1; }
+.nav-links a.current { color: var(--amethyst-light); opacity: 1; }
+
+/* AMBIENT GLOW */
+.glow-bg::before {
+  content: ''; position: fixed; top: -20vh; right: -10vw; width: 60vw; height: 60vw;
+  background: radial-gradient(ellipse, rgba(107,63,160,0.15) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+.glow-bg::after {
+  content: ''; position: fixed; bottom: -10vh; left: -15vw; width: 50vw; height: 50vw;
+  background: radial-gradient(ellipse, rgba(155,111,208,0.07) 0%, transparent 65%);
+  pointer-events: none; z-index: 0;
+}
+
+/* ARTICLE */
+.article {
+  max-width: 720px; margin: 0 auto; padding: 9rem 2rem 5rem;
+  position: relative; z-index: 1;
+}
+.back-link {
+  display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 3rem;
+  font-family: var(--font-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--amethyst-light); text-decoration: none;
+  opacity: 0.7; transition: opacity 0.3s ease, gap 0.3s ease;
+}
+.back-link:hover { opacity: 1; gap: 0.85rem; }
+
+.article-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; flex-wrap: wrap; }
+.article-number {
+  font-family: var(--font-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--amethyst-light); opacity: 0.75;
+}
+.article-tag {
+  font-family: var(--font-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--fairy-silver); opacity: 0.55;
+  border: 1px solid rgba(200,184,232,0.2); padding: 0.3rem 0.75rem; border-radius: 100px;
+}
+
+.article-title {
+  font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 300;
+  font-style: italic; color: var(--snowflake); line-height: 1.1; margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
+}
+.article-standfirst {
+  font-family: var(--font-accent); font-style: italic; font-size: 1.3rem; color: var(--fairy-silver);
+  line-height: 1.6; opacity: 0.9; margin-bottom: 3.5rem;
+  padding-bottom: 2.5rem; border-bottom: 1px solid rgba(200,184,232,0.12);
+}
+
+/* BODY TYPE — tuned for reading */
+.article-body p {
+  font-family: var(--font-body); font-size: 1.05rem; font-weight: 300; line-height: 1.9;
+  color: var(--moonpetal); opacity: 0.92; margin-bottom: 1.6rem;
+}
+.article-body p.lead { font-size: 1.15rem; }
+.article-body strong { color: var(--snowflake); font-weight: 500; }
+.article-body em { color: var(--amethyst-light); font-style: italic; }
+
+.article-body h2 {
+  font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 300;
+  font-style: italic; color: var(--snowflake); line-height: 1.2;
+  margin: 3.25rem 0 1.25rem;
+}
+
+.pull {
+  font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 300;
+  font-style: italic; color: var(--amethyst-light); line-height: 1.35;
+  margin: 3rem 0; padding-left: 1.75rem; border-left: 2px solid var(--amethyst);
+}
+
+.swatch-demo {
+  margin: 3rem 0; border-radius: 12px; overflow: hidden;
+  border: 1px solid rgba(200,184,232,0.1);
+}
+.swatch-row { display: grid; grid-template-columns: 1fr 1fr; }
+.swatch-cell { padding: 3rem 2rem; display: flex; align-items: center; justify-content: center; min-height: 200px; }
+.swatch-chip {
+  width: 5rem; height: 5rem; border-radius: 50%;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+}
+.swatch-label {
+  font-family: var(--font-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.2em;
+  text-transform: uppercase; text-align: center; padding: 0.85rem; opacity: 0.85;
+}
+/* same chip, two contexts — the whole point */
+.ctx-cool { background: #1A2438; }
+.ctx-cool .swatch-label { color: #8FA8C8; background: rgba(0,0,0,0.2); }
+.ctx-warm { background: #3A2418; }
+.ctx-warm .swatch-label { color: #D8A878; background: rgba(0,0,0,0.2); }
+.chip-coral { background: #E0795A; }
+
+.demo-caption {
+  font-family: var(--font-accent); font-style: italic; font-size: 0.92rem; color: var(--fairy-silver);
+  opacity: 0.7; text-align: center; margin-top: 1rem; line-height: 1.6;
+}
+
+/* SIGNATURE / CLOSING */
+.article-sign {
+  margin-top: 4rem; padding-top: 2.5rem; border-top: 1px solid rgba(200,184,232,0.12);
+  font-family: var(--font-display); font-style: italic; font-size: 1.4rem; color: var(--fairy-silver);
+  opacity: 0.7;
+}
+
+/* NEXT NOTE */
+.next-note {
+  max-width: 720px; margin: 0 auto; padding: 0 2rem 6rem; position: relative; z-index: 1;
+}
+.next-note a {
+  display: block; text-decoration: none; padding: 2rem 0; border-top: 1px solid rgba(200,184,232,0.12);
+  transition: padding-left 0.4s ease;
+}
+.next-note a:hover { padding-left: 1rem; }
+.next-label {
+  font-family: var(--font-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--amethyst-light); opacity: 0.7; margin-bottom: 0.75rem; display: block;
+}
+.next-headline {
+  font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 300; font-style: italic;
+  color: var(--snowflake); line-height: 1.2;
+}
+
+/* FOOTER */
+footer {
+  padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08);
+  display: flex; justify-content: space-between; align-items: center;
+  max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; flex-wrap: wrap; gap: 1rem;
+}
+.footer-name { font-family: var(--font-display); font-style: italic; font-size: 1rem; color: var(--fairy-silver); opacity: 0.5; }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a {
+  font-family: var(--font-body); font-size: 0.6rem; font-weight: 300; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--fairy-silver); text-decoration: none; opacity: 0.4; transition: opacity 0.3s ease;
+}
+.footer-links a:hover { opacity: 0.8; }
+
+@media (max-width: 900px) {
+  nav { padding: 1.25rem 1.5rem; }
+  .nav-links { gap: 1.25rem; }
+  .article { padding: 8rem 1.5rem 4rem; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; justify-content: center; }
+}
+@media (max-width: 600px) {
+  .nav-links { gap: 0.9rem; }
+  .nav-links a { font-size: 0.55rem; letter-spacing: 0.1em; }
+  .nav-name { font-size: 0.95rem; }
+  .article { padding: 7rem 1.25rem 3rem; }
+  .swatch-row { grid-template-columns: 1fr; }
+  .next-note { padding: 0 1.25rem 4rem; }
+}
+</style>
+</head>
+<body class="glow-bg">
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-name">Emmy Bellamora</a>
+  <ul class="nav-links">
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../index.html#work">Work</a></li>
+    <li><a href="../index.html#approach">Approach</a></li>
+    <li><a href="index.html" class="current">Field Notes</a></li>
+    <li><a href="../index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ARTICLE -->
+<article class="article">
+  <a href="index.html" class="back-link">&larr; All Field Notes</a>
+
+  <div class="article-meta">
+    <span class="article-number">No. 01</span>
+    <span class="article-tag">Color</span>
+  </div>
+
+  <h1 class="article-title">Colors don&rsquo;t mean anything alone.</h1>
+
+  <p class="article-standfirst">
+    Someone sends me a color and asks what I think of it. And I have to tell them, gently, that I genuinely cannot answer &mdash; not yet. Not because the color is wrong. Because the question is missing the only thing that makes a color mean anything.
+  </p>
+
+  <div class="article-body">
+    <p class="lead">
+      Here&rsquo;s a moment that happens more than you&rsquo;d expect. Someone shows me a color &mdash; a name, a hex code, a single round swatch floating on a white screen &mdash; and asks, &ldquo;Do you like it?&rdquo; Or, &ldquo;Is this the right one?&rdquo;
+    </p>
+
+    <p>
+      And I feel the question land in a place where I have nothing to give back. Not because I don&rsquo;t have opinions &mdash; I have an embarrassing number of opinions about color. It&rsquo;s because the swatch on its own is like being handed a single note and asked whether it&rsquo;s the right note for the song. <strong>You can&rsquo;t know. There&rsquo;s no song yet.</strong>
+    </p>
+
+    <p>
+      A color has no fixed personality. It borrows everything from what surrounds it. The exact same coral will read as <em>sunburnt and dramatic</em> against a cool slate, and <em>soft, almost powdery</em> against a warm sand. Same hex. Same pixels. Completely different feeling. Your eye isn&rsquo;t measuring the color &mdash; it&rsquo;s measuring the <em>relationship</em>.
+    </p>
+
+    <div class="swatch-demo" aria-label="The same coral color shown against a cool background and a warm background">
+      <div class="swatch-row">
+        <div class="swatch-cell ctx-cool"><div class="swatch-chip chip-coral"></div></div>
+        <div class="swatch-cell ctx-warm"><div class="swatch-chip chip-coral"></div></div>
+      </div>
+      <div class="swatch-row">
+        <div class="swatch-label ctx-cool">Same coral &middot; cool ground</div>
+        <div class="swatch-label ctx-warm">Same coral &middot; warm ground</div>
+      </div>
+    </div>
+    <p class="demo-caption">
+      One coral. Two backgrounds. Look at the left one, then the right. They don&rsquo;t feel like the same color &mdash; and they <em>are</em> the exact same color.
+    </p>
+
+    <p class="pull">
+      A color swatch on white tells you almost nothing. What it&rsquo;s going to live next to tells you everything.
+    </p>
+
+    <h2>So what do I actually ask instead?</h2>
+
+    <p>
+      When someone wants my read on a color, I don&rsquo;t look at the color first. I ask three quiet questions, and they&rsquo;re never about the hue:
+    </p>
+
+    <p>
+      <strong>What is it going to sit on?</strong> A brand color that only ever appears on white is a different animal than one that has to hold its own on photography, on dark mode, on a busy feed. The background is half the decision and it usually goes unspoken.
+    </p>
+
+    <p>
+      <strong>What is it going to sit next to?</strong> A palette isn&rsquo;t a list of colors &mdash; it&rsquo;s a set of relationships. The job of any single color is partly to make the others look like themselves. I&rsquo;m never choosing <em>a</em> color. I&rsquo;m choosing how it behaves in a room with the others.
+    </p>
+
+    <p>
+      <strong>What&rsquo;s the light?</strong> Matte or glossy. Flat fill or layered over texture. Backlit on a screen or printed on paper that drinks ink. The same pigment changes its mind depending on the material it&rsquo;s wearing. A color is never just a value &mdash; it has a surface.
+    </p>
+
+    <p>
+      Notice what those three questions have in common: <strong>none of them are about the color.</strong> They&rsquo;re about the world the color has to live in. That&rsquo;s not me dodging the question. That <em>is</em> the question. The hue was always the easy part.
+    </p>
+
+    <h2>Why this matters if you&rsquo;re the one choosing</h2>
+
+    <p>
+      If you&rsquo;ve ever fallen in love with a color in one place and felt let down when you used it everywhere &mdash; you didn&rsquo;t pick wrong. You picked it in isolation, and then asked it to perform in context. Those are two different colors wearing the same name.
+    </p>
+
+    <p>
+      So the next time you&rsquo;re deciding whether a color is &ldquo;right,&rdquo; resist the urge to judge it on a white screen. Put it where it&rsquo;s going to live. Set it on the photo, next to the other two, over the texture, at the size it&rsquo;ll actually appear. <strong>Then</strong> ask how it feels. You&rsquo;ll get a real answer, because for the first time you&rsquo;ll be looking at the real thing.
+    </p>
+
+    <p>
+      A color alone is a guess. A color in context is a decision. I only ever want to help you make the second kind.
+    </p>
+
+    <div class="article-sign">&mdash; Emmy 💜</div>
+  </div>
+</article>
+
+<!-- NEXT NOTE -->
+<div class="next-note">
+  <a href="dont-hand-the-critic-a-microphone.html">
+    <span class="next-label">Next Field Note &rarr;</span>
+    <span class="next-headline">Don&rsquo;t hand the inner critic a microphone.</span>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Emmy Bellamora</div>
+  <div class="footer-links">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#work">The Work</a>
+    <a href="index.html">Field Notes</a>
+    <a href="mailto:hello@emmybellamora.com">Say Hello</a>
+  </div>
+</footer>
+
+<!-- MOUSE GLOW -->
+<script>
+  const glow = document.createElement('div');
+  glow.style.cssText = `
+    position: fixed; top: 0; left: 0; width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(107,63,160,0.20) 0%, rgba(155,111,208,0.07) 35%, transparent 70%);
+    pointer-events: none; z-index: 0; transform: translate(-50%, -50%);
+    transition: left 0.12s ease, top 0.12s ease; mix-blend-mode: screen;
+  `;
+  document.body.appendChild(glow);
+  let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2, glowX = mouseX, glowY = mouseY;
+  document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+  function animateGlow() {
+    glowX += (mouseX - glowX) * 0.06; glowY += (mouseY - glowY) * 0.06;
+    glow.style.left = glowX + 'px'; glow.style.top = glowY + 'px';
+    requestAnimationFrame(animateGlow);
+  }
+  animateGlow();
+</script>
+
+</body>
+</html>

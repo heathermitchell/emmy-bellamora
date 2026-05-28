@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Don&rsquo;t hand the inner critic a microphone — Field Notes — Emmy Bellamora</title>
+<meta name="description" content="The caring question that quietly makes a client feel worse — and the one I ask instead. A Field Note by Emmy Bellamora on working with what people already have.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================
+   FIELD NOTE — Don't hand the inner critic a microphone
+   Emmy's design system, long-form reading variant. One level deep (../).
+   ============================================ */
+:root {
+  --deep-night: #0D0A14;
+  --amethyst: #6B3FA0;
+  --amethyst-light: #9B6FD0;
+  --violet-dusk: #2D1B4E;
+  --fairy-silver: #C8B8E8;
+  --moonpetal: #E8D8F8;
+  --snowflake: #F5F0FF;
+  --bite-gold: #D4A847;
+  --font-display: 'Cormorant Garamond', serif;
+  --font-body: 'Jost', sans-serif;
+  --font-accent: 'EB Garamond', serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--deep-night); color: var(--moonpetal); font-family: var(--font-body);
+  font-weight: 300; overflow-x: hidden; line-height: 1.7;
+}
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--deep-night); }
+::-webkit-scrollbar-thumb { background: var(--amethyst); border-radius: 2px; }
+
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center;
+  background: linear-gradient(to bottom, rgba(13,10,20,0.95) 0%, transparent 100%); backdrop-filter: blur(2px);
+}
+.nav-name {
+  font-family: var(--font-display); font-size: 1.1rem; font-weight: 300; font-style: italic;
+  color: var(--fairy-silver); letter-spacing: 0.05em; text-decoration: none; transition: color 0.3s ease;
+}
+.nav-name:hover { color: var(--moonpetal); }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-family: var(--font-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--fairy-silver); text-decoration: none; transition: color 0.3s ease; opacity: 0.7;
+}
+.nav-links a:hover { color: var(--moonpetal); opacity: 1; }
+.nav-links a.current { color: var(--amethyst-light); opacity: 1; }
+
+.glow-bg::before {
+  content: ''; position: fixed; top: -20vh; right: -10vw; width: 60vw; height: 60vw;
+  background: radial-gradient(ellipse, rgba(107,63,160,0.15) 0%, transparent 65%); pointer-events: none; z-index: 0;
+}
+.glow-bg::after {
+  content: ''; position: fixed; bottom: -10vh; left: -15vw; width: 50vw; height: 50vw;
+  background: radial-gradient(ellipse, rgba(155,111,208,0.07) 0%, transparent 65%); pointer-events: none; z-index: 0;
+}
+
+.article { max-width: 720px; margin: 0 auto; padding: 9rem 2rem 5rem; position: relative; z-index: 1; }
+.back-link {
+  display: inline-flex; align-items: center; gap: 0.5rem; margin-bottom: 3rem;
+  font-family: var(--font-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--amethyst-light); text-decoration: none; opacity: 0.7;
+  transition: opacity 0.3s ease, gap 0.3s ease;
+}
+.back-link:hover { opacity: 1; gap: 0.85rem; }
+
+.article-meta { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.75rem; flex-wrap: wrap; }
+.article-number {
+  font-family: var(--font-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--amethyst-light); opacity: 0.75;
+}
+.article-tag {
+  font-family: var(--font-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--fairy-silver); opacity: 0.55;
+  border: 1px solid rgba(200,184,232,0.2); padding: 0.3rem 0.75rem; border-radius: 100px;
+}
+
+.article-title {
+  font-family: var(--font-display); font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 300; font-style: italic;
+  color: var(--snowflake); line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -0.01em;
+}
+.article-standfirst {
+  font-family: var(--font-accent); font-style: italic; font-size: 1.3rem; color: var(--fairy-silver);
+  line-height: 1.6; opacity: 0.9; margin-bottom: 3.5rem; padding-bottom: 2.5rem;
+  border-bottom: 1px solid rgba(200,184,232,0.12);
+}
+
+.article-body p {
+  font-family: var(--font-body); font-size: 1.05rem; font-weight: 300; line-height: 1.9;
+  color: var(--moonpetal); opacity: 0.92; margin-bottom: 1.6rem;
+}
+.article-body p.lead { font-size: 1.15rem; }
+.article-body strong { color: var(--snowflake); font-weight: 500; }
+.article-body em { color: var(--amethyst-light); font-style: italic; }
+.article-body h2 {
+  font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 300; font-style: italic;
+  color: var(--snowflake); line-height: 1.2; margin: 3.25rem 0 1.25rem;
+}
+.pull {
+  font-family: var(--font-display); font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 300; font-style: italic;
+  color: var(--amethyst-light); line-height: 1.35; margin: 3rem 0; padding-left: 1.75rem; border-left: 2px solid var(--amethyst);
+}
+
+/* TWO-QUESTION CONTRAST CARD */
+.contrast {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px; margin: 3rem 0;
+  border-radius: 12px; overflow: hidden; background: rgba(200,184,232,0.12);
+}
+.contrast-cell { padding: 2rem 1.75rem; }
+.contrast-cell.bad { background: #1A1118; }
+.contrast-cell.good { background: #1A1428; }
+.contrast-label {
+  font-family: var(--font-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.25em;
+  text-transform: uppercase; margin-bottom: 1rem; opacity: 0.8;
+}
+.contrast-cell.bad .contrast-label { color: #C88A8A; }
+.contrast-cell.good .contrast-label { color: var(--amethyst-light); }
+.contrast-q {
+  font-family: var(--font-display); font-style: italic; font-size: 1.25rem; color: var(--snowflake);
+  line-height: 1.35; margin-bottom: 0.85rem;
+}
+.contrast-note {
+  font-family: var(--font-accent); font-style: italic; font-size: 0.9rem; color: var(--fairy-silver);
+  opacity: 0.75; line-height: 1.6;
+}
+
+.article-sign {
+  margin-top: 4rem; padding-top: 2.5rem; border-top: 1px solid rgba(200,184,232,0.12);
+  font-family: var(--font-display); font-style: italic; font-size: 1.4rem; color: var(--fairy-silver); opacity: 0.7;
+}
+
+.next-note { max-width: 720px; margin: 0 auto; padding: 0 2rem 6rem; position: relative; z-index: 1; }
+.next-note a {
+  display: block; text-decoration: none; padding: 2rem 0; border-top: 1px solid rgba(200,184,232,0.12);
+  transition: padding-left 0.4s ease;
+}
+.next-note a:hover { padding-left: 1rem; }
+.next-label {
+  font-family: var(--font-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--amethyst-light); opacity: 0.7; margin-bottom: 0.75rem; display: block;
+}
+.next-headline {
+  font-family: var(--font-display); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 300; font-style: italic;
+  color: var(--snowflake); line-height: 1.2;
+}
+
+footer {
+  padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: flex; justify-content: space-between;
+  align-items: center; max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; flex-wrap: wrap; gap: 1rem;
+}
+.footer-name { font-family: var(--font-display); font-style: italic; font-size: 1rem; color: var(--fairy-silver); opacity: 0.5; }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a {
+  font-family: var(--font-body); font-size: 0.6rem; font-weight: 300; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--fairy-silver); text-decoration: none; opacity: 0.4; transition: opacity 0.3s ease;
+}
+.footer-links a:hover { opacity: 0.8; }
+
+@media (max-width: 900px) {
+  nav { padding: 1.25rem 1.5rem; }
+  .nav-links { gap: 1.25rem; }
+  .article { padding: 8rem 1.5rem 4rem; }
+  footer { flex-direction: column; gap: 1rem; text-align: center; justify-content: center; }
+}
+@media (max-width: 600px) {
+  .nav-links { gap: 0.9rem; }
+  .nav-links a { font-size: 0.55rem; letter-spacing: 0.1em; }
+  .nav-name { font-size: 0.95rem; }
+  .article { padding: 7rem 1.25rem 3rem; }
+  .contrast { grid-template-columns: 1fr; }
+  .next-note { padding: 0 1.25rem 4rem; }
+}
+</style>
+</head>
+<body class="glow-bg">
+
+<!-- NAV -->
+<nav>
+  <a href="../index.html" class="nav-name">Emmy Bellamora</a>
+  <ul class="nav-links">
+    <li><a href="../index.html#about">About</a></li>
+    <li><a href="../index.html#work">Work</a></li>
+    <li><a href="../index.html#approach">Approach</a></li>
+    <li><a href="index.html" class="current">Field Notes</a></li>
+    <li><a href="../index.html#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ARTICLE -->
+<article class="article">
+  <a href="index.html" class="back-link">&larr; All Field Notes</a>
+
+  <div class="article-meta">
+    <span class="article-number">No. 02</span>
+    <span class="article-tag">Working Together</span>
+  </div>
+
+  <h1 class="article-title">Don&rsquo;t hand the inner critic a microphone.</h1>
+
+  <p class="article-standfirst">
+    A client brings you something they made &mdash; and quietly braces for you to confirm what they already believe about it. The most caring-sounding question makes it worse. Here&rsquo;s the question I ask instead, and why the difference is the whole job.
+  </p>
+
+  <div class="article-body">
+    <p class="lead">
+      Picture the moment a new client shares the thing they made. The photos they took. The words they wrote about themselves. The logo they paid for two years ago. They send it over, and then &mdash; almost always &mdash; there&rsquo;s a small flinch in how they say it. <em>&ldquo;I know it&rsquo;s not great, but&hellip;&rdquo;</em>
+    </p>
+
+    <p>
+      That flinch is the most important thing in the room. Because it tells you there&rsquo;s already a voice in their head &mdash; the one that&rsquo;s been telling them their photos look amateur, their writing sounds like they&rsquo;re trying too hard, their face does something weird on camera. <strong>That voice is loud. It got there long before I did.</strong> And the fastest way to lose someone&rsquo;s trust is to accidentally agree with it.
+    </p>
+
+    <h2>The trap is a question that sounds like care</h2>
+
+    <p>
+      Here&rsquo;s the part that took me a while to see. The instinct, when someone shares something they&rsquo;re insecure about, is to ask the warm, collaborative-sounding question: <em>&ldquo;What do you wish was different about it?&rdquo;</em>
+    </p>
+
+    <p>
+      It feels gentle. It feels like listening. And it is a trap &mdash; because it asks them to <strong>perform their own dissatisfaction.</strong> It hands the microphone straight to the critic and says, &ldquo;Go ahead, list everything you hate.&rdquo; Now they&rsquo;re sitting in front of a designer, cataloguing their own shortcomings, feeling smaller by the sentence. Even my reassurances &mdash; <em>&ldquo;don&rsquo;t worry, we can fix all of that&rdquo;</em> &mdash; quietly confirm the premise: that there&rsquo;s a lot here that needs fixing.
+    </p>
+
+    <div class="contrast">
+      <div class="contrast-cell bad">
+        <div class="contrast-label">Hands the critic the mic</div>
+        <div class="contrast-q">&ldquo;What do you wish was different about your photos?&rdquo;</div>
+        <div class="contrast-note">Sounds caring. Actually asks them to stand in front of you and list everything they&rsquo;re ashamed of.</div>
+      </div>
+      <div class="contrast-cell good">
+        <div class="contrast-label">Takes the mic away</div>
+        <div class="contrast-q">&ldquo;Here&rsquo;s what&rsquo;s already working in these &mdash; and where we&rsquo;re going to take it.&rdquo;</div>
+        <div class="contrast-note">No diagnosis required from them. The work carries the improvement. They never have to defend what they brought.</div>
+      </div>
+    </div>
+
+    <p class="pull">
+      Most people already have a voice telling them they&rsquo;re not enough. My job is not to give it another microphone.
+    </p>
+
+    <h2>What I do instead</h2>
+
+    <p>
+      I lead with what&rsquo;s <em>already there</em> and already working. Specifically. Concretely. &ldquo;The way the light falls across the left side of this photo &mdash; that&rsquo;s the whole mood, that&rsquo;s what we build around.&rdquo; They don&rsquo;t have to diagnose anything. They don&rsquo;t have to defend a single choice they made. The conversation is about <strong>where we&rsquo;re going,</strong> not about what&rsquo;s wrong with where they started.
+    </p>
+
+    <p>
+      And the actual improvement? It happens in the work, not in the meeting. If I know a photo needs to reach somewhere it can&rsquo;t quite reach on its own, that&rsquo;s my problem to solve with craft &mdash; quietly, in the making &mdash; not a homework assignment I hand back to the client. <strong>I honor what I know in the work, not in my words.</strong> The fix is a surprise they receive, not a flaw they had to name first.
+    </p>
+
+    <p>
+      There&rsquo;s a deeper principle underneath this, and it&rsquo;s the thing I actually believe: <em>start where you are, use what you have.</em> When someone has already invested in something &mdash; money, time, vulnerability &mdash; my job is to take what they have and bring it all the way to the version they dreamed of. Not to restart their spending. Not to confirm they bought wrong. To make their existing thing into the thing they wished they&rsquo;d had all along.
+    </p>
+
+    <h2>The honest exception</h2>
+
+    <p>
+      None of this means pretending. If something genuinely can&rsquo;t reach the goal &mdash; even with everything craft can do on top &mdash; that gets named. But it gets named as a <em>constraint we&rsquo;re solving together,</em> in a real and private conversation, not as a verdict on what they brought me. &ldquo;Here&rsquo;s the one place this will hit a wall, and here are our three ways past it&rdquo; is honest. &ldquo;You should probably get new photos&rdquo; is just the critic&rsquo;s voice, wearing my face.
+    </p>
+
+    <p>
+      People hire a designer because they&rsquo;re tired of being made to feel like what they have isn&rsquo;t enough. Every &ldquo;you should buy another thing&rdquo; confirms their worst fear about working with creative people. Every &ldquo;we&rsquo;ll work with what you have and make it beautiful&rdquo; earns a kind of trust they didn&rsquo;t know was on the table.
+    </p>
+
+    <p>
+      So I keep the microphone. I point it at what&rsquo;s working. And I let the work be the surprise.
+    </p>
+
+    <div class="article-sign">&mdash; Emmy 💜</div>
+  </div>
+</article>
+
+<!-- NEXT NOTE -->
+<div class="next-note">
+  <a href="colors-dont-mean-anything-alone.html">
+    <span class="next-label">&larr; Previous Field Note</span>
+    <span class="next-headline">Colors don&rsquo;t mean anything alone.</span>
+  </a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Emmy Bellamora</div>
+  <div class="footer-links">
+    <a href="../index.html">Home</a>
+    <a href="../index.html#work">The Work</a>
+    <a href="index.html">Field Notes</a>
+    <a href="mailto:hello@emmybellamora.com">Say Hello</a>
+  </div>
+</footer>
+
+<!-- MOUSE GLOW -->
+<script>
+  const glow = document.createElement('div');
+  glow.style.cssText = `
+    position: fixed; top: 0; left: 0; width: 600px; height: 600px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(107,63,160,0.20) 0%, rgba(155,111,208,0.07) 35%, transparent 70%);
+    pointer-events: none; z-index: 0; transform: translate(-50%, -50%);
+    transition: left 0.12s ease, top 0.12s ease; mix-blend-mode: screen;
+  `;
+  document.body.appendChild(glow);
+  let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2, glowX = mouseX, glowY = mouseY;
+  document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+  function animateGlow() {
+    glowX += (mouseX - glowX) * 0.06; glowY += (mouseY - glowY) * 0.06;
+    glow.style.left = glowX + 'px'; glow.style.top = glowY + 'px';
+    requestAnimationFrame(animateGlow);
+  }
+  animateGlow();
+</script>
+
+</body>
+</html>
