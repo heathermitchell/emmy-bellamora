@@ -1,1870 +1,2202 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- JS gate: added before any CSS so no-JS renders at full opacity from first paint -->
+<script>document.documentElement.classList.add('js')</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ballet Light — Art Gallery Brand Kit · Emmy Bellamora</title>
-<meta name="description" content="Ballet Light is Degas — the rehearsal, not the performance. Rosin gold, tulle blush, studio floor warmth — for the brand whose grace is really discipline that's learned to hide.">
+<title>Ballet Light — Kit Experience</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-/* ============================================
-   BALLET LIGHT — kit deep-dive page
-   Built by Emmy. Kit-true visual language inside
-   Emmy's site frame.
-   ============================================ */
+/* ─────────────────────────────────────────────
+   BALLET LIGHT — Page Experience v1
+   Kit: Art Gallery #5 | Inspired by: Degas — The Ballet Class
+   Build: Emmy (sub-agent) | 2026-06-15
+   Palette source: color-palette-v3.md (ACTIVE — nine colors)
+   Blueprint: page-experience-blueprint.md
+   A11y: WCAG AA | reduced-motion honored | no-JS fallback = full page readable
+   Mechanic: Dissolving edges — softness, light, things resolving and un-resolving
+───────────────────────────────────────────── */
 
 :root {
-  /* Emmy's site frame colors (nav, footer, page chrome) */
-  --deep-night: #0D0A14;
-  --amethyst: #6B3FA0;
-  --amethyst-light: #9B6FD0;
-  --violet-dusk: #2D1B4E;
-  --fairy-silver: #C8B8E8;
-  --moonpetal: #E8D8F8;
-  --snowflake: #F5F0FF;
+  /* ── Palette — Ballet Light v3 (nine colors) ── */
+  --tulle-blush:      #E2B8B0;   /* Anchor */
+  --stage-rouge:      #9A3F4C;   /* Counterweight */
+  --spotlight-cream:  #FBF4EC;   /* Warm carrier neutral */
+  --mirror-light:     #B8C2C7;   /* Cool carrier neutral (v3 addition) */
+  --mirror-sage:      #8EA89A;   /* Flex hue */
+  --rosin-gold:       #C9A55A;   /* Material / Metallic */
+  --velvet-wing:      #3A2A2E;   /* Deep anchor (value extreme) */
+  --studio-floor:     #6B4A32;   /* Structural mid (warm depth) */
+  --barre-gray:       #A09690;   /* Warm neutral mid */
 
-  /* Ballet Light kit palette — full Whole Box */
-  --ss-amber-glow: #C9A55A;
-  --ss-plum-vortex: #3A2A2E;
-  --ss-coral-flame: #E2B8B0;
-  --ss-brushstroke-gold: #6B4A32;
-  --ss-rose-dust: #F0CDCC;
-  --ss-burnt-umber: #8EA89A;
-  --ss-canvas-cream: #FBF4EC;
-  --ss-twilight-slate: #A09690;
+  /* ── Functional ── */
+  --page-bg:          var(--spotlight-cream);
+  --text-body:        var(--velvet-wing);       /* 12.42:1 on cream — primary body pair */
+  --text-display:     var(--velvet-wing);
+  --text-on-dark:     var(--spotlight-cream);
+  --text-on-rouge:    var(--spotlight-cream);   /* 6.04:1 on stage rouge — passes */
 
-  /* Type — Emmy's frame */
-  --font-emmy-display: 'Cormorant Garamond', serif;
-  --font-emmy-body: 'Jost', sans-serif;
+  /* ── Light sweep ── */
+  --light-angle: 12deg;
+  --light-color: rgba(251, 244, 236, 0.55);   /* Spotlight Cream, translucent */
 
-  /* Type — Ballet Light kit fonts (The Rehearsal pairing) */
-  --font-ss-display: 'Cormorant Garamond', serif;
-  --font-ss-subhead: 'Lora', serif;
-  --font-ss-body: 'Lato', sans-serif;
+  /* ── Dissolve timing ── */
+  --dissolve-in:  0.9s;
+  --dissolve-out: 1.2s;
+  --dissolve-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+
+  /* ── Layout ── */
+  --section-pad: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 5rem);
+  --max-w: 960px;
 }
 
+/* ─── RESET ─── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
 
+/* ── REDUCED MOTION: jump every animation to end state ── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .light-sweep           { animation: none !important; opacity: 1 !important; }
+  .dissolve-edge         { -webkit-mask-image: none !important; mask-image: none !important; }
+  .light-rect            { animation: none !important; opacity: 0.18 !important; }
+  .mirror-reveal         { opacity: 1 !important; filter: none !important; }
+  .scroll-hint           { animation: none !important; opacity: 0.6 !important; }
+  * {
+    transition-duration:  0.01ms !important;
+    animation-duration:   0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ─── BASE ─── */
 body {
-  /* Kit atmosphere — the page IS the kit. Frame stays Emmy's purple (nav, footer, CTA button). */
-  background: var(--ss-burnt-umber);
-  color: var(--ss-canvas-cream);
-  font-family: var(--font-emmy-body);
-  font-weight: 300;
+  background: var(--page-bg);
+  color: var(--text-body);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.75;
   overflow-x: hidden;
-  line-height: 1.7;
 }
 
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--ss-burnt-umber); }
-::-webkit-scrollbar-thumb { background: var(--amethyst); border-radius: 2px; }
+/* ─── SKIP LINK (accessibility) ─── */
+.skip-link {
+  position: absolute;
+  top: -999px;
+  left: 0;
+  background: var(--velvet-wing);
+  color: var(--spotlight-cream);
+  padding: 0.5rem 1.25rem;
+  font-family: 'Jost', sans-serif;
+  font-weight: 500;
+  font-size: 0.9rem;
+  z-index: 9999;
+  text-decoration: none;
+}
+.skip-link:focus { top: 0; }
 
-/* ============================================
-   NAV — same as home page
-   ============================================ */
+/* ─────────────────────────────────────────────
+   THE DISSOLVE MECHANIC — Core Visual Language
+   Dissolving edges = soft masking at viewport boundaries.
+   Things emerge from blur/opacity; things un-resolve at edges.
+   CSS mask-image creates the edge-dissolve effect on panels.
+   On no-JS / reduced-motion: masks removed, content fully visible.
+───────────────────────────────────────────── */
 
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 1.5rem 3rem;
+/* Vertical dissolve — top and bottom edges melt away */
+.dissolve-edge-v {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 12%,
+    black 88%,
+    transparent 100%
+  );
+}
+
+/* Horizontal dissolve — right edge fades (Degas crop) */
+.dissolve-edge-h {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    black 0%,
+    black 72%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    black 0%,
+    black 72%,
+    transparent 100%
+  );
+}
+
+/* Both axes — full Degas crop: top, bottom, right dissolve */
+.dissolve-edge-full {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 10%,
+    black 88%,
+    transparent 100%
+  ),
+  linear-gradient(
+    to right,
+    black 0%,
+    black 68%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 10%,
+    black 88%,
+    transparent 100%
+  ),
+  linear-gradient(
+    to right,
+    black 0%,
+    black 68%,
+    transparent 100%
+  );
+  -webkit-mask-composite: intersect;
+  mask-composite: intersect;
+}
+
+/* ── Light rectangles — the afternoon light falling across the floor ── */
+/* CSS-only Degas light (no image required) */
+.light-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.light-rect {
+  position: absolute;
+  background: var(--light-color);
+  transform-origin: top center;
+  transform: skew(-8deg, 0);
+  animation: light-sweep 18s ease-in-out infinite;
+  border-radius: 0 0 80px 0;
+}
+
+.light-rect:nth-child(1) {
+  width: 22%;
+  top: 0;
+  bottom: 0;
+  left: 8%;
+  animation-delay: 0s;
+  opacity: 0.14;
+}
+.light-rect:nth-child(2) {
+  width: 16%;
+  top: 0;
+  bottom: 0;
+  left: 34%;
+  animation-delay: -6s;
+  opacity: 0.10;
+}
+.light-rect:nth-child(3) {
+  width: 10%;
+  top: 0;
+  bottom: 0;
+  left: 55%;
+  animation-delay: -12s;
+  opacity: 0.08;
+}
+
+@keyframes light-sweep {
+  0%   { opacity: var(--rect-base, 0.12); transform: skew(-8deg, 0) translateX(0); }
+  30%  { opacity: calc(var(--rect-base, 0.12) * 1.6); }
+  60%  { opacity: calc(var(--rect-base, 0.12) * 0.7); transform: skew(-8deg, 0) translateX(8px); }
+  100% { opacity: var(--rect-base, 0.12); transform: skew(-8deg, 0) translateX(0); }
+}
+
+/* ─────────────────────────────────────────────
+   HERO
+   The studio from an unusual angle.
+   No image — built entirely in CSS:
+     - Warm gradient sky/floor
+     - Light rectangles
+     - Title emerges like chalk on the barre
+───────────────────────────────────────────── */
+
+#hero {
+  position: relative;
+  min-height: 100vh;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  background: linear-gradient(to bottom, rgba(13,10,20,0.95) 0%, transparent 100%);
-  backdrop-filter: blur(2px);
-}
-
-.nav-name {
-  font-family: var(--font-emmy-display);
-  font-size: 1.1rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--fairy-silver);
-  letter-spacing: 0.05em;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.nav-name:hover { color: var(--moonpetal); }
-
-.nav-links {
-  display: flex;
-  gap: 2.5rem;
-  list-style: none;
-}
-
-.nav-links a {
-  font-family: var(--font-emmy-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--fairy-silver);
-  text-decoration: none;
-  transition: color 0.3s ease;
-  opacity: 0.7;
-}
-
-.nav-links a:hover { color: var(--moonpetal); opacity: 1; }
-
-/* ============================================
-   BREADCRUMB
-   ============================================ */
-
-/* Hairline strip — sits tight against nav. Kit-tinted to bridge Emmy's frame and the kit's room. */
-.breadcrumb {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4.75rem 3rem 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-emmy-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ss-brushstroke-gold);
-  opacity: 0.55;
-}
-
-.breadcrumb a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.3s ease, opacity 0.3s ease;
-}
-
-.breadcrumb a:hover { color: var(--ss-canvas-cream); opacity: 1; }
-
-.breadcrumb-sep { opacity: 0.45; }
-
-/* ============================================
-   KIT HERO — full bleed, edge to edge
-   ============================================ */
-
-.kit-hero {
-  margin: 1.5rem 0 0;
-  padding: 0;
-}
-
-.kit-hero-inner {
-  border-radius: 0;
+  justify-content: center;
+  padding: clamp(5rem, 12vw, 9rem) clamp(1.5rem, 6vw, 5rem) 6rem;
+  text-align: center;
   overflow: hidden;
   background:
-    radial-gradient(ellipse at 80% 20%, var(--ss-brushstroke-gold) 0%, rgba(107,74,50,0.4) 18%, transparent 38%),
-    radial-gradient(ellipse at 20% 80%, var(--ss-plum-vortex) 0%, rgba(58,42,46,0.5) 30%, transparent 55%),
-    radial-gradient(ellipse at 55% 55%, rgba(201,165,90,0.55) 0%, transparent 45%),
-    linear-gradient(135deg, var(--ss-burnt-umber) 0%, var(--ss-plum-vortex) 50%, var(--ss-amber-glow) 100%);
-  position: relative;
-  min-height: 380px;
-  padding: 4rem 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+    /* Studio floor gradient — warm rich brown rising into soft cream */
+    linear-gradient(
+      to bottom,
+      var(--spotlight-cream) 0%,
+      #F0E8DC 40%,
+      #D8C4A8 70%,
+      var(--studio-floor) 120%
+    );
 }
 
-.kit-hero-wrap {
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-  padding: 0 3rem;
-  position: relative;
-  z-index: 1;
-}
-
-.kit-hero-inner::before {
-  /* Sharp star points */
-  content: '';
+/* Barre — horizontal band across hero */
+.hero-barre {
   position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle, var(--ss-canvas-cream) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-brushstroke-gold) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-canvas-cream) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-brushstroke-gold) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-canvas-cream) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-brushstroke-gold) 0%, transparent 60%);
-  background-size: 6px 6px, 4px 4px, 5px 5px, 3px 3px, 4px 4px, 5px 5px;
-  background-position: 18% 22%, 82% 14%, 60% 30%, 35% 65%, 90% 55%, 70% 80%;
-  background-repeat: no-repeat;
-  opacity: 0.85;
+  top: 38%;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--barre-gray) 12%,
+    var(--studio-floor) 35%,
+    var(--barre-gray) 65%,
+    var(--studio-floor) 82%,
+    transparent 100%
+  );
+  opacity: 0.45;
   pointer-events: none;
 }
 
-.kit-hero-content {
+/* Wood-grain floor texture via repeating-linear-gradient */
+.hero-floor {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  height: 38%;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    repeating-linear-gradient(
+      92deg,
+      transparent,
+      transparent 3px,
+      rgba(107, 74, 50, 0.07) 3px,
+      rgba(107, 74, 50, 0.07) 4px
+    ),
+    linear-gradient(to bottom, transparent 0%, rgba(107, 74, 50, 0.22) 100%);
+}
+
+/* Hero content */
+.hero-content {
   position: relative;
-  z-index: 1;
-  max-width: 720px;
+  z-index: 5;
+  max-width: 680px;
 }
 
-.kit-hero-meta {
-  font-family: var(--font-ss-body);
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-brushstroke-gold);
-  margin-bottom: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-}
-
-.kit-hero-meta::before {
-  content: '';
-  display: block;
-  width: 1.5rem;
-  height: 1px;
-  background: var(--ss-brushstroke-gold);
-  opacity: 0.7;
-}
-
-.kit-hero-name {
-  font-family: var(--font-ss-display);
-  font-size: clamp(3.5rem, 7vw, 6rem);
-  font-weight: 700;
-  font-style: normal;
-  color: var(--ss-canvas-cream);
-  line-height: 1.0;
-  letter-spacing: -0.015em;
-  margin-bottom: 1.5rem;
-  text-shadow: 0 2px 24px rgba(0,0,0,0.4);
-}
-
-.kit-hero-tagline {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
-  color: var(--ss-canvas-cream);
-  line-height: 1.6;
-  opacity: 0.95;
-  text-shadow: 0 2px 16px rgba(0,0,0,0.5);
-  max-width: 580px;
-}
-
-/* ============================================
-   THE PAINTING — story strip
-   ============================================ */
-
-.painting-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-}
-
-.painting-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 5rem;
-  align-items: start;
-}
-
-.painting-label {
-  font-family: var(--font-emmy-body);
-  font-size: 0.58rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  margin-bottom: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.painting-label::before {
-  content: '';
-  display: block;
-  width: 1.5rem;
-  height: 1px;
-  background: var(--ss-amber-glow);
-  opacity: 0.6;
-}
-
-.painting-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2rem, 3.5vw, 2.8rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
-}
-
-.painting-attribution {
-  font-family: var(--font-emmy-body);
+.hero-eyebrow {
+  font-family: 'Jost', sans-serif;
   font-size: 0.7rem;
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  color: var(--ss-canvas-cream);
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--studio-floor);
   opacity: 0.7;
   margin-bottom: 2rem;
 }
-
-.painting-body p {
-  font-family: var(--font-emmy-body);
-  font-size: 0.92rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  margin-bottom: 1.5rem;
-  opacity: 0.88;
+/* Entrance animation: hidden start lives only inside @keyframes from.
+   Resting state is always fully visible — no observer or timer required. */
+@keyframes hero-rise-eyebrow {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 0.7; transform: translateY(0); }
+}
+.js .hero-eyebrow {
+  animation: hero-rise-eyebrow var(--dissolve-in) ease 0.2s both;
 }
 
-.painting-body p strong {
-  color: var(--ss-canvas-cream);
-  font-weight: 400;
-}
-
-.painting-body p em {
-  color: var(--ss-brushstroke-gold);
-  font-style: italic;
-}
-
-/* ============================================
-   PALETTE — Whole Box, materially-named
-   ============================================ */
-
-.palette-section {
-  /* Kit atmosphere — deeper inside the Whole Box */
-  background: linear-gradient(to bottom, var(--ss-burnt-umber) 0%, var(--ss-plum-vortex) 50%, var(--ss-burnt-umber) 100%);
-  padding: 7rem 0;
-}
-
-.palette-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 3rem;
-}
-
-.palette-header {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  margin-bottom: 4rem;
-  align-items: end;
-}
-
-.palette-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+/* The title — written on the barre in rosin gold, like chalk */
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.2rem, 9vw, 7rem);
   font-weight: 300;
   font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
-}
-
-.palette-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
-
-.palette-intro em {
-  color: var(--ss-canvas-cream);
-  font-style: italic;
-}
-
-.palette-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-}
-
-.palette-card {
-  border-radius: 12px;
-  overflow: hidden;
-  /* Kit's deepest earth, slightly transparent — sits inside the kit's gradient */
-  background: rgba(142,168,154,0.55);
-  border: 1px solid rgba(251,244,236,0.10);
-  transition: border-color 0.3s ease, transform 0.3s ease;
-}
-
-.palette-card:hover {
-  border-color: rgba(107,74,50,0.35);
-  transform: translateY(-2px);
-}
-
-.palette-swatch {
-  width: 100%;
-  aspect-ratio: 1.4;
-  position: relative;
-}
-
-.palette-card-body {
-  padding: 1.25rem 1.25rem 1.5rem;
-}
-
-.palette-role {
-  font-family: var(--font-emmy-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  opacity: 0.7;
-  margin-bottom: 0.4rem;
-}
-
-.palette-name {
-  font-family: var(--font-emmy-display);
-  font-size: 1.15rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  margin-bottom: 0.4rem;
-  line-height: 1.2;
-}
-
-.palette-hex {
-  font-family: var(--font-emmy-body);
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  color: var(--ss-canvas-cream);
-  opacity: 0.6;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-}
-
-.palette-feel {
-  font-family: var(--font-emmy-body);
-  font-size: 0.72rem;
-  font-weight: 300;
-  line-height: 1.6;
-  color: var(--ss-canvas-cream);
-  opacity: 0.8;
-}
-
-/* ============================================
-   TYPOGRAPHY — kit-true showcase
-   ============================================ */
-
-.type-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-}
-
-.type-header {
-  margin-bottom: 4rem;
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  align-items: end;
-}
-
-.type-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
-}
-
-.type-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
-
-.type-intro strong {
-  color: var(--ss-canvas-cream);
-  font-weight: 400;
-}
-
-.type-card {
-  background: var(--ss-canvas-cream);
-  border-radius: 16px;
-  padding: 4rem 3.5rem;
-  margin-bottom: 1.5rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.type-card-meta {
-  font-family: var(--font-ss-body);
-  font-size: 0.55rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.7;
-  margin-bottom: 1rem;
-}
-
-.type-card-display {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  line-height: 1.0;
-  color: var(--ss-plum-vortex);
-  margin-bottom: 0.5rem;
+  line-height: 0.92;
+  color: var(--rosin-gold);
   letter-spacing: -0.02em;
-}
-
-.type-card-display.amber { color: var(--ss-amber-glow); }
-.type-card-display.coral { color: var(--ss-coral-flame); }
-
-.type-card-name {
-  font-family: var(--font-ss-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.65;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-}
-
-.type-card-subhead {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
-  color: var(--ss-burnt-umber);
-  line-height: 1.4;
   margin-bottom: 1.5rem;
-  max-width: 720px;
+  text-shadow: 0 1px 4px rgba(58, 42, 46, 0.12);
+}
+@keyframes hero-rise-title {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.js .hero-title {
+  animation: hero-rise-title 0.8s ease 0.4s both;
 }
 
-.type-card-body {
-  font-family: var(--font-ss-body);
-  font-weight: 300;
-  font-size: 1rem;
-  line-height: 1.75;
-  color: var(--ss-twilight-slate);
-  max-width: 620px;
-}
-
-.type-rule {
-  background: var(--ss-burnt-umber);
-  border-radius: 16px;
-  padding: 3.5rem 3.5rem;
-  text-align: center;
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(1.3rem, 2.4vw, 1.9rem);
-  line-height: 1.5;
-  color: var(--ss-canvas-cream);
-}
-
-.type-rule em {
-  color: var(--ss-brushstroke-gold);
-  font-style: italic;
-}
-
-/* ============================================
-   COMBINATIONS — color in context
-   ============================================ */
-
-.combo-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-}
-
-.combo-header {
-  margin-bottom: 4rem;
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  align-items: end;
-}
-
-.combo-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
-}
-
-.combo-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
-
-.combo-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-}
-
-.combo-card {
-  border-radius: 14px;
-  overflow: hidden;
-  aspect-ratio: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 2rem;
-  position: relative;
-  transition: transform 0.3s ease;
-}
-
-.combo-card:hover { transform: translateY(-3px); }
-
-.combo-name {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 1.5rem;
-  line-height: 1.1;
-  margin-bottom: 0.4rem;
-}
-
-.combo-pair {
-  font-family: var(--font-ss-body);
-  font-size: 0.55rem;
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
   font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-
-.combo-1 { background: linear-gradient(135deg, var(--ss-amber-glow), var(--ss-plum-vortex)); color: var(--ss-canvas-cream); }
-.combo-2 { background: linear-gradient(135deg, var(--ss-amber-glow), var(--ss-canvas-cream)); color: var(--ss-burnt-umber); }
-.combo-3 { background: linear-gradient(135deg, var(--ss-plum-vortex), var(--ss-brushstroke-gold)); color: var(--ss-canvas-cream); }
-.combo-4 { background: linear-gradient(135deg, var(--ss-coral-flame), var(--ss-canvas-cream)); color: var(--ss-burnt-umber); }
-.combo-5 { background: linear-gradient(135deg, var(--ss-rose-dust), var(--ss-canvas-cream)); color: var(--ss-burnt-umber); }
-.combo-6 { background: linear-gradient(135deg, var(--ss-burnt-umber), var(--ss-brushstroke-gold)); color: var(--ss-canvas-cream); }
-
-/* ============================================
-   INSIDE THE KIT — carousel + companion list
-   ============================================ */
-
-.inside-section {
-  /* Deeper inside the kit — the Whole Box's purple-rose core */
-  background: var(--ss-plum-vortex);
-  padding: 7rem 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.inside-section::before {
-  content: '';
-  position: absolute;
-  top: -30%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  height: 200%;
-  /* Warm light-leak — kit's accent filtering through */
-  background: radial-gradient(ellipse, rgba(201,165,90,0.10) 0%, transparent 60%);
-  pointer-events: none;
-}
-
-.inside-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 3rem;
-  position: relative;
-  z-index: 1;
-}
-
-.inside-header {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  margin-bottom: 4rem;
-  align-items: end;
-}
-
-.inside-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
-}
-
-.inside-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
-
-.inside-intro em {
-  color: var(--ss-canvas-cream);
-  font-style: italic;
-}
-
-/* Carousel + list layout */
-.inside-grid {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 3rem;
-  align-items: start;
-}
-
-/* CAROUSEL — invisible chrome, the work is the chrome */
-.carousel {
-  position: relative;
-}
-
-.carousel-stage {
-  position: relative;
-  aspect-ratio: 4/3;
-  overflow: hidden;
-  border-radius: 14px;
-  cursor: pointer;
-  background: transparent;
-}
-
-.carousel-slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.carousel-slide.active {
-  opacity: 1;
-  z-index: 2;
-  pointer-events: auto;
-}
-
-.carousel-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Mockup slides — rendered preview cards (when no PNG available) */
-.mockup-stage {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Brand Board mockup */
-.mock-brand-board {
-  background: var(--ss-canvas-cream);
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  padding: 2rem;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 1.25rem;
-  font-family: var(--font-ss-body);
-}
-
-.mbb-header {
-  text-align: center;
-  border-bottom: 1px solid rgba(142,168,154,0.15);
-  padding-bottom: 1rem;
-}
-
-.mbb-eyebrow {
-  font-family: var(--font-ss-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.65;
-  margin-bottom: 0.4rem;
-}
-
-.mbb-title {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 2.2rem;
-  color: var(--ss-plum-vortex);
-  line-height: 1;
-  margin-bottom: 0.35rem;
-}
-
-.mbb-tagline {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: 0.78rem;
-  color: var(--ss-burnt-umber);
-  opacity: 0.85;
-}
-
-.mbb-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.mbb-palette {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.4rem;
-  align-content: start;
-}
-
-.mbb-swatch {
-  aspect-ratio: 1;
-  border-radius: 4px;
-  position: relative;
-}
-
-.mbb-swatch span {
-  position: absolute;
-  bottom: 0.15rem;
-  left: 0.25rem;
-  font-size: 0.4rem;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  color: rgba(255,255,255,0.85);
-}
-
-.mbb-type {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.5rem;
-  padding-left: 0.5rem;
-  border-left: 1px solid rgba(142,168,154,0.12);
-}
-
-.mbb-type-display {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--ss-amber-glow);
-  line-height: 1;
-}
-
-.mbb-type-sub {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: 0.7rem;
-  color: var(--ss-burnt-umber);
-  opacity: 0.75;
-}
-
-.mbb-type-body {
-  font-family: var(--font-ss-body);
-  font-weight: 300;
-  font-size: 0.55rem;
-  color: var(--ss-twilight-slate);
-  line-height: 1.5;
-}
-
-.mbb-footer {
-  text-align: center;
-  font-family: var(--font-ss-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.55;
-  border-top: 1px solid rgba(142,168,154,0.15);
-  padding-top: 0.75rem;
-}
-
-/* Cheat Sheet mockup */
-.mock-cheat-sheet {
-  background: var(--ss-canvas-cream);
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.mcs-header {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--ss-plum-vortex);
-  border-bottom: 1px solid rgba(142,168,154,0.15);
-  padding-bottom: 0.5rem;
-}
-
-.mcs-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.6rem;
-  flex: 1;
-}
-
-.mcs-cell {
-  border-radius: 4px;
-  padding: 0.6rem 0.75rem;
-  font-family: var(--font-ss-body);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 0;
-}
-
-.mcs-cell-name {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-style: italic;
-  font-size: 0.85rem;
-  line-height: 1.1;
-}
-
-.mcs-cell-meta {
-  font-size: 0.45rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-
-/* Texture Vault mockup */
-.mock-texture {
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 4px;
-  padding: 4px;
-  background: var(--ss-burnt-umber);
-}
-
-.mock-texture-cell {
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
-}
-
-.mock-texture-cell::after {
-  content: attr(data-name);
-  position: absolute;
-  bottom: 0.4rem;
-  left: 0.5rem;
-  font-family: var(--font-ss-body);
-  font-size: 0.45rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.85);
-  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
-}
-
-/* Caption — quiet line below the slide, no background block */
-.carousel-caption-row {
-  padding: 1.25rem 0.25rem 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  text-align: center;
-}
-
-.caption-label {
-  font-family: var(--font-emmy-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  opacity: 0.65;
-  transition: opacity 0.4s ease;
-}
-
-.caption-name {
-  font-family: var(--font-emmy-display);
-  font-size: 0.95rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  opacity: 0.8;
-  transition: opacity 0.4s ease;
-}
-
-/* Quiet dots — discoverable but not loud */
-.carousel-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.55rem;
-  padding: 0.75rem 0 0;
-}
-
-.carousel-dot {
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 50%;
-  background: rgba(200,184,232,0.25);
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  transition: background 0.4s ease, transform 0.4s ease, width 0.4s ease;
-}
-
-.carousel-dot:hover {
-  background: rgba(200,184,232,0.5);
-}
-
-.carousel-dot.active {
-  background: var(--ss-amber-glow);
-  width: 1.4rem;
-  border-radius: 100px;
-}
-
-/* Tier-2 playground 2x2 mockup — Material samples grid
-   Mirrors the actual playground's texture cards: 4 named material tiles
-   on the kit's signature dark background */
-.mock-playground {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 1rem;
-  padding: 1.25rem;
-  background: var(--ss-plum-vortex);
-  background-image:
-    radial-gradient(ellipse at 20% 80%, rgba(201,165,90,0.08) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 20%, rgba(107,74,50,0.06) 0%, transparent 50%);
-}
-
-.mp-sample {
-  border-radius: 4px;
-  padding: 1rem 1rem 0.85rem;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-}
-
-.mp-sample-swatch {
-  flex: 1;
-  border-radius: 3px;
-  margin-bottom: 0.85rem;
-  min-height: 0;
-}
-
-.mp-sample-name {
-  font-family: var(--font-ss-body);
-  font-size: 0.42rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  margin-bottom: 0.35rem;
-  opacity: 0.85;
-}
-
-.mp-sample-tagline {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: 0.6rem;
-  line-height: 1.4;
-  opacity: 0.85;
-}
-
-/* (carousel controls removed — invisible chrome; only quiet dots below remain) */
-
-/* COMPANION LIST */
-.inside-list {
-  padding-top: 0.5rem;
-}
-
-.inside-list-title {
-  font-family: var(--font-emmy-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-brushstroke-gold);
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-}
-
-.inside-list-title::before {
-  content: '';
-  display: block;
-  width: 1.5rem;
-  height: 1px;
-  background: var(--ss-brushstroke-gold);
-  opacity: 0.7;
-}
-
-.inside-item {
-  padding: 1.1rem 0;
-  border-bottom: 1px solid rgba(200,184,232,0.1);
-  display: grid;
-  grid-template-columns: 2rem 1fr;
-  gap: 0.75rem;
-  align-items: start;
-}
-
-.inside-item:first-of-type {
-  border-top: 1px solid rgba(200,184,232,0.1);
-}
-
-.inside-icon {
-  font-family: var(--font-emmy-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  color: var(--ss-brushstroke-gold);
-  opacity: 0.85;
-  padding-top: 0.2rem;
-}
-
-.inside-text strong {
-  display: block;
-  font-family: var(--font-emmy-body);
-  font-size: 0.85rem;
-  font-weight: 400;
-  color: var(--ss-canvas-cream);
-  margin-bottom: 0.3rem;
-  letter-spacing: 0.02em;
-}
-
-.inside-text span {
-  font-family: var(--font-emmy-body);
-  font-size: 0.72rem;
-  font-weight: 300;
-  color: var(--ss-canvas-cream);
-  opacity: 0.78;
-  line-height: 1.6;
-}
-
-/* ============================================
-   CTA — close
-   ============================================ */
-
-.cta-section {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-  text-align: center;
-}
-
-.cta-label {
-  font-family: var(--font-emmy-body);
-  font-size: 0.58rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  margin-bottom: 1.25rem;
-}
-
-.cta-big {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
-}
-
-.cta-sub {
-  font-family: var(--font-emmy-body);
-  font-style: normal;
-  font-size: 1rem;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-  line-height: 1.8;
+  color: var(--velvet-wing);
+  opacity: 0.72;
   margin-bottom: 2.5rem;
-  max-width: 580px;
+  max-width: 480px;
   margin-left: auto;
   margin-right: auto;
 }
+@keyframes hero-rise-subtitle {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 0.72; transform: translateY(0); }
+}
+.js .hero-subtitle {
+  animation: hero-rise-subtitle 0.7s ease 0.6s both;
+}
 
-.cta-buttons {
+.hero-rule {
+  width: 60px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rosin-gold), transparent);
+  margin: 0 auto 2rem;
+}
+@keyframes hero-fade-rule {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.js .hero-rule {
+  animation: hero-fade-rule 0.6s ease 0.8s both;
+}
+
+.hero-descriptor {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  color: var(--studio-floor);
+  opacity: 0.65;
+}
+/* Entrance animation: resting state is fully visible.
+   No-JS: opacity:0.65 from base rule above — already visible.
+   JS: auto-plays from opacity:0 then settles. */
+@keyframes hero-fade-descriptor {
+  from { opacity: 0; }
+  to   { opacity: 0.65; }
+}
+.js .hero-descriptor {
+  animation: hero-fade-descriptor 0.6s ease 1s both;
+}
+
+/* Scroll hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
   display: flex;
-  gap: 1.25rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btn-primary {
-  display: inline-block;
-  padding: 0.95rem 2.5rem;
-  background: var(--amethyst);
-  color: var(--snowflake);
-  font-family: var(--font-emmy-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.btn-primary:hover {
-  background: var(--amethyst-light);
-  transform: translateY(-1px);
-}
-
-.btn-ghost {
-  display: inline-block;
-  padding: 0.95rem 2.5rem;
-  border: 1px solid rgba(200,184,232,0.3);
-  color: var(--ss-canvas-cream);
-  font-family: var(--font-emmy-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: border-color 0.3s ease, color 0.3s ease;
-}
-
-.btn-ghost:hover {
-  border-color: var(--ss-canvas-cream);
-  color: var(--ss-canvas-cream);
-}
-
-/* ============================================
-   FOOTER — same as home
-   ============================================ */
-
-footer {
-  padding: 3rem;
-  border-top: 1px solid rgba(200,184,232,0.08);
-  display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: center;
-  max-width: 1200px;
+  gap: 0.6rem;
+  animation: fadeUp 0.8s ease 1.8s both;
+}
+.scroll-hint span {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--barre-gray);
+}
+.scroll-arrow {
+  width: 18px;
+  height: 18px;
+  border-right: 1px solid var(--barre-gray);
+  border-bottom: 1px solid var(--barre-gray);
+  transform: rotate(45deg);
+  animation: bounce 2.4s ease infinite 2s;
+  opacity: 0.7;
+}
+
+@keyframes fadeUp   { from { opacity: 0; transform: translateX(-50%) translateY(8px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+@keyframes bounce   {
+  0%, 100% { transform: rotate(45deg) translateY(0); }
+  50%       { transform: rotate(45deg) translateY(5px); }
+}
+
+/* ─────────────────────────────────────────────
+   DISSOLVE TRANSITION BANDS
+   Between sections: a soft melting edge, not a hard cut.
+   Implemented as thin gradient strips that blur the boundary.
+───────────────────────────────────────────── */
+.dissolve-band {
+  height: clamp(3rem, 6vw, 5rem);
+  position: relative;
+  overflow: hidden;
+}
+.dissolve-band-cream-to-cream {
+  background: linear-gradient(to bottom, var(--spotlight-cream), #EEE4D6, var(--spotlight-cream));
+}
+.dissolve-band-cream-to-mirror {
+  background: linear-gradient(to bottom, var(--spotlight-cream), var(--mirror-light));
+}
+.dissolve-band-mirror-to-cream {
+  background: linear-gradient(to bottom, var(--mirror-light), var(--spotlight-cream));
+}
+.dissolve-band-cream-to-wing {
+  background: linear-gradient(to bottom, var(--spotlight-cream), var(--velvet-wing));
+}
+.dissolve-band-wing-to-cream {
+  background: linear-gradient(to bottom, var(--velvet-wing), var(--spotlight-cream));
+}
+
+/* ─────────────────────────────────────────────
+   SHARED SECTION STYLES
+───────────────────────────────────────────── */
+
+section {
+  padding: var(--section-pad);
+}
+
+.section-inner {
+  max-width: var(--max-w);
   margin: 0 auto;
 }
 
-.footer-name {
-  font-family: var(--font-emmy-display);
-  font-style: italic;
-  font-size: 1rem;
-  color: var(--fairy-silver);
-  opacity: 0.5;
+.section-label {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--velvet-wing);  /* a11y: was --rosin-gold (2.14:1 fail) → velvet-wing 12.42:1 on cream */
+  margin-bottom: 1.2rem;
 }
 
-.footer-note {
-  font-family: var(--font-emmy-body);
-  font-size: 0.6rem;
+.section-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 4.5vw, 3rem);
   font-weight: 300;
-  letter-spacing: 0.1em;
-  color: var(--fairy-silver);
-  opacity: 0.35;
+  font-style: italic;
+  color: var(--text-display);
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.01em;
 }
 
-/* ============================================
-   REVEAL / ANIMATIONS
-   ============================================ */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+.section-body {
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(0.9rem, 1.05vw, 1rem);
+  font-weight: 300;
+  color: var(--text-body);
+  line-height: 1.8;
+  max-width: 560px;
 }
 
-.reveal.visible {
+/* Scroll reveal — content fades up on scroll, hidden only when JS present */
+/* Scroll reveals: auto-play from load.
+   Resting state = fully visible (no opacity:0 gate). */
+@keyframes scroll-rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.js .reveal-on-scroll {
+  animation: scroll-rise var(--dissolve-in) var(--dissolve-ease) both;
+}
+/* .revealed class is harmless no-op now; kept for JS compatibility */
+.js .reveal-on-scroll.revealed {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
+/* Stagger children — auto-play with nth-child delay */
+@keyframes group-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: none; }
+}
+.js .reveal-group > * {
+  animation: group-rise 0.7s ease both;
+}
+.js .reveal-group > *:nth-child(1) { animation-delay: 0s; }
+.js .reveal-group > *:nth-child(2) { animation-delay: 0.1s; }
+.js .reveal-group > *:nth-child(3) { animation-delay: 0.2s; }
+.js .reveal-group > *:nth-child(4) { animation-delay: 0.3s; }
+.js .reveal-group > *:nth-child(5) { animation-delay: 0.4s; }
+.js .reveal-group > *:nth-child(6) { animation-delay: 0.5s; }
+.js .reveal-group > *:nth-child(7) { animation-delay: 0.6s; }
+.js .reveal-group > *:nth-child(8) { animation-delay: 0.7s; }
+.js .reveal-group > *:nth-child(9) { animation-delay: 0.8s; }
+/* .revealed class is harmless no-op now; kept for JS compatibility */
+.reveal-group.revealed > *:nth-child(1) { opacity: 1; transform: none; }
+.reveal-group.revealed > *:nth-child(2) { opacity: 1; transform: none; }
+.reveal-group.revealed > *:nth-child(3) { opacity: 1; transform: none; }
+.reveal-group.revealed > *:nth-child(4) { opacity: 1; transform: none; }
+.reveal-group.revealed > *:nth-child(5) { opacity: 1; transform: none; }
+.reveal-group.revealed > *:nth-child(6) { opacity: 1; transform: none; }
+.reveal-group.revealed > *:nth-child(7) { opacity: 1; transform: none; }
+.reveal-group.revealed > *:nth-child(8) { opacity: 1; transform: none; }
+.reveal-group.revealed > *:nth-child(9) { opacity: 1; transform: none; }
 
-@media (max-width: 900px) {
-  nav { padding: 1.25rem 1.5rem; }
-  .nav-links { gap: 1.5rem; }
-  .breadcrumb { padding: 4.25rem 1.5rem 0.4rem; }
+/* ─────────────────────────────────────────────
+   THE STUDIO INTRO — "You were let in."
+   Textured scene-setting panel; warm cream, soft text.
+   Dissolves at top edge (from hero gradient below).
+───────────────────────────────────────────── */
 
-  .kit-hero-wrap { padding: 0 1.5rem; }
-  .kit-hero-inner { padding: 3rem 0; min-height: 320px; }
-
-  .painting-section,
-  .type-section,
-  .combo-section,
-  .cta-section { padding: 5rem 1.5rem; }
-
-  .palette-inner { padding: 0 1.5rem; }
-  .palette-section,
-  .inside-section { padding: 5rem 0; }
-  .inside-inner { padding: 0 1.5rem; }
-
-  .painting-grid,
-  .palette-header,
-  .type-header,
-  .combo-header,
-  .inside-header,
-  .inside-grid { grid-template-columns: 1fr; gap: 2rem; }
-
-  .palette-grid { grid-template-columns: repeat(2, 1fr); }
-  .combo-grid { grid-template-columns: 1fr 1fr; }
-
-  .type-card { padding: 3rem 2rem; }
-  .type-rule { padding: 2.5rem 2rem; }
-
-  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 3rem 1.5rem; }
+#studio-intro {
+  background: var(--spotlight-cream);
+  position: relative;
+  overflow: hidden;
 }
 
-@media (max-width: 600px) {
-  .nav-links { display: none; }
-  .palette-grid { grid-template-columns: 1fr; }
-  .combo-grid { grid-template-columns: 1fr; }
-  .cta-buttons { flex-direction: column; align-items: center; }
+.studio-intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+  margin-top: 3rem;
 }
+@media (max-width: 640px) {
+  .studio-intro-grid { grid-template-columns: 1fr; }
+}
+
+.studio-scene-visual {
+  position: relative;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+/* CSS-only studio scene: warm floor + barre suggestion + light rectangles */
+.studio-scene-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    /* Floor grain */
+    repeating-linear-gradient(
+      91deg,
+      transparent, transparent 4px,
+      rgba(107, 74, 50, 0.06) 4px, rgba(107, 74, 50, 0.06) 5px
+    ),
+    /* Floor color gradient */
+    linear-gradient(
+      to bottom,
+      var(--spotlight-cream) 0%,
+      #EDE0CE 30%,
+      #D6C0A0 60%,
+      var(--studio-floor) 100%
+    );
+}
+
+/* Barre line in the scene */
+.studio-scene-barre {
+  position: absolute;
+  top: 36%;
+  left: -5%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(to right, var(--barre-gray) 0%, rgba(160, 150, 144, 0.3) 100%);
+  box-shadow: 0 1px 3px rgba(58, 42, 46, 0.15);
+}
+
+/* Light rectangle in the scene */
+.studio-scene-light {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 18%;
+  width: 28%;
+  background: linear-gradient(
+    to bottom,
+    rgba(251, 244, 236, 0.6) 0%,
+    rgba(251, 244, 236, 0.35) 60%,
+    transparent 100%
+  );
+  transform: skew(-5deg);
+}
+
+/* Dissolve the scene's right edge — Degas crop */
+.studio-scene-visual::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    transparent 55%,
+    var(--spotlight-cream) 100%
+  );
+  pointer-events: none;
+}
+
+.studio-intro-text .section-body + .section-body {
+  margin-top: 1.25rem;
+}
+
+/* Scarf detail — decorative text in the corner of the intro panel */
+.studio-aside {
+  margin-top: 3rem;
+  padding: 1.5rem 2rem;
+  border-left: 1px solid var(--tulle-blush);
+  background: rgba(226, 184, 176, 0.08);
+}
+.studio-aside-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-style: italic;
+  color: var(--studio-floor);
+  line-height: 1.6;
+}
+
+/* ─────────────────────────────────────────────
+   THE PALETTE — The studio IS the palette.
+   Each swatch lives in the room.
+   The dissolving-edge mechanic: swatches
+   resolve from blur as they're scrolled into view.
+───────────────────────────────────────────── */
+
+#palette {
+  background: var(--spotlight-cream);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ambient floor light behind palette */
+#palette::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    transparent 30%,
+    rgba(201, 165, 90, 0.04) 60%,
+    rgba(201, 165, 90, 0.08) 100%
+  );
+  pointer-events: none;
+}
+
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 1.5px;
+  background: rgba(160, 150, 144, 0.2);  /* barre gray as grout */
+  border: 1.5px solid rgba(160, 150, 144, 0.2);
+  margin-top: 3rem;
+}
+
+/* Each palette swatch = a surface in the room */
+.palette-swatch {
+  aspect-ratio: 1;
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+  /* Dissolve reveal: blur + opacity transition */
+  transition:
+    opacity var(--dissolve-in) var(--dissolve-ease),
+    filter var(--dissolve-in) var(--dissolve-ease);
+  /* Keyboard accessible */
+  tabindex: 0;
+}
+.palette-swatch:focus-visible {
+  outline: 2px solid var(--rosin-gold);
+  outline-offset: 2px;
+  z-index: 5;
+}
+
+/* Swatches: auto-play dissolve entrance; visible-by-default. */
+@keyframes swatch-dissolve {
+  from { opacity: 0; filter: blur(8px); }
+  to   { opacity: 1; filter: blur(0); }
+}
+.js .palette-swatch {
+  animation: swatch-dissolve var(--dissolve-in) var(--dissolve-ease) both;
+}
+.js .palette-swatch:nth-child(1) { animation-delay: 0s; }
+.js .palette-swatch:nth-child(2) { animation-delay: 0.1s; }
+.js .palette-swatch:nth-child(3) { animation-delay: 0.2s; }
+.js .palette-swatch:nth-child(4) { animation-delay: 0.3s; }
+.js .palette-swatch:nth-child(5) { animation-delay: 0.4s; }
+.js .palette-swatch:nth-child(6) { animation-delay: 0.5s; }
+/* .revealed is harmless no-op; kept for JS compatibility */
+.js .palette-swatch.revealed {
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* Each swatch gets its material texture via SVG background */
+
+/* 1. Tulle Blush — tulle mesh texture */
+.swatch-tulle-blush {
+  background-color: var(--tulle-blush);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Ccircle cx='3' cy='3' r='1.2' fill='none' stroke='rgba(255,255,255,0.28)' stroke-width='0.5'/%3E%3Ccircle cx='9' cy='3' r='1.2' fill='none' stroke='rgba(255,255,255,0.22)' stroke-width='0.5'/%3E%3Ccircle cx='3' cy='9' r='1.2' fill='none' stroke='rgba(255,255,255,0.22)' stroke-width='0.5'/%3E%3Ccircle cx='9' cy='9' r='1.2' fill='none' stroke='rgba(255,255,255,0.18)' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+
+/* 2. Stage Rouge — pigment blot, smudged */
+.swatch-stage-rouge {
+  background-color: var(--stage-rouge);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Cellipse cx='10' cy='10' rx='9' ry='5' fill='none' stroke='rgba(255,255,255,0.10)' stroke-width='0.8'/%3E%3Cellipse cx='10' cy='10' rx='5' ry='3' fill='rgba(0,0,0,0.08)'/%3E%3C/svg%3E");
+}
+
+/* 3. Spotlight Cream — soft glow, no strong texture */
+.swatch-spotlight-cream {
+  background-color: var(--spotlight-cream);
+  background-image: radial-gradient(ellipse at 40% 30%, rgba(201,165,90,0.12) 0%, transparent 60%);
+}
+
+/* 4. Mirror Light — silvered glass, faint haze */
+.swatch-mirror-light {
+  background-color: var(--mirror-light);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cline x1='0' y1='14' x2='40' y2='14' stroke='rgba(255,255,255,0.22)' stroke-width='0.4'/%3E%3Cline x1='0' y1='26' x2='40' y2='26' stroke='rgba(255,255,255,0.14)' stroke-width='0.3'/%3E%3C/svg%3E");
+}
+
+/* 5. Mirror Sage — old glass, muted reflection */
+.swatch-mirror-sage {
+  background-color: var(--mirror-sage);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Cpath d='M0 10 Q15 8 30 10' fill='none' stroke='rgba(255,255,255,0.16)' stroke-width='0.5'/%3E%3Cpath d='M0 20 Q15 18 30 20' fill='none' stroke='rgba(255,255,255,0.12)' stroke-width='0.4'/%3E%3C/svg%3E");
+}
+
+/* 6. Rosin Gold — fine matte powder, warm grit */
+.swatch-rosin-gold {
+  background-color: var(--rosin-gold);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='2' cy='2' r='0.7' fill='rgba(0,0,0,0.10)'/%3E%3Ccircle cx='5' cy='5' r='0.5' fill='rgba(0,0,0,0.08)'/%3E%3Ccircle cx='7' cy='2' r='0.4' fill='rgba(0,0,0,0.07)'/%3E%3Ccircle cx='1' cy='6' r='0.6' fill='rgba(0,0,0,0.09)'/%3E%3C/svg%3E");
+}
+
+/* 7. Velvet Wing — deep velvet, nap lines */
+.swatch-velvet-wing {
+  background-color: var(--velvet-wing);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cline x1='0' y1='0' x2='0' y2='6' stroke='rgba(255,255,255,0.07)' stroke-width='0.5'/%3E%3Cline x1='3' y1='0' x2='3' y2='6' stroke='rgba(255,255,255,0.05)' stroke-width='0.3'/%3E%3C/svg%3E");
+}
+
+/* 8. Studio Floor — wood grain */
+.swatch-studio-floor {
+  background-color: var(--studio-floor);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='6'%3E%3Cline x1='0' y1='2' x2='50' y2='2' stroke='rgba(0,0,0,0.12)' stroke-width='0.5'/%3E%3Cline x1='0' y1='4' x2='50' y2='4' stroke='rgba(255,255,255,0.07)' stroke-width='0.3'/%3E%3C/svg%3E");
+}
+
+/* 9. Barre Gray — worn smooth wood, faint pink cast */
+.swatch-barre-gray {
+  background-color: var(--barre-gray);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='6'%3E%3Cline x1='0' y1='2' x2='40' y2='2' stroke='rgba(255,255,255,0.18)' stroke-width='0.4'/%3E%3Cline x1='0' y1='4' x2='40' y2='4' stroke='rgba(0,0,0,0.06)' stroke-width='0.3'/%3E%3C/svg%3E");
+}
+
+/* Swatch label — resolves from bottom as swatch resolves */
+.swatch-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 0.75rem 0.45rem;
+  background: rgba(58, 42, 46, 0.78);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  transform: translateY(100%);
+  transition: transform 0.35s var(--dissolve-ease);
+}
+.palette-swatch:hover .swatch-label,
+.palette-swatch:focus-visible .swatch-label {
+  transform: translateY(0);
+}
+
+.swatch-name {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--spotlight-cream);
+  line-height: 1.4;
+}
+.swatch-hex {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 300;
+  letter-spacing: 0.06em;
+  color: var(--rosin-gold);
+  margin-top: 0.1rem;
+}
+.swatch-role {
+  display: block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.72rem;
+  font-style: italic;
+  color: rgba(251, 244, 236, 0.65);
+  margin-top: 0.1rem;
+}
+
+/* Cream swatch needs dark label text (12.42:1 confirmed) */
+.swatch-spotlight-cream .swatch-label { background: rgba(58, 42, 46, 0.7); }
+
+/* ─────────────────────────────────────────────
+   WHAT'S INSIDE
+   Dark panel — Velvet Wing ground.
+   Content resolves in from the edges.
+───────────────────────────────────────────── */
+
+#whats-inside {
+  background: var(--velvet-wing);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ambient rosin-gold glow in the corner */
+#whats-inside::before {
+  content: '';
+  position: absolute;
+  bottom: 0; right: 0;
+  width: 40%; height: 40%;
+  background: radial-gradient(ellipse at bottom right, rgba(201, 165, 90, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+#whats-inside .section-label { color: var(--rosin-gold); }
+#whats-inside .section-heading { color: var(--spotlight-cream); }
+#whats-inside .section-body { color: rgba(251, 244, 236, 0.78); }
+
+.contents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1px;
+  background: rgba(160, 150, 144, 0.15);
+  border: 1px solid rgba(160, 150, 144, 0.15);
+  margin-top: 3rem;
+}
+
+.content-tile {
+  background: rgba(58, 42, 46, 0.7);
+  padding: 2rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition: opacity var(--dissolve-in) var(--dissolve-ease),
+              filter var(--dissolve-in) var(--dissolve-ease);
+}
+/* Content tiles: auto-play dissolve; visible-by-default. */
+@keyframes tile-dissolve {
+  from { opacity: 0; filter: blur(4px); }
+  to   { opacity: 1; filter: blur(0); }
+}
+.js .content-tile {
+  animation: tile-dissolve var(--dissolve-in) var(--dissolve-ease) both;
+}
+.js .content-tile:nth-child(1) { animation-delay: 0s; }
+.js .content-tile:nth-child(2) { animation-delay: 0.12s; }
+.js .content-tile:nth-child(3) { animation-delay: 0.24s; }
+.js .content-tile:nth-child(4) { animation-delay: 0.36s; }
+/* .revealed is harmless no-op; kept for JS compatibility */
+.js .content-tile.revealed {
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* Soft light entering from left on hover */
+.content-tile::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, rgba(251, 244, 236, 0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.content-tile-icon {
+  display: block;
+  font-size: 1rem;
+  color: var(--rosin-gold);
+  margin-bottom: 1rem;
+  opacity: 0.7;
+  font-style: normal;
+}
+
+.content-tile-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--tulle-blush);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+.content-tile-body {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: rgba(251, 244, 236, 0.65);
+  line-height: 1.75;
+}
+
+/* ─────────────────────────────────────────────
+   THE TEXTURES
+   Material descriptions — each color as a thing.
+   Light panel, warm cream.
+───────────────────────────────────────────── */
+
+#textures {
+  background: var(--spotlight-cream);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Floor grain behind textures */
+#textures::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    89deg,
+    transparent, transparent 5px,
+    rgba(107, 74, 50, 0.04) 5px, rgba(107, 74, 50, 0.04) 6px
+  );
+  pointer-events: none;
+}
+
+.texture-list {
+  list-style: none;
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.texture-item {
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  transition: opacity var(--dissolve-in) var(--dissolve-ease),
+              transform var(--dissolve-in) var(--dissolve-ease);
+}
+/* Texture items: auto-play slide-in; visible-by-default. */
+@keyframes texture-slide {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.js .texture-item {
+  animation: texture-slide var(--dissolve-in) var(--dissolve-ease) both;
+}
+.js .texture-item:nth-child(1) { animation-delay: 0s; }
+.js .texture-item:nth-child(2) { animation-delay: 0.12s; }
+.js .texture-item:nth-child(3) { animation-delay: 0.24s; }
+/* .revealed is harmless no-op; kept for JS compatibility */
+.js .texture-item.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+@media (max-width: 480px) {
+  .texture-item { grid-template-columns: 48px 1fr; gap: 1rem; }
+}
+
+.texture-swatch {
+  width: 64px;
+  height: 64px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+@media (max-width: 480px) {
+  .texture-swatch { width: 48px; height: 48px; }
+}
+
+/* Reuse palette swatch backgrounds */
+.texture-swatch.swatch-tulle-blush   { background-color: var(--tulle-blush); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Ccircle cx='3' cy='3' r='1.2' fill='none' stroke='rgba(255,255,255,0.28)' stroke-width='0.5'/%3E%3Ccircle cx='9' cy='3' r='1.2' fill='none' stroke='rgba(255,255,255,0.22)' stroke-width='0.5'/%3E%3Ccircle cx='3' cy='9' r='1.2' fill='none' stroke='rgba(255,255,255,0.22)' stroke-width='0.5'/%3E%3Ccircle cx='9' cy='9' r='1.2' fill='none' stroke='rgba(255,255,255,0.18)' stroke-width='0.5'/%3E%3C/svg%3E"); }
+.texture-swatch.swatch-stage-rouge   { background-color: var(--stage-rouge); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Cellipse cx='10' cy='10' rx='9' ry='5' fill='none' stroke='rgba(255,255,255,0.10)' stroke-width='0.8'/%3E%3C/svg%3E"); }
+.texture-swatch.swatch-spotlight-cream { background-color: var(--spotlight-cream); background-image: radial-gradient(ellipse at 40% 30%, rgba(201,165,90,0.12) 0%, transparent 60%); border: 1px solid rgba(160,150,144,0.3); }
+.texture-swatch.swatch-mirror-light   { background-color: var(--mirror-light); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cline x1='0' y1='14' x2='40' y2='14' stroke='rgba(255,255,255,0.22)' stroke-width='0.4'/%3E%3Cline x1='0' y1='26' x2='40' y2='26' stroke='rgba(255,255,255,0.14)' stroke-width='0.3'/%3E%3C/svg%3E"); }
+.texture-swatch.swatch-mirror-sage    { background-color: var(--mirror-sage); }
+.texture-swatch.swatch-rosin-gold     { background-color: var(--rosin-gold); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Ccircle cx='2' cy='2' r='0.7' fill='rgba(0,0,0,0.10)'/%3E%3Ccircle cx='5' cy='5' r='0.5' fill='rgba(0,0,0,0.08)'/%3E%3C/svg%3E"); }
+.texture-swatch.swatch-velvet-wing    { background-color: var(--velvet-wing); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='6' height='6'%3E%3Cline x1='0' y1='0' x2='0' y2='6' stroke='rgba(255,255,255,0.07)' stroke-width='0.5'/%3E%3C/svg%3E"); }
+.texture-swatch.swatch-studio-floor   { background-color: var(--studio-floor); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='6'%3E%3Cline x1='0' y1='2' x2='50' y2='2' stroke='rgba(0,0,0,0.12)' stroke-width='0.5'/%3E%3C/svg%3E"); }
+.texture-swatch.swatch-barre-gray     { background-color: var(--barre-gray); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='6'%3E%3Cline x1='0' y1='2' x2='40' y2='2' stroke='rgba(255,255,255,0.18)' stroke-width='0.4'/%3E%3C/svg%3E"); }
+
+.texture-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--velvet-wing);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+.texture-description {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: rgba(58, 42, 46, 0.72);
+  line-height: 1.65;
+}
+
+/* ─────────────────────────────────────────────
+   THE MIRROR SECTION
+   Cool palette shift: Mirror Light ground.
+   Velvet Wing text on Mirror Light = 7.47:1 (WCAG AA pass).
+   The pull quote is INSIDE the mirror — visible only in reflection.
+   Stage Rouge drop-shadow text reveals on scroll.
+───────────────────────────────────────────── */
+
+#mirror {
+  background: var(--mirror-light);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Cool sky light from above */
+#mirror::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 40%;
+  background: linear-gradient(to bottom, rgba(184, 194, 199, 0.45) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+/* Mirror reflection frame */
+.mirror-frame {
+  position: relative;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 5rem);
+}
+
+.mirror-label {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--studio-floor);
+  opacity: 0.7;
+  margin-bottom: 2.5rem;
+}
+
+/* The mirror "reflection" — slightly different light, cool */
+.mirror-reflection-pane {
+  position: relative;
+  border: 1px solid rgba(184, 194, 199, 0.6);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(184, 194, 199, 0.08) 50%,
+    rgba(142, 168, 154, 0.06) 100%
+  );
+  padding: clamp(2rem, 5vw, 4rem);
+  overflow: hidden;
+  /* Dissolve all four edges — the mirror dissolves at its boundaries */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%, black 8%, black 92%, transparent 100%
+  ),
+  linear-gradient(
+    to right,
+    transparent 0%, black 5%, black 95%, transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%, black 8%, black 92%, transparent 100%
+  ),
+  linear-gradient(
+    to right,
+    transparent 0%, black 5%, black 95%, transparent 100%
+  );
+  -webkit-mask-composite: intersect;
+  mask-composite: intersect;
+  transition: opacity var(--dissolve-in) var(--dissolve-ease),
+              filter var(--dissolve-in) var(--dissolve-ease);
+}
+/* Mirror pane: auto-play dissolve; visible-by-default. */
+@keyframes mirror-dissolve {
+  from { opacity: 0; filter: blur(6px); }
+  to   { opacity: 1; filter: blur(0); }
+}
+.js .mirror-reflection-pane {
+  animation: mirror-dissolve var(--dissolve-in) var(--dissolve-ease) both;
+}
+/* .revealed is harmless no-op; kept for JS compatibility */
+.js .mirror-reflection-pane.revealed {
+  opacity: 1;
+  filter: blur(0);
+}
+
+/* The quote visible only in the reflection */
+.mirror-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.3rem, 3vw, 2rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--velvet-wing);    /* 7.47:1 on Mirror Light — WCAG AA pass */
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  max-width: 640px;
+}
+
+.mirror-quote-attribution {
+  display: block;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  color: var(--studio-floor);
+  opacity: 0.6;
+  margin-top: 1.5rem;
+  text-transform: uppercase;
+}
+
+/* Rosin-dust on mirror — faint texture overlay */
+.mirror-reflection-pane::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='15' cy='22' r='0.6' fill='rgba(201,165,90,0.08)'/%3E%3Ccircle cx='45' cy='8' r='0.4' fill='rgba(201,165,90,0.06)'/%3E%3Ccircle cx='68' cy='35' r='0.5' fill='rgba(201,165,90,0.07)'/%3E%3Ccircle cx='30' cy='55' r='0.3' fill='rgba(201,165,90,0.05)'/%3E%3Ccircle cx='72' cy='62' r='0.6' fill='rgba(201,165,90,0.06)'/%3E%3Ccircle cx='10' cy='70' r='0.4' fill='rgba(201,165,90,0.05)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 1;
+}
+
+/* ─────────────────────────────────────────────
+   PULL QUOTE (main) — "Grace is discipline."
+   Warm cream ground. Velvet Wing italic on cream.
+   Text resolves from soft into sharp.
+───────────────────────────────────────────── */
+
+#pull-quote {
+  background: var(--spotlight-cream);
+  position: relative;
+  overflow: hidden;
+  padding: var(--section-pad);
+}
+
+/* Floor-light sweep behind pull quote */
+#pull-quote .light-field {
+  pointer-events: none;
+}
+
+.pull-quote-block {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  text-align: center;
+  transition: opacity var(--dissolve-out) var(--dissolve-ease),
+              filter var(--dissolve-out) var(--dissolve-ease);
+}
+/* Pull quote: auto-play dissolve; visible-by-default. */
+@keyframes quote-dissolve {
+  from { opacity: 0; filter: blur(5px); }
+  to   { opacity: 1; filter: blur(0); }
+}
+.js .pull-quote-block {
+  animation: quote-dissolve var(--dissolve-out) var(--dissolve-ease) both;
+}
+/* .revealed is harmless no-op; kept for JS compatibility */
+.js .pull-quote-block.revealed {
+  opacity: 1;
+  filter: blur(0);
+}
+
+.pull-quote-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.6rem, 4.5vw, 3rem);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--velvet-wing);    /* 12.42:1 on Spotlight Cream — WCAG AA pass */
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.pull-quote-rule {
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--rosin-gold), transparent);
+  margin: 2rem auto;
+}
+
+.pull-quote-attribution {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--studio-floor);
+  opacity: 0.65;
+}
+
+/* ─────────────────────────────────────────────
+   THE DEGAS NOTE — Painter inspiration
+   Barre Gray ground — warm neutral mid.
+   Velvet Wing text on Barre Gray = 4.68:1 (WCAG AA pass).
+───────────────────────────────────────────── */
+
+#degas-note {
+  background: var(--barre-gray);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Floor grain behind */
+#degas-note::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    91deg,
+    transparent, transparent 6px,
+    rgba(58, 42, 46, 0.06) 6px, rgba(58, 42, 46, 0.06) 7px
+  );
+  pointer-events: none;
+}
+
+#degas-note .section-label   { color: var(--velvet-wing); opacity: 0.55; }
+#degas-note .section-heading  { color: var(--velvet-wing); }   /* 4.68:1 — WCAG AA pass */
+#degas-note .section-body     { color: var(--velvet-wing); }   /* 4.68:1 — WCAG AA pass */
+
+.degas-note-rule {
+  width: 48px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--velvet-wing), transparent);
+  margin: 2rem 0;
+  opacity: 0.35;
+}
+
+/* ─────────────────────────────────────────────
+   CTA FOOTER
+   The panning light settles. Light falls across the CTA.
+   Stage Rouge ground. Spotlight Cream text. 6.04:1 — WCAG AA pass.
+───────────────────────────────────────────── */
+
+#cta-footer {
+  background: var(--velvet-wing);
+  position: relative;
+  overflow: hidden;
+  padding: clamp(5rem, 10vw, 9rem) clamp(1.5rem, 6vw, 5rem);
+  text-align: center;
+}
+
+/* Light falls across the footer — the light finding the CTA */
+#cta-footer .light-field .light-rect {
+  opacity: 0.09;
+}
+
+/* Tulle Blush glow behind content */
+#cta-footer::before {
+  content: '';
+  position: absolute;
+  top: 30%; left: 50%;
+  transform: translateX(-50%);
+  width: 60%; height: 50%;
+  background: radial-gradient(ellipse, rgba(226, 184, 176, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.footer-content {
+  position: relative;
+  z-index: 2;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+.footer-tagline {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--rosin-gold);
+  opacity: 0.8;
+  margin-bottom: 1.5rem;
+  transition: opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s;
+}
+@keyframes footer-rise-tagline {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 0.8; transform: translateY(0); }
+}
+.js .footer-tagline { animation: footer-rise-tagline 0.7s ease 0.1s both; }
+
+.footer-heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 0.95;
+  color: var(--spotlight-cream);
+  margin-bottom: 1rem;
+  transition: opacity 0.8s ease 0.25s, transform 0.8s ease 0.25s;
+}
+@keyframes footer-rise-heading {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.js .footer-heading { animation: footer-rise-heading 0.8s ease 0.25s both; }
+
+.footer-kit-id {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--barre-gray);
+  opacity: 0.65;
+  margin-bottom: 3rem;
+  transition: opacity 0.6s ease 0.4s;
+}
+@keyframes footer-fade-kit-id {
+  from { opacity: 0; }
+  to   { opacity: 0.65; }
+}
+.js .footer-kit-id { animation: footer-fade-kit-id 0.6s ease 0.4s both; }
+
+.cta-button {
+  display: inline-block;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--spotlight-cream);
+  background: transparent;
+  border: 1px solid rgba(251, 244, 236, 0.35);
+  padding: 1rem 3rem;
+  text-decoration: none;
+  transition:
+    background 0.4s ease,
+    border-color 0.4s ease,
+    color 0.4s ease,
+    opacity 0.7s ease 0.55s,
+    transform 0.7s ease 0.55s;
+  cursor: pointer;
+}
+.cta-button:hover,
+.cta-button:focus-visible {
+  background: rgba(201, 165, 90, 0.12);
+  border-color: var(--rosin-gold);
+  color: var(--rosin-gold);
+  outline: none;
+}
+.cta-button:focus-visible {
+  outline: 2px solid var(--rosin-gold);
+  outline-offset: 3px;
+}
+@keyframes footer-rise-cta {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.js .cta-button { animation: footer-rise-cta 0.7s ease 0.55s both; }
+
+.footer-note {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--barre-gray);
+  opacity: 0.5;
+  margin-top: 2.5rem;
+  transition: opacity 0.6s ease 0.7s;
+}
+@keyframes footer-fade-note {
+  from { opacity: 0; }
+  to   { opacity: 0.5; }
+}
+.js .footer-note { animation: footer-fade-note 0.6s ease 0.7s both; }
+
 </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="../../index.html" class="nav-name">Emmy Bellamora</a>
-  <ul class="nav-links">
-    <li><a href="../../index.html#about">About</a></li>
-    <li><a href="../../index.html#work">Work</a></li>
-    <li><a href="../../index.html#approach">Approach</a></li>
-    <li><a href="../../index.html#working-together">Together</a></li>
-    <li><a href="../../index.html#contact">Contact</a></li>
-  </ul>
-</nav>
+<!-- Skip link: keyboard users jump straight to main content -->
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
-<!-- BREADCRUMB -->
-<div class="breadcrumb">
-  <a href="../../index.html">Emmy</a>
-  <span class="breadcrumb-sep">/</span>
-  <a href="../../index.html#work">Brand Kits</a>
-  <span class="breadcrumb-sep">/</span>
-  <a href="../../index.html#work">Art Gallery</a>
-  <span class="breadcrumb-sep">/</span>
-  <span>Ballet Light</span>
-</div>
+<main id="main-content">
 
-<!-- KIT HERO -->
-<section class="kit-hero">
-  <div class="kit-hero-inner">
-    <div class="kit-hero-wrap">
-      <div class="kit-hero-content">
-        <div class="kit-hero-meta">Art Gallery &middot; Kit 05</div>
-        <h1 class="kit-hero-name">Ballet Light</h1>
-        <p class="kit-hero-tagline">
-          Caught in motion. The grace of something you weren't supposed to see &mdash; for the brand whose effortless is earned.
+  <!-- ═══════════════════════════════════════════
+       HERO
+       The studio. Unusual angle. Light sweeping.
+       Title written on the barre like chalk.
+  ═══════════════════════════════════════════ -->
+
+  <section id="hero" aria-label="Ballet Light kit hero">
+
+    <!-- Light rectangles — afternoon sun through tall windows -->
+    <div class="light-field" aria-hidden="true">
+      <div class="light-rect"></div>
+      <div class="light-rect"></div>
+      <div class="light-rect"></div>
+    </div>
+
+    <!-- Floor grain -->
+    <div class="hero-floor" aria-hidden="true"></div>
+
+    <!-- Barre line -->
+    <div class="hero-barre" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <span class="hero-eyebrow" id="hero-eyebrow" aria-hidden="false">Art Gallery — Kit No. 5</span>
+
+      <h1 class="hero-title" id="hero-title">Ballet<br>Light</h1>
+
+      <p class="hero-subtitle" id="hero-subtitle">
+        The grace you see is built on the discipline you don't
+      </p>
+
+      <div class="hero-rule" id="hero-divider" aria-hidden="true"></div>
+
+      <p class="hero-descriptor" id="hero-descriptor">
+        Degas — The Ballet Class &ensp;|&ensp; Quiet
+      </p>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <span>Enter</span>
+      <div class="scroll-arrow"></div>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       STUDIO INTRO — "You were let in."
+  ═══════════════════════════════════════════ -->
+
+  <div class="dissolve-band dissolve-band-cream-to-cream" aria-hidden="true"></div>
+
+  <section id="studio-intro" aria-labelledby="intro-heading">
+    <div class="section-inner">
+
+      <div class="reveal-group js-reveal-group">
+        <span class="section-label">The Studio</span>
+        <h2 class="section-heading" id="intro-heading">
+          You weren't supposed<br>to be watching.
+        </h2>
+      </div>
+
+      <div class="studio-intro-grid">
+
+        <!-- CSS studio scene — the keyhole view -->
+        <div class="studio-scene-visual reveal-on-scroll js-reveal" role="img" aria-label="A CSS illustration of a ballet studio: warm wooden floor, a barre, afternoon light falling in rectangles from tall windows off to the right edge of the frame — cropped like a Degas painting">
+          <div class="studio-scene-bg" aria-hidden="true"></div>
+          <div class="studio-scene-light" aria-hidden="true"></div>
+          <div class="studio-scene-barre" aria-hidden="true"></div>
+        </div>
+
+        <!-- Text -->
+        <div class="studio-intro-text reveal-group js-reveal-group">
+          <p class="section-body">
+            Degas didn't paint performances. He painted rehearsals.
+            The moments between moments — a dancer adjusting her slipper,
+            someone in the wings catching her breath.
+          </p>
+          <p class="section-body">
+            He positioned himself at impossible angles so the viewer
+            feels like they've stumbled into something private.
+            The frame always cuts off more than it shows.
+            Something is always happening just outside the edge.
+          </p>
+          <p class="section-body">
+            This kit is built from that space.
+            Not the performance — the practice.
+            Not the stage — the studio.
+            Not the effortlessness — the thousand hours it took to earn it.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="studio-aside reveal-on-scroll js-reveal">
+        <p class="studio-aside-text">
+          "She makes her work look effortless.
+          That's not an accident. She's practiced the same thing
+          a hundred times until the seams disappeared.
+          Her brand should feel like grace —
+          which is discipline that's learned to hide."
         </p>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- INSIDE THE KIT — moved up to position 2 so it's visible above the fold -->
-<section class="inside-section">
-  <div class="inside-inner">
-    <div class="inside-header">
-      <h2 class="inside-title reveal">Inside the kit.</h2>
-      <p class="inside-intro reveal">
-        Brand kits should be <em>complete worlds</em>, not single files. Flip through to see what arrives when Ballet Light becomes yours.
+    </div>
+  </section>
+
+  <div class="dissolve-band dissolve-band-cream-to-cream" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       THE PALETTE — The studio IS the palette.
+  ═══════════════════════════════════════════ -->
+
+  <section id="palette" aria-labelledby="palette-heading">
+    <div class="section-inner">
+
+      <div class="reveal-group js-reveal-group">
+        <span class="section-label">The Palette</span>
+        <h2 class="section-heading" id="palette-heading">
+          The studio<br>is the palette.
+        </h2>
+        <p class="section-body">
+          Nine colors. Each one a surface in the room —
+          the floor, the barre, the mirror, the light, the fabric, the rouge.
+          Hover or focus a color to meet it.
+        </p>
+      </div>
+
+      <!-- Palette grid: role="list" for semantic group -->
+      <div class="palette-grid" role="list" aria-label="Ballet Light color palette — nine colors">
+
+        <!-- 1. Tulle Blush — Anchor -->
+        <div class="palette-swatch swatch-tulle-blush js-swatch" role="listitem" tabindex="0"
+             aria-label="Tulle Blush, hex E2B8B0 — the anchor. A ballet slipper after a season of class — worn-in pink, not fresh-from-the-box.">
+          <span class="swatch-label">
+            <span class="swatch-name">Tulle Blush</span>
+            <span class="swatch-hex">#E2B8B0</span>
+            <span class="swatch-role">Anchor</span>
+          </span>
+        </div>
+
+        <!-- 2. Stage Rouge — Counterweight -->
+        <div class="palette-swatch swatch-stage-rouge js-swatch" role="listitem" tabindex="0"
+             aria-label="Stage Rouge, hex 9A3F4C — the counterweight. Stage makeup at end of night. The body inside the slipper. Evidence of effort.">
+          <span class="swatch-label">
+            <span class="swatch-name">Stage Rouge</span>
+            <span class="swatch-hex">#9A3F4C</span>
+            <span class="swatch-role">Counterweight</span>
+          </span>
+        </div>
+
+        <!-- 3. Spotlight Cream — Warm carrier neutral -->
+        <div class="palette-swatch swatch-spotlight-cream js-swatch" role="listitem" tabindex="0"
+             aria-label="Spotlight Cream, hex FBF4EC — warm carrier neutral. The color of afternoon light hitting a pale wall. The spotlight before it finds its target.">
+          <span class="swatch-label">
+            <span class="swatch-name">Spotlight Cream</span>
+            <span class="swatch-hex">#FBF4EC</span>
+            <span class="swatch-role">Warm carrier</span>
+          </span>
+        </div>
+
+        <!-- 4. Mirror Light — Cool carrier neutral (v3) -->
+        <div class="palette-swatch swatch-mirror-light js-swatch" role="listitem" tabindex="0"
+             aria-label="Mirror Light, hex B8C2C7 — cool carrier neutral. The studio mirror — cool reflection of the sky outside, not the warm wood of the floor.">
+          <span class="swatch-label">
+            <span class="swatch-name">Mirror Light</span>
+            <span class="swatch-hex">#B8C2C7</span>
+            <span class="swatch-role">Cool carrier</span>
+          </span>
+        </div>
+
+        <!-- 5. Mirror Sage — Flex hue -->
+        <div class="palette-swatch swatch-mirror-sage js-swatch" role="listitem" tabindex="0"
+             aria-label="Mirror Sage, hex 8EA89A — flex hue. The reflection of green — muted, one-step-removed, like color seen through old glass.">
+          <span class="swatch-label">
+            <span class="swatch-name">Mirror Sage</span>
+            <span class="swatch-hex">#8EA89A</span>
+            <span class="swatch-role">Flex hue</span>
+          </span>
+        </div>
+
+        <!-- 6. Rosin Gold — Metallic -->
+        <div class="palette-swatch swatch-rosin-gold js-swatch" role="listitem" tabindex="0"
+             aria-label="Rosin Gold, hex C9A55A — material slot. The golden dust dancers use for grip. Warm, slightly matte, practical-beautiful. Working gold, not jewelry gold.">
+          <span class="swatch-label">
+            <span class="swatch-name">Rosin Gold</span>
+            <span class="swatch-hex">#C9A55A</span>
+            <span class="swatch-role">Metallic</span>
+          </span>
+        </div>
+
+        <!-- 7. Velvet Wing — Deep anchor -->
+        <div class="palette-swatch swatch-velvet-wing js-swatch" role="listitem" tabindex="0"
+             aria-label="Velvet Wing, hex 3A2A2E — deep anchor. The darkness in the wings of the stage. Not black — warm, brown-tinged dark. Where the dancer waits before she enters.">
+          <span class="swatch-label">
+            <span class="swatch-name">Velvet Wing</span>
+            <span class="swatch-hex">#3A2A2E</span>
+            <span class="swatch-role">Deep anchor</span>
+          </span>
+        </div>
+
+        <!-- 8. Studio Floor — Structural mid -->
+        <div class="palette-swatch swatch-studio-floor js-swatch" role="listitem" tabindex="0"
+             aria-label="Studio Floor, hex 6B4A32 — structural mid. Rich brown with red undertones. The scratched, polished, loved hardwood that dancers live on.">
+          <span class="swatch-label">
+            <span class="swatch-name">Studio Floor</span>
+            <span class="swatch-hex">#6B4A32</span>
+            <span class="swatch-role">Structural mid</span>
+          </span>
+        </div>
+
+        <!-- 9. Barre Gray — Warm neutral mid -->
+        <div class="palette-swatch swatch-barre-gray js-swatch" role="listitem" tabindex="0"
+             aria-label="Barre Gray, hex A09690 — warm neutral mid. Warm gray with the faintest pink cast. The wooden barre worn smooth by a thousand hands.">
+          <span class="swatch-label">
+            <span class="swatch-name">Barre Gray</span>
+            <span class="swatch-hex">#A09690</span>
+            <span class="swatch-role">Warm neutral mid</span>
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <div class="dissolve-band dissolve-band-cream-to-wing" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       WHAT'S INSIDE
+       Dark panel: Velvet Wing.
+  ═══════════════════════════════════════════ -->
+
+  <section id="whats-inside" aria-labelledby="inside-heading">
+    <div class="section-inner">
+
+      <div class="reveal-group js-reveal-group">
+        <span class="section-label">What's Inside</span>
+        <h2 class="section-heading" id="inside-heading">
+          The kit for the person<br>whose work looks effortless.
+        </h2>
+        <p class="section-body">
+          A complete brand identity system — built for the one
+          who's practiced the same thing a hundred times until the seams disappeared.
+          She doesn't show the drafts. She shows the thing.
+        </p>
+      </div>
+
+      <div class="contents-grid" aria-label="What's included in the Ballet Light kit">
+
+        <div class="content-tile js-content-tile">
+          <span class="content-tile-icon" aria-hidden="true">◇</span>
+          <h3 class="content-tile-heading">Color Palette</h3>
+          <p class="content-tile-body">
+            Nine colors with full material documentation —
+            hex codes, contrast ratios, WCAG-verified pairs,
+            structural roles, and usage guidance.
+            Every slot earns its place.
+          </p>
+        </div>
+
+        <div class="content-tile js-content-tile">
+          <span class="content-tile-icon" aria-hidden="true">◈</span>
+          <h3 class="content-tile-heading">Typography System</h3>
+          <p class="content-tile-body">
+            Cormorant for display (italic, light, unhurried),
+            Jost for body (clean, modern, unadorned).
+            Elegance that doesn't announce itself.
+            All Google Fonts, all free.
+          </p>
+        </div>
+
+        <div class="content-tile js-content-tile">
+          <span class="content-tile-icon" aria-hidden="true">▪</span>
+          <h3 class="content-tile-heading">Brand Board</h3>
+          <p class="content-tile-body">
+            The full visual identity at a glance —
+            palette, type, tone, texture.
+            The studio, rendered.
+          </p>
+        </div>
+
+        <div class="content-tile js-content-tile">
+          <span class="content-tile-icon" aria-hidden="true">○</span>
+          <h3 class="content-tile-heading">Social Headers</h3>
+          <p class="content-tile-body">
+            Profile and cover templates for LinkedIn,
+            Instagram, Facebook, Pinterest.
+            Warm and composed — every platform.
+          </p>
+        </div>
+
+        <div class="content-tile js-content-tile">
+          <span class="content-tile-icon" aria-hidden="true">◉</span>
+          <h3 class="content-tile-heading">Link-in-Bio Page</h3>
+          <p class="content-tile-body">
+            A fully responsive standalone link page —
+            ready to deploy. Light on cream.
+            The barre, the floor, the entrance.
+          </p>
+        </div>
+
+        <div class="content-tile js-content-tile">
+          <span class="content-tile-icon" aria-hidden="true">◆</span>
+          <h3 class="content-tile-heading">Color Combinations Cheat Sheet</h3>
+          <p class="content-tile-body">
+            Every approved pairing with contrast ratios.
+            Know exactly which surfaces carry which colors —
+            and which ones travel on the mirror.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <div class="dissolve-band dissolve-band-wing-to-cream" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       THE TEXTURES
+       Nine materials, described.
+  ═══════════════════════════════════════════ -->
+
+  <section id="textures" aria-labelledby="textures-heading">
+    <div class="section-inner">
+
+      <div class="reveal-group js-reveal-group">
+        <span class="section-label">The Textures</span>
+        <h2 class="section-heading" id="textures-heading">
+          Nothing is flat.<br>Everything is material.
+        </h2>
+        <p class="section-body">
+          Degas worked in chalk on toned paper — a medium that is inherently soft.
+          His subjects were never soft. These colors carry both:
+          each one is a thing in the room, not a name on a chart.
+        </p>
+      </div>
+
+      <ul class="texture-list" aria-label="Material texture descriptions for each Ballet Light palette color">
+
+        <li class="texture-item js-texture">
+          <div class="texture-swatch swatch-tulle-blush" aria-hidden="true"></div>
+          <div>
+            <span class="texture-name">Tulle Blush — #E2B8B0</span>
+            <p class="texture-description">
+              Mesh fabric texture — the tulle of a tutu, semi-transparent, layered,
+              slight wear at the edges. The pink of a slipper after a season of class.
+              Worn-in, not fresh.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-item js-texture">
+          <div class="texture-swatch swatch-stage-rouge" aria-hidden="true"></div>
+          <div>
+            <span class="texture-name">Stage Rouge — #9A3F4C</span>
+            <p class="texture-description">
+              Stage makeup smudged at end-of-night. Pigment with depth —
+              blotted on a tissue, or velvet with the nap rubbed wrong.
+              Worked-into-the-skin. The body that did the work.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-item js-texture">
+          <div class="texture-swatch swatch-spotlight-cream" aria-hidden="true"></div>
+          <div>
+            <span class="texture-name">Spotlight Cream — #FBF4EC</span>
+            <p class="texture-description">
+              Soft-focus glow — light diffused through curtains before it lands.
+              The warm surface everything else travels on.
+              Warmer than white; softer than ivory.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-item js-texture">
+          <div class="texture-swatch swatch-mirror-light" aria-hidden="true"></div>
+          <div>
+            <span class="texture-name">Mirror Light — #B8C2C7</span>
+            <p class="texture-description">
+              Silvered glass with the faintest haze of rosin-dust settled on the surface.
+              Not mirror-bright — actually reflective, slightly cool, slightly aged.
+              The mirror the dancer practices in front of, alone. The cool surface
+              every cool color travels on.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-item js-texture">
+          <div class="texture-swatch swatch-mirror-sage" aria-hidden="true"></div>
+          <div>
+            <span class="texture-name">Mirror Sage — #8EA89A</span>
+            <p class="texture-description">
+              Smooth glass with slight age — not perfect reflection, soft.
+              The reflection of green-painted studio walls through old mirror.
+              Color seen one step removed.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-item js-texture">
+          <div class="texture-swatch swatch-rosin-gold" aria-hidden="true"></div>
+          <div>
+            <span class="texture-name">Rosin Gold — #C9A55A</span>
+            <p class="texture-description">
+              Fine powder, matte. The golden dust dancers apply to their shoes
+              before a performance — gritty, warm, functional-beautiful.
+              Not jewelry gold. Working gold. The only metallic in the palette.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-item js-texture">
+          <div class="texture-swatch swatch-velvet-wing" aria-hidden="true"></div>
+          <div>
+            <span class="texture-name">Velvet Wing — #3A2A2E</span>
+            <p class="texture-description">
+              Deep velvet, light-absorbing, heavy drape.
+              The curtain in the wings where the dancer waits before entrance.
+              Not black — warm, brown-tinged, present. The shadow that stays warm.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-item js-texture">
+          <div class="texture-swatch swatch-studio-floor" aria-hidden="true"></div>
+          <div>
+            <span class="texture-name">Studio Floor — #6B4A32</span>
+            <p class="texture-description">
+              Wood grain, warm, with visible wear marks and polish reflections.
+              The floor a thousand bodies have practiced on.
+              Structural and honest — the room that held the work.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-item js-texture">
+          <div class="texture-swatch swatch-barre-gray" aria-hidden="true"></div>
+          <div>
+            <span class="texture-name">Barre Gray — #A09690</span>
+            <p class="texture-description">
+              Worn smooth wood, rounded edges, polished by use.
+              Faintly pink-cast — the warmth of a thousand hands.
+              Distinct from Mirror Light: warm-temperature wood, not cool-temperature mirror.
+              Same desaturation, opposite temperatures.
+            </p>
+          </div>
+        </li>
+
+      </ul>
+
+    </div>
+  </section>
+
+  <div class="dissolve-band dissolve-band-cream-to-mirror" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       THE MIRROR SECTION
+       Cool palette shift. The reflection shows
+       what the room doesn't show directly.
+       The quote is only visible in the mirror.
+  ═══════════════════════════════════════════ -->
+
+  <section id="mirror" aria-labelledby="mirror-heading">
+
+    <div class="mirror-frame">
+
+      <span class="mirror-label" aria-hidden="true">The Mirror</span>
+
+      <h2 class="section-heading reveal-on-scroll js-reveal" id="mirror-heading">
+        The mirror always shows<br>the room differently.
+      </h2>
+
+      <div class="mirror-reflection-pane js-mirror-pane" role="region" aria-label="The mirror reflection — a quote visible only in the studio mirror">
+
+        <!-- The quote that lives inside the mirror -->
+        <blockquote>
+          <p class="mirror-quote">
+            "She doesn't show the drafts.
+            She shows the thing that looks like
+            she just&hellip; did it."
+          </p>
+          <footer>
+            <cite class="mirror-quote-attribution">— Visible only in the mirror</cite>
+          </footer>
+        </blockquote>
+
+      </div>
+
+      <p class="section-body reveal-on-scroll js-reveal" style="margin-top: 2.5rem; color: var(--velvet-wing);">
+        Every dancer's training happens in front of a mirror.
+        The mirror is where you see what the audience doesn't see yet —
+        what needs more work, what's already there, what's closer than you thought.
+        Mirror Light is the cool surface of that reflection.
+        Not the warm wood of the floor. The cool sky outside, pulled into the room.
       </p>
+
+    </div>
+  </section>
+
+  <div class="dissolve-band dissolve-band-mirror-to-cream" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       PULL QUOTE (main)
+       "Grace is discipline that's learned to hide."
+  ═══════════════════════════════════════════ -->
+
+  <section id="pull-quote" aria-label="Kit philosophy">
+
+    <!-- Light sweep behind the quote -->
+    <div class="light-field" aria-hidden="true">
+      <div class="light-rect"></div>
+      <div class="light-rect"></div>
+      <div class="light-rect"></div>
     </div>
 
-    <div class="inside-grid">
+    <div class="pull-quote-block js-pull-quote">
+      <blockquote>
+        <p class="pull-quote-text">
+          "Grace is discipline<br>that's learned to hide."
+        </p>
+        <div class="pull-quote-rule" aria-hidden="true"></div>
+        <footer>
+          <cite class="pull-quote-attribution">— Ballet Light Kit</cite>
+        </footer>
+      </blockquote>
+    </div>
 
-      <!-- CAROUSEL -->
-      <div class="carousel reveal" id="kit-carousel">
-        <div class="carousel-stage">
+  </section>
 
-          <!-- Slide 1: Brand Board -->
-          <div class="carousel-slide active" data-slide="0">
-            <div class="mockup-stage">
-              <div class="mock-brand-board">
-                <div class="mbb-header">
-                  <div class="mbb-eyebrow">Art Gallery &middot; Brand Board</div>
-                  <div class="mbb-title">Ballet Light</div>
-                  <div class="mbb-tagline">Rehearsal, not performance. Earned grace.</div>
-                </div>
-                <div class="mbb-body">
-                  <div class="mbb-palette">
-                    <div class="mbb-swatch" style="background: var(--ss-amber-glow);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-plum-vortex);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-coral-flame);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-brushstroke-gold);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-rose-dust);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-burnt-umber);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-canvas-cream); border: 1px solid rgba(142,168,154,0.1);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-twilight-slate);"></div>
-                  </div>
-                  <div class="mbb-type">
-                    <div class="mbb-type-display">Pointe.</div>
-                    <div class="mbb-type-sub">Cormorant &middot; Lora &middot; Lato</div>
-                    <div class="mbb-type-body">Cormorant Garamond at light weights pairs with Lora's calligraphic warmth and Lato's earned ease. Hairline strokes for grace, transitional serif for the barre, humanist sans for the work.</div>
-                  </div>
-                </div>
-                <div class="mbb-footer">By Emmy Bellamora &middot; Art Gallery Collection</div>
-              </div>
-            </div>
-          </div>
+  <div class="dissolve-band dissolve-band-cream-to-cream" aria-hidden="true"></div>
 
-          <!-- Slide 2: Tier-2 Playground — Material samples (mirrors actual playground) -->
-          <div class="carousel-slide" data-slide="1">
-            <div class="mockup-stage" style="padding: 0;">
-              <div class="mock-playground">
-                <!-- Sample 1: Swirl Current (wave lines) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: repeating-linear-gradient(0deg, transparent 0 3px, rgba(107,74,50,0.5) 3px 4px, transparent 4px 6px), radial-gradient(ellipse at 50% 50%, rgba(201,165,90,0.25) 0%, transparent 70%); background-color: rgba(0,0,0,0.15);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Rosin Powder</div>
-                  <div class="mp-sample-tagline">Gold dust, gritty matte.<br>Functional, beautiful, used.</div>
-                </div>
-                <!-- Sample 2: Brushstroke Flow (impasto wave) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: repeating-linear-gradient(0deg, transparent 0 4px, rgba(107,74,50,0.7) 4px 5px, transparent 5px 8px), linear-gradient(135deg, var(--ss-amber-glow) 0%, #C45A1A 100%);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Tulle Mesh</div>
-                  <div class="mp-sample-tagline">Layered fabric texture.<br>Worn-in pink with history.</div>
-                </div>
-                <!-- Sample 3: Star Field (dotted) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: radial-gradient(circle at 25% 25%, var(--ss-brushstroke-gold) 0%, transparent 8%), radial-gradient(circle at 75% 30%, var(--ss-canvas-cream) 0%, transparent 6%), radial-gradient(circle at 60% 70%, var(--ss-brushstroke-gold) 0%, transparent 8%), radial-gradient(circle at 30% 75%, var(--ss-canvas-cream) 0%, transparent 6%), radial-gradient(circle at 85% 60%, var(--ss-brushstroke-gold) 0%, transparent 7%); background-size: 32px 32px; background-color: var(--ss-burnt-umber);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Polished Wood</div>
-                  <div class="mp-sample-tagline">Studio Floor warm grain.<br>Loved hardwood, slight reflection.</div>
-                </div>
-                <!-- Sample 4: Sunset Vapor (soft cream wash) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: repeating-linear-gradient(0deg, transparent 0 4px, rgba(201,165,90,0.18) 4px 5px, transparent 5px 9px), radial-gradient(ellipse at 50% 50%, rgba(107,74,50,0.4) 0%, rgba(201,165,90,0.15) 60%, transparent 100%); background-color: var(--ss-canvas-cream);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Satin Ribbon</div>
-                  <div class="mp-sample-tagline">Ribbon Silk directional.<br>Smooth and surprisingly strong.</div>
-                </div>
-              </div>
-            </div>
-          </div>
+  <!-- ═══════════════════════════════════════════
+       THE DEGAS NOTE
+       Barre Gray ground. The painter, the flip.
+  ═══════════════════════════════════════════ -->
 
-          <!-- Slide 3: Cheat Sheet -->
-          <div class="carousel-slide" data-slide="2">
-            <div class="mockup-stage">
-              <div class="mock-cheat-sheet">
-                <div class="mcs-header">Color Combinations</div>
-                <div class="mcs-grid">
-                  <div class="mcs-cell" style="background: var(--ss-amber-glow); color: var(--ss-canvas-cream);">
-                    <div class="mcs-cell-name">Sunset<br>Meets Twilight</div>
-                    <div class="mcs-cell-meta">Amber &times; Plum &middot; AAA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-canvas-cream); color: var(--ss-burnt-umber); border: 1px solid rgba(142,168,154,0.1);">
-                    <div class="mcs-cell-name">Clean<br>Energy</div>
-                    <div class="mcs-cell-meta">Amber &times; Cream &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-plum-vortex); color: var(--ss-brushstroke-gold);">
-                    <div class="mcs-cell-name">Evening<br>Glow</div>
-                    <div class="mcs-cell-meta">Plum &times; Gold &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-coral-flame); color: var(--ss-canvas-cream);">
-                    <div class="mcs-cell-name">For<br>Calls to Action</div>
-                    <div class="mcs-cell-meta">Coral &times; Cream &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-rose-dust); color: var(--ss-burnt-umber);">
-                    <div class="mcs-cell-name">The Soft<br>Approach</div>
-                    <div class="mcs-cell-meta">Rose &times; Cream &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-burnt-umber); color: var(--ss-brushstroke-gold);">
-                    <div class="mcs-cell-name">Earth<br>and Light</div>
-                    <div class="mcs-cell-meta">Umber &times; Gold &middot; AA</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+  <section id="degas-note" aria-labelledby="degas-heading">
+    <div class="section-inner">
 
-          <!-- Slide 4: Texture Vault -->
-          <div class="carousel-slide" data-slide="3">
-            <div class="mockup-stage" style="padding: 1rem;">
-              <div class="mock-texture">
-                <div class="mock-texture-cell" data-name="Rosin Gold" style="background: linear-gradient(135deg, #C9A55A 0%, #9C8046 100%); background-image: linear-gradient(135deg, #C9A55A 0%, #9C8046 100%), repeating-linear-gradient(45deg, transparent 0 4px, rgba(0,0,0,0.08) 4px 6px);"></div>
-                <div class="mock-texture-cell" data-name="Velvet Wing" style="background: var(--ss-plum-vortex); background-image: radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.08) 0%, transparent 50%), var(--ss-plum-vortex);"></div>
-                <div class="mock-texture-cell" data-name="Tulle Blush" style="background: linear-gradient(160deg, #E2B8B0 0%, #B08F89 100%); background-image: linear-gradient(160deg, #E2B8B0 0%, #B08F89 100%), repeating-linear-gradient(0deg, transparent 0 3px, rgba(0,0,0,0.06) 3px 4px);"></div>
-                <div class="mock-texture-cell" data-name="Studio Floor" style="background: linear-gradient(135deg, #6B4A32 0%, #533927 100%); background-image: linear-gradient(135deg, #6B4A32 0%, #533927 100%), repeating-linear-gradient(135deg, transparent 0 2px, rgba(255,255,255,0.12) 2px 3px);"></div>
-                <div class="mock-texture-cell" data-name="Ribbon Silk" style="background: var(--ss-rose-dust); background-image: radial-gradient(circle at 40% 40%, rgba(255,255,255,0.18) 0%, transparent 60%), var(--ss-rose-dust);"></div>
-                <div class="mock-texture-cell" data-name="Mirror Sage" style="background: var(--ss-burnt-umber); background-image: repeating-linear-gradient(90deg, transparent 0 2px, rgba(0,0,0,0.15) 2px 3px), var(--ss-burnt-umber);"></div>
-                <div class="mock-texture-cell" data-name="Spotlight Cream" style="background: var(--ss-canvas-cream); background-image: repeating-linear-gradient(45deg, transparent 0 2px, rgba(142,168,154,0.06) 2px 3px), var(--ss-canvas-cream); color: var(--ss-burnt-umber);"></div>
-                <div class="mock-texture-cell" data-name="Barre Gray" style="background: var(--ss-twilight-slate); background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06) 0%, transparent 70%), var(--ss-twilight-slate);"></div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Quiet dots — discoverable, not loud -->
-        <div class="carousel-dots">
-          <button class="carousel-dot active" data-go="0" aria-label="Brand Board"></button>
-          <button class="carousel-dot" data-go="1" aria-label="Tier-2 Playground"></button>
-          <button class="carousel-dot" data-go="2" aria-label="Cheat Sheet"></button>
-          <button class="carousel-dot" data-go="3" aria-label="Texture Vault"></button>
-        </div>
-
-        <!-- Quiet caption — italic, no background block -->
-        <div class="carousel-caption-row">
-          <div class="caption-label" id="caption-label">Brand Board</div>
-          <div class="caption-name" id="caption-name">The kit at a glance</div>
-        </div>
-      </div>
-
-      <!-- COMPANION LIST -->
-      <div class="inside-list reveal">
-        <div class="inside-list-title">Everything Included</div>
-
-        <div class="inside-item">
-          <div class="inside-icon">01</div>
-          <div class="inside-text">
-            <strong>Whole Box Color Palette</strong>
-            <span>Eight materially-named colors with hex codes, role descriptions, and texture notes.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">02</div>
-          <div class="inside-text">
-            <strong>Typography System</strong>
-            <span>Cormorant Garamond + Lora + Lato. Display, subhead, body. With the rule that holds them together.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">03</div>
-          <div class="inside-text">
-            <strong>Brand Board</strong>
-            <span>One page that captures the entire kit at a glance &mdash; for presentations or quick reference.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">04</div>
-          <div class="inside-text">
-            <strong>Color Combinations Cheat Sheet</strong>
-            <span>Pre-vetted combinations with WCAG contrast scores. Beautiful AND accessible.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">05</div>
-          <div class="inside-text">
-            <strong>Tier-2 Playground</strong>
-            <span>Full sandbox of the kit in motion &mdash; layouts, social tiles, link-in-bio templates.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">06</div>
-          <div class="inside-text">
-            <strong>Texture Vault</strong>
-            <span>High-res material textures for each color &mdash; impasto, painted gold, canvas weave.</span>
-          </div>
-        </div>
-
+      <div class="reveal-group js-reveal-group">
+        <span class="section-label">The Inspiration</span>
+        <h2 class="section-heading" id="degas-heading">
+          He painted the rehearsal,<br>not the performance.
+        </h2>
+        <div class="degas-note-rule" aria-hidden="true"></div>
+        <p class="section-body">
+          Degas worked in muted pastels because the medium did the softening —
+          chalk on toned paper is inherently soft.
+          But his subjects were never soft.
+          They were bodies at work, scratching, adjusting, exhausted, alive.
+        </p>
+        <br>
+        <p class="section-body">
+          Ballet Light takes that same caught-in-motion energy.
+          The pastels stay — Tulle Blush, Spotlight Cream, Mirror Sage, Mirror Light.
+          That's Degas's medium.
+          The rouge enters — Stage Rouge, the dancer's body finally getting its own color.
+          The mirror gets its color too — Mirror Light, the cool surface where she doubles.
+        </p>
+        <br>
+        <p class="section-body">
+          This isn't a faded antique.
+          This is the body that did the work, in the studio that wore the practice
+          into its floor, reflected in the mirror that watched her count to eight
+          a thousand times.
+        </p>
       </div>
 
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- THE PAINTING -->
-<section class="painting-section">
-  <div class="painting-grid">
-    <div class="reveal">
-      <div class="painting-label">The Painting Behind It</div>
-      <h2 class="painting-title">Edgar Degas painted<br>the rehearsal, not<br>the <em style="color: var(--ss-amber-glow); font-style: italic;">performance</em>.</h2>
-      <p class="painting-attribution">Inspired by <em style="color:var(--ss-canvas-cream);">The Ballet Class</em>, 1871&ndash;1874</p>
-    </div>
-    <div class="painting-body reveal">
-      <p>Degas didn't paint performances. He painted rehearsals. <strong>The moments between moments</strong> &mdash; a dancer adjusting her slipper, another stretching at the barre, someone waiting in the wings scratching her back. He positioned himself at impossible angles &mdash; from a balcony, peering around a door frame &mdash; so the viewer feels like they've stumbled into something private.</p>
-      <p>The technique is asymmetric composition. Pastel chalk on toned paper. Figures cropped by the frame edge, cut off mid-gesture. <em>Movement arrested but never frozen</em> &mdash; you can feel the next second coming.</p>
-      <p>Degas worked in muted pastels &mdash; pale pinks, soft greens, dusty golds against warm brown floors. <strong>Ballet Light takes that same caught-in-motion energy and deepens it.</strong> Richer pastels. Warmer wood tones. A palette that says this isn't a faded antique &mdash; this is alive, right now, mid-turn.</p>
-      <p>This is the kit for the person whose work looks effortless but isn't. She practiced the same thing a hundred times until the seams disappeared. <em>Her brand should feel like grace, which is really just discipline that's learned to hide.</em></p>
-    </div>
-  </div>
-</section>
+  <div class="dissolve-band dissolve-band-cream-to-wing" aria-hidden="true"></div>
 
-<!-- PALETTE -->
-<section class="palette-section">
-  <div class="palette-inner">
-    <div class="palette-header">
-      <h2 class="palette-title reveal">The Whole Box.<br>Every color material.</h2>
-      <p class="palette-intro reveal">
-        Eight colors. Each one named for what it actually <em>is</em>, because "pink" tells you nothing and <em>Tulle Blush</em> tells you everything. <em>Nothing here is flat. Everything is rehearsed.</em>
-      </p>
+  <!-- ═══════════════════════════════════════════
+       CTA FOOTER
+       The light finds the CTA.
+       "Behind the barre." / Button: "Yours."
+  ═══════════════════════════════════════════ -->
+
+  <section id="cta-footer" aria-label="Get the Ballet Light kit">
+
+    <!-- Light field: the light settling on the CTA -->
+    <div class="light-field" aria-hidden="true">
+      <div class="light-rect"></div>
+      <div class="light-rect"></div>
+      <div class="light-rect"></div>
     </div>
 
-    <div class="palette-grid">
+    <div class="footer-content js-footer-content">
 
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-amber-glow);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Primary Warm</div>
-          <div class="palette-name">Rosin Gold</div>
-          <div class="palette-hex">#C9A55A</div>
-          <p class="palette-feel">The golden dust dancers use on their shoes for grip. Warm, slightly matte, practical-beautiful. Not jewelry gold &mdash; working gold.</p>
-        </div>
-      </div>
+      <p class="footer-tagline">Behind the barre.</p>
 
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-plum-vortex);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Deep Shadow</div>
-          <div class="palette-name">Velvet Wing</div>
-          <div class="palette-hex">#3A2A2E</div>
-          <p class="palette-feel">The darkness in the wings of the stage. Not black &mdash; warm, brown-tinged dark. Where the dancer waits before she enters.</p>
-        </div>
-      </div>
+      <h2 class="footer-heading">
+        Ballet<br>Light
+      </h2>
 
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-coral-flame);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Signature Soft</div>
-          <div class="palette-name">Tulle Blush</div>
-          <div class="palette-hex">#E2B8B0</div>
-          <p class="palette-feel">The pink of ballet slippers after a rehearsal &mdash; not fresh-from-the-box pink but worn-in pink. Warm, dusty, with history.</p>
-        </div>
-      </div>
+      <p class="footer-kit-id">Art Gallery Collection &ensp;&mdash;&ensp; Kit No. 5</p>
 
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-brushstroke-gold);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Warm Depth</div>
-          <div class="palette-name">Studio Floor</div>
-          <div class="palette-hex">#6B4A32</div>
-          <p class="palette-feel">Rich brown with red undertones. The scratched, polished, loved hardwood that dancers live on. Warm and structural.</p>
-        </div>
-      </div>
+      <a href="#" class="cta-button js-cta" role="button">Yours.</a>
 
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-rose-dust);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Light Pink</div>
-          <div class="palette-name">Ribbon Silk</div>
-          <div class="palette-hex">#F0CDCC</div>
-          <p class="palette-feel">Paler than Tulle Blush. The satin ribbon wound around an ankle. Delicate but strong &mdash; satin is one of the strongest weaves.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-burnt-umber);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Cool Accent</div>
-          <div class="palette-name">Mirror Sage</div>
-          <div class="palette-hex">#8EA89A</div>
-          <p class="palette-feel">The reflection of green &mdash; muted, one-step-removed, like seeing color through old glass. Cool rest for the eye.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-canvas-cream); border-bottom: 1px solid rgba(0,0,0,0.06);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Warm White</div>
-          <div class="palette-name">Spotlight Cream</div>
-          <div class="palette-hex">#FBF4EC</div>
-          <p class="palette-feel">The color of afternoon light on a pale wall. Not pure white &mdash; warm, directional, with golden edges. The spotlight before it finds its target.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-twilight-slate);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Neutral Mid</div>
-          <div class="palette-name">Barre Gray</div>
-          <div class="palette-hex">#A09690</div>
-          <p class="palette-feel">Warm gray with the faintest pink cast. The wooden barre worn smooth by a thousand hands. Between all the softness, something solid.</p>
-        </div>
-      </div>
+      <p class="footer-note">Inspired by Edgar Degas &mdash; <em>The Ballet Class</em>, 1871&ndash;1874</p>
 
     </div>
-  </div>
-</section>
 
-<!-- TYPOGRAPHY -->
-<section class="type-section">
-  <div class="type-header">
-    <h2 class="type-title reveal">Three fonts.<br>The Rehearsal pairing.</h2>
-    <p class="type-intro reveal">
-      <strong>Cormorant floats. Lora grounds. Lato carries.</strong> The grace you see is built on the discipline you don't. All three are free Google Fonts, forever yours.
-    </p>
-  </div>
+  </section>
 
-  <div class="type-card reveal">
-    <div class="type-card-meta">Headline &middot; Cormorant Garamond 200&ndash;300</div>
-    <div class="type-card-display">Earned grace.</div>
-    <div class="type-card-name">Cormorant Garamond 300, 72pt &middot; Studio Floor</div>
-  </div>
+</main>
 
-  <div class="type-card reveal">
-    <div class="type-card-meta">Subhead &middot; Lora 400&ndash;500 italic</div>
-    <p class="type-card-subhead">Calligraphic warmth and transitional serif structure. Lora is the barre &mdash; something <em>solid to hold onto</em> between Cormorant's grace and Lato's function. Warmer and more readable than Cormorant, still serif, still elegant. The rehearsal, not the performance.</p>
-    <div class="type-card-name">Lora 500 italic, 24pt &middot; Velvet Wing</div>
-  </div>
-
-  <div class="type-card reveal">
-    <div class="type-card-meta">Body &middot; Lato 300&ndash;400</div>
-    <p class="type-card-body">
-      Humanist sans-serif with warm proportions and exceptional readability. Lato has something Inter and DM Sans don't: genuine warmth built into its letterforms. Semi-rounded details, generous spacing, both clean and human. At light weights on Spotlight Cream, Lato provides effortless readability that looks simple but isn't. Like everything in this kit &mdash; the ease is earned.
-    </p>
-    <div class="type-card-name">Lato 300, 16pt &middot; Studio Floor on Spotlight Cream</div>
-  </div>
-
-  <div class="type-rule reveal">
-    The rule:<br>
-    <em>Cormorant floats. Lora grounds. Lato carries.</em>
-  </div>
-</section>
-
-<!-- COMBINATIONS -->
-<section class="combo-section">
-  <div class="combo-header">
-    <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
-    <p class="combo-intro reveal">
-      A color swatch on white tells you nothing. What matters is how a color <em>behaves</em> next to other colors. These are the signature pairings &mdash; the combinations Ballet Light was built for.
-    </p>
-  </div>
-
-  <div class="combo-grid">
-    <div class="combo-card combo-1 reveal">
-      <div>
-        <div class="combo-pair">The Signature</div>
-        <div class="combo-name">Rosin Gold &amp; Tulle Blush</div>
-      </div>
-    </div>
-    <div class="combo-card combo-2 reveal">
-      <div>
-        <div class="combo-pair">The Studio Itself</div>
-        <div class="combo-name">Studio Floor &amp; Cream</div>
-      </div>
-    </div>
-    <div class="combo-card combo-3 reveal">
-      <div>
-        <div class="combo-pair">The Lightest Touch</div>
-        <div class="combo-name">Tulle &amp; Spotlight Cream</div>
-      </div>
-    </div>
-    <div class="combo-card combo-4 reveal">
-      <div>
-        <div class="combo-pair">All Warm, All Practiced</div>
-        <div class="combo-name">Rosin Gold &amp; Studio Floor</div>
-      </div>
-    </div>
-    <div class="combo-card combo-5 reveal">
-      <div>
-        <div class="combo-pair">The Cool Exhale</div>
-        <div class="combo-name">Mirror Sage &amp; Cream</div>
-      </div>
-    </div>
-    <div class="combo-card combo-6 reveal">
-      <div>
-        <div class="combo-pair">Entrance From the Wings</div>
-        <div class="combo-name">Velvet Wing &amp; Rosin Gold</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section">
-  <div class="cta-label">Take it Home</div>
-  <h2 class="cta-big reveal">Make Ballet Light<br>your brand.</h2>
-  <p class="cta-sub reveal">
-    The kit is available now. If you want a custom kit built specifically for your world &mdash; or if you'd like Emmy to translate Ballet Light into a full website &mdash; that's available too.
-  </p>
-  <div class="cta-buttons reveal">
-    <a href="mailto:hello@emmybellamora.com?subject=Ballet Light Kit" class="btn-primary">Get the Kit</a>
-    <a href="../../index.html#working-together" class="btn-ghost">Talk to Emmy</a>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-name">Emmy Bellamora</div>
-  <div class="footer-note">Creative Director &middot; Cognitive UX Designer &middot; Fairy With Bite 🧚‍♀️</div>
-</footer>
-
-<!-- REVEAL + CAROUSEL -->
 <script>
-  // Reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => observer.observe(el));
+/* ─────────────────────────────────────────────
+   BALLET LIGHT — Page Experience JS
+   Pure enhancement layer. Content is in DOM from
+   first paint — no JS required to read the page.
 
-  // Carousel — invisible chrome, click-to-advance, quiet dots
-  (function () {
-    const carousel = document.getElementById('kit-carousel');
-    if (!carousel) return;
-    const stage = carousel.querySelector('.carousel-stage');
-    const slides = carousel.querySelectorAll('.carousel-slide');
-    const dots = carousel.querySelectorAll('.carousel-dot');
-    const captionLabel = document.getElementById('caption-label');
-    const captionName = document.getElementById('caption-name');
-    const total = slides.length;
-    let current = 0;
+   What this does:
+   1. Hero entrance: content fades/lifts in on load.
+   2. Scroll: IntersectionObserver triggers dissolve
+      reveals on swatches, content tiles, texture items,
+      the mirror pane, pull quote, and footer.
+   3. Reduced-motion: checked once; in reduced-motion
+      mode everything goes to end-state immediately.
+      CSS handles the end-state; JS just adds .revealed.
 
-    const captions = [
-      { label: 'Brand Board',         name: 'The kit at a glance' },
-      { label: 'Tier-2 Playground',   name: 'The kit in motion' },
-      { label: 'Cheat Sheet',         name: 'Combinations, vetted for accessibility' },
-      { label: 'Texture Vault',       name: 'Eight materials — nothing is flat' }
-    ];
+   What this does NOT do:
+   - No parallax (scroll-event listeners — bad for perf/a11y).
+   - No canvas.
+   - No font loading tricks.
+   - Light sweep is CSS-only.
+───────────────────────────────────────────── */
 
-    function go(i) {
-      current = (i + total) % total;
-      slides.forEach((slide, idx) => slide.classList.toggle('active', idx === current));
-      dots.forEach((dot, idx) => dot.classList.toggle('active', idx === current));
-      if (captions[current]) {
-        captionLabel.textContent = captions[current].label;
-        captionName.textContent = captions[current].name;
-      }
+(function () {
+  'use strict';
+
+  var motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── HERO ENTRANCE ── */
+  function runHeroEntrance () {
+    var ids = ['hero-eyebrow', 'hero-title', 'hero-subtitle', 'hero-divider', 'hero-descriptor'];
+
+    if (!motionOK) {
+      /* Reduced motion: mark everything revealed immediately */
+      ids.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) el.classList.add('revealed');
+      });
+      return;
     }
 
-    // Click anywhere on the slide stage to advance
-    stage.addEventListener('click', () => go(current + 1));
-
-    // Dots
-    dots.forEach((dot) => dot.addEventListener('click', (e) => {
-      e.stopPropagation();
-      go(parseInt(dot.dataset.go, 10));
-    }));
-
-    // Keyboard support when carousel is in view
-    document.addEventListener('keydown', (e) => {
-      const rect = carousel.getBoundingClientRect();
-      const inView = rect.top < window.innerHeight && rect.bottom > 0;
-      if (!inView) return;
-      if (e.key === 'ArrowLeft') go(current - 1);
-      if (e.key === 'ArrowRight') go(current + 1);
+    /* Stagger: eyebrow → title → subtitle → rule → descriptor */
+    ids.forEach(function (id, i) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      setTimeout(function () { el.classList.add('revealed'); }, 150 + i * 180);
     });
-  })();
+  }
+
+  /* ── INTERSECTION OBSERVER SCROLL REVEALS ── */
+  function initScrollReveals () {
+    var threshold = motionOK ? 0.15 : 0;   /* reduced-motion: trigger immediately */
+    var rootMargin = motionOK ? '0px 0px -50px 0px' : '0px';
+    var opts = { threshold: threshold, rootMargin: rootMargin };
+
+    /* ── Observer A: single-element dissolves
+       (grout stripes, texture items, mirror pane, pull quote, simple reveals) */
+    var revealObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, opts);
+
+    document.querySelectorAll('.js-reveal').forEach(function (el) {
+      revealObserver.observe(el);
+    });
+
+    /* Mirror pane */
+    var mirrorPane = document.querySelector('.js-mirror-pane');
+    if (mirrorPane) revealObserver.observe(mirrorPane);
+
+    /* Pull quote block */
+    var pullQuote = document.querySelector('.js-pull-quote');
+    if (pullQuote) revealObserver.observe(pullQuote);
+
+    /* ── Observer B: staggered reveal groups (section intros) */
+    var groupObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          groupObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -30px 0px' });
+
+    document.querySelectorAll('.js-reveal-group').forEach(function (el) {
+      groupObserver.observe(el);
+    });
+
+    /* ── Observer C: palette swatches — staggered dissolve */
+    /* Swatches dissolve in with a delay based on their column index */
+    var swatchObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var target = entry.target;
+        /* Find sibling swatches in same grid, stagger by index */
+        var allSwatches = Array.from(document.querySelectorAll('.js-swatch'));
+        var idx = allSwatches.indexOf(target);
+        var delay = motionOK ? idx * 80 : 0;
+        setTimeout(function () {
+          target.classList.add('revealed');
+        }, delay);
+        swatchObserver.unobserve(target);
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+
+    document.querySelectorAll('.js-swatch').forEach(function (el) {
+      swatchObserver.observe(el);
+    });
+
+    /* ── Observer D: content tiles — staggered dissolve */
+    var tileObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var target = entry.target;
+        var allTiles = Array.from(document.querySelectorAll('.js-content-tile'));
+        var idx = allTiles.indexOf(target);
+        var delay = motionOK ? idx * 110 : 0;
+        setTimeout(function () {
+          target.classList.add('revealed');
+        }, delay);
+        tileObserver.unobserve(target);
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+
+    document.querySelectorAll('.js-content-tile').forEach(function (el) {
+      tileObserver.observe(el);
+    });
+
+    /* ── Observer E: texture items — fade from left */
+    var textureObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var target = entry.target;
+        var allItems = Array.from(document.querySelectorAll('.js-texture'));
+        var idx = allItems.indexOf(target);
+        var delay = motionOK ? idx * 70 : 0;
+        setTimeout(function () {
+          target.classList.add('revealed');
+        }, delay);
+        textureObserver.unobserve(target);
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.js-texture').forEach(function (el) {
+      textureObserver.observe(el);
+    });
+
+    /* ── Observer F: footer content */
+    var footerObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var els = entry.target.querySelectorAll('.footer-tagline, .footer-heading, .footer-kit-id, .cta-button, .footer-note');
+        els.forEach(function (el, i) {
+          var delay = motionOK ? i * 120 : 0;
+          setTimeout(function () { el.classList.add('revealed'); }, delay);
+        });
+        footerObs.unobserve(entry.target);
+      });
+    }, { threshold: 0.1 });
+
+    var footerContent = document.querySelector('.js-footer-content');
+    if (footerContent) footerObs.observe(footerContent);
+  }
+
+  /* ── INIT ── */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      runHeroEntrance();
+      initScrollReveals();
+    });
+  } else {
+    runHeroEntrance();
+    initScrollReveals();
+  }
+
+}());
 </script>
 
 </body>

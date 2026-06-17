@@ -1,1870 +1,2136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- JS gate: add 'js' before any CSS so no-JS content is full-opacity from first paint -->
+<script>document.documentElement.classList.add('js')</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rouge Poster — Art Gallery Brand Kit · Emmy Bellamora</title>
-<meta name="description" content="Rouge Poster is Toulouse-Lautrec — bold lines, flat color, a woman who knows you're looking. Eight materials, three-font Marquee pairing. For the brand whose presence enters the room before she does.">
+<title>Rouge Poster — Kit Experience</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&family=Abril+Fatface&family=Josefin+Sans:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
 <style>
-/* ============================================
-   ROUGE POSTER — kit deep-dive page
-   Built by Emmy. Kit-true visual language inside
-   Emmy's site frame.
-   ============================================ */
+/* ─────────────────────────────────────────────
+   ROUGE POSTER — Page Experience v1
+   Kit: Art Gallery #6 | Inspired by: Toulouse-Lautrec — Moulin Rouge poster series
+   Build: Emmy sub-agent | 2026-06-15
+   Palette source: color-palette-v2.md (ACTIVE)
+   Blueprint: page-experience-blueprint.md
+   A11y standard: WCAG AA | reduced-motion honored | no-JS fallback = full page readable
+   Typography: Jost exclusively — the font IS the design for this kit
+───────────────────────────────────────────── */
 
 :root {
-  /* Emmy's site frame colors (nav, footer, page chrome) */
-  --deep-night: #0D0A14;
-  --amethyst: #6B3FA0;
-  --amethyst-light: #9B6FD0;
-  --violet-dusk: #2D1B4E;
-  --fairy-silver: #C8B8E8;
-  --moonpetal: #E8D8F8;
-  --snowflake: #F5F0FF;
+  /* Palette — Rouge Poster v2 */
+  --cabaret-magenta:  #C4285C;   /* Anchor */
+  --charcoal-ink:     #2D2D30;   /* Counterweight */
+  --cream-playbill:   #F5EDD8;   /* Warm carrier neutral */
+  --zinc-matte:       #7A7A7E;   /* Cool carrier neutral */
+  --absinthe:         #A8C43E;   /* Flex hue */
+  --ochre-stage:      #C49548;   /* Warm mid accent */
+  --midnight-velvet:  #1A1428;   /* Deepest dark accent */
+  --blush-cancan:     #E89AA5;   /* Soft pink echo */
 
-  /* Rouge Poster kit palette — full Whole Box */
-  --ss-amber-glow: #C4285C;
-  --ss-plum-vortex: #2D2D30;
-  --ss-coral-flame: #A8C43E;
-  --ss-brushstroke-gold: #C49548;
-  --ss-rose-dust: #E89AA5;
-  --ss-burnt-umber: #1A1428;
-  --ss-canvas-cream: #F5EDD8;
-  --ss-twilight-slate: #7A7A7E;
+  /* Functional text/bg pairs — all from v2 luminance table */
+  --page-bg:          var(--cream-playbill);
+  --text-body:        var(--charcoal-ink);     /* 11.76:1 on cream — primary body pair */
+  --text-display:     var(--midnight-velvet);  /* 15.31:1 on cream — display max */
+  --text-accent:      var(--cabaret-magenta);  /* 4.73:1 on cream — large body/display OK */
 
-  /* Type — Emmy's frame */
-  --font-emmy-display: 'Cormorant Garamond', serif;
-  --font-emmy-body: 'Jost', sans-serif;
-
-  /* Type — Rouge Poster kit fonts (The Marquee) */
-  --font-ss-display: 'Abril Fatface', serif;
-  --font-ss-subhead: 'Josefin Sans', serif;
-  --font-ss-body: 'Montserrat', sans-serif;
+  /* Transition timing */
+  --paste-duration: 0.7s;
+  --fill-duration: 0.5s;
+  --ease-confident: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ─── RESET ─── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
 
+/* ─── TYPOGRAPHY — Jost exclusively ─── */
 body {
-  /* Kit atmosphere — the page IS the kit. Frame stays Emmy's purple (nav, footer, CTA button). */
-  background: var(--ss-burnt-umber);
-  color: var(--ss-canvas-cream);
-  font-family: var(--font-emmy-body);
-  font-weight: 300;
+  background: var(--page-bg);
+  color: var(--text-body);
+  font-family: 'Jost', 'Arial Black', sans-serif;
+  font-size: 1rem;
+  line-height: 1.6;
   overflow-x: hidden;
-  line-height: 1.7;
 }
 
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--ss-burnt-umber); }
-::-webkit-scrollbar-thumb { background: var(--amethyst); border-radius: 2px; }
+/* ─────────────────────────────────────────────
+   REDUCED MOTION — every animation jumps to end state.
+   This means: posters already settled, outline-fills
+   already filled, peeled layers already visible.
+───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
 
-/* ============================================
-   NAV — same as home page
-   ============================================ */
+  /* Posters are settled — no slide-in */
+  .poster-layer {
+    opacity: 1 !important;
+    transform: translate(-50%, -50%) rotate(var(--poster-rotate, 0deg)) !important;
+    transition: none !important;
+  }
 
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 1.5rem 3rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(to bottom, rgba(13,10,20,0.95) 0%, transparent 100%);
-  backdrop-filter: blur(2px);
+  /* Outline-fill shapes are filled by default (no-JS = filled; JS+reduced-motion = filled) */
+  .fill-outline svg .fill-shape {
+    fill-opacity: 1 !important;
+    transition: none !important;
+  }
+  .fill-outline svg .stroke-shape { display: none !important; }
+
+  /* Peel layers are visible without interaction */
+  .peel-layer { transform: none !important; transition: none !important; }
+  .peel-curl { display: none !important; }
+
+  /* Palette block hover: no scale */
+  .palette-block:hover, .palette-block:focus-visible { transform: none !important; }
+
+  /* Kill all remaining transitions and animations */
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration:  0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
 }
 
-.nav-name {
-  font-family: var(--font-emmy-display);
-  font-size: 1.1rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--fairy-silver);
-  letter-spacing: 0.05em;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.nav-name:hover { color: var(--moonpetal); }
-
-.nav-links {
-  display: flex;
-  gap: 2.5rem;
-  list-style: none;
-}
-
-.nav-links a {
-  font-family: var(--font-emmy-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--fairy-silver);
-  text-decoration: none;
-  transition: color 0.3s ease;
-  opacity: 0.7;
-}
-
-.nav-links a:hover { color: var(--moonpetal); opacity: 1; }
-
-/* ============================================
-   BREADCRUMB
-   ============================================ */
-
-/* Hairline strip — sits tight against nav. Kit-tinted to bridge Emmy's frame and the kit's room. */
-.breadcrumb {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4.75rem 3rem 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-emmy-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ss-brushstroke-gold);
-  opacity: 0.55;
-}
-
-.breadcrumb a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.3s ease, opacity 0.3s ease;
-}
-
-.breadcrumb a:hover { color: var(--ss-canvas-cream); opacity: 1; }
-
-.breadcrumb-sep { opacity: 0.45; }
-
-/* ============================================
-   KIT HERO — full bleed, edge to edge
-   ============================================ */
-
-.kit-hero {
-  margin: 1.5rem 0 0;
-  padding: 0;
-}
-
-.kit-hero-inner {
-  border-radius: 0;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at 80% 20%, var(--ss-brushstroke-gold) 0%, rgba(196,149,72,0.4) 18%, transparent 38%),
-    radial-gradient(ellipse at 20% 80%, var(--ss-plum-vortex) 0%, rgba(45,45,48,0.5) 30%, transparent 55%),
-    radial-gradient(ellipse at 55% 55%, rgba(196,40,92,0.55) 0%, transparent 45%),
-    linear-gradient(135deg, var(--ss-burnt-umber) 0%, var(--ss-plum-vortex) 50%, var(--ss-amber-glow) 100%);
-  position: relative;
-  min-height: 380px;
-  padding: 4rem 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.kit-hero-wrap {
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-  padding: 0 3rem;
-  position: relative;
-  z-index: 1;
-}
-
-.kit-hero-inner::before {
-  /* Sharp star points */
-  content: '';
+/* ─── SKIP LINK (accessibility) ─── */
+.skip-link {
   position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle, var(--ss-canvas-cream) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-brushstroke-gold) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-canvas-cream) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-brushstroke-gold) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-canvas-cream) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-brushstroke-gold) 0%, transparent 60%);
-  background-size: 6px 6px, 4px 4px, 5px 5px, 3px 3px, 4px 4px, 5px 5px;
-  background-position: 18% 22%, 82% 14%, 60% 30%, 35% 65%, 90% 55%, 70% 80%;
-  background-repeat: no-repeat;
-  opacity: 0.85;
-  pointer-events: none;
-}
-
-.kit-hero-content {
-  position: relative;
-  z-index: 1;
-  max-width: 720px;
-}
-
-.kit-hero-meta {
-  font-family: var(--font-ss-body);
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-brushstroke-gold);
-  margin-bottom: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-}
-
-.kit-hero-meta::before {
-  content: '';
-  display: block;
-  width: 1.5rem;
-  height: 1px;
-  background: var(--ss-brushstroke-gold);
-  opacity: 0.7;
-}
-
-.kit-hero-name {
-  font-family: var(--font-ss-display);
-  font-size: clamp(3.5rem, 7vw, 6rem);
+  top: -999px;
+  left: 0;
+  background: var(--cabaret-magenta);
+  color: var(--cream-playbill);
+  padding: 0.5rem 1.25rem;
+  font-family: 'Jost', sans-serif;
   font-weight: 700;
-  font-style: normal;
-  color: var(--ss-canvas-cream);
-  line-height: 1.0;
-  letter-spacing: -0.015em;
-  margin-bottom: 1.5rem;
-  text-shadow: 0 2px 24px rgba(0,0,0,0.4);
-}
-
-.kit-hero-tagline {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
-  color: var(--ss-canvas-cream);
-  line-height: 1.6;
-  opacity: 0.95;
-  text-shadow: 0 2px 16px rgba(0,0,0,0.5);
-  max-width: 580px;
-}
-
-/* ============================================
-   THE PAINTING — story strip
-   ============================================ */
-
-.painting-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-}
-
-.painting-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 5rem;
-  align-items: start;
-}
-
-.painting-label {
-  font-family: var(--font-emmy-body);
-  font-size: 0.58rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
+  font-size: 0.9rem;
+  letter-spacing: 0.05em;
+  z-index: 9999;
+  text-decoration: none;
   text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  margin-bottom: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+}
+.skip-link:focus { top: 0; }
+
+/* ─────────────────────────────────────────────
+   VISUALLY HIDDEN UTILITY — content readable
+   by screen readers, invisible on screen
+───────────────────────────────────────────── */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.painting-label::before {
-  content: '';
+/* ─────────────────────────────────────────────
+   SECTION SHARED STYLES
+───────────────────────────────────────────── */
+section {
+  padding: 5rem 2rem;
+}
+
+.section-inner {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.section-label {
   display: block;
-  width: 1.5rem;
-  height: 1px;
-  background: var(--ss-amber-glow);
-  opacity: 0.6;
-}
-
-.painting-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2rem, 3.5vw, 2.8rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
-}
-
-.painting-attribution {
-  font-family: var(--font-emmy-body);
+  font-family: 'Jost', sans-serif;
   font-size: 0.7rem;
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  color: var(--ss-canvas-cream);
-  opacity: 0.7;
-  margin-bottom: 2rem;
-}
-
-.painting-body p {
-  font-family: var(--font-emmy-body);
-  font-size: 0.92rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  margin-bottom: 1.5rem;
-  opacity: 0.88;
-}
-
-.painting-body p strong {
-  color: var(--ss-canvas-cream);
-  font-weight: 400;
-}
-
-.painting-body p em {
-  color: var(--ss-brushstroke-gold);
-  font-style: italic;
-}
-
-/* ============================================
-   PALETTE — Whole Box, materially-named
-   ============================================ */
-
-.palette-section {
-  /* Kit atmosphere — deeper inside the Whole Box */
-  background: linear-gradient(to bottom, var(--ss-burnt-umber) 0%, var(--ss-plum-vortex) 50%, var(--ss-burnt-umber) 100%);
-  padding: 7rem 0;
-}
-
-.palette-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 3rem;
-}
-
-.palette-header {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  margin-bottom: 4rem;
-  align-items: end;
-}
-
-.palette-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
-}
-
-.palette-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
-
-.palette-intro em {
-  color: var(--ss-canvas-cream);
-  font-style: italic;
-}
-
-.palette-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-}
-
-.palette-card {
-  border-radius: 12px;
-  overflow: hidden;
-  /* Kit's deepest earth, slightly transparent — sits inside the kit's gradient */
-  background: rgba(26,20,40,0.55);
-  border: 1px solid rgba(245,237,216,0.10);
-  transition: border-color 0.3s ease, transform 0.3s ease;
-}
-
-.palette-card:hover {
-  border-color: rgba(196,149,72,0.35);
-  transform: translateY(-2px);
-}
-
-.palette-swatch {
-  width: 100%;
-  aspect-ratio: 1.4;
-  position: relative;
-}
-
-.palette-card-body {
-  padding: 1.25rem 1.25rem 1.5rem;
-}
-
-.palette-role {
-  font-family: var(--font-emmy-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
+  font-weight: 700;
+  letter-spacing: 0.35em;
   text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  opacity: 0.7;
-  margin-bottom: 0.4rem;
-}
-
-.palette-name {
-  font-family: var(--font-emmy-display);
-  font-size: 1.15rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  margin-bottom: 0.4rem;
-  line-height: 1.2;
-}
-
-.palette-hex {
-  font-family: var(--font-emmy-body);
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  color: var(--ss-canvas-cream);
-  opacity: 0.6;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-}
-
-.palette-feel {
-  font-family: var(--font-emmy-body);
-  font-size: 0.72rem;
-  font-weight: 300;
-  line-height: 1.6;
-  color: var(--ss-canvas-cream);
-  opacity: 0.8;
-}
-
-/* ============================================
-   TYPOGRAPHY — kit-true showcase
-   ============================================ */
-
-.type-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-}
-
-.type-header {
-  margin-bottom: 4rem;
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  align-items: end;
-}
-
-.type-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
-}
-
-.type-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
-
-.type-intro strong {
-  color: var(--ss-canvas-cream);
-  font-weight: 400;
-}
-
-.type-card {
-  background: var(--ss-canvas-cream);
-  border-radius: 16px;
-  padding: 4rem 3.5rem;
-  margin-bottom: 1.5rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.type-card-meta {
-  font-family: var(--font-ss-body);
-  font-size: 0.55rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.7;
+  color: var(--zinc-matte);
   margin-bottom: 1rem;
 }
 
-.type-card-display {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  line-height: 1.0;
-  color: var(--ss-plum-vortex);
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
-}
-
-.type-card-display.amber { color: var(--ss-amber-glow); }
-.type-card-display.coral { color: var(--ss-coral-flame); }
-
-.type-card-name {
-  font-family: var(--font-ss-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
+.section-heading {
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  color: var(--text-display);
+  line-height: 1.05;
   text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.65;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-}
-
-.type-card-subhead {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
-  color: var(--ss-burnt-umber);
-  line-height: 1.4;
+  letter-spacing: 0.03em;
   margin-bottom: 1.5rem;
-  max-width: 720px;
 }
 
-.type-card-body {
-  font-family: var(--font-ss-body);
-  font-weight: 300;
-  font-size: 1rem;
+.section-body {
+  font-family: 'Jost', sans-serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--text-body);
   line-height: 1.75;
-  color: var(--ss-twilight-slate);
-  max-width: 620px;
-}
-
-.type-rule {
-  background: var(--ss-burnt-umber);
-  border-radius: 16px;
-  padding: 3.5rem 3.5rem;
-  text-align: center;
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(1.3rem, 2.4vw, 1.9rem);
-  line-height: 1.5;
-  color: var(--ss-canvas-cream);
-}
-
-.type-rule em {
-  color: var(--ss-brushstroke-gold);
-  font-style: italic;
-}
-
-/* ============================================
-   COMBINATIONS — color in context
-   ============================================ */
-
-.combo-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-}
-
-.combo-header {
-  margin-bottom: 4rem;
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  align-items: end;
-}
-
-.combo-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
-}
-
-.combo-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
-
-.combo-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-}
-
-.combo-card {
-  border-radius: 14px;
-  overflow: hidden;
-  aspect-ratio: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 2rem;
-  position: relative;
-  transition: transform 0.3s ease;
-}
-
-.combo-card:hover { transform: translateY(-3px); }
-
-.combo-name {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 1.5rem;
-  line-height: 1.1;
-  margin-bottom: 0.4rem;
-}
-
-.combo-pair {
-  font-family: var(--font-ss-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-
-.combo-1 { background: linear-gradient(135deg, var(--ss-amber-glow), var(--ss-plum-vortex)); color: var(--ss-canvas-cream); }
-.combo-2 { background: linear-gradient(135deg, var(--ss-amber-glow), var(--ss-canvas-cream)); color: var(--ss-burnt-umber); }
-.combo-3 { background: linear-gradient(135deg, var(--ss-plum-vortex), var(--ss-brushstroke-gold)); color: var(--ss-canvas-cream); }
-.combo-4 { background: linear-gradient(135deg, var(--ss-coral-flame), var(--ss-canvas-cream)); color: var(--ss-burnt-umber); }
-.combo-5 { background: linear-gradient(135deg, var(--ss-rose-dust), var(--ss-canvas-cream)); color: var(--ss-burnt-umber); }
-.combo-6 { background: linear-gradient(135deg, var(--ss-burnt-umber), var(--ss-brushstroke-gold)); color: var(--ss-canvas-cream); }
-
-/* ============================================
-   INSIDE THE KIT — carousel + companion list
-   ============================================ */
-
-.inside-section {
-  /* Deeper inside the kit — the Whole Box's purple-rose core */
-  background: var(--ss-plum-vortex);
-  padding: 7rem 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.inside-section::before {
-  content: '';
-  position: absolute;
-  top: -30%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  height: 200%;
-  /* Warm light-leak — kit's accent filtering through */
-  background: radial-gradient(ellipse, rgba(196,40,92,0.10) 0%, transparent 60%);
-  pointer-events: none;
-}
-
-.inside-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 3rem;
-  position: relative;
-  z-index: 1;
-}
-
-.inside-header {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  margin-bottom: 4rem;
-  align-items: end;
-}
-
-.inside-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
-}
-
-.inside-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
-
-.inside-intro em {
-  color: var(--ss-canvas-cream);
-  font-style: italic;
-}
-
-/* Carousel + list layout */
-.inside-grid {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 3rem;
-  align-items: start;
-}
-
-/* CAROUSEL — invisible chrome, the work is the chrome */
-.carousel {
-  position: relative;
-}
-
-.carousel-stage {
-  position: relative;
-  aspect-ratio: 4/3;
-  overflow: hidden;
-  border-radius: 14px;
-  cursor: pointer;
-  background: transparent;
-}
-
-.carousel-slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.carousel-slide.active {
-  opacity: 1;
-  z-index: 2;
-  pointer-events: auto;
-}
-
-.carousel-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Mockup slides — rendered preview cards (when no PNG available) */
-.mockup-stage {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Brand Board mockup */
-.mock-brand-board {
-  background: var(--ss-canvas-cream);
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  padding: 2rem;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 1.25rem;
-  font-family: var(--font-ss-body);
-}
-
-.mbb-header {
-  text-align: center;
-  border-bottom: 1px solid rgba(26,20,40,0.15);
-  padding-bottom: 1rem;
-}
-
-.mbb-eyebrow {
-  font-family: var(--font-ss-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.65;
-  margin-bottom: 0.4rem;
-}
-
-.mbb-title {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 2.2rem;
-  color: var(--ss-plum-vortex);
-  line-height: 1;
-  margin-bottom: 0.35rem;
-}
-
-.mbb-tagline {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: 0.78rem;
-  color: var(--ss-burnt-umber);
-  opacity: 0.85;
-}
-
-.mbb-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.mbb-palette {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.4rem;
-  align-content: start;
-}
-
-.mbb-swatch {
-  aspect-ratio: 1;
-  border-radius: 4px;
-  position: relative;
-}
-
-.mbb-swatch span {
-  position: absolute;
-  bottom: 0.15rem;
-  left: 0.25rem;
-  font-size: 0.4rem;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  color: rgba(255,255,255,0.85);
-}
-
-.mbb-type {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.5rem;
-  padding-left: 0.5rem;
-  border-left: 1px solid rgba(26,20,40,0.12);
-}
-
-.mbb-type-display {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--ss-amber-glow);
-  line-height: 1;
-}
-
-.mbb-type-sub {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: 0.7rem;
-  color: var(--ss-burnt-umber);
-  opacity: 0.75;
-}
-
-.mbb-type-body {
-  font-family: var(--font-ss-body);
-  font-weight: 300;
-  font-size: 0.55rem;
-  color: var(--ss-twilight-slate);
-  line-height: 1.5;
-}
-
-.mbb-footer {
-  text-align: center;
-  font-family: var(--font-ss-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.55;
-  border-top: 1px solid rgba(26,20,40,0.15);
-  padding-top: 0.75rem;
-}
-
-/* Cheat Sheet mockup */
-.mock-cheat-sheet {
-  background: var(--ss-canvas-cream);
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.mcs-header {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--ss-plum-vortex);
-  border-bottom: 1px solid rgba(26,20,40,0.15);
-  padding-bottom: 0.5rem;
-}
-
-.mcs-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.6rem;
-  flex: 1;
-}
-
-.mcs-cell {
-  border-radius: 4px;
-  padding: 0.6rem 0.75rem;
-  font-family: var(--font-ss-body);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 0;
-}
-
-.mcs-cell-name {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-style: italic;
-  font-size: 0.85rem;
-  line-height: 1.1;
-}
-
-.mcs-cell-meta {
-  font-size: 0.45rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-
-/* Texture Vault mockup */
-.mock-texture {
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 4px;
-  padding: 4px;
-  background: var(--ss-burnt-umber);
-}
-
-.mock-texture-cell {
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
-}
-
-.mock-texture-cell::after {
-  content: attr(data-name);
-  position: absolute;
-  bottom: 0.4rem;
-  left: 0.5rem;
-  font-family: var(--font-ss-body);
-  font-size: 0.45rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.85);
-  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
-}
-
-/* Caption — quiet line below the slide, no background block */
-.carousel-caption-row {
-  padding: 1.25rem 0.25rem 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  text-align: center;
-}
-
-.caption-label {
-  font-family: var(--font-emmy-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  opacity: 0.65;
-  transition: opacity 0.4s ease;
-}
-
-.caption-name {
-  font-family: var(--font-emmy-display);
-  font-size: 0.95rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  opacity: 0.8;
-  transition: opacity 0.4s ease;
-}
-
-/* Quiet dots — discoverable but not loud */
-.carousel-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.55rem;
-  padding: 0.75rem 0 0;
-}
-
-.carousel-dot {
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 50%;
-  background: rgba(200,184,232,0.25);
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  transition: background 0.4s ease, transform 0.4s ease, width 0.4s ease;
-}
-
-.carousel-dot:hover {
-  background: rgba(200,184,232,0.5);
-}
-
-.carousel-dot.active {
-  background: var(--ss-amber-glow);
-  width: 1.4rem;
-  border-radius: 100px;
-}
-
-/* Tier-2 playground 2x2 mockup — Material samples grid
-   Mirrors the actual playground's texture cards: 4 named material tiles
-   on the kit's signature dark background */
-.mock-playground {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 1rem;
-  padding: 1.25rem;
-  background: var(--ss-plum-vortex);
-  background-image:
-    radial-gradient(ellipse at 20% 80%, rgba(196,40,92,0.08) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 20%, rgba(196,149,72,0.06) 0%, transparent 50%);
-}
-
-.mp-sample {
-  border-radius: 4px;
-  padding: 1rem 1rem 0.85rem;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-}
-
-.mp-sample-swatch {
-  flex: 1;
-  border-radius: 3px;
-  margin-bottom: 0.85rem;
-  min-height: 0;
-}
-
-.mp-sample-name {
-  font-family: var(--font-ss-body);
-  font-size: 0.42rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  margin-bottom: 0.35rem;
-  opacity: 0.85;
-}
-
-.mp-sample-tagline {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: 0.6rem;
-  line-height: 1.4;
-  opacity: 0.85;
-}
-
-/* (carousel controls removed — invisible chrome; only quiet dots below remain) */
-
-/* COMPANION LIST */
-.inside-list {
-  padding-top: 0.5rem;
-}
-
-.inside-list-title {
-  font-family: var(--font-emmy-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-brushstroke-gold);
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-}
-
-.inside-list-title::before {
-  content: '';
-  display: block;
-  width: 1.5rem;
-  height: 1px;
-  background: var(--ss-brushstroke-gold);
-  opacity: 0.7;
-}
-
-.inside-item {
-  padding: 1.1rem 0;
-  border-bottom: 1px solid rgba(200,184,232,0.1);
-  display: grid;
-  grid-template-columns: 2rem 1fr;
-  gap: 0.75rem;
-  align-items: start;
-}
-
-.inside-item:first-of-type {
-  border-top: 1px solid rgba(200,184,232,0.1);
-}
-
-.inside-icon {
-  font-family: var(--font-emmy-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  color: var(--ss-brushstroke-gold);
-  opacity: 0.85;
-  padding-top: 0.2rem;
-}
-
-.inside-text strong {
-  display: block;
-  font-family: var(--font-emmy-body);
-  font-size: 0.85rem;
-  font-weight: 400;
-  color: var(--ss-canvas-cream);
-  margin-bottom: 0.3rem;
-  letter-spacing: 0.02em;
-}
-
-.inside-text span {
-  font-family: var(--font-emmy-body);
-  font-size: 0.72rem;
-  font-weight: 300;
-  color: var(--ss-canvas-cream);
-  opacity: 0.78;
-  line-height: 1.6;
-}
-
-/* ============================================
-   CTA — close
-   ============================================ */
-
-.cta-section {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-  text-align: center;
-}
-
-.cta-label {
-  font-family: var(--font-emmy-body);
-  font-size: 0.58rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  margin-bottom: 1.25rem;
-}
-
-.cta-big {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
-}
-
-.cta-sub {
-  font-family: var(--font-emmy-body);
-  font-style: normal;
-  font-size: 1rem;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-  line-height: 1.8;
-  margin-bottom: 2.5rem;
-  max-width: 580px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.cta-buttons {
-  display: flex;
-  gap: 1.25rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btn-primary {
-  display: inline-block;
-  padding: 0.95rem 2.5rem;
-  background: var(--amethyst);
-  color: var(--snowflake);
-  font-family: var(--font-emmy-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.btn-primary:hover {
-  background: var(--amethyst-light);
-  transform: translateY(-1px);
-}
-
-.btn-ghost {
-  display: inline-block;
-  padding: 0.95rem 2.5rem;
-  border: 1px solid rgba(200,184,232,0.3);
-  color: var(--ss-canvas-cream);
-  font-family: var(--font-emmy-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: border-color 0.3s ease, color 0.3s ease;
-}
-
-.btn-ghost:hover {
-  border-color: var(--ss-canvas-cream);
-  color: var(--ss-canvas-cream);
-}
-
-/* ============================================
-   FOOTER — same as home
-   ============================================ */
-
-footer {
-  padding: 3rem;
-  border-top: 1px solid rgba(200,184,232,0.08);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-name {
-  font-family: var(--font-emmy-display);
-  font-style: italic;
-  font-size: 1rem;
-  color: var(--fairy-silver);
-  opacity: 0.5;
-}
-
-.footer-note {
-  font-family: var(--font-emmy-body);
-  font-size: 0.6rem;
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  color: var(--fairy-silver);
-  opacity: 0.35;
-}
-
-/* ============================================
-   REVEAL / ANIMATIONS
-   ============================================ */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.reveal.visible {
+  max-width: 600px;
+}
+
+/* ─────────────────────────────────────────────
+   SCROLL REVEAL — hidden only when JS present;
+   visible by default (no-JS sees everything)
+───────────────────────────────────────────── */
+/* Scroll reveals: auto-play from load.
+   Resting state = fully visible (no opacity:0 gate). */
+@keyframes rp-scroll-rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.js .reveal-on-scroll {
+  animation: rp-scroll-rise 0.6s ease both;
+}
+/* .revealed is harmless no-op; kept for JS compatibility */
+.js .reveal-on-scroll.revealed {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
+/* Stagger child reveals — auto-play with nth-child delay */
+@keyframes rp-group-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.js .reveal-group > * {
+  animation: rp-group-rise 0.6s ease both;
+}
+.js .reveal-group > *:nth-child(1) { animation-delay: 0s; }
+.js .reveal-group > *:nth-child(2) { animation-delay: 0.07s; }
+.js .reveal-group > *:nth-child(3) { animation-delay: 0.14s; }
+.js .reveal-group > *:nth-child(4) { animation-delay: 0.21s; }
+.js .reveal-group > *:nth-child(5) { animation-delay: 0.28s; }
+.js .reveal-group > *:nth-child(6) { animation-delay: 0.35s; }
+.js .reveal-group > *:nth-child(7) { animation-delay: 0.42s; }
+.js .reveal-group > *:nth-child(8) { animation-delay: 0.49s; }
+/* .revealed is harmless no-op; kept for JS compatibility */
+.reveal-group.revealed > *:nth-child(1) { opacity: 1; transform: translateY(0); }
+.reveal-group.revealed > *:nth-child(2) { opacity: 1; transform: translateY(0); }
+.reveal-group.revealed > *:nth-child(3) { opacity: 1; transform: translateY(0); }
+.reveal-group.revealed > *:nth-child(4) { opacity: 1; transform: translateY(0); }
+.reveal-group.revealed > *:nth-child(5) { opacity: 1; transform: translateY(0); }
+.reveal-group.revealed > *:nth-child(6) { opacity: 1; transform: translateY(0); }
+.reveal-group.revealed > *:nth-child(7) { opacity: 1; transform: translateY(0); }
+.reveal-group.revealed > *:nth-child(8) { opacity: 1; transform: translateY(0); }
 
-@media (max-width: 900px) {
-  nav { padding: 1.25rem 1.5rem; }
-  .nav-links { gap: 1.5rem; }
-  .breadcrumb { padding: 4.25rem 1.5rem 0.4rem; }
+/* ─────────────────────────────────────────────
+   BOLD LINE FILL ANIMATION
+   Default (no-JS + reduced-motion): shapes are FILLED.
+   JS mode: shape starts as outline (stroke-shape visible,
+   fill-shape opacity:0), transitions to filled on .revealed.
+   This guarantees content is readable without animation.
+───────────────────────────────────────────── */
 
-  .kit-hero-wrap { padding: 0 1.5rem; }
-  .kit-hero-inner { padding: 3rem 0; min-height: 320px; }
-
-  .painting-section,
-  .type-section,
-  .combo-section,
-  .cta-section { padding: 5rem 1.5rem; }
-
-  .palette-inner { padding: 0 1.5rem; }
-  .palette-section,
-  .inside-section { padding: 5rem 0; }
-  .inside-inner { padding: 0 1.5rem; }
-
-  .painting-grid,
-  .palette-header,
-  .type-header,
-  .combo-header,
-  .inside-header,
-  .inside-grid { grid-template-columns: 1fr; gap: 2rem; }
-
-  .palette-grid { grid-template-columns: repeat(2, 1fr); }
-  .combo-grid { grid-template-columns: 1fr 1fr; }
-
-  .type-card { padding: 3rem 2rem; }
-  .type-rule { padding: 2.5rem 2rem; }
-
-  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 3rem 1.5rem; }
+/* The wrapper holds two SVG layers: stroke-only and fill */
+.fill-outline {
+  position: relative;
 }
 
+/* Default state: fill visible, stroke hidden */
+.fill-outline .stroke-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.fill-outline .fill-layer {
+  display: block;
+  width: 100%;
+}
+
+/* SVG fill entrance: auto-play; fill is visible by default. */
+@keyframes rp-fill-in {
+  from { fill-opacity: 0; }
+  to   { fill-opacity: 1; }
+}
+.js .fill-outline .fill-layer .fill-shape {
+  animation: rp-fill-in var(--fill-duration) ease both;
+}
+/* .revealed is harmless no-op; kept for JS compatibility */
+.js .fill-outline.revealed .fill-layer .fill-shape {
+  fill-opacity: 1;
+}
+
+/* ─────────────────────────────────────────────
+   HERO — WALL + POSTER PASTE SEQUENCE
+   The wall is the page background.
+   Three poster layers paste in sequence.
+   JS gates the animation; no-JS sees settled posters.
+───────────────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  background: var(--zinc-matte);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Concrete wall texture — CSS noise via SVG filter */
+#hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23noise)' opacity='0.08'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Horizontal aged-wall cracks — purely decorative */
+#hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 60px,
+      rgba(0,0,0,0.03) 60px,
+      rgba(0,0,0,0.03) 61px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Poster stack container */
+.poster-stack {
+  position: relative;
+  width: min(520px, 88vw);
+  height: min(680px, 90vh);
+  z-index: 1;
+}
+
+/* Each poster layer */
+.poster-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+  border: 3px solid var(--charcoal-ink);
+  /* Paper texture for poster backgrounds */
+  box-shadow:
+    4px 6px 20px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(0,0,0,0.1);
+}
+
+/* Layer-specific rotations (settled state) */
+.poster-layer-1 {
+  --poster-rotate: -4deg;
+  transform: translate(calc(-50% - 18px), calc(-50% + 12px)) rotate(-4deg);
+  background: var(--ochre-stage);
+  z-index: 1;
+}
+.poster-layer-2 {
+  --poster-rotate: 2deg;
+  transform: translate(calc(-50% + 10px), calc(-50% - 8px)) rotate(2deg);
+  background: var(--cream-playbill);
+  z-index: 2;
+}
+/* Poster layer 3 — the primary: straight, centered, dominant */
+.poster-layer-3 {
+  --poster-rotate: 0deg;
+  transform: translate(-50%, -50%) rotate(0deg);
+  background: var(--charcoal-ink);
+  z-index: 3;
+}
+
+/* Poster paste: auto-play keyframes from off-screen to settled.
+   Resting/settled positions are in the base .poster-layer-N rules above —
+   content is ALWAYS visible at those positions. Animation is pure flourish.
+   If JS fails or keyframes don't run, posters are already at settled state. */
+@keyframes rp-paste-1 {
+  from { opacity: 0; transform: translate(calc(-50% - 18px), calc(-50% - 110%)) rotate(-4deg); }
+  to   { opacity: 1; transform: translate(calc(-50% - 18px), calc(-50% + 12px)) rotate(-4deg); }
+}
+@keyframes rp-paste-2 {
+  from { opacity: 0; transform: translate(calc(-50% + 10px), calc(-50% - 110%)) rotate(2deg); }
+  to   { opacity: 1; transform: translate(calc(-50% + 10px), calc(-50% - 8px)) rotate(2deg); }
+}
+@keyframes rp-paste-3 {
+  from { opacity: 0; transform: translate(-50%, calc(-50% - 110%)) rotate(0deg); }
+  to   { opacity: 1; transform: translate(-50%, -50%) rotate(0deg); }
+}
+.js .poster-layer-1 {
+  animation: rp-paste-1 var(--paste-duration) var(--ease-confident) both;
+}
+.js .poster-layer-2 {
+  animation: rp-paste-2 var(--paste-duration) var(--ease-confident) 0.4s both;
+}
+.js .poster-layer-3 {
+  animation: rp-paste-3 var(--paste-duration) var(--ease-confident) 0.85s both;
+}
+/* .pasted class is harmless no-op; kept for JS compatibility */
+.js .poster-layer-1.pasted { opacity: 1; transform: translate(calc(-50% - 18px), calc(-50% + 12px)) rotate(-4deg); }
+.js .poster-layer-2.pasted { opacity: 1; transform: translate(calc(-50% + 10px), calc(-50% - 8px)) rotate(2deg); }
+.js .poster-layer-3.pasted { opacity: 1; transform: translate(-50%, -50%) rotate(0deg); }
+
+/* ── Layer 1 (ochre — peelable, reveals palette) ── */
+.poster-layer-1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  gap: 1.5rem;
+}
+.poster-1-content {
+  width: 100%;
+  text-align: center;
+}
+.poster-1-content .poster-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--midnight-velvet);
+  margin-bottom: 1rem;
+}
+.poster-1-content h3 {
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--midnight-velvet);
+  letter-spacing: 0.06em;
+}
+
+/* ── Layer 2 (cream — peelable, reveals typography) ── */
+.poster-layer-2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem;
+}
+.poster-2-content {
+  text-align: center;
+}
+.poster-2-content .poster-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--zinc-matte);
+  margin-bottom: 1rem;
+}
+.poster-2-content h3 {
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(1.2rem, 3.5vw, 1.75rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--charcoal-ink);
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+}
+.poster-2-content p {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--zinc-matte);
+  margin-top: 0.75rem;
+}
+
+/* ── Layer 3 (primary — charcoal, kit title) ── */
+.poster-layer-3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2.5rem;
+  text-align: center;
+}
+
+.poster-eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--zinc-matte);
+  margin-bottom: 1.5rem;
+}
+
+.poster-title {
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(3.5rem, 11vw, 7rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  color: var(--cabaret-magenta);
+  /* Cabaret Magenta on Charcoal Ink = atmospheric display only;
+     accessible via border treatment + large size */
+}
+
+.poster-subtitle {
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(0.7rem, 2vw, 0.9rem);
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  /* Cream Playbill on Charcoal Ink: 11.76:1 — body-text safe */
+  color: var(--cream-playbill);
+  margin-top: 1.5rem;
+}
+
+/* Horizontal rule — Charcoal Ink poster separator */
+.poster-rule {
+  width: 60px;
+  height: 3px;
+  background: var(--cabaret-magenta);
+  margin: 1.5rem auto 0;
+}
+
+/* ── Bottom-edge curl on the primary poster (decorative, no interaction) ── */
+.poster-curl {
+  position: absolute;
+  bottom: -1px;
+  right: 12px;
+  width: 60px;
+  height: 40px;
+  pointer-events: none;
+  z-index: 4;
+}
+/* CSS 3D curl using clip-path triangle + shadow */
+.poster-curl::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 40px 60px;
+  border-color: transparent transparent var(--zinc-matte) transparent;
+  filter: drop-shadow(-2px -2px 4px rgba(0,0,0,0.3));
+}
+.poster-curl::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 38px 58px;
+  border-color: transparent transparent rgba(255,255,255,0.06) transparent;
+}
+
+/* ── Peel instruction (Ochre Stage — WCAG-checked) ── */
+/* Ochre on Midnight Velvet: 6.59:1 — body capable */
+.peel-instruction {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  background: var(--midnight-velvet);
+  padding: 0.5rem 1rem;
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid var(--charcoal-ink);
+  /* Hide by default — shown via JS after posters arrive */
+  opacity: 0;
+  transition: opacity 0.4s ease 2s;
+}
+.js.posters-ready .peel-instruction {
+  opacity: 1;
+}
+.peel-instruction p {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ochre-stage);
+}
+
+/* ─────────────────────────────────────────────
+   PEEL INTERACTIVE MECHANIC
+   Layers 1 and 2 in the hero have "peel" corners
+   accessible via click AND keyboard.
+   Peeling reveals the layer beneath.
+   Content in all layers is in the DOM always.
+───────────────────────────────────────────── */
+
+/* Peel corner button — positioned at bottom-right */
+.peel-trigger {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 60px;
+  height: 60px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 5;
+  padding: 0;
+  /* Visible focus ring */
+}
+.peel-trigger:focus-visible {
+  outline: 3px solid var(--absinthe);
+  outline-offset: 2px;
+}
+
+/* Visual curl triangle on interactive layers */
+.peel-trigger::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 60px 60px;
+  border-color: transparent transparent var(--zinc-matte) transparent;
+  transition: border-width 0.25s ease;
+  filter: drop-shadow(-3px -3px 5px rgba(0,0,0,0.4));
+}
+.peel-trigger:hover::before,
+.peel-trigger:focus-visible::before {
+  border-width: 0 0 85px 85px;
+}
+/* Inner curl highlight */
+.peel-trigger::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 0 0 55px 55px;
+  border-color: transparent transparent rgba(245,237,216,0.12) transparent;
+  transition: border-width 0.25s ease;
+}
+.peel-trigger:hover::after,
+.peel-trigger:focus-visible::after {
+  border-width: 0 0 78px 78px;
+}
+
+/* ── Peeled state: layer slides up revealing the one beneath ── */
+.poster-layer.peeled {
+  transform: translate(calc(var(--poster-tx, -50%)), calc(-50% - 105%)) rotate(var(--poster-rotate, 0deg)) !important;
+  transition:
+    transform 0.55s var(--ease-confident),
+    opacity 0.55s ease;
+}
+.poster-layer-1.peeled {
+  --poster-tx: calc(-50% - 18px);
+}
+.poster-layer-2.peeled {
+  --poster-tx: calc(-50% + 10px);
+}
+
+/* ─────────────────────────────────────────────
+   SECTION DIVIDER — Bold Charcoal Ink rule
+───────────────────────────────────────────── */
+.ink-rule {
+  height: 3px;
+  background: var(--charcoal-ink);
+  margin: 0;
+}
+.ink-rule-accent {
+  height: 3px;
+  background: var(--cabaret-magenta);
+  margin: 0;
+}
+
+/* ─────────────────────────────────────────────
+   THE COLORS SECTION
+   Flat blocks — bold, one word each.
+   Outlined in Charcoal Ink.
+───────────────────────────────────────────── */
+#colors {
+  background: var(--cream-playbill);
+}
+
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0;
+  border: 3px solid var(--charcoal-ink);
+  margin-top: 3rem;
+}
+
+.palette-block {
+  aspect-ratio: 1;
+  border: 3px solid var(--charcoal-ink);
+  position: relative;
+  cursor: default;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  /* All focus targets get visible ring */
+}
+.palette-block:focus-visible {
+  outline: 4px solid var(--absinthe);
+  outline-offset: -4px;
+  z-index: 5;
+}
+.palette-block:hover,
+.palette-block:focus-visible {
+  transform: scale(1.10);
+  box-shadow: 0 6px 24px rgba(0,0,0,0.3), 0 0 0 3px var(--charcoal-ink);
+  z-index: 5;
+}
+
+/* Word label — always visible */
+.palette-block-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.palette-block-word {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 900;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+}
+
+.palette-block-name {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+}
+
+/* Color-specific blocks — backgrounds, text colors chosen per v2 WCAG table */
+
+/* Cabaret Magenta — anchor. Charcoal on Magenta: Charcoal Ink on anything check: */
+/* Text on Cabaret Magenta: Midnight Velvet or Cream Playbill */
+.block-cabaret {
+  background: var(--cabaret-magenta);
+}
+.block-cabaret .palette-block-word,
+.block-cabaret .palette-block-name {
+  color: var(--cream-playbill);   /* Cream on Cabaret: sufficient for small UI labels */
+}
+
+/* Charcoal Ink — Cream Playbill text (11.76:1) */
+.block-charcoal {
+  background: var(--charcoal-ink);
+}
+.block-charcoal .palette-block-word,
+.block-charcoal .palette-block-name {
+  color: var(--cream-playbill);
+}
+
+/* Cream Playbill — Charcoal Ink text (11.76:1) */
+.block-cream {
+  background: var(--cream-playbill);
+  border-color: var(--charcoal-ink);
+}
+.block-cream .palette-block-word,
+.block-cream .palette-block-name {
+  color: var(--charcoal-ink);
+}
+
+/* Zinc Matte — Cream Playbill text (3.66:1 large only; using Midnight Velvet for max contrast) */
+.block-zinc {
+  background: var(--zinc-matte);
+}
+.block-zinc .palette-block-word,
+.block-zinc .palette-block-name {
+  color: var(--midnight-velvet);
+}
+
+/* Absinthe — Charcoal Ink text (6.95:1) */
+.block-absinthe {
+  background: var(--absinthe);
+}
+.block-absinthe .palette-block-word,
+.block-absinthe .palette-block-name {
+  color: var(--charcoal-ink);
+}
+
+/* Ochre Stage — Midnight Velvet text (6.59:1) */
+.block-ochre {
+  background: var(--ochre-stage);
+}
+.block-ochre .palette-block-word,
+.block-ochre .palette-block-name {
+  color: var(--midnight-velvet);
+}
+
+/* Midnight Velvet — Absinthe text (9.05:1) */
+.block-midnight {
+  background: var(--midnight-velvet);
+}
+.block-midnight .palette-block-word,
+.block-midnight .palette-block-name {
+  color: var(--absinthe);
+}
+
+/* Blush Cancan — Midnight Velvet text (8.17:1) */
+.block-blush {
+  background: var(--blush-cancan);
+}
+.block-blush .palette-block-word,
+.block-blush .palette-block-name {
+  color: var(--midnight-velvet);
+}
+
+/* ─────────────────────────────────────────────
+   THE PEEL (explanation) SECTION
+───────────────────────────────────────────── */
+#the-peel {
+  background: var(--midnight-velvet);
+}
+
+#the-peel .section-label {
+  color: var(--zinc-matte);
+}
+
+#the-peel .section-heading {
+  /* Absinthe on Midnight Velvet: 9.05:1 — body capable */
+  color: var(--absinthe);
+}
+
+#the-peel .section-body {
+  /* Cream on Midnight Velvet: excellent contrast */
+  color: var(--cream-playbill);
+}
+
+.peel-note {
+  display: inline-block;
+  margin-top: 2rem;
+  padding: 0.75rem 1.25rem;
+  background: transparent;
+  border: 3px solid var(--ochre-stage);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  /* Ochre Stage on Midnight Velvet: 6.59:1 */
+  color: var(--ochre-stage);
+}
+
+/* ─────────────────────────────────────────────
+   WHAT'S INSIDE
+   Each kit element as its own "poster"
+───────────────────────────────────────────── */
+#whats-inside {
+  background: var(--charcoal-ink);
+}
+
+#whats-inside .section-label {
+  color: var(--zinc-matte);
+}
+
+#whats-inside .section-heading {
+  /* Cabaret Magenta on Charcoal Ink: atmospheric display use;
+     confirmed large heading size with Jost 900 weight */
+  color: var(--cabaret-magenta);
+}
+
+#whats-inside .section-body {
+  /* Cream Playbill on Charcoal Ink: 11.76:1 */
+  color: var(--cream-playbill);
+}
+
+.kit-posters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 3px;
+  background: var(--charcoal-ink);
+  border: 3px solid var(--charcoal-ink);
+  margin-top: 3rem;
+}
+
+/* Each kit item is its own "poster" */
+.kit-poster {
+  background: var(--cream-playbill);
+  border: 3px solid var(--charcoal-ink);
+  padding: 2rem 1.75rem;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+/* Poster-number accent */
+.kit-poster-num {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 900;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  /* Zinc Matte on Cream Playbill: sufficient for small decorative label */
+  color: var(--zinc-matte);
+}
+
+.kit-poster-heading {
+  font-family: 'Jost', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  /* Midnight Velvet on Cream Playbill: 15.31:1 */
+  color: var(--midnight-velvet);
+  line-height: 1.1;
+}
+
+.kit-poster-body {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 400;
+  /* Charcoal Ink on Cream Playbill: 11.76:1 */
+  color: var(--charcoal-ink);
+  line-height: 1.6;
+}
+
+/* Accent stripe — Cabaret Magenta top edge */
+.kit-poster::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  height: 3px;
+  background: var(--cabaret-magenta);
+}
+
+/* ─────────────────────────────────────────────
+   THE TEXTURES
+───────────────────────────────────────────── */
+#textures {
+  background: var(--cream-playbill);
+}
+
+.textures-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0;
+  border: 3px solid var(--charcoal-ink);
+  margin-top: 3rem;
+}
+
+.texture-item {
+  border: 3px solid var(--charcoal-ink);
+}
+
+.texture-swatch {
+  height: 80px;
+  border-bottom: 3px solid var(--charcoal-ink);
+}
+
+.texture-label {
+  padding: 0.9rem 1rem;
+  background: var(--cream-playbill);
+}
+
+.texture-name {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  /* Midnight Velvet on Cream Playbill: 15.31:1 */
+  color: var(--midnight-velvet);
+  margin-bottom: 0.25rem;
+}
+
+.texture-desc {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  /* Charcoal Ink on Cream Playbill: 11.76:1 */
+  color: var(--charcoal-ink);
+  line-height: 1.5;
+}
+
+/* Texture swatches with material patterns (CSS only) */
+
+.swatch-cabaret {
+  background-color: var(--cabaret-magenta);
+  /* Flat matte print — solid, opaque, no gradient */
+}
+
+.swatch-charcoal {
+  background-color: var(--charcoal-ink);
+  /* Letterpress — slight density variation */
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 4px,
+      rgba(255,255,255,0.025) 4px,
+      rgba(255,255,255,0.025) 5px
+    );
+}
+
+.swatch-cream {
+  background-color: var(--cream-playbill);
+  /* Old poster paper — ghost texture of printing */
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 8px,
+      rgba(45,45,48,0.04) 8px,
+      rgba(45,45,48,0.04) 9px
+    ),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 12px,
+      rgba(45,45,48,0.03) 12px,
+      rgba(45,45,48,0.03) 13px
+    );
+}
+
+.swatch-zinc {
+  background-color: var(--zinc-matte);
+  /* Smooth concrete / zinc plate — industrial, flat */
+  background-image:
+    radial-gradient(
+      ellipse at 30% 50%,
+      rgba(255,255,255,0.05) 0%,
+      transparent 70%
+    );
+}
+
+.swatch-absinthe {
+  background-color: var(--absinthe);
+  /* Screen-print neon — slightly transparent where ink is thin */
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 5px,
+      rgba(255,255,255,0.08) 5px,
+      rgba(255,255,255,0.08) 6px
+    );
+}
+
+.swatch-ochre {
+  background-color: var(--ochre-stage);
+  /* Aged paper with foxing — warm, worn */
+  background-image:
+    radial-gradient(ellipse 3px 2px at 20% 30%, rgba(26,20,40,0.12) 50%, transparent 60%),
+    radial-gradient(ellipse 2px 3px at 70% 60%, rgba(26,20,40,0.09) 50%, transparent 60%),
+    radial-gradient(ellipse 2px 2px at 45% 80%, rgba(26,20,40,0.08) 50%, transparent 60%);
+}
+
+.swatch-midnight {
+  background-color: var(--midnight-velvet);
+  /* Deep matte with faintest grain — dark stage curtain */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='8' cy='8' r='0.8' fill='rgba(255,255,255,0.04)'/%3E%3Ccircle cx='24' cy='14' r='0.6' fill='rgba(255,255,255,0.03)'/%3E%3Ccircle cx='12' cy='28' r='0.7' fill='rgba(255,255,255,0.04)'/%3E%3Ccircle cx='32' cy='32' r='0.5' fill='rgba(255,255,255,0.03)'/%3E%3Ccircle cx='36' cy='6' r='0.6' fill='rgba(255,255,255,0.03)'/%3E%3C/svg%3E");
+}
+
+.swatch-blush {
+  background-color: var(--blush-cancan);
+  /* Fabric texture — ruffled petticoat, directional, light-catching */
+  background-image:
+    repeating-linear-gradient(
+      -30deg,
+      transparent,
+      transparent 3px,
+      rgba(255,255,255,0.15) 3px,
+      rgba(255,255,255,0.15) 4px
+    );
+}
+
+/* ─────────────────────────────────────────────
+   PULL QUOTE
+   "She didn't need ten bullet points."
+   Cabaret Magenta on Cream Playbill: 4.73:1 — large body OK.
+   Full-width. Large. No apology.
+───────────────────────────────────────────── */
+#pull-quote {
+  background: var(--cream-playbill);
+  padding: 7rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Charcoal Ink outline borders — the line that defines everything */
+#pull-quote::before {
+  content: '';
+  position: absolute;
+  top: 2rem;
+  left: 2rem;
+  right: 2rem;
+  bottom: 2rem;
+  border: 3px solid var(--charcoal-ink);
+  pointer-events: none;
+}
+
+.pull-quote-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.pull-quote-text {
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(1.5rem, 4.5vw, 2.75rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1.15;
+  /* Charcoal Ink on Cream Playbill: 11.76:1 */
+  color: var(--charcoal-ink);
+  margin-bottom: 2rem;
+}
+
+.pull-quote-emphasis {
+  /* Cabaret Magenta on Cream: 4.73:1 — used at large heading size */
+  color: var(--cabaret-magenta);
+  display: block;
+  font-size: clamp(2rem, 6vw, 4rem);
+}
+
+.pull-quote-attr {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--zinc-matte);
+}
+
+/* ─────────────────────────────────────────────
+   THE LAUTREC NOTE — philosophy section
+   Absinthe on Charcoal Ink: 6.95:1 — body capable.
+───────────────────────────────────────────── */
+#lautrec-note {
+  background: var(--charcoal-ink);
+  padding: 5rem 2rem;
+}
+
+#lautrec-note .section-label {
+  color: var(--zinc-matte);
+}
+
+#lautrec-note .section-heading {
+  /* Cream Playbill on Charcoal Ink: 11.76:1 */
+  color: var(--cream-playbill);
+  font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+}
+
+.lautrec-quote {
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-weight: 400;
+  font-style: italic;
+  /* Cream Playbill on Charcoal Ink: 11.76:1 */
+  color: var(--cream-playbill);
+  line-height: 1.6;
+  max-width: 640px;
+  padding-left: 1.5rem;
+  border-left: 4px solid var(--absinthe);
+  margin-top: 2.5rem;
+}
+
+.lautrec-quote-attr {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  /* Absinthe on Charcoal Ink: 6.95:1 */
+  color: var(--absinthe);
+  margin-top: 1rem;
+  display: block;
+}
+
+/* ─────────────────────────────────────────────
+   FILL-REVEAL DEMONSTRATION IN LAUTREC SECTION
+   SVG outline-to-fill animation.
+   Default (no-JS, reduced-motion): fully filled.
+   JS mode: starts as stroke, transitions to fill on scroll.
+───────────────────────────────────────────── */
+.fill-demo {
+  margin-top: 3.5rem;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.fill-demo-item {
+  text-align: center;
+}
+
+.fill-demo-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--zinc-matte);
+  margin-top: 0.5rem;
+}
+
+/* Inline SVG fill-reveal shapes */
+.fill-svg {
+  overflow: visible;
+}
+
+/* DEFAULT: fill fully visible */
+.fill-svg .svg-fill {
+  transition: fill-opacity var(--fill-duration) ease;
+}
+.fill-svg .svg-stroke {
+  fill: none;
+}
+
+/* Fill-reveal items: auto-play; visible by default. */
+@keyframes rp-fill-item-in {
+  from { fill-opacity: 0; }
+  to   { fill-opacity: 1; }
+}
+.js .fill-reveal-item .fill-svg .svg-fill {
+  animation: rp-fill-item-in var(--fill-duration) ease both;
+}
+/* .revealed is harmless no-op; kept for JS compatibility */
+.js .fill-reveal-item.revealed .fill-svg .svg-fill {
+  fill-opacity: 1;
+}
+
+/* ─────────────────────────────────────────────
+   CTA FOOTER
+   Charcoal Ink background.
+   The bold-line fill animation on the button.
+   "Put it up." / Button: "YOURS."
+───────────────────────────────────────────── */
+#cta-footer {
+  background: var(--midnight-velvet);
+  padding: 7rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Horizontal Charcoal Ink rules — the line that defines */
+.footer-rules {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.footer-rule-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: var(--charcoal-ink);
+  opacity: 0.3;
+}
+
+.footer-content {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.footer-tagline {
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(0.9rem, 2vw, 1.1rem);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  /* Cream Playbill on Midnight Velvet: excellent */
+  color: var(--cream-playbill);
+  opacity: 0.7;
+  margin-bottom: 1.5rem;
+}
+
+.footer-heading {
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(2.5rem, 7vw, 5rem);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  /* Cabaret Magenta on Midnight Velvet: 3.24:1 — large display only
+     (used at 2.5–5rem, appropriate for decorative display at this size) */
+  color: var(--cabaret-magenta);
+  margin-bottom: 0.5rem;
+}
+
+.footer-sub {
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(0.7rem, 1.5vw, 0.85rem);
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  /* Zinc Matte on Midnight Velvet: ~4.18:1 large only */
+  color: var(--zinc-matte);
+  margin-bottom: 3.5rem;
+}
+
+/* CTA button — outline fills with Cabaret Magenta on reveal */
+.cta-button {
+  display: inline-block;
+  padding: 1.1rem 3rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border: 3px solid var(--cabaret-magenta);
+  /* Default: outline button, text readable */
+  background: transparent;
+  /* Cream Playbill on transparent (Midnight BG): excellent */
+  color: var(--cream-playbill);
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Fill layer — starts hidden in JS mode */
+.cta-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--cabaret-magenta);
+  transform: translateX(-100%);
+  transition: transform var(--fill-duration) var(--ease-confident);
+  z-index: 0;
+}
+
+/* Button text above fill layer */
+.cta-button-text {
+  position: relative;
+  z-index: 1;
+  transition: color 0.3s ease;
+}
+
+/* Hover + Focus: fill with Cabaret Magenta */
+.cta-button:hover::before,
+.cta-button:focus-visible::before {
+  transform: translateX(0);
+}
+.cta-button:hover .cta-button-text,
+.cta-button:focus-visible .cta-button-text {
+  color: var(--cream-playbill);
+}
+
+.cta-button:focus-visible {
+  outline: 3px solid var(--absinthe);
+  outline-offset: 4px;
+}
+
+/* JS scroll-triggered: fill sweeps in */
+.js .cta-button.revealed::before {
+  transform: translateX(0);
+}
+
+.footer-note {
+  margin-top: 2.5rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--zinc-matte);
+  opacity: 0.7;
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE — stack at small sizes
+───────────────────────────────────────────── */
 @media (max-width: 600px) {
-  .nav-links { display: none; }
-  .palette-grid { grid-template-columns: 1fr; }
-  .combo-grid { grid-template-columns: 1fr; }
-  .cta-buttons { flex-direction: column; align-items: center; }
+  section { padding: 3rem 1.25rem; }
+  #pull-quote { padding: 4rem 1.25rem; }
+  #pull-quote::before { inset: 1rem; }
+  #cta-footer { padding: 4rem 1.25rem; }
+
+  .poster-stack {
+    width: min(340px, 88vw);
+    height: min(460px, 80vh);
+  }
+
+  .palette-grid { grid-template-columns: repeat(4, 1fr); }
+  .textures-grid { grid-template-columns: repeat(2, 1fr); }
+  .kit-posters-grid { grid-template-columns: 1fr; }
+  .fill-demo { flex-direction: column; align-items: flex-start; }
+
+  .peel-instruction { display: none; }
 }
+
+@media (max-width: 400px) {
+  .palette-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
 </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="../../index.html" class="nav-name">Emmy Bellamora</a>
-  <ul class="nav-links">
-    <li><a href="../../index.html#about">About</a></li>
-    <li><a href="../../index.html#work">Work</a></li>
-    <li><a href="../../index.html#approach">Approach</a></li>
-    <li><a href="../../index.html#working-together">Together</a></li>
-    <li><a href="../../index.html#contact">Contact</a></li>
-  </ul>
-</nav>
+<!-- SKIP LINK -->
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
-<!-- BREADCRUMB -->
-<div class="breadcrumb">
-  <a href="../../index.html">Emmy</a>
-  <span class="breadcrumb-sep">/</span>
-  <a href="../../index.html#work">Brand Kits</a>
-  <span class="breadcrumb-sep">/</span>
-  <a href="../../index.html#work">Art Gallery</a>
-  <span class="breadcrumb-sep">/</span>
-  <span>Rouge Poster</span>
-</div>
+<main id="main-content">
 
-<!-- KIT HERO -->
-<section class="kit-hero">
-  <div class="kit-hero-inner">
-    <div class="kit-hero-wrap">
-      <div class="kit-hero-content">
-        <div class="kit-hero-meta">Art Gallery &middot; Kit 06</div>
-        <h1 class="kit-hero-name">Rouge Poster</h1>
-        <p class="kit-hero-tagline">
-          Bold lines, flat color, a woman who knows you're looking &mdash; for the brand whose presence enters the room before she does.
+  <!-- ═══════════════════════════════════════════
+       HERO — THE WALL + POSTER PASTE SEQUENCE
+       Three poster layers arrive from above.
+       Primary poster (Layer 3) is the front face.
+       Layers 1 and 2 have peel mechanics that reveal
+       their content — but content is also present in
+       full scrollable sections below.
+       No-JS: posters settled, all readable.
+       Reduced-motion: same — posters settled, fills filled.
+  ═══════════════════════════════════════════ -->
+  <section id="hero" aria-label="Rouge Poster — Kit introduction">
+
+    <!-- Screen-reader summary of the hero for users who skip the visual interaction -->
+    <p class="visually-hidden">
+      The Rouge Poster brand kit. Art Gallery collection, Kit number six.
+      Inspired by the Toulouse-Lautrec Moulin Rouge poster series.
+      If the font is big enough, you only have to say it once.
+    </p>
+
+    <!-- Poster stack — three layers, innermost in front -->
+    <div class="poster-stack" aria-hidden="true">
+
+      <!-- Layer 1: Ochre Stage — reveals palette on peel -->
+      <div class="poster-layer poster-layer-1" id="poster-1">
+        <div class="poster-1-content">
+          <p class="poster-label">Beneath the surface</p>
+          <h3>The Colors.<br>Flat. Bold. Final.</h3>
+        </div>
+        <!-- Peel trigger (keyboard + pointer accessible) -->
+        <button class="peel-trigger" id="peel-1"
+                aria-label="Peel back this poster layer"
+                aria-expanded="false">
+        </button>
+      </div>
+
+      <!-- Layer 2: Cream Playbill — reveals typography on peel -->
+      <div class="poster-layer poster-layer-2" id="poster-2">
+        <div class="poster-2-content">
+          <p class="poster-label">Layer two</p>
+          <h3>Jost.<br>One font.<br>Every weight.</h3>
+          <p>The font IS the design.</p>
+        </div>
+        <button class="peel-trigger" id="peel-2"
+                aria-label="Peel back this poster layer"
+                aria-expanded="false">
+        </button>
+      </div>
+
+      <!-- Layer 3: Primary — Charcoal Ink, kit title -->
+      <div class="poster-layer poster-layer-3" id="poster-3">
+        <p class="poster-eyebrow">Art Gallery — Kit No. 6</p>
+        <h1 class="poster-title">Rouge<br>Poster</h1>
+        <div class="poster-rule" aria-hidden="true"></div>
+        <p class="poster-subtitle">If the font is big enough,<br>you only have to say it once.</p>
+        <!-- Decorative curl on primary poster -->
+        <div class="poster-curl" aria-hidden="true"></div>
+      </div>
+
+    </div>
+
+    <!-- Peel instruction — appears after posters settle (JS only) -->
+    <div class="peel-instruction" aria-hidden="true">
+      <p>The wall has layers. Try the corners.</p>
+    </div>
+
+  </section>
+
+  <div class="ink-rule" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       THE COLORS
+       Flat color blocks — no gradients, no soft edges.
+       One word each. Hover scale. Charcoal Ink outline.
+  ═══════════════════════════════════════════ -->
+  <section id="colors" aria-labelledby="colors-heading">
+    <div class="section-inner">
+
+      <div class="reveal-group js-reveal-group">
+        <span class="section-label">The Colors</span>
+        <h2 class="section-heading" id="colors-heading">Eight Colors.<br>Nothing Is Flat.</h2>
+        <p class="section-body">
+          Flat-color approach, bold conviction. Each block is the color — no gradients,
+          no material simulation. Just: THE COLOR. One word of material description each.
         </p>
       </div>
-    </div>
-  </div>
-</section>
 
-<!-- INSIDE THE KIT — moved up to position 2 so it's visible above the fold -->
-<section class="inside-section">
-  <div class="inside-inner">
-    <div class="inside-header">
-      <h2 class="inside-title reveal">Inside the kit.</h2>
-      <p class="inside-intro reveal">
-        Brand kits should be <em>complete worlds</em>, not single files. Flip through to see what arrives when Rouge Poster becomes yours.
+      <div class="palette-grid js-palette-grid" role="list" aria-label="Rouge Poster color palette">
+
+        <div class="palette-block block-cabaret reveal-on-scroll js-reveal"
+             role="listitem" tabindex="0"
+             aria-label="Cabaret Magenta, hex C4285C — Bold. The anchor. Presence as design choice.">
+          <div class="palette-block-label">
+            <span class="palette-block-word">Bold.</span>
+            <span class="palette-block-name">Cabaret Magenta #C4285C</span>
+          </div>
+        </div>
+
+        <div class="palette-block block-charcoal reveal-on-scroll js-reveal"
+             role="listitem" tabindex="0"
+             aria-label="Charcoal Ink, hex 2D2D30 — Line. The counterweight. The bold outline.">
+          <div class="palette-block-label">
+            <span class="palette-block-word">Line.</span>
+            <span class="palette-block-name">Charcoal Ink #2D2D30</span>
+          </div>
+        </div>
+
+        <div class="palette-block block-absinthe reveal-on-scroll js-reveal"
+             role="listitem" tabindex="0"
+             aria-label="Absinthe, hex A8C43E — Electric. The flex hue. Yellow-green that crackles.">
+          <div class="palette-block-label">
+            <span class="palette-block-word">Electric.</span>
+            <span class="palette-block-name">Absinthe #A8C43E</span>
+          </div>
+        </div>
+
+        <div class="palette-block block-ochre reveal-on-scroll js-reveal"
+             role="listitem" tabindex="0"
+             aria-label="Ochre Stage, hex C49548 — Warm. The vintage warmth bridge.">
+          <div class="palette-block-label">
+            <span class="palette-block-word">Warm.</span>
+            <span class="palette-block-name">Ochre Stage #C49548</span>
+          </div>
+        </div>
+
+        <div class="palette-block block-midnight reveal-on-scroll js-reveal"
+             role="listitem" tabindex="0"
+             aria-label="Midnight Velvet, hex 1A1428 — Drama. The deepest dark. Before the lights come up.">
+          <div class="palette-block-label">
+            <span class="palette-block-word">Drama.</span>
+            <span class="palette-block-name">Midnight Velvet #1A1428</span>
+          </div>
+        </div>
+
+        <div class="palette-block block-cream reveal-on-scroll js-reveal"
+             role="listitem" tabindex="0"
+             aria-label="Cream Playbill, hex F5EDD8 — Paper. The warm off-white of old poster paper.">
+          <div class="palette-block-label">
+            <span class="palette-block-word">Paper.</span>
+            <span class="palette-block-name">Cream Playbill #F5EDD8</span>
+          </div>
+        </div>
+
+        <div class="palette-block block-blush reveal-on-scroll js-reveal"
+             role="listitem" tabindex="0"
+             aria-label="Blush Cancan, hex E89AA5 — Ruffle. Cabaret Magenta's softer echo.">
+          <div class="palette-block-label">
+            <span class="palette-block-word">Ruffle.</span>
+            <span class="palette-block-name">Blush Cancan #E89AA5</span>
+          </div>
+        </div>
+
+        <div class="palette-block block-zinc reveal-on-scroll js-reveal"
+             role="listitem" tabindex="0"
+             aria-label="Zinc Matte, hex 7A7A7E — Street. The wall. The cool carrier neutral.">
+          <div class="palette-block-label">
+            <span class="palette-block-word">Street.</span>
+            <span class="palette-block-name">Zinc Matte #7A7A7E</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <div class="ink-rule-accent" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       THE PEEL (explanation section)
+       Explaining the peel mechanic in the hero.
+       The peel is EXTRA — all content is reachable
+       by scroll whether or not the user peels anything.
+  ═══════════════════════════════════════════ -->
+  <section id="the-peel" aria-labelledby="peel-heading">
+    <div class="section-inner">
+
+      <div class="reveal-group js-reveal-group">
+        <span class="section-label">The Peel</span>
+        <h2 class="section-heading" id="peel-heading">The Wall Has Layers.</h2>
+        <p class="section-body">
+          Back up at the hero. Two poster edges are curled — they're hiding something.
+          Click or tab to any curled corner and peel it back.
+          The palette is under the first layer. The typography is under the second.
+        </p>
+        <p class="section-body" style="margin-top:1rem;">
+          That's the kit. Not ten bullet points.
+          Three posters pasted on top of each other on a street you love.
+          The best ones always reward the person who stops to look.
+        </p>
+      </div>
+
+      <div class="peel-note reveal-on-scroll js-reveal" role="note">
+        The wall has layers. Try the corners.
+      </div>
+
+    </div>
+  </section>
+
+  <div class="ink-rule" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       WHAT'S INSIDE — Poster-format grid
+       Each kit element as its own "poster."
+       Bold text, flat color background, Charcoal Ink outline.
+  ═══════════════════════════════════════════ -->
+  <section id="whats-inside" aria-labelledby="inside-heading">
+    <div class="section-inner">
+
+      <div class="reveal-group js-reveal-group">
+        <span class="section-label">What's Inside</span>
+        <h2 class="section-heading" id="inside-heading">The Complete<br>Brand System.</h2>
+        <p class="section-body">
+          Everything your brand lives on — each file a poster.
+          Bold. Complete. Nothing half-done.
+        </p>
+      </div>
+
+      <div class="kit-posters-grid reveal-group js-reveal-group" role="list">
+
+        <article class="kit-poster" role="listitem">
+          <p class="kit-poster-num">01</p>
+          <h3 class="kit-poster-heading">Color Palette</h3>
+          <p class="kit-poster-body">
+            Eight colors. Five structural roles. Full material documentation —
+            hex codes, contrast ratios, WCAG pairs, usage guidance.
+            One color per role. No slot-doubling.
+          </p>
+        </article>
+
+        <article class="kit-poster" role="listitem">
+          <p class="kit-poster-num">02</p>
+          <h3 class="kit-poster-heading">Typography System</h3>
+          <p class="kit-poster-body">
+            Jost exclusively. Every weight from Thin to Black.
+            Scale, usage rules, hierarchy — the font IS the design for this kit.
+            Maximum weight at maximum size. No apology.
+          </p>
+        </article>
+
+        <article class="kit-poster" role="listitem">
+          <p class="kit-poster-num">03</p>
+          <h3 class="kit-poster-heading">Brand Board</h3>
+          <p class="kit-poster-body">
+            The full identity at a glance — palette, type, tone, texture.
+            One reference surface. The poster for your poster kit.
+          </p>
+        </article>
+
+        <article class="kit-poster" role="listitem">
+          <p class="kit-poster-num">04</p>
+          <h3 class="kit-poster-heading">Social Headers</h3>
+          <p class="kit-poster-body">
+            Profile and cover templates for LinkedIn, Instagram, Facebook, Pinterest.
+            The poster aesthetic, scaled to every feed.
+            Bold, flat, impossible to scroll past.
+          </p>
+        </article>
+
+        <article class="kit-poster" role="listitem">
+          <p class="kit-poster-num">05</p>
+          <h3 class="kit-poster-heading">Link-in-Bio Page</h3>
+          <p class="kit-poster-body">
+            A fully responsive standalone link page — ready to deploy.
+            Charcoal Ink outlines. Flat color blocks.
+            Her presence, before she says a word.
+          </p>
+        </article>
+
+        <article class="kit-poster" role="listitem">
+          <p class="kit-poster-num">06</p>
+          <h3 class="kit-poster-heading">Color Combinations Cheat Sheet</h3>
+          <p class="kit-poster-body">
+            Every approved pairing with contrast ratios.
+            Nine body-text-capable pairs, thirteen large-text pairs.
+            The boldest kit in the line — accessible from line one.
+          </p>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <div class="ink-rule" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       THE TEXTURES — Material Descriptions
+       Lithograph. Letterpress. Screen-print. Aged paper.
+       Printing language, not nature language.
+  ═══════════════════════════════════════════ -->
+  <section id="textures" aria-labelledby="textures-heading">
+    <div class="section-inner">
+
+      <div class="reveal-group js-reveal-group">
+        <span class="section-label">The Textures</span>
+        <h2 class="section-heading" id="textures-heading">Everything Is Material.<br>Even the Flat.</h2>
+        <p class="section-body">
+          These aren't just hex codes — each color carries a printing history.
+          Lithograph. Letterpress. Screen-print. Aged paper. The textures
+          are about what comes off a press, not what grows in a garden.
+        </p>
+      </div>
+
+      <div class="textures-grid reveal-group js-reveal-group" role="list" aria-label="Material texture descriptions for each palette color">
+
+        <article class="texture-item" role="listitem">
+          <div class="texture-swatch swatch-cabaret" aria-label="Cabaret Magenta texture swatch — flat matte lithograph print"></div>
+          <div class="texture-label">
+            <p class="texture-name">Cabaret Magenta</p>
+            <p class="texture-desc">Flat matte lithograph print. Solid, opaque, no gradient. The color that doesn't hedge.</p>
+          </div>
+        </article>
+
+        <article class="texture-item" role="listitem">
+          <div class="texture-swatch swatch-charcoal" aria-label="Charcoal Ink texture swatch — letterpress with density variations"></div>
+          <div class="texture-label">
+            <p class="texture-name">Charcoal Ink</p>
+            <p class="texture-desc">Letterpress. Slightly embossed, visible ink density variations. The bold line that doesn't hesitate.</p>
+          </div>
+        </article>
+
+        <article class="texture-item" role="listitem">
+          <div class="texture-swatch swatch-cream" aria-label="Cream Playbill texture swatch — old poster paper with ghost printing"></div>
+          <div class="texture-label">
+            <p class="texture-name">Cream Playbill</p>
+            <p class="texture-desc">Old poster paper. Slightly yellowed, the ghost texture of printed-over-printed. Warm with history.</p>
+          </div>
+        </article>
+
+        <article class="texture-item" role="listitem">
+          <div class="texture-swatch swatch-zinc" aria-label="Zinc Matte texture swatch — smooth concrete or zinc plate"></div>
+          <div class="texture-label">
+            <p class="texture-name">Zinc Matte</p>
+            <p class="texture-desc">Smooth concrete or zinc printing plate. Industrial, flat, neutral. The street. The wall everything gets pasted on.</p>
+          </div>
+        </article>
+
+        <article class="texture-item" role="listitem">
+          <div class="texture-swatch swatch-absinthe" aria-label="Absinthe texture swatch — screen-print neon"></div>
+          <div class="texture-label">
+            <p class="texture-name">Absinthe</p>
+            <p class="texture-desc">Screen-print neon. Slightly transparent where the ink is thin, vibrating. The color that crackles.</p>
+          </div>
+        </article>
+
+        <article class="texture-item" role="listitem">
+          <div class="texture-swatch swatch-ochre" aria-label="Ochre Stage texture swatch — aged paper with foxing spots"></div>
+          <div class="texture-label">
+            <p class="texture-name">Ochre Stage</p>
+            <p class="texture-desc">Aged paper with foxing spots. Warm and worn. The stage floor. The spotlight warmth. Grounding without being boring.</p>
+          </div>
+        </article>
+
+        <article class="texture-item" role="listitem">
+          <div class="texture-swatch swatch-midnight" aria-label="Midnight Velvet texture swatch — deep matte with faintest grain"></div>
+          <div class="texture-label">
+            <p class="texture-name">Midnight Velvet</p>
+            <p class="texture-desc">Deep matte with the faintest grain. Like a dark stage curtain. The darkness before the lights come up.</p>
+          </div>
+        </article>
+
+        <article class="texture-item" role="listitem">
+          <div class="texture-swatch swatch-blush" aria-label="Blush Cancan texture swatch — fabric, directional, light-catching"></div>
+          <div class="texture-label">
+            <p class="texture-name">Blush Cancan</p>
+            <p class="texture-desc">Fabric texture. Like a ruffled petticoat — directional, light-catching. The personality without the punch.</p>
+          </div>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <div class="ink-rule-accent" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       PULL QUOTE
+       Full-width. Large. No hedging.
+       Charcoal Ink on Cream Playbill: 11.76:1.
+       Cabaret Magenta emphasis: 4.73:1 — large OK.
+  ═══════════════════════════════════════════ -->
+  <section id="pull-quote" aria-labelledby="pull-quote-text">
+    <div class="pull-quote-inner reveal-on-scroll js-reveal">
+      <blockquote>
+        <p class="pull-quote-text" id="pull-quote-text">
+          She didn't need<br>ten bullet points.
+          <span class="pull-quote-emphasis">She needed<br>one good line.</span>
+        </p>
+        <footer class="pull-quote-attr">
+          — Cabaret Magenta on Cream Playbill. Large. Full-width.
+        </footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <div class="ink-rule" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       THE LAUTREC NOTE — philosophy + fill-reveal demo
+       Outline-to-fill animation demonstrated here.
+       Default: shapes fully filled. JS: animated fill on scroll.
+  ═══════════════════════════════════════════ -->
+  <section id="lautrec-note" aria-labelledby="lautrec-heading">
+    <div class="section-inner">
+
+      <div class="reveal-group js-reveal-group">
+        <span class="section-label">The Lautrec Note</span>
+        <h2 class="section-heading" id="lautrec-heading">The Most Impactful<br>Poster Is Restrained.</h2>
+        <blockquote class="lautrec-quote">
+          "The most impactful poster is restrained. Fewer colors. One good silhouette. Everything at full volume."
+          <cite class="lautrec-quote-attr">— The principle behind this kit</cite>
+        </blockquote>
+        <p class="section-body" style="margin-top:2rem;">
+          Lautrec invented modern branding. Logos, brand identity, visual advertising —
+          he helped build all of it. The technique is deceptively simple: strong outlines,
+          flat color, limited palette. Maximum impact from minimum elements.
+        </p>
+        <p class="section-body" style="margin-top:1rem;">
+          This is the page that doesn't apologize for taking up space.
+        </p>
+      </div>
+
+      <!-- Fill-reveal demonstration: SVG shapes, outline starts, fills on scroll -->
+      <!-- Default (no-JS / reduced-motion): shapes are FILLED -->
+      <div class="fill-demo" aria-label="Bold-line fill demonstration — shapes fill with color as you scroll" role="img">
+
+        <!-- Shape 1: Cabaret Magenta star/circle -->
+        <div class="fill-demo-item fill-reveal-item js-fill-reveal">
+          <svg class="fill-svg" width="80" height="80" viewBox="0 0 80 80"
+               aria-hidden="true" focusable="false">
+            <!-- Outline (always visible as structure) -->
+            <circle cx="40" cy="40" r="35" fill="none" stroke="#2D2D30" stroke-width="3"/>
+            <!-- Fill (the reveal) -->
+            <circle class="svg-fill" cx="40" cy="40" r="34" fill="#C4285C"/>
+          </svg>
+          <p class="fill-demo-label">Cabaret Magenta</p>
+        </div>
+
+        <!-- Shape 2: Charcoal Ink diamond -->
+        <div class="fill-demo-item fill-reveal-item js-fill-reveal">
+          <svg class="fill-svg" width="80" height="80" viewBox="0 0 80 80"
+               aria-hidden="true" focusable="false">
+            <polygon points="40,5 75,40 40,75 5,40" fill="none" stroke="#2D2D30" stroke-width="3"/>
+            <polygon class="svg-fill" points="40,7 73,40 40,73 7,40" fill="#2D2D30"/>
+          </svg>
+          <p class="fill-demo-label">Charcoal Ink</p>
+        </div>
+
+        <!-- Shape 3: Absinthe rectangle -->
+        <div class="fill-demo-item fill-reveal-item js-fill-reveal">
+          <svg class="fill-svg" width="80" height="80" viewBox="0 0 80 80"
+               aria-hidden="true" focusable="false">
+            <rect x="5" y="15" width="70" height="50" fill="none" stroke="#2D2D30" stroke-width="3"/>
+            <rect class="svg-fill" x="6.5" y="16.5" width="67" height="47" fill="#A8C43E"/>
+          </svg>
+          <p class="fill-demo-label">Absinthe</p>
+        </div>
+
+        <!-- Shape 4: Midnight Velvet triangle -->
+        <div class="fill-demo-item fill-reveal-item js-fill-reveal">
+          <svg class="fill-svg" width="80" height="80" viewBox="0 0 80 80"
+               aria-hidden="true" focusable="false">
+            <polygon points="40,6 74,72 6,72" fill="none" stroke="#2D2D30" stroke-width="3"/>
+            <polygon class="svg-fill" points="40,9 71,70 9,70" fill="#1A1428"/>
+          </svg>
+          <p class="fill-demo-label">Midnight Velvet</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <div class="ink-rule-accent" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       CTA FOOTER
+       Midnight Velvet background.
+       Cabaret Magenta text — large display, acceptable.
+       Bold-line fill sweeps into button on scroll.
+       "Put it up." / "YOURS."
+  ═══════════════════════════════════════════ -->
+  <section id="cta-footer" aria-labelledby="cta-heading">
+
+    <!-- Decorative horizontal rules -->
+    <div class="footer-rules" aria-hidden="true">
+      <div class="footer-rule-line" style="top:10%"></div>
+      <div class="footer-rule-line" style="top:20%"></div>
+      <div class="footer-rule-line" style="top:80%"></div>
+      <div class="footer-rule-line" style="top:90%"></div>
+    </div>
+
+    <div class="footer-content reveal-on-scroll js-reveal">
+      <p class="footer-tagline">Put it up.</p>
+      <h2 class="footer-heading" id="cta-heading">Yours.</h2>
+      <p class="footer-sub">Art Gallery — Rouge Poster</p>
+
+      <!-- CTA button — outline fills with Cabaret Magenta on scroll/hover -->
+      <a href="#" class="cta-button js-cta-button"
+         aria-label="Get the Rouge Poster brand kit">
+        <span class="cta-button-text">YOURS.</span>
+      </a>
+
+      <p class="footer-note">
+        The wall has layers. She said what she meant.<br>
+        She meant what she said. The font was big enough.
       </p>
     </div>
 
-    <div class="inside-grid">
+  </section>
 
-      <!-- CAROUSEL -->
-      <div class="carousel reveal" id="kit-carousel">
-        <div class="carousel-stage">
+</main>
 
-          <!-- Slide 1: Brand Board -->
-          <div class="carousel-slide active" data-slide="0">
-            <div class="mockup-stage">
-              <div class="mock-brand-board">
-                <div class="mbb-header">
-                  <div class="mbb-eyebrow">Art Gallery &middot; Brand Board</div>
-                  <div class="mbb-title">Rouge Poster</div>
-                  <div class="mbb-tagline">The original influencer. Confidence as design.</div>
-                </div>
-                <div class="mbb-body">
-                  <div class="mbb-palette">
-                    <div class="mbb-swatch" style="background: var(--ss-amber-glow);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-plum-vortex);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-coral-flame);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-brushstroke-gold);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-rose-dust);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-burnt-umber);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-canvas-cream); border: 1px solid rgba(26,20,40,0.1);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-twilight-slate);"></div>
-                  </div>
-                  <div class="mbb-type">
-                    <div class="mbb-type-display">Rouge.</div>
-                    <div class="mbb-type-sub">Abril Fatface &middot; Josefin Sans &middot; Montserrat</div>
-                    <div class="mbb-type-body">A poster-native fat-face serif paired with a Scandinavian geometric sans and an urban grotesque from Buenos Aires street signage. Confidence doesn't come in options.</div>
-                  </div>
-                </div>
-                <div class="mbb-footer">By Emmy Bellamora &middot; Art Gallery Collection</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 2: Tier-2 Playground — Material samples (mirrors actual playground) -->
-          <div class="carousel-slide" data-slide="1">
-            <div class="mockup-stage" style="padding: 0;">
-              <div class="mock-playground">
-                <!-- Sample 1: Swirl Current (wave lines) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: repeating-linear-gradient(0deg, transparent 0 3px, rgba(196,149,72,0.5) 3px 4px, transparent 4px 6px), radial-gradient(ellipse at 50% 50%, rgba(196,40,92,0.25) 0%, transparent 70%); background-color: rgba(0,0,0,0.15);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Lithograph Magenta</div>
-                  <div class="mp-sample-tagline">Flat matte print ink.<br>Solid, opaque, decided.</div>
-                </div>
-                <!-- Sample 2: Brushstroke Flow (impasto wave) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: repeating-linear-gradient(0deg, transparent 0 4px, rgba(196,149,72,0.7) 4px 5px, transparent 5px 8px), linear-gradient(135deg, var(--ss-amber-glow) 0%, #C45A1A 100%);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Letterpress Charcoal</div>
-                  <div class="mp-sample-tagline">Slightly embossed ink.<br>Visible density variation.</div>
-                </div>
-                <!-- Sample 3: Star Field (dotted) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: radial-gradient(circle at 25% 25%, var(--ss-brushstroke-gold) 0%, transparent 8%), radial-gradient(circle at 75% 30%, var(--ss-canvas-cream) 0%, transparent 6%), radial-gradient(circle at 60% 70%, var(--ss-brushstroke-gold) 0%, transparent 8%), radial-gradient(circle at 30% 75%, var(--ss-canvas-cream) 0%, transparent 6%), radial-gradient(circle at 85% 60%, var(--ss-brushstroke-gold) 0%, transparent 7%); background-size: 32px 32px; background-color: var(--ss-burnt-umber);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Screen-Print Absinthe</div>
-                  <div class="mp-sample-tagline">Electric, slightly transparent.<br>The color that crackles.</div>
-                </div>
-                <!-- Sample 4: Sunset Vapor (soft cream wash) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: repeating-linear-gradient(0deg, transparent 0 4px, rgba(196,40,92,0.18) 4px 5px, transparent 5px 9px), radial-gradient(ellipse at 50% 50%, rgba(196,149,72,0.4) 0%, rgba(196,40,92,0.15) 60%, transparent 100%); background-color: var(--ss-canvas-cream);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Old Poster Paper</div>
-                  <div class="mp-sample-tagline">Cream warm with foxing.<br>Printed, posted, loved.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 3: Cheat Sheet -->
-          <div class="carousel-slide" data-slide="2">
-            <div class="mockup-stage">
-              <div class="mock-cheat-sheet">
-                <div class="mcs-header">Color Combinations</div>
-                <div class="mcs-grid">
-                  <div class="mcs-cell" style="background: var(--ss-amber-glow); color: var(--ss-canvas-cream);">
-                    <div class="mcs-cell-name">Sunset<br>Meets Twilight</div>
-                    <div class="mcs-cell-meta">Amber &times; Plum &middot; AAA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-canvas-cream); color: var(--ss-burnt-umber); border: 1px solid rgba(26,20,40,0.1);">
-                    <div class="mcs-cell-name">Clean<br>Energy</div>
-                    <div class="mcs-cell-meta">Amber &times; Cream &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-plum-vortex); color: var(--ss-brushstroke-gold);">
-                    <div class="mcs-cell-name">Evening<br>Glow</div>
-                    <div class="mcs-cell-meta">Plum &times; Gold &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-coral-flame); color: var(--ss-canvas-cream);">
-                    <div class="mcs-cell-name">For<br>Calls to Action</div>
-                    <div class="mcs-cell-meta">Coral &times; Cream &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-rose-dust); color: var(--ss-burnt-umber);">
-                    <div class="mcs-cell-name">The Soft<br>Approach</div>
-                    <div class="mcs-cell-meta">Rose &times; Cream &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-burnt-umber); color: var(--ss-brushstroke-gold);">
-                    <div class="mcs-cell-name">Earth<br>and Light</div>
-                    <div class="mcs-cell-meta">Umber &times; Gold &middot; AA</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 4: Texture Vault -->
-          <div class="carousel-slide" data-slide="3">
-            <div class="mockup-stage" style="padding: 1rem;">
-              <div class="mock-texture">
-                <div class="mock-texture-cell" data-name="Cabaret Magenta" style="background: linear-gradient(135deg, #C4285C 0%, #981F47 100%); background-image: linear-gradient(135deg, #C4285C 0%, #981F47 100%), repeating-linear-gradient(45deg, transparent 0 4px, rgba(0,0,0,0.08) 4px 6px);"></div>
-                <div class="mock-texture-cell" data-name="Charcoal Ink" style="background: var(--ss-plum-vortex); background-image: radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.08) 0%, transparent 50%), var(--ss-plum-vortex);"></div>
-                <div class="mock-texture-cell" data-name="Absinthe" style="background: linear-gradient(160deg, #A8C43E 0%, #839830 100%); background-image: linear-gradient(160deg, #A8C43E 0%, #839830 100%), repeating-linear-gradient(0deg, transparent 0 3px, rgba(0,0,0,0.06) 3px 4px);"></div>
-                <div class="mock-texture-cell" data-name="Ochre Stage" style="background: linear-gradient(135deg, #C49548 0%, #987438 100%); background-image: linear-gradient(135deg, #C49548 0%, #987438 100%), repeating-linear-gradient(135deg, transparent 0 2px, rgba(255,255,255,0.12) 2px 3px);"></div>
-                <div class="mock-texture-cell" data-name="Blush Cancan" style="background: var(--ss-rose-dust); background-image: radial-gradient(circle at 40% 40%, rgba(255,255,255,0.18) 0%, transparent 60%), var(--ss-rose-dust);"></div>
-                <div class="mock-texture-cell" data-name="Midnight Velvet" style="background: var(--ss-burnt-umber); background-image: repeating-linear-gradient(90deg, transparent 0 2px, rgba(0,0,0,0.15) 2px 3px), var(--ss-burnt-umber);"></div>
-                <div class="mock-texture-cell" data-name="Cream Playbill" style="background: var(--ss-canvas-cream); background-image: repeating-linear-gradient(45deg, transparent 0 2px, rgba(26,20,40,0.06) 2px 3px), var(--ss-canvas-cream); color: var(--ss-burnt-umber);"></div>
-                <div class="mock-texture-cell" data-name="Zinc Matte" style="background: var(--ss-twilight-slate); background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06) 0%, transparent 70%), var(--ss-twilight-slate);"></div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Quiet dots — discoverable, not loud -->
-        <div class="carousel-dots">
-          <button class="carousel-dot active" data-go="0" aria-label="Brand Board"></button>
-          <button class="carousel-dot" data-go="1" aria-label="Tier-2 Playground"></button>
-          <button class="carousel-dot" data-go="2" aria-label="Cheat Sheet"></button>
-          <button class="carousel-dot" data-go="3" aria-label="Texture Vault"></button>
-        </div>
-
-        <!-- Quiet caption — italic, no background block -->
-        <div class="carousel-caption-row">
-          <div class="caption-label" id="caption-label">Brand Board</div>
-          <div class="caption-name" id="caption-name">The kit at a glance</div>
-        </div>
-      </div>
-
-      <!-- COMPANION LIST -->
-      <div class="inside-list reveal">
-        <div class="inside-list-title">Everything Included</div>
-
-        <div class="inside-item">
-          <div class="inside-icon">01</div>
-          <div class="inside-text">
-            <strong>Whole Box Color Palette</strong>
-            <span>Eight materially-named colors with hex codes, role descriptions, and texture notes.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">02</div>
-          <div class="inside-text">
-            <strong>Typography System</strong>
-            <span>Abril Fatface + Josefin Sans + Montserrat. Display, subhead, body. With the rule that holds them together.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">03</div>
-          <div class="inside-text">
-            <strong>Brand Board</strong>
-            <span>One page that captures the entire kit at a glance &mdash; for presentations or quick reference.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">04</div>
-          <div class="inside-text">
-            <strong>Color Combinations Cheat Sheet</strong>
-            <span>Pre-vetted combinations with WCAG contrast scores. Beautiful AND accessible.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">05</div>
-          <div class="inside-text">
-            <strong>Tier-2 Playground</strong>
-            <span>Full sandbox of the kit in motion &mdash; layouts, social tiles, link-in-bio templates.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">06</div>
-          <div class="inside-text">
-            <strong>Texture Vault</strong>
-            <span>High-res material textures for each color &mdash; impasto, painted gold, canvas weave.</span>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- THE PAINTING -->
-<section class="painting-section">
-  <div class="painting-grid">
-    <div class="reveal">
-      <div class="painting-label">The Painting Behind It</div>
-      <h2 class="painting-title">Toulouse-Lautrec invented<br>the modern <em style="color: var(--ss-amber-glow); font-style: italic;">poster</em>.</h2>
-      <p class="painting-attribution">Inspired by <em style="color:var(--ss-canvas-cream);">Moulin Rouge: La Goulue</em>, 1891</p>
-    </div>
-    <div class="painting-body reveal">
-      <p>Before him, advertising was text with maybe a small illustration. He made the image THE thing &mdash; bold outlines, flat blocks of color, a figure that <strong>LOOKS AT YOU</strong>. His Moulin Rouge posters turned a dance hall into a brand. The women in his posters aren't decorative &mdash; they're present. They have attitude. Mid-kick, mid-laugh, mid-stare.</p>
-      <p>The technique is deceptively simple: <em>strong outlines, limited flat colors, dramatic silhouettes.</em> Japanese woodblock influence (he was obsessed with ukiyo-e prints). Text integrated as design element, not afterthought. The poster as a single, immediate impact.</p>
-      <p>Lautrec's palette was classic poster &mdash; red, black, yellow, olive on off-white. <strong>Rouge Poster keeps the boldness but shifts the attitude.</strong> Magenta instead of red. Charcoal instead of black. Electric yellow-green instead of olive. The confidence is the same. The era is now.</p>
-      <p>This is the kit for the person whose presence enters the room before she does. She doesn't need ten bullet points &mdash; she needs ONE good line and the guts to put it in 72-point type. <em>Her brand should hit like a poster on a wall.</em></p>
-    </div>
-  </div>
-</section>
-
-<!-- PALETTE -->
-<section class="palette-section">
-  <div class="palette-inner">
-    <div class="palette-header">
-      <h2 class="palette-title reveal">The Whole Box.<br>Every color material.</h2>
-      <p class="palette-intro reveal">
-        Eight colors. Each one named for what it actually <em>is</em>, because "pink" tells you nothing and <em>Cabaret Magenta</em> tells you everything. <em>Nothing here is flat. Everything is printed.</em>
-      </p>
-    </div>
-
-    <div class="palette-grid">
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-amber-glow);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Primary Impact</div>
-          <div class="palette-name">Cabaret Magenta</div>
-          <div class="palette-hex">#C4285C</div>
-          <p class="palette-feel">Not red. Not pink. The specific magenta of a lipstick print on a cocktail napkin &mdash; deliberate, bold, unapologetic. The color that makes the poster a poster.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-plum-vortex);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Signature Dark</div>
-          <div class="palette-name">Charcoal Ink</div>
-          <div class="palette-hex">#2D2D30</div>
-          <p class="palette-feel">Printer's ink. Not black &mdash; warm charcoal with the faintest blue memory. The bold outline that defines everything. The line that doesn't hesitate.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-coral-flame);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Electric Accent</div>
-          <div class="palette-name">Absinthe</div>
-          <div class="palette-hex">#A8C43E</div>
-          <p class="palette-feel">Yellow-green that crackles. Named for the drink, not the color chart. Electric, slightly dangerous, the accent that makes you look twice. The Moulin Rouge spotlight.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-brushstroke-gold);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Warm Mid</div>
-          <div class="palette-name">Ochre Stage</div>
-          <div class="palette-hex">#C49548</div>
-          <p class="palette-feel">Warm golden-brown. The stage floor, the spotlight warmth, the aged paper of a vintage poster. Grounding without being boring.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-rose-dust);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Pink Echo</div>
-          <div class="palette-name">Blush Cancan</div>
-          <div class="palette-hex">#E89AA5</div>
-          <p class="palette-feel">Cabaret Magenta's softer echo. For when you need the personality without the punch. The ruffle of a petticoat mid-kick.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-burnt-umber);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Deep Support</div>
-          <div class="palette-name">Midnight Velvet</div>
-          <div class="palette-hex">#1A1428</div>
-          <p class="palette-feel">Near-black with purple depth. The darkness of the cabaret before the lights come up. Richer than Charcoal Ink, used sparingly for maximum drama.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-canvas-cream); border-bottom: 1px solid rgba(0,0,0,0.06);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Soft Contrast</div>
-          <div class="palette-name">Cream Playbill</div>
-          <div class="palette-hex">#F5EDD8</div>
-          <p class="palette-feel">The warm off-white of old paper. Not clean white &mdash; the white of something that's been printed, posted, rained on, loved. Warm with history.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-twilight-slate);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Cool Neutral</div>
-          <div class="palette-name">Zinc Matte</div>
-          <div class="palette-hex">#7A7A7E</div>
-          <p class="palette-feel">True neutral gray with the faintest cool cast. The street. The wall. The frame. Everything the poster is NOT &mdash; which is what makes the poster stand out.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- TYPOGRAPHY -->
-<section class="type-section">
-  <div class="type-header">
-    <h2 class="type-title reveal">Three fonts.<br>The Marquee.</h2>
-    <p class="type-intro reveal">
-      <strong>Abril Fatface hits. Josefin Sans hooks. Montserrat holds.</strong> If the font is big enough, you only have to say it once. All three are free Google Fonts, forever yours.
-    </p>
-  </div>
-
-  <div class="type-card reveal">
-    <div class="type-card-meta">Headline &middot; Abril Fatface 400</div>
-    <div class="type-card-display">Look at her.</div>
-    <div class="type-card-name">Abril Fatface 400, 96pt &middot; Cabaret Magenta</div>
-  </div>
-
-  <div class="type-card reveal">
-    <div class="type-card-meta">Subhead &middot; Josefin Sans 500&ndash;600</div>
-    <p class="type-card-subhead">Geometric sans-serif with vintage Scandinavian sensibility and an unusually high waistline. The unexpected choice that makes it work &mdash; clean confidence with a distinctive personality. <em>The smaller type on the poster you read AFTER the headline hit you.</em></p>
-    <div class="type-card-name">Josefin Sans 600, 24pt &middot; Absinthe</div>
-  </div>
-
-  <div class="type-card reveal">
-    <div class="type-card-meta">Body &middot; Montserrat 400&ndash;500</div>
-    <p class="type-card-body">
-      Urban geometric sans-serif born from Buenos Aires street signage. Montserrat has the energy of real poster-wall type without sacrificing readability. Bolder and more present than Inter or DM Sans &mdash; which is what Rouge Poster needs. Even the body text in this kit should feel confident.
-    </p>
-    <div class="type-card-name">Montserrat 400, 16pt &middot; Charcoal Ink on Cream Playbill</div>
-  </div>
-
-  <div class="type-rule reveal">
-    The rule:<br>
-    <em>Abril hits. Josefin hooks. Montserrat holds.</em>
-  </div>
-</section>
-
-<!-- COMBINATIONS -->
-<section class="combo-section">
-  <div class="combo-header">
-    <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
-    <p class="combo-intro reveal">
-      A color swatch on white tells you nothing. What matters is how a color <em>behaves</em> next to other colors. These are the signature pairings &mdash; the combinations Rouge Poster was built for.
-    </p>
-  </div>
-
-  <div class="combo-grid">
-    <div class="combo-card combo-1 reveal">
-      <div>
-        <div class="combo-pair">The Signature</div>
-        <div class="combo-name">Magenta &amp; Charcoal Ink</div>
-      </div>
-    </div>
-    <div class="combo-card combo-2 reveal">
-      <div>
-        <div class="combo-pair">The Vintage Poster</div>
-        <div class="combo-name">Magenta &amp; Cream Playbill</div>
-      </div>
-    </div>
-    <div class="combo-card combo-3 reveal">
-      <div>
-        <div class="combo-pair">Modern Impact</div>
-        <div class="combo-name">Charcoal &amp; Absinthe</div>
-      </div>
-    </div>
-    <div class="combo-card combo-4 reveal">
-      <div>
-        <div class="combo-pair">Maximum Readability</div>
-        <div class="combo-name">Charcoal &amp; Cream</div>
-      </div>
-    </div>
-    <div class="combo-card combo-5 reveal">
-      <div>
-        <div class="combo-pair">MAXIMUM VOLUME</div>
-        <div class="combo-name">Magenta &amp; Absinthe</div>
-      </div>
-    </div>
-    <div class="combo-card combo-6 reveal">
-      <div>
-        <div class="combo-pair">Quiet Drama</div>
-        <div class="combo-name">Midnight Velvet &amp; Blush</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section">
-  <div class="cta-label">Take it Home</div>
-  <h2 class="cta-big reveal">Make Rouge Poster<br>your brand.</h2>
-  <p class="cta-sub reveal">
-    The kit is available now. If you want a custom kit built specifically for your world &mdash; or if you'd like Emmy to translate Rouge Poster into a full website &mdash; that's available too.
-  </p>
-  <div class="cta-buttons reveal">
-    <a href="mailto:hello@emmybellamora.com?subject=Rouge Poster Kit" class="btn-primary">Get the Kit</a>
-    <a href="../../index.html#working-together" class="btn-ghost">Talk to Emmy</a>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-name">Emmy Bellamora</div>
-  <div class="footer-note">Creative Director &middot; Cognitive UX Designer &middot; Fairy With Bite 🧚‍♀️</div>
-</footer>
-
-<!-- REVEAL + CAROUSEL -->
 <script>
-  // Reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
+/* ────────────────────────────────────────────────
+   ROUGE POSTER — Page Experience JS
+   Build: Emmy sub-agent | 2026-06-15
+
+   Systems:
+   1. Poster paste sequence (posters slide down on load)
+   2. Peel mechanic (interactive corners reveal layers beneath)
+   3. Scroll reveal (outline-fill SVGs, palette blocks, sections)
+   4. CTA button fill-sweep on scroll
+
+   Motion gate: window.matchMedia('(prefers-reduced-motion: reduce)')
+   — checked once at init; all animation disabled if true.
+
+   No-JS: this block never runs. Posters in settled state,
+   fills fully visible, all content readable.
+──────────────────────────────────────────────── */
+
+(function () {
+  'use strict';
+
+  const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ─────────────────────────────────────────────
+     1. POSTER PASTE SEQUENCE
+     Posters arrive one by one from above.
+     motionOK=false: jump all to settled state immediately.
+  ───────────────────────────────────────────── */
+
+  const poster1 = document.getElementById('poster-1');
+  const poster2 = document.getElementById('poster-2');
+  const poster3 = document.getElementById('poster-3');
+  const peelInst = document.querySelector('.peel-instruction');
+
+  function settlePosterInstantly() {
+    [poster1, poster2, poster3].forEach(function(p) {
+      if (p) p.classList.add('pasted');
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => observer.observe(el));
+    document.documentElement.classList.add('posters-ready');
+  }
 
-  // Carousel — invisible chrome, click-to-advance, quiet dots
-  (function () {
-    const carousel = document.getElementById('kit-carousel');
-    if (!carousel) return;
-    const stage = carousel.querySelector('.carousel-stage');
-    const slides = carousel.querySelectorAll('.carousel-slide');
-    const dots = carousel.querySelectorAll('.carousel-dot');
-    const captionLabel = document.getElementById('caption-label');
-    const captionName = document.getElementById('caption-name');
-    const total = slides.length;
-    let current = 0;
+  function runPasteSequence() {
+    if (!poster1 || !poster2 || !poster3) return;
 
-    const captions = [
-      { label: 'Brand Board',         name: 'The kit at a glance' },
-      { label: 'Tier-2 Playground',   name: 'The kit in motion' },
-      { label: 'Cheat Sheet',         name: 'Combinations, vetted for accessibility' },
-      { label: 'Texture Vault',       name: 'Eight materials — nothing is flat' }
-    ];
+    /* Layer 1: immediate */
+    poster1.classList.add('pasted');
 
-    function go(i) {
-      current = (i + total) % total;
-      slides.forEach((slide, idx) => slide.classList.toggle('active', idx === current));
-      dots.forEach((dot, idx) => dot.classList.toggle('active', idx === current));
-      if (captions[current]) {
-        captionLabel.textContent = captions[current].label;
-        captionName.textContent = captions[current].name;
+    /* Layer 2: after layer 1 transition (0.4s stagger built in CSS) */
+    /* Layer 3: 0.85s stagger built in CSS */
+    /* Posters-ready class enables peel instruction */
+    var totalDuration = 700 + 850 + 200; /* ms until all settled */
+    setTimeout(function() {
+      document.documentElement.classList.add('posters-ready');
+    }, totalDuration);
+
+    /* Trigger all three — CSS handles stagger via transition-delay */
+    requestAnimationFrame(function() {
+      poster1.classList.add('pasted');
+      poster2.classList.add('pasted');
+      poster3.classList.add('pasted');
+    });
+  }
+
+  if (motionOK) {
+    /* Small delay so first paint shows empty wall */
+    setTimeout(runPasteSequence, 120);
+  } else {
+    /* Reduced-motion: settle immediately, show all */
+    settlePosterInstantly();
+  }
+
+
+  /* ─────────────────────────────────────────────
+     2. PEEL MECHANIC
+     Click or keyboard on peel-trigger button
+     slides the poster layer up out of view.
+     The button expands aria-expanded to true.
+     Content in peeled layers is NOT the only path —
+     all information is in the scroll sections below.
+  ───────────────────────────────────────────── */
+
+  /* Layer 1 peels to reveal Layer 2; Layer 2 peels to reveal Layer 3 */
+  var peel1Trigger = document.getElementById('peel-1');
+  var peel2Trigger = document.getElementById('peel-2');
+
+  function peelLayer(layer, trigger) {
+    if (!layer || !trigger) return;
+    var alreadyPeeled = layer.classList.contains('peeled');
+    if (alreadyPeeled) return;
+
+    if (motionOK) {
+      layer.classList.add('peeled');
+    } else {
+      /* Reduced-motion: remove layer from view instantly */
+      layer.style.display = 'none';
+    }
+    trigger.setAttribute('aria-expanded', 'true');
+    trigger.setAttribute('aria-label', 'Layer peeled back — scroll down to see full content');
+    trigger.disabled = true;
+  }
+
+  if (peel1Trigger) {
+    peel1Trigger.addEventListener('click', function() {
+      peelLayer(poster1, peel1Trigger);
+    });
+    peel1Trigger.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        peelLayer(poster1, peel1Trigger);
       }
+    });
+  }
+
+  if (peel2Trigger) {
+    peel2Trigger.addEventListener('click', function() {
+      peelLayer(poster2, peel2Trigger);
+    });
+    peel2Trigger.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        peelLayer(poster2, peel2Trigger);
+      }
+    });
+  }
+
+
+  /* ─────────────────────────────────────────────
+     3. SCROLL REVEAL (Intersection Observer)
+     Handles:
+     - .reveal-on-scroll elements (fade + slide)
+     - .js-reveal-group containers (staggered children)
+     - .js-fill-reveal elements (SVG outline-to-fill)
+     - .palette-grid children (staggered palette blocks)
+
+     motionOK=false: IntersectionObserver adds 'revealed'
+     immediately without animation delay.
+  ───────────────────────────────────────────── */
+
+  if ('IntersectionObserver' in window) {
+
+    /* General reveal observer */
+    var revealObserver = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    /* Observe single-element reveals */
+    document.querySelectorAll('.reveal-on-scroll').forEach(function(el) {
+      revealObserver.observe(el);
+    });
+
+    /* Observe group reveals */
+    document.querySelectorAll('.js-reveal-group').forEach(function(el) {
+      var groupObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            groupObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      groupObserver.observe(el);
+    });
+
+    /* SVG fill-reveal observer */
+    document.querySelectorAll('.js-fill-reveal').forEach(function(el) {
+      var fillObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            fillObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      fillObserver.observe(el);
+    });
+
+    /* CTA button fill-sweep observer */
+    var ctaButton = document.querySelector('.js-cta-button');
+    if (ctaButton) {
+      var ctaObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            ctaObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      ctaObserver.observe(ctaButton);
     }
 
-    // Click anywhere on the slide stage to advance
-    stage.addEventListener('click', () => go(current + 1));
+    /* Palette blocks: stagger with index delay */
+    var paletteBlocks = document.querySelectorAll('.js-palette-grid .reveal-on-scroll');
+    if (paletteBlocks.length) {
+      var palObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            /* Find index among siblings for stagger */
+            var idx = Array.from(paletteBlocks).indexOf(entry.target);
+            var delay = motionOK ? (idx * 60) : 0;
+            setTimeout(function() {
+              entry.target.classList.add('revealed');
+            }, delay);
+            palObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05 });
 
-    // Dots
-    dots.forEach((dot) => dot.addEventListener('click', (e) => {
-      e.stopPropagation();
-      go(parseInt(dot.dataset.go, 10));
-    }));
+      paletteBlocks.forEach(function(block) {
+        palObserver.observe(block);
+      });
+    }
 
-    // Keyboard support when carousel is in view
-    document.addEventListener('keydown', (e) => {
-      const rect = carousel.getBoundingClientRect();
-      const inView = rect.top < window.innerHeight && rect.bottom > 0;
-      if (!inView) return;
-      if (e.key === 'ArrowLeft') go(current - 1);
-      if (e.key === 'ArrowRight') go(current + 1);
+  } else {
+    /* No IntersectionObserver: reveal everything immediately */
+    document.querySelectorAll(
+      '.reveal-on-scroll, .js-reveal-group, .js-fill-reveal, .js-cta-button'
+    ).forEach(function(el) {
+      el.classList.add('revealed');
     });
-  })();
+  }
+
+})();
 </script>
 
 </body>

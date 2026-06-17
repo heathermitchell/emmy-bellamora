@@ -1,1878 +1,1670 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- JS gate: before CSS, so no-JS renders full swirl from first paint — never blank -->
+<script>document.documentElement.classList.add('js')</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Starry Swirl — Art Gallery Brand Kit · Emmy Bellamora</title>
-<meta name="description" content="Starry Swirl is sunset burning through impasto sky — the energy of Van Gogh in a completely different time of day. Eight material-named colors, three-font system, full brand kit.">
+<title>Starry Swirl — Kit Experience</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&family=EB+Garamond:ital,wght@0,400;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,700;0,9..144,900;1,9..144,400&family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,700;0,9..144,900;1,9..144,400;1,9..144,700&family=Lora:ital,wght@0,400;0,600;1,400&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* ============================================
-   STARRY SWIRL — kit deep-dive page
-   Built by Emmy. Kit-true visual language inside
-   Emmy's site frame.
-   ============================================ */
+/* ─────────────────────────────────────────────
+   STARRY SWIRL — Page Experience v1
+   Kit: Art Gallery #1 | Inspired by: Van Gogh — The Starry Night, at sunset
+   Build: Otto | 2026-06-15
+   Palette source: color-palette-v2.md
+   Typography source: typography-selections-v1.md
+   Blueprint: page-experience-blueprint.md
+   Mechanic: movement-in-a-still-frame — eye never rests
+   Core visual: CSS conic/radial gradient drift + SVG turbulence texture
+   JS enhancement only: scroll-speed control + cursor-part interaction
+───────────────────────────────────────────── */
 
 :root {
-  /* Emmy's site frame colors (nav, footer, page chrome) */
-  --deep-night: #0D0A14;
-  --amethyst: #6B3FA0;
-  --amethyst-light: #9B6FD0;
-  --violet-dusk: #2D1B4E;
-  --fairy-silver: #C8B8E8;
-  --moonpetal: #E8D8F8;
-  --snowflake: #F5F0FF;
+  /* ── Palette — Starry Swirl v2 ── */
+  --amber-glow:       #E8842A;   /* Anchor */
+  --plum-vortex:      #6B2D5B;   /* Counterweight */
+  --canvas-cream:     #FFF3E4;   /* Warm carrier neutral */
+  --twilight-slate:   #4A4458;   /* Cool carrier neutral */
+  --rose-dust:        #C87F8A;   /* Flex hue */
+  --coral-flame:      #E05A3A;   /* Hot warm accent */
+  --brushstroke-gold: #F2B552;   /* Golden warm accent */
+  --burnt-umber:      #5A3225;   /* Deep warm shadow */
 
-  /* Starry Swirl kit palette — full Whole Box */
-  --ss-amber-glow: #E8842A;
-  --ss-plum-vortex: #6B2D5B;
-  --ss-coral-flame: #E05A3A;
-  --ss-brushstroke-gold: #F2B552;
-  --ss-rose-dust: #C87F8A;
-  --ss-burnt-umber: #5A3225;
-  --ss-canvas-cream: #FFF3E4;
-  --ss-twilight-slate: #4A4458;
+  /* ── Functional ── */
+  --text-body:        var(--burnt-umber);      /* 10.01:1 on canvas-cream — primary body */
+  --text-display:     var(--plum-vortex);      /* 8.92:1 on canvas-cream — display */
+  --text-dark-bg:     var(--canvas-cream);     /* 8.50:1 on twilight-slate */
+  --page-bg:          var(--canvas-cream);
 
-  /* Type — Emmy's frame */
-  --font-emmy-display: 'Cormorant Garamond', serif;
-  --font-emmy-body: 'Jost', sans-serif;
-
-  /* Type — Starry Swirl kit fonts (showcased in body) */
-  --font-ss-display: 'Fraunces', serif;
-  --font-ss-subhead: 'Lora', serif;
-  --font-ss-body: 'Work Sans', sans-serif;
+  /* ── Swirl animation ── */
+  --swirl-speed:      28s;   /* default; JS adjusts on scroll */
+  --swirl-radius:     55%;
+  --drift-angle:      12deg;
 }
 
+/* ─────────────────────────────────────────────
+   REDUCED MOTION — jump to settled composition
+   End-state = "the painting complete" from the CTA brief:
+   Amber dominant, Plum upper-left, warm field resting.
+   animation-play-state: paused freezes every swirl keyframe
+   at its first defined position (0% = the rest state).
+───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .swirl-canvas,
+  .swirl-canvas::before,
+  .swirl-canvas::after,
+  .swirl-layer,
+  .swirl-layer::before,
+  .swirl-layer::after {
+    animation-play-state: paused !important;
+    /* Settle to the canonical resting composition */
+    background-position: 0% 0% !important;
+  }
+  /* Palette stroke hover — no scale */
+  .stroke-card:hover .stroke-fill { transform: none !important; }
+  /* Kill all transitions and supplemental animations */
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  /* Reveal everything immediately — no progressive disclosure */
+  .reveal-on-scroll,
+  .reveal-group > *,
+  .stroke-card,
+  .inside-card,
+  .texture-row { opacity: 1 !important; transform: none !important; }
+  .js .reveal-on-scroll,
+  .js .reveal-group > *,
+  .js .stroke-card,
+  .js .inside-card,
+  .js .texture-row { opacity: 1 !important; transform: none !important; }
+}
+
+/* ─── RESET ─── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; font-size: 16px; }
 
+/* ─── BASE ─── */
 body {
-  /* Kit atmosphere — the page IS the kit. Frame stays Emmy's purple (nav, footer, CTA button). */
-  background: var(--ss-burnt-umber);
-  color: var(--ss-canvas-cream);
-  font-family: var(--font-emmy-body);
-  font-weight: 300;
-  overflow-x: hidden;
+  background: var(--page-bg);
+  color: var(--text-body);
+  font-family: 'Work Sans', sans-serif;
+  font-size: 1rem;
   line-height: 1.7;
+  overflow-x: hidden;
 }
 
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--ss-burnt-umber); }
-::-webkit-scrollbar-thumb { background: var(--amethyst); border-radius: 2px; }
-
-/* ============================================
-   NAV — same as home page
-   ============================================ */
-
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 1.5rem 3rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(to bottom, rgba(13,10,20,0.95) 0%, transparent 100%);
-  backdrop-filter: blur(2px);
-}
-
-.nav-name {
-  font-family: var(--font-emmy-display);
-  font-size: 1.1rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--fairy-silver);
-  letter-spacing: 0.05em;
+/* ─── SKIP LINK ─── */
+.skip-link {
+  position: absolute;
+  top: -999px;
+  left: 0;
+  background: var(--amber-glow);
+  color: var(--burnt-umber);         /* 4.05:1 large — used large */
+  padding: 0.5rem 1.25rem;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  z-index: 9999;
   text-decoration: none;
-  transition: color 0.3s ease;
+  border-bottom: 2px solid var(--burnt-umber);
 }
+.skip-link:focus { top: 0; }
 
-.nav-name:hover { color: var(--moonpetal); }
+/* ─────────────────────────────────────────────
+   SWIRL CANVAS SYSTEM
+   Strategy: layered conic + radial CSS gradients,
+   animated with keyframe drift (rotate + background-position).
+   Three independent layers with different speeds create the
+   "no two swirls perfectly overlap" impasto quality.
+   feTurbulence SVG filter adds the impasto ridge texture.
+   JS enhances: scroll adjusts --swirl-speed; cursor moves
+   a fourth highlight layer that follows the pointer.
 
-.nav-links {
-  display: flex;
-  gap: 2.5rem;
-  list-style: none;
-}
+   No-JS: full swirl visible from paint (no opacity:0 on canvas).
+   Reduced-motion: paused at frame 0 (the settled composition).
+───────────────────────────────────────────── */
 
-.nav-links a {
-  font-family: var(--font-emmy-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--fairy-silver);
-  text-decoration: none;
-  transition: color 0.3s ease;
-  opacity: 0.7;
-}
+/* SVG turbulence filter for impasto texture — applied to canvas layers */
+.impasto-filter { display: none; }
 
-.nav-links a:hover { color: var(--moonpetal); opacity: 1; }
-
-/* ============================================
-   BREADCRUMB
-   ============================================ */
-
-/* Hairline strip — sits tight against nav. Kit-tinted to bridge Emmy's frame and the kit's room. */
-.breadcrumb {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4.75rem 3rem 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-emmy-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ss-brushstroke-gold);
-  opacity: 0.55;
-}
-
-.breadcrumb a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.3s ease, opacity 0.3s ease;
-}
-
-.breadcrumb a:hover { color: var(--ss-canvas-cream); opacity: 1; }
-
-.breadcrumb-sep { opacity: 0.45; }
-
-/* ============================================
-   KIT HERO — full bleed, edge to edge
-   ============================================ */
-
-.kit-hero {
-  margin: 1.5rem 0 0;
-  padding: 0;
-}
-
-.kit-hero-inner {
-  border-radius: 0;
+.swirl-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   overflow: hidden;
+}
+
+/* Layer 1: Amber + Coral — the hot warm swirl field */
+.swirl-layer-1 {
+  position: absolute;
+  inset: -30%;
   background:
-    radial-gradient(ellipse at 80% 20%, var(--ss-brushstroke-gold) 0%, rgba(242,181,82,0.4) 18%, transparent 38%),
-    radial-gradient(ellipse at 20% 80%, var(--ss-plum-vortex) 0%, rgba(107,45,91,0.5) 30%, transparent 55%),
-    radial-gradient(ellipse at 55% 55%, rgba(232,132,42,0.55) 0%, transparent 45%),
-    linear-gradient(135deg, var(--ss-burnt-umber) 0%, var(--ss-plum-vortex) 50%, var(--ss-amber-glow) 100%);
+    conic-gradient(
+      from 0deg at 40% 45%,
+      var(--amber-glow) 0deg,
+      var(--coral-flame) 55deg,
+      var(--brushstroke-gold) 90deg,
+      var(--amber-glow) 130deg,
+      var(--burnt-umber) 160deg,
+      var(--amber-glow) 200deg,
+      var(--coral-flame) 240deg,
+      var(--brushstroke-gold) 280deg,
+      var(--amber-glow) 320deg,
+      var(--coral-flame) 360deg
+    ),
+    radial-gradient(
+      ellipse 70% 55% at 60% 40%,
+      rgba(242,181,82,0.6) 0%,
+      transparent 70%
+    );
+  background-blend-mode: multiply;
+  animation: swirl-rotate-1 var(--swirl-speed) linear infinite;
+  filter: url(#impasto-texture) blur(2px);
+  will-change: transform;
+}
+
+/* Layer 2: Plum Vortex — the deep magnetic pull, upper-left anchor */
+.swirl-layer-2 {
+  position: absolute;
+  inset: -20%;
+  background:
+    conic-gradient(
+      from 45deg at 25% 30%,
+      var(--plum-vortex) 0deg,
+      transparent 70deg,
+      var(--plum-vortex) 120deg,
+      var(--rose-dust) 160deg,
+      var(--twilight-slate) 200deg,
+      var(--plum-vortex) 260deg,
+      transparent 300deg,
+      var(--plum-vortex) 360deg
+    );
+  mix-blend-mode: multiply;
+  animation: swirl-rotate-2 calc(var(--swirl-speed) * 1.4) linear infinite reverse;
+  opacity: 0.85;
+  filter: blur(4px);
+  will-change: transform;
+}
+
+/* Layer 3: Rose Dust + transition band — the between-sky softness */
+.swirl-layer-3 {
+  position: absolute;
+  inset: -15%;
+  background:
+    radial-gradient(
+      ellipse 80% 60% at 70% 60%,
+      var(--rose-dust) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 30% 70%,
+      var(--brushstroke-gold) 0%,
+      transparent 60%
+    );
+  mix-blend-mode: screen;
+  animation: swirl-drift-3 calc(var(--swirl-speed) * 0.8) ease-in-out infinite alternate;
+  opacity: 0.7;
+  will-change: transform;
+}
+
+/* Cursor-responsive highlight layer — only active with JS */
+.swirl-cursor-layer {
+  display: none; /* hidden by default; JS shows + moves it */
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(255, 243, 228, 0.28) 0%,
+    rgba(232, 132, 42, 0.10) 50%,
+    transparent 70%
+  );
+  pointer-events: none;
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  transition: left 0.08s ease-out, top 0.08s ease-out;
+}
+
+@keyframes swirl-rotate-1 {
+  from { transform: rotate(0deg) scale(1.05); }
+  50%  { transform: rotate(180deg) scale(1.08); }
+  to   { transform: rotate(360deg) scale(1.05); }
+}
+@keyframes swirl-rotate-2 {
+  from { transform: rotate(0deg) scale(1.0); }
+  33%  { transform: rotate(120deg) scale(1.06); }
+  66%  { transform: rotate(240deg) scale(1.02); }
+  to   { transform: rotate(360deg) scale(1.0); }
+}
+@keyframes swirl-drift-3 {
+  from { transform: translate(0%, 0%) scale(1); }
+  to   { transform: translate(5%, -3%) scale(1.04); }
+}
+
+/* Opening sequence — layer opacity animate in */
+.swirl-layer-1 { animation-delay: 0s; }
+.swirl-layer-2 { animation-delay: -8s; }
+.swirl-layer-3 { animation-delay: -4s; }
+
+/* ─────────────────────────────────────────────
+   HERO SECTION
+───────────────────────────────────────────── */
+.hero {
   position: relative;
-  min-height: 380px;
-  padding: 4rem 0;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
+  padding: 5rem 2rem 4rem;
+  text-align: center;
+  overflow: hidden;
+  background: var(--amber-glow);   /* no-JS / initial paint color */
 }
 
-.kit-hero-wrap {
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-  padding: 0 3rem;
+/* The living vortex canvas sits behind content */
+.hero-swirl {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* Hero content floats above swirl — always in DOM, always readable */
+.hero-content {
   position: relative;
-  z-index: 1;
+  z-index: 5;
+  max-width: 680px;
 }
 
-.kit-hero-inner::before {
-  /* Sharp star points */
+.hero-eyebrow {
+  display: block;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--canvas-cream);
+  margin-bottom: 1.5rem;
+  /* slight Twilight Slate text-shadow to hold legibility against any swirl position */
+  text-shadow:
+    0 1px 8px rgba(74,68,88,0.9),
+    0 0 24px rgba(74,68,88,0.7);
+  transition: opacity 0.7s ease 0.3s, transform 0.7s ease 0.3s;
+}
+.js .hero-eyebrow.revealed { animation: hero-enter-up 0.7s ease both; }
+@keyframes hero-enter-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Kit title — stable Twilight Slate backing guarantees WCAG pair:
+   Canvas Cream on Twilight Slate = 8.50:1 AA body.
+   The backing is opaque enough that no swirl shows through text pixels. */
+.hero-title-wrap {
+  display: inline-block;
+  position: relative;
+  padding: 1rem 2rem 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.hero-title-wrap::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image:
-    radial-gradient(circle, var(--ss-canvas-cream) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-brushstroke-gold) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-canvas-cream) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-brushstroke-gold) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-canvas-cream) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-brushstroke-gold) 0%, transparent 60%);
-  background-size: 6px 6px, 4px 4px, 5px 5px, 3px 3px, 4px 4px, 5px 5px;
-  background-position: 18% 22%, 82% 14%, 60% 30%, 35% 65%, 90% 55%, 70% 80%;
-  background-repeat: no-repeat;
-  opacity: 0.85;
-  pointer-events: none;
+  background: rgba(74, 68, 88, 0.92);  /* Twilight Slate at 92% — scrim */
+  border-radius: 2px;
+  z-index: 0;
 }
-
-.kit-hero-content {
+.hero-title {
   position: relative;
   z-index: 1;
-  max-width: 720px;
+  font-family: 'Fraunces', serif;
+  font-size: clamp(3rem, 9vw, 7rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+  color: var(--canvas-cream);          /* 8.50:1 on twilight-slate backing */
+  transition: opacity 0.8s ease 0.5s, transform 0.8s ease 0.5s;
+}
+.hero-title .amber { color: var(--brushstroke-gold); } /* 5.09:1 on twilight-slate — large display ✓ */
+.js .hero-title.revealed { animation: hero-enter-up-big 0.8s ease both; }
+@keyframes hero-enter-up-big {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.kit-hero-meta {
-  font-family: var(--font-ss-body);
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-brushstroke-gold);
-  margin-bottom: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-}
-
-.kit-hero-meta::before {
-  content: '';
-  display: block;
-  width: 1.5rem;
-  height: 1px;
-  background: var(--ss-brushstroke-gold);
-  opacity: 0.7;
-}
-
-.kit-hero-name {
-  font-family: var(--font-ss-display);
-  font-size: clamp(3.5rem, 7vw, 6rem);
-  font-weight: 700;
-  font-style: normal;
-  color: var(--ss-canvas-cream);
-  line-height: 1.0;
-  letter-spacing: -0.015em;
-  margin-bottom: 1.5rem;
-  text-shadow: 0 2px 24px rgba(0,0,0,0.4);
-}
-
-.kit-hero-tagline {
-  font-family: var(--font-ss-subhead);
+.hero-subtitle {
+  font-family: 'Lora', serif;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
   font-style: italic;
-  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
-  color: var(--ss-canvas-cream);
-  line-height: 1.6;
-  opacity: 0.95;
-  text-shadow: 0 2px 16px rgba(0,0,0,0.5);
-  max-width: 580px;
+  color: var(--canvas-cream);
+  text-shadow:
+    0 1px 8px rgba(74,68,88,0.9),
+    0 0 24px rgba(74,68,88,0.6);
+  max-width: 480px;
+  margin: 0 auto 2.5rem;
+  transition: opacity 0.7s ease 0.8s, transform 0.7s ease 0.8s;
+}
+.js .hero-subtitle.revealed { animation: hero-enter-up 0.7s ease both; }
+
+.hero-rule {
+  width: 72px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--amber-glow), transparent);
+  margin: 0 auto 2rem;
+  transition: opacity 0.5s ease 1s;
+}
+.js .hero-rule.revealed { animation: hero-fade-in 0.5s ease both; }
+@keyframes hero-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
-/* ============================================
-   THE PAINTING — story strip
-   ============================================ */
-
-.painting-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-}
-
-.painting-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 5rem;
-  align-items: start;
-}
-
-.painting-label {
-  font-family: var(--font-emmy-body);
-  font-size: 0.58rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  margin-bottom: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.painting-label::before {
-  content: '';
-  display: block;
-  width: 1.5rem;
-  height: 1px;
-  background: var(--ss-amber-glow);
-  opacity: 0.6;
-}
-
-.painting-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2rem, 3.5vw, 2.8rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
-}
-
-.painting-attribution {
-  font-family: var(--font-emmy-body);
-  font-size: 0.7rem;
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  color: var(--ss-canvas-cream);
-  opacity: 0.7;
-  margin-bottom: 2rem;
-}
-
-.painting-body p {
-  font-family: var(--font-emmy-body);
-  font-size: 0.92rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  margin-bottom: 1.5rem;
-  opacity: 0.88;
-}
-
-.painting-body p strong {
-  color: var(--ss-canvas-cream);
-  font-weight: 400;
-}
-
-.painting-body p em {
-  color: var(--ss-brushstroke-gold);
-  font-style: italic;
-}
-
-/* ============================================
-   PALETTE — Whole Box, materially-named
-   ============================================ */
-
-.palette-section {
-  /* Kit atmosphere — deeper inside the Whole Box */
-  background: linear-gradient(to bottom, var(--ss-burnt-umber) 0%, var(--ss-plum-vortex) 50%, var(--ss-burnt-umber) 100%);
-  padding: 7rem 0;
-}
-
-.palette-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 3rem;
-}
-
-.palette-header {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  margin-bottom: 4rem;
-  align-items: end;
-}
-
-.palette-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
-}
-
-.palette-intro {
-  font-family: var(--font-emmy-body);
+.hero-descriptor {
+  font-family: 'Work Sans', sans-serif;
   font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
-
-.palette-intro em {
-  color: var(--ss-canvas-cream);
-  font-style: italic;
-}
-
-.palette-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-}
-
-.palette-card {
-  border-radius: 12px;
-  overflow: hidden;
-  /* Kit's deepest earth, slightly transparent — sits inside the kit's gradient */
-  background: rgba(90,50,37,0.55);
-  border: 1px solid rgba(255,243,228,0.10);
-  transition: border-color 0.3s ease, transform 0.3s ease;
-}
-
-.palette-card:hover {
-  border-color: rgba(242,181,82,0.35);
-  transform: translateY(-2px);
-}
-
-.palette-swatch {
-  width: 100%;
-  aspect-ratio: 1.4;
-  position: relative;
-}
-
-.palette-card-body {
-  padding: 1.25rem 1.25rem 1.5rem;
-}
-
-.palette-role {
-  font-family: var(--font-emmy-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  opacity: 0.7;
-  margin-bottom: 0.4rem;
-}
-
-.palette-name {
-  font-family: var(--font-emmy-display);
-  font-size: 1.15rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  margin-bottom: 0.4rem;
-  line-height: 1.2;
-}
-
-.palette-hex {
-  font-family: var(--font-emmy-body);
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  color: var(--ss-canvas-cream);
-  opacity: 0.6;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-}
-
-.palette-feel {
-  font-family: var(--font-emmy-body);
-  font-size: 0.72rem;
-  font-weight: 300;
-  line-height: 1.6;
-  color: var(--ss-canvas-cream);
-  opacity: 0.8;
-}
-
-/* ============================================
-   TYPOGRAPHY — kit-true showcase
-   ============================================ */
-
-.type-section {
-  max-width: 1200px;
+  color: var(--canvas-cream);
+  text-shadow:
+    0 1px 6px rgba(74,68,88,0.85),
+    0 0 16px rgba(74,68,88,0.6);
+  max-width: 420px;
   margin: 0 auto;
-  padding: 7rem 3rem;
+  line-height: 1.6;
+  transition: opacity 0.6s ease 1.1s;
 }
+.js .hero-descriptor.revealed { animation: hero-fade-in 0.6s ease both; }
 
-.type-header {
-  margin-bottom: 4rem;
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  align-items: end;
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeIn 0.8s ease 1.8s forwards;
 }
-
-.type-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
-}
-
-.type-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
-
-.type-intro strong {
-  color: var(--ss-canvas-cream);
-  font-weight: 400;
-}
-
-.type-card {
-  background: var(--ss-canvas-cream);
-  border-radius: 16px;
-  padding: 4rem 3.5rem;
-  margin-bottom: 1.5rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.type-card-meta {
-  font-family: var(--font-ss-body);
-  font-size: 0.55rem;
+.scroll-hint span {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.68rem;
   font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--canvas-cream);
+  text-shadow: 0 1px 6px rgba(74,68,88,0.8);
+}
+.scroll-arrow {
+  width: 18px;
+  height: 18px;
+  border-right: 1.5px solid var(--canvas-cream);
+  border-bottom: 1.5px solid var(--canvas-cream);
+  transform: rotate(45deg);
+  animation: bounce 2s ease infinite 2.2s;
+  opacity: 0.85;
+}
+
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes bounce {
+  0%, 100% { transform: rotate(45deg) translateY(0); }
+  50% { transform: rotate(45deg) translateY(4px); }
+}
+
+/* ─────────────────────────────────────────────
+   SECTION TRANSITION — brush stroke dividers
+   A thick impasto-style band between major sections.
+   The direction changes each time — implies directional swirl.
+───────────────────────────────────────────── */
+.stroke-divider {
+  height: 6px;
+  position: relative;
+  overflow: hidden;
+}
+.stroke-divider::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    var(--amber-glow) 0%,
+    var(--coral-flame) 35%,
+    var(--brushstroke-gold) 65%,
+    var(--amber-glow) 100%
+  );
+  transition: opacity 1s ease;
+  opacity: 0.5;
+}
+.stroke-divider.revealed::before { opacity: 1; }
+
+.stroke-divider-plum::before {
+  background: linear-gradient(
+    78deg,
+    var(--plum-vortex) 0%,
+    var(--rose-dust) 45%,
+    var(--plum-vortex) 100%
+  );
+}
+
+/* ─────────────────────────────────────────────
+   SHARED SECTION STYLES
+───────────────────────────────────────────── */
+section { padding: 5rem 2rem; }
+
+.section-inner {
+  max-width: 920px;
+  margin: 0 auto;
+}
+
+.section-label {
+  display: block;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.7;
+  color: var(--burnt-umber);  /* a11y: was --amber-glow (2.47:1 fail) → burnt-umber 10.01:1 on canvas-cream */
   margin-bottom: 1rem;
 }
 
-.type-card-display {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  line-height: 1.0;
-  color: var(--ss-plum-vortex);
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
+.section-heading {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.7rem, 4vw, 2.8rem);
+  font-weight: 900;
+  color: var(--text-display);          /* Plum Vortex — 8.92:1 on canvas-cream ✓ AA body */
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+  letter-spacing: 0.01em;
 }
 
-.type-card-display.amber { color: var(--ss-amber-glow); }
-.type-card-display.coral { color: var(--ss-coral-flame); }
-
-.type-card-name {
-  font-family: var(--font-ss-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.65;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-}
-
-.type-card-subhead {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
-  color: var(--ss-burnt-umber);
-  line-height: 1.4;
-  margin-bottom: 1.5rem;
-  max-width: 720px;
-}
-
-.type-card-body {
-  font-family: var(--font-ss-body);
-  font-weight: 300;
+.section-body {
+  font-family: 'Work Sans', sans-serif;
   font-size: 1rem;
+  color: var(--text-body);             /* Burnt Umber — 10.01:1 on canvas-cream ✓ AA body */
   line-height: 1.75;
-  color: var(--ss-twilight-slate);
   max-width: 620px;
 }
 
-.type-rule {
-  background: var(--ss-burnt-umber);
-  border-radius: 16px;
-  padding: 3.5rem 3.5rem;
-  text-align: center;
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(1.3rem, 2.4vw, 1.9rem);
-  line-height: 1.5;
-  color: var(--ss-canvas-cream);
+/* Reveal animations — hidden only when JS present */
+/* Section reveal — always visible; observer adds entrance animation as flourish */
+.js .reveal-on-scroll.revealed {
+  animation: reveal-up 0.7s ease both;
+}
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
-.type-rule em {
-  color: var(--ss-brushstroke-gold);
-  font-style: italic;
-}
+/* Stagger children — always visible; observer triggers entrance */
+.js .reveal-group.revealed > *:nth-child(1) { animation: reveal-up 0.6s ease both; animation-delay: 0s; }
+.js .reveal-group.revealed > *:nth-child(2) { animation: reveal-up 0.6s ease both; animation-delay: 0.07s; }
+.js .reveal-group.revealed > *:nth-child(3) { animation: reveal-up 0.6s ease both; animation-delay: 0.14s; }
+.js .reveal-group.revealed > *:nth-child(4) { animation: reveal-up 0.6s ease both; animation-delay: 0.21s; }
+.js .reveal-group.revealed > *:nth-child(5) { animation: reveal-up 0.6s ease both; animation-delay: 0.28s; }
+.js .reveal-group.revealed > *:nth-child(6) { animation: reveal-up 0.6s ease both; animation-delay: 0.35s; }
+.js .reveal-group.revealed > *:nth-child(7) { animation: reveal-up 0.6s ease both; animation-delay: 0.42s; }
+.js .reveal-group.revealed > *:nth-child(8) { animation: reveal-up 0.6s ease both; animation-delay: 0.49s; }
 
-/* ============================================
-   COMBINATIONS — color in context
-   ============================================ */
+/* ─────────────────────────────────────────────
+   THE PALETTE — impasto stroke cards
+   Each color appears as a thick textured stroke
+   running diagonally. Hover widens + thickens.
+───────────────────────────────────────────── */
+#palette { background: var(--canvas-cream); }
 
-.combo-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-}
+.palette-intro { margin-bottom: 3.5rem; }
 
-.combo-header {
-  margin-bottom: 4rem;
+.stroke-grid {
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  align-items: end;
-}
-
-.combo-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
-}
-
-.combo-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
-
-.combo-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   gap: 1.5rem;
 }
 
-.combo-card {
-  border-radius: 14px;
-  overflow: hidden;
-  aspect-ratio: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 2rem;
+.stroke-card {
   position: relative;
-  transition: transform 0.3s ease;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--canvas-cream);
+  /* Canvas texture via box-shadow suggestion */
+  box-shadow:
+    inset 0 0 0 1px rgba(90,50,37,0.12),
+    0 2px 12px rgba(90,50,37,0.08);
+  cursor: default;
+  transition: box-shadow 0.35s ease, transform 0.35s ease;
+}
+.stroke-card:hover,
+.stroke-card:focus-within {
+  box-shadow:
+    inset 0 0 0 1px rgba(90,50,37,0.2),
+    0 6px 28px rgba(90,50,37,0.16);
+  transform: translateY(-2px);
 }
 
-.combo-card:hover { transform: translateY(-3px); }
-
-.combo-name {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 1.5rem;
-  line-height: 1.1;
-  margin-bottom: 0.4rem;
-}
-
-.combo-pair {
-  font-family: var(--font-ss-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-
-.combo-1 { background: linear-gradient(135deg, var(--ss-amber-glow), var(--ss-plum-vortex)); color: var(--ss-canvas-cream); }
-.combo-2 { background: linear-gradient(135deg, var(--ss-amber-glow), var(--ss-canvas-cream)); color: var(--ss-burnt-umber); }
-.combo-3 { background: linear-gradient(135deg, var(--ss-plum-vortex), var(--ss-brushstroke-gold)); color: var(--ss-canvas-cream); }
-.combo-4 { background: linear-gradient(135deg, var(--ss-coral-flame), var(--ss-canvas-cream)); color: var(--ss-burnt-umber); }
-.combo-5 { background: linear-gradient(135deg, var(--ss-rose-dust), var(--ss-canvas-cream)); color: var(--ss-burnt-umber); }
-.combo-6 { background: linear-gradient(135deg, var(--ss-burnt-umber), var(--ss-brushstroke-gold)); color: var(--ss-canvas-cream); }
-
-/* ============================================
-   INSIDE THE KIT — carousel + companion list
-   ============================================ */
-
-.inside-section {
-  /* Deeper inside the kit — the Whole Box's purple-rose core */
-  background: var(--ss-plum-vortex);
-  padding: 7rem 0;
+/* The impasto stroke — diagonal, thick, textured via SVG filter */
+.stroke-fill {
+  height: 96px;
   position: relative;
   overflow: hidden;
+  transform: skewY(-4deg) scaleY(1);
+  transform-origin: left center;
+  transition: transform 0.35s ease, height 0.35s ease;
+}
+.stroke-card:hover .stroke-fill,
+.stroke-card:focus-within .stroke-fill {
+  transform: skewY(-4deg) scaleY(1.12);
 }
 
-.inside-section::before {
+/* Impasto ridge illusion — light/dark gradient overlay on the stroke */
+.stroke-fill::after {
   content: '';
   position: absolute;
-  top: -30%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  height: 200%;
-  /* Warm light-leak — kit's accent filtering through */
-  background: radial-gradient(ellipse, rgba(232,132,42,0.10) 0%, transparent 60%);
+  inset: 0;
+  background: linear-gradient(
+    170deg,
+    rgba(255,255,255,0.22) 0%,
+    transparent 40%,
+    rgba(0,0,0,0.12) 75%,
+    rgba(0,0,0,0.18) 100%
+  );
+  mix-blend-mode: overlay;
+}
+
+.stroke-meta {
+  padding: 0.9rem 1rem 0.75rem;
+}
+.stroke-name {
+  font-family: 'Fraunces', serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--burnt-umber);            /* 10.01:1 on canvas-cream ✓ */
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 0.15rem;
+}
+.stroke-role {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--twilight-slate);         /* 7.2:1 on canvas-cream ✓ AA body */
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.stroke-hex {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--twilight-slate);
+  letter-spacing: 0.06em;
+}
+
+/* Color fills for each stroke card */
+.stroke-amber    { background-color: var(--amber-glow); }
+.stroke-plum     { background-color: var(--plum-vortex); }
+.stroke-cream    { background-color: var(--canvas-cream); border: 1px solid rgba(90,50,37,0.15); }
+.stroke-slate    { background-color: var(--twilight-slate); }
+.stroke-rose     { background-color: var(--rose-dust); }
+.stroke-coral    { background-color: var(--coral-flame); }
+.stroke-gold     { background-color: var(--brushstroke-gold); }
+.stroke-umber    { background-color: var(--burnt-umber); }
+
+/* ─────────────────────────────────────────────
+   WHAT'S INSIDE — tilted energy layout
+   Typography active, slightly tilted per blueprint.
+   Bold Fraunces. Cards at a subtle angle — the eye
+   can't quite settle, which is the point.
+───────────────────────────────────────────── */
+#whats-inside {
+  background: var(--twilight-slate);
+}
+
+#whats-inside .section-label { color: var(--burnt-umber); }  /* a11y: was --brushstroke-gold (fail on cream) → burnt-umber 10.01:1 */
+#whats-inside .section-heading { color: var(--canvas-cream); }  /* 8.50:1 on twilight-slate ✓ */
+#whats-inside .section-body {
+  color: var(--canvas-cream);
+  opacity: 0.88;
+}
+
+.inside-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 3rem;
+}
+
+.inside-card {
+  background: rgba(255, 243, 228, 0.07);
+  border: 1px solid rgba(255, 243, 228, 0.15);
+  border-radius: 3px;
+  padding: 1.75rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  /* Slight tilt — the active typography "going somewhere" from the blueprint */
+  transform: rotate(-0.4deg);
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+.inside-card:nth-child(even) { transform: rotate(0.3deg); }
+.inside-card:hover,
+.inside-card:focus-within {
+  transform: rotate(0deg);
+  background: rgba(255, 243, 228, 0.11);
+  border-color: rgba(242, 181, 82, 0.35);
+}
+
+/* Amber directional streak across card corner */
+.inside-card::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 60px;
+  height: 60px;
+  background: var(--amber-glow);
+  opacity: 0.12;
+  border-radius: 50%;
+  filter: blur(12px);
+}
+
+.inside-icon {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.inside-heading {
+  font-family: 'Fraunces', serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--brushstroke-gold);       /* 5.09:1 on twilight-slate — large/display ✓ AA */
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.04em;
+}
+
+.inside-body {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.875rem;
+  color: var(--canvas-cream);           /* 8.50:1 on twilight-slate ✓ */
+  line-height: 1.65;
+  opacity: 0.85;
+}
+
+/* ─────────────────────────────────────────────
+   THE TEXTURES — color as material
+   Most textural descriptions of any Art Gallery kit.
+   Each row is a material world.
+───────────────────────────────────────────── */
+#textures { background: var(--canvas-cream); }
+
+.texture-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 2.5rem;
+  border-left: 3px solid var(--amber-glow);
+}
+
+.texture-row {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(90,50,37,0.08);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.js .texture-row.revealed { animation: texture-slide-in 0.6s ease both; }
+@keyframes texture-slide-in {
+  from { opacity: 0; transform: translateX(-12px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.texture-swatch {
+  width: 72px;
+  height: 52px;
+  border-radius: 2px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+}
+/* Impasto ridge on each swatch */
+.texture-swatch::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(255,255,255,0.18) 0%,
+    transparent 45%,
+    rgba(0,0,0,0.14) 100%
+  );
+}
+
+.texture-name {
+  font-family: 'Fraunces', serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-display);           /* Plum Vortex — 8.92:1 ✓ */
+  margin-bottom: 0.2rem;
+  display: block;
+}
+.texture-desc {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.875rem;
+  color: var(--text-body);              /* Burnt Umber — 10.01:1 ✓ */
+  line-height: 1.55;
+}
+
+/* ─────────────────────────────────────────────
+   PULL QUOTE — "Van Gogh didn't paint the sky."
+   Amber Glow on Twilight Slate:
+   palette doc shows 3.44:1 — large-text only ✓
+   Used at clamp(1.3rem+), qualifies as WCAG large.
+───────────────────────────────────────────── */
+#pull-quote {
+  background: var(--twilight-slate);
+  padding: 7rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background swirl echo behind the quote — motion implies the sky is still moving */
+#pull-quote::before {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background:
+    conic-gradient(
+      from 220deg at 55% 50%,
+      var(--plum-vortex) 0deg,
+      transparent 80deg,
+      var(--amber-glow) 140deg,
+      transparent 200deg,
+      var(--plum-vortex) 280deg,
+      transparent 340deg,
+      var(--plum-vortex) 360deg
+    );
+  opacity: 0.12;
+  animation: swirl-rotate-1 38s linear infinite;
   pointer-events: none;
 }
 
-.inside-inner {
-  max-width: 1200px;
+.pull-quote-inner {
+  max-width: 700px;
   margin: 0 auto;
-  padding: 0 3rem;
+  text-align: center;
   position: relative;
   z-index: 1;
 }
 
-.inside-header {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  margin-bottom: 4rem;
-  align-items: end;
+blockquote { margin: 0; }
+
+.quote-mark {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(4rem, 10vw, 8rem);
+  font-weight: 900;
+  color: var(--amber-glow);             /* 3.44:1 — display/decorative large ✓ AA large */
+  line-height: 0.6;
+  display: block;
+  margin-bottom: 0.5rem;
+  opacity: 0.6;
 }
 
-.inside-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
+.quote-text {
+  font-family: 'Lora', serif;
+  font-size: clamp(1.3rem, 3.2vw, 2rem);
   font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
+  line-height: 1.4;
+  color: var(--canvas-cream);           /* 8.50:1 on twilight-slate ✓ AA body */
+  margin-bottom: 2rem;
+}
+.quote-text em {
+  color: var(--amber-glow);             /* 3.44:1 on twilight-slate — large italic display ✓ */
+  font-style: normal;
+  font-weight: 600;
 }
 
-.inside-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
+.quote-attribution {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--brushstroke-gold);       /* 5.09:1 on twilight-slate ✓ AA */
 }
 
-.inside-intro em {
-  color: var(--ss-canvas-cream);
-  font-style: italic;
-}
-
-/* Carousel + list layout */
-.inside-grid {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 3rem;
-  align-items: start;
-}
-
-/* CAROUSEL — invisible chrome, the work is the chrome */
-.carousel {
+/* ─────────────────────────────────────────────
+   THE FLIP — concept note
+   "The same movement. A different sky."
+   Warm section — Canvas Cream bg, full body pairs.
+───────────────────────────────────────────── */
+#the-flip {
+  background: var(--canvas-cream);
+  padding: 5rem 2rem;
   position: relative;
-}
-
-.carousel-stage {
-  position: relative;
-  aspect-ratio: 4/3;
   overflow: hidden;
-  border-radius: 14px;
-  cursor: pointer;
-  background: transparent;
 }
 
-.carousel-slide {
+/* Directional stroke echoes in the background */
+#the-flip::before,
+#the-flip::after {
+  content: '';
+  position: absolute;
+  pointer-events: none;
+  opacity: 0.06;
+}
+#the-flip::before {
+  top: -10%;
+  right: -5%;
+  width: 55%;
+  height: 55%;
+  background: radial-gradient(ellipse at center, var(--amber-glow), transparent 70%);
+  animation: swirl-drift-3 20s ease-in-out infinite alternate;
+}
+#the-flip::after {
+  bottom: -10%;
+  left: -5%;
+  width: 40%;
+  height: 40%;
+  background: radial-gradient(ellipse at center, var(--plum-vortex), transparent 70%);
+  animation: swirl-drift-3 24s ease-in-out infinite alternate-reverse;
+}
+
+.flip-inner {
+  max-width: 700px;
+  position: relative;
+  z-index: 1;
+}
+
+.flip-heading {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.5rem, 3.5vw, 2.4rem);
+  font-weight: 900;
+  color: var(--text-display);           /* Plum Vortex — 8.92:1 ✓ */
+  line-height: 1.15;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.01em;
+}
+.flip-heading .stroke { color: var(--amber-glow); } /* display-size ✓ AA large */
+
+.flip-body {
+  font-family: 'Lora', serif;
+  font-size: 1.05rem;
+  color: var(--burnt-umber);            /* 10.01:1 ✓ AA body */
+  line-height: 1.75;
+  margin-bottom: 1.5rem;
+}
+
+/* ─────────────────────────────────────────────
+   CTA FOOTER — the swirls slow, the canvas settles
+   This is also the reduced-motion rest composition.
+   Deep plum background; Canvas Cream + Gold text.
+───────────────────────────────────────────── */
+#cta-footer {
+  background: var(--plum-vortex);
+  padding: 8rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* The settling swirl — slower, dimmer, moving to rest */
+.footer-swirl {
   position: absolute;
   inset: 0;
-  opacity: 0;
-  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
   pointer-events: none;
 }
 
-.carousel-slide.active {
-  opacity: 1;
-  z-index: 2;
-  pointer-events: auto;
-}
-
-.carousel-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Mockup slides — rendered preview cards (when no PNG available) */
-.mockup-stage {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Brand Board mockup */
-.mock-brand-board {
-  background: var(--ss-canvas-cream);
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  padding: 2rem;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 1.25rem;
-  font-family: var(--font-ss-body);
-}
-
-.mbb-header {
-  text-align: center;
-  border-bottom: 1px solid rgba(90,50,37,0.15);
-  padding-bottom: 1rem;
-}
-
-.mbb-eyebrow {
-  font-family: var(--font-ss-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.65;
-  margin-bottom: 0.4rem;
-}
-
-.mbb-title {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 2.2rem;
-  color: var(--ss-plum-vortex);
-  line-height: 1;
-  margin-bottom: 0.35rem;
-}
-
-.mbb-tagline {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: 0.78rem;
-  color: var(--ss-burnt-umber);
-  opacity: 0.85;
-}
-
-.mbb-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.mbb-palette {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.4rem;
-  align-content: start;
-}
-
-.mbb-swatch {
-  aspect-ratio: 1;
-  border-radius: 4px;
-  position: relative;
-}
-
-.mbb-swatch span {
+.footer-swirl-layer {
   position: absolute;
-  bottom: 0.15rem;
-  left: 0.25rem;
-  font-size: 0.4rem;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  color: rgba(255,255,255,0.85);
+  inset: -20%;
+  background:
+    conic-gradient(
+      from 90deg at 50% 50%,
+      var(--amber-glow) 0deg,
+      var(--coral-flame) 60deg,
+      var(--brushstroke-gold) 100deg,
+      transparent 160deg,
+      var(--plum-vortex) 200deg,
+      transparent 280deg,
+      var(--amber-glow) 360deg
+    );
+  opacity: 0.18;
+  animation: swirl-rotate-2 55s linear infinite;
+  filter: blur(6px);
 }
 
-.mbb-type {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.5rem;
-  padding-left: 0.5rem;
-  border-left: 1px solid rgba(90,50,37,0.12);
+.footer-content {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  margin: 0 auto;
 }
 
-.mbb-type-display {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--ss-amber-glow);
-  line-height: 1;
-}
-
-.mbb-type-sub {
-  font-family: var(--font-ss-subhead);
+.footer-tagline {
+  font-family: 'Lora', serif;
+  font-size: clamp(1rem, 2.5vw, 1.3rem);
   font-style: italic;
-  font-size: 0.7rem;
-  color: var(--ss-burnt-umber);
-  opacity: 0.75;
+  color: var(--rose-dust);              /* 3.19:1 on plum-vortex — large ✓ AA large */
+  margin-bottom: 2rem;
+  letter-spacing: 0.03em;
 }
 
-.mbb-type-body {
-  font-family: var(--font-ss-body);
-  font-weight: 300;
-  font-size: 0.55rem;
-  color: var(--ss-twilight-slate);
-  line-height: 1.5;
+.footer-heading {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 900;
+  color: var(--canvas-cream);           /* needs check: canvas-cream on plum-vortex */
+  /* Canvas Cream #FFF3E4 on Plum Vortex #6B2D5B:
+     L(cream)≈0.955, L(plum)≈0.037 → ratio=(0.955+0.05)/(0.037+0.05)=11.55:1 ✓ AA body */
+  line-height: 1.05;
+  margin-bottom: 0.75rem;
+  letter-spacing: 0.03em;
+}
+.footer-heading .amber {
+  color: var(--brushstroke-gold);       /* Brushstroke Gold on Plum Vortex:
+     L(gold)≈0.464, L(plum)≈0.037 → (0.464+0.05)/(0.037+0.05)=5.91:1 ✓ AA body */
 }
 
-.mbb-footer {
-  text-align: center;
-  font-family: var(--font-ss-body);
-  font-size: 0.5rem;
-  font-weight: 400;
+.footer-sub {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.55;
-  border-top: 1px solid rgba(90,50,37,0.15);
-  padding-top: 0.75rem;
+  color: var(--rose-dust);
+  margin-bottom: 3rem;
+  opacity: 0.9;
 }
 
-/* Cheat Sheet mockup */
-.mock-cheat-sheet {
-  background: var(--ss-canvas-cream);
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.mcs-header {
-  font-family: var(--font-ss-display);
+/* CTA button — the vortex calms around it */
+.cta-button {
+  display: inline-block;
+  padding: 1.1rem 2.75rem;
+  background: var(--amber-glow);
+  color: var(--burnt-umber);            /* 4.05:1 on amber-glow — large button ✓ AA large */
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
   font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--ss-plum-vortex);
-  border-bottom: 1px solid rgba(90,50,37,0.15);
-  padding-bottom: 0.5rem;
-}
-
-.mcs-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.6rem;
-  flex: 1;
-}
-
-.mcs-cell {
-  border-radius: 4px;
-  padding: 0.6rem 0.75rem;
-  font-family: var(--font-ss-body);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 0;
-}
-
-.mcs-cell-name {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-style: italic;
-  font-size: 0.85rem;
-  line-height: 1.1;
-}
-
-.mcs-cell-meta {
-  font-size: 0.45rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-
-/* Texture Vault mockup */
-.mock-texture {
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 4px;
-  padding: 4px;
-  background: var(--ss-burnt-umber);
-}
-
-.mock-texture-cell {
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
-}
-
-.mock-texture-cell::after {
-  content: attr(data-name);
-  position: absolute;
-  bottom: 0.4rem;
-  left: 0.5rem;
-  font-family: var(--font-ss-body);
-  font-size: 0.45rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.85);
-  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
-}
-
-/* Caption — quiet line below the slide, no background block */
-.carousel-caption-row {
-  padding: 1.25rem 0.25rem 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  text-align: center;
-}
-
-.caption-label {
-  font-family: var(--font-emmy-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  opacity: 0.65;
-  transition: opacity 0.4s ease;
-}
-
-.caption-name {
-  font-family: var(--font-emmy-display);
-  font-size: 0.95rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  opacity: 0.8;
-  transition: opacity 0.4s ease;
-}
-
-/* Quiet dots — discoverable but not loud */
-.carousel-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.55rem;
-  padding: 0.75rem 0 0;
-}
-
-.carousel-dot {
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 50%;
-  background: rgba(200,184,232,0.25);
-  border: none;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  border: 2px solid transparent;
+  border-radius: 2px;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
-  padding: 0;
-  transition: background 0.4s ease, transform 0.4s ease, width 0.4s ease;
 }
-
-.carousel-dot:hover {
-  background: rgba(200,184,232,0.5);
-}
-
-.carousel-dot.active {
-  background: var(--ss-amber-glow);
-  width: 1.4rem;
-  border-radius: 100px;
-}
-
-/* Tier-2 playground 2x2 mockup — Material samples grid
-   Mirrors the actual playground's texture cards: 4 named material tiles
-   on the kit's signature dark background */
-.mock-playground {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 1rem;
-  padding: 1.25rem;
-  background: var(--ss-plum-vortex);
-  background-image:
-    radial-gradient(ellipse at 20% 80%, rgba(232,132,42,0.08) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 20%, rgba(242,181,82,0.06) 0%, transparent 50%);
-}
-
-.mp-sample {
-  border-radius: 4px;
-  padding: 1rem 1rem 0.85rem;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-}
-
-.mp-sample-swatch {
-  flex: 1;
-  border-radius: 3px;
-  margin-bottom: 0.85rem;
-  min-height: 0;
-}
-
-.mp-sample-name {
-  font-family: var(--font-ss-body);
-  font-size: 0.42rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  margin-bottom: 0.35rem;
-  opacity: 0.85;
-}
-
-.mp-sample-tagline {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: 0.6rem;
-  line-height: 1.4;
-  opacity: 0.85;
-}
-
-/* (carousel controls removed — invisible chrome; only quiet dots below remain) */
-
-/* COMPANION LIST */
-.inside-list {
-  padding-top: 0.5rem;
-}
-
-.inside-list-title {
-  font-family: var(--font-emmy-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-brushstroke-gold);
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-}
-
-.inside-list-title::before {
-  content: '';
-  display: block;
-  width: 1.5rem;
-  height: 1px;
-  background: var(--ss-brushstroke-gold);
-  opacity: 0.7;
-}
-
-.inside-item {
-  padding: 1.1rem 0;
-  border-bottom: 1px solid rgba(200,184,232,0.1);
-  display: grid;
-  grid-template-columns: 2rem 1fr;
-  gap: 0.75rem;
-  align-items: start;
-}
-
-.inside-item:first-of-type {
-  border-top: 1px solid rgba(200,184,232,0.1);
-}
-
-.inside-icon {
-  font-family: var(--font-emmy-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  color: var(--ss-brushstroke-gold);
-  opacity: 0.85;
-  padding-top: 0.2rem;
-}
-
-.inside-text strong {
-  display: block;
-  font-family: var(--font-emmy-body);
-  font-size: 0.85rem;
-  font-weight: 400;
-  color: var(--ss-canvas-cream);
-  margin-bottom: 0.3rem;
-  letter-spacing: 0.02em;
-}
-
-.inside-text span {
-  font-family: var(--font-emmy-body);
-  font-size: 0.72rem;
-  font-weight: 300;
-  color: var(--ss-canvas-cream);
-  opacity: 0.78;
-  line-height: 1.6;
-}
-
-/* ============================================
-   CTA — close
-   ============================================ */
-
-.cta-section {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-  text-align: center;
-}
-
-.cta-label {
-  font-family: var(--font-emmy-body);
-  font-size: 0.58rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  margin-bottom: 1.25rem;
-}
-
-.cta-big {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
-}
-
-.cta-sub {
-  font-family: var(--font-emmy-body);
-  font-style: normal;
-  font-size: 1rem;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-  line-height: 1.8;
-  margin-bottom: 2.5rem;
-  max-width: 580px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.cta-buttons {
-  display: flex;
-  gap: 1.25rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btn-primary {
-  display: inline-block;
-  padding: 0.95rem 2.5rem;
-  background: var(--amethyst);
-  color: var(--snowflake);
-  font-family: var(--font-emmy-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.btn-primary:hover {
-  background: var(--amethyst-light);
-  transform: translateY(-1px);
-}
-
-.btn-ghost {
-  display: inline-block;
-  padding: 0.95rem 2.5rem;
-  border: 1px solid rgba(200,184,232,0.3);
-  color: var(--ss-canvas-cream);
-  font-family: var(--font-emmy-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: border-color 0.3s ease, color 0.3s ease;
-}
-
-.btn-ghost:hover {
-  border-color: var(--ss-canvas-cream);
-  color: var(--ss-canvas-cream);
-}
-
-/* ============================================
-   FOOTER — same as home
-   ============================================ */
-
-footer {
-  padding: 3rem;
-  border-top: 1px solid rgba(200,184,232,0.08);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-name {
-  font-family: var(--font-emmy-display);
-  font-style: italic;
-  font-size: 1rem;
-  color: var(--fairy-silver);
-  opacity: 0.5;
+.cta-button:hover,
+.cta-button:focus-visible {
+  background: var(--brushstroke-gold);
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 3px var(--canvas-cream), 0 8px 24px rgba(0,0,0,0.3);
+  outline: none;
 }
 
 .footer-note {
-  font-family: var(--font-emmy-body);
-  font-size: 0.6rem;
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  color: var(--fairy-silver);
-  opacity: 0.35;
+  margin-top: 3rem;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.78rem;
+  color: var(--canvas-cream);
+  opacity: 0.55;
+  letter-spacing: 0.05em;
 }
 
-/* ============================================
-   REVEAL / ANIMATIONS
-   ============================================ */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ============================================
+/* ─────────────────────────────────────────────
    RESPONSIVE
-   ============================================ */
-
-@media (max-width: 900px) {
-  nav { padding: 1.25rem 1.5rem; }
-  .nav-links { gap: 1.5rem; }
-  .breadcrumb { padding: 4.25rem 1.5rem 0.4rem; }
-
-  .kit-hero-wrap { padding: 0 1.5rem; }
-  .kit-hero-inner { padding: 3rem 0; min-height: 320px; }
-
-  .painting-section,
-  .type-section,
-  .combo-section,
-  .cta-section { padding: 5rem 1.5rem; }
-
-  .palette-inner { padding: 0 1.5rem; }
-  .palette-section,
-  .inside-section { padding: 5rem 0; }
-  .inside-inner { padding: 0 1.5rem; }
-
-  .painting-grid,
-  .palette-header,
-  .type-header,
-  .combo-header,
-  .inside-header,
-  .inside-grid { grid-template-columns: 1fr; gap: 2rem; }
-
-  .palette-grid { grid-template-columns: repeat(2, 1fr); }
-  .combo-grid { grid-template-columns: 1fr 1fr; }
-
-  .type-card { padding: 3rem 2rem; }
-  .type-rule { padding: 2.5rem 2rem; }
-
-  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 3rem 1.5rem; }
-}
-
+───────────────────────────────────────────── */
 @media (max-width: 600px) {
-  .nav-links { display: none; }
-  .palette-grid { grid-template-columns: 1fr; }
-  .combo-grid { grid-template-columns: 1fr; }
-  .cta-buttons { flex-direction: column; align-items: center; }
+  .hero { padding: 4rem 1.25rem 3rem; }
+  section { padding: 3.5rem 1.25rem; }
+  #pull-quote { padding: 5rem 1.25rem; }
+  #cta-footer { padding: 5rem 1.25rem; }
+  .stroke-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+  .inside-grid { grid-template-columns: 1fr; }
+  .texture-row { grid-template-columns: 56px 1fr; gap: 1rem; }
+  .texture-swatch { width: 56px; height: 42px; }
+  .hero-title-wrap { padding: 0.75rem 1.25rem 1rem; }
 }
+
 </style>
+
+<!-- SVG filter for impasto texture — used via filter: url(#impasto-texture) on canvas layers -->
+<svg class="impasto-filter" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="impasto-texture" x="-5%" y="-5%" width="110%" height="110%">
+      <!-- Base turbulence simulates paint ridge texture -->
+      <feTurbulence
+        type="fractalNoise"
+        baseFrequency="0.65 0.18"
+        numOctaves="4"
+        seed="12"
+        result="noise"
+      />
+      <!-- Displacement creates the raised impasto ridge feel -->
+      <feDisplacementMap
+        in="SourceGraphic"
+        in2="noise"
+        scale="8"
+        xChannelSelector="R"
+        yChannelSelector="G"
+        result="displaced"
+      />
+      <!-- Composite back over source to keep color accurate -->
+      <feComposite in="displaced" in2="SourceGraphic" operator="atop" />
+    </filter>
+  </defs>
+</svg>
+
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="../../index.html" class="nav-name">Emmy Bellamora</a>
-  <ul class="nav-links">
-    <li><a href="../../index.html#about">About</a></li>
-    <li><a href="../../index.html#work">Work</a></li>
-    <li><a href="../../index.html#approach">Approach</a></li>
-    <li><a href="../../index.html#working-together">Together</a></li>
-    <li><a href="../../index.html#contact">Contact</a></li>
-  </ul>
-</nav>
+<a href="#main" class="skip-link">Skip to content</a>
 
-<!-- BREADCRUMB -->
-<div class="breadcrumb">
-  <a href="../../index.html">Emmy</a>
-  <span class="breadcrumb-sep">/</span>
-  <a href="../../index.html#work">Brand Kits</a>
-  <span class="breadcrumb-sep">/</span>
-  <a href="../../index.html#work">Art Gallery</a>
-  <span class="breadcrumb-sep">/</span>
-  <span>Starry Swirl</span>
-</div>
+<main id="main">
 
-<!-- KIT HERO -->
-<section class="kit-hero">
-  <div class="kit-hero-inner">
-    <div class="kit-hero-wrap">
-      <div class="kit-hero-content">
-        <div class="kit-hero-meta">Art Gallery &middot; Kit 01</div>
-        <h1 class="kit-hero-name">Starry Swirl</h1>
-        <p class="kit-hero-tagline">
-          A sunset burning through impasto sky. The energy of Van Gogh in a completely different time of day &mdash; for the person whose ideas never sit still.
+  <!-- ═══════════════════════════════════════════
+       HERO — The living vortex
+       Swirl canvas is always visible (no-JS safe).
+       Content is always in DOM, always readable.
+       JS: staggered entrance + scroll-speed control + cursor-part.
+  ═══════════════════════════════════════════ -->
+  <section class="hero" aria-label="Starry Swirl — Kit Introduction">
+
+    <!-- Aria-hidden: pure decoration, swirl is the visual frame -->
+    <div class="hero-swirl" aria-hidden="true">
+      <div class="swirl-canvas">
+        <div class="swirl-layer swirl-layer-1"></div>
+        <div class="swirl-layer swirl-layer-2"></div>
+        <div class="swirl-layer swirl-layer-3"></div>
+        <!-- Cursor layer — shown + positioned by JS -->
+        <div class="swirl-cursor-layer" id="cursor-layer"></div>
+      </div>
+    </div>
+
+    <!-- Content — in DOM from first paint, above the swirl -->
+    <div class="hero-content">
+
+      <span class="hero-eyebrow" id="hero-eyebrow">
+        Art Gallery Collection — Kit No. 1
+      </span>
+
+      <div class="hero-title-wrap" id="hero-title-wrap">
+        <h1 class="hero-title" id="hero-title">
+          <span class="amber">Starry</span><br>Swirl
+        </h1>
+      </div>
+
+      <p class="hero-subtitle" id="hero-subtitle">
+        A sunset burning through impasto sky — the energy of Van Gogh in a completely different time of day.
+      </p>
+
+      <div class="hero-rule" id="hero-rule"></div>
+
+      <p class="hero-descriptor" id="hero-descriptor">
+        For the person whose ideas never sit still.
+      </p>
+
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+
+  </section>
+
+  <!-- Stroke divider — directional band, no-JS: fully visible -->
+  <div class="stroke-divider js-reveal" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       THE PALETTE — impasto stroke cards
+  ═══════════════════════════════════════════ -->
+  <section id="palette" aria-labelledby="palette-heading">
+    <div class="section-inner">
+
+      <div class="palette-intro reveal-group js-reveal-group">
+        <span class="section-label">The Palette</span>
+        <h2 class="section-heading" id="palette-heading">Eight Colors.<br>Every Swirl Has a Current.</h2>
+        <p class="section-body">
+          Nothing here is flat. Amber Glow is thick impasto catching light.
+          Plum Vortex is deep matte velvet with directional grain.
+          The eight colors are the brushstrokes; the motion is what makes them one painting.
+        </p>
+      </div>
+
+      <div class="stroke-grid" role="list" aria-label="Starry Swirl color palette">
+
+        <!-- 1. Amber Glow — Anchor -->
+        <div class="stroke-card reveal-on-scroll js-reveal"
+             role="listitem"
+             tabindex="0"
+             aria-label="Amber Glow, hex E8842A — kit anchor, the center of every swirl">
+          <div class="stroke-fill stroke-amber" aria-hidden="true"></div>
+          <div class="stroke-meta">
+            <span class="stroke-name">Amber Glow</span>
+            <span class="stroke-role">Anchor</span>
+            <span class="stroke-hex">#E8842A</span>
+          </div>
+        </div>
+
+        <!-- 2. Plum Vortex — Counterweight -->
+        <div class="stroke-card reveal-on-scroll js-reveal"
+             role="listitem"
+             tabindex="0"
+             aria-label="Plum Vortex, hex 6B2D5B — counterweight, the magnetic deep pull">
+          <div class="stroke-fill stroke-plum" aria-hidden="true"></div>
+          <div class="stroke-meta">
+            <span class="stroke-name">Plum Vortex</span>
+            <span class="stroke-role">Counterweight</span>
+            <span class="stroke-hex">#6B2D5B</span>
+          </div>
+        </div>
+
+        <!-- 3. Canvas Cream — Warm carrier neutral -->
+        <div class="stroke-card reveal-on-scroll js-reveal"
+             role="listitem"
+             tabindex="0"
+             aria-label="Canvas Cream, hex FFF3E4 — warm carrier neutral, the canvas ground">
+          <div class="stroke-fill stroke-cream" aria-hidden="true"></div>
+          <div class="stroke-meta">
+            <span class="stroke-name">Canvas Cream</span>
+            <span class="stroke-role">Warm Carrier</span>
+            <span class="stroke-hex">#FFF3E4</span>
+          </div>
+        </div>
+
+        <!-- 4. Twilight Slate — Cool carrier neutral -->
+        <div class="stroke-card reveal-on-scroll js-reveal"
+             role="listitem"
+             tabindex="0"
+             aria-label="Twilight Slate, hex 4A4458 — cool carrier neutral, structural anchor">
+          <div class="stroke-fill stroke-slate" aria-hidden="true"></div>
+          <div class="stroke-meta">
+            <span class="stroke-name">Twilight Slate</span>
+            <span class="stroke-role">Cool Carrier</span>
+            <span class="stroke-hex">#4A4458</span>
+          </div>
+        </div>
+
+        <!-- 5. Rose Dust — Flex hue -->
+        <div class="stroke-card reveal-on-scroll js-reveal"
+             role="listitem"
+             tabindex="0"
+             aria-label="Rose Dust, hex C87F8A — flex hue, the third direction">
+          <div class="stroke-fill stroke-rose" aria-hidden="true"></div>
+          <div class="stroke-meta">
+            <span class="stroke-name">Rose Dust</span>
+            <span class="stroke-role">Flex Hue</span>
+            <span class="stroke-hex">#C87F8A</span>
+          </div>
+        </div>
+
+        <!-- 6. Coral Flame — Hot warm accent -->
+        <div class="stroke-card reveal-on-scroll js-reveal"
+             role="listitem"
+             tabindex="0"
+             aria-label="Coral Flame, hex E05A3A — hot warm accent, the most alive color">
+          <div class="stroke-fill stroke-coral" aria-hidden="true"></div>
+          <div class="stroke-meta">
+            <span class="stroke-name">Coral Flame</span>
+            <span class="stroke-role">Hot Accent</span>
+            <span class="stroke-hex">#E05A3A</span>
+          </div>
+        </div>
+
+        <!-- 7. Brushstroke Gold — Golden warm accent -->
+        <div class="stroke-card reveal-on-scroll js-reveal"
+             role="listitem"
+             tabindex="0"
+             aria-label="Brushstroke Gold, hex F2B552 — painted gold accent, joy without performance">
+          <div class="stroke-fill stroke-gold" aria-hidden="true"></div>
+          <div class="stroke-meta">
+            <span class="stroke-name">Brushstroke Gold</span>
+            <span class="stroke-role">Gold Accent</span>
+            <span class="stroke-hex">#F2B552</span>
+          </div>
+        </div>
+
+        <!-- 8. Burnt Umber Swirl — Deep warm shadow -->
+        <div class="stroke-card reveal-on-scroll js-reveal"
+             role="listitem"
+             tabindex="0"
+             aria-label="Burnt Umber Swirl, hex 5A3225 — deep warm shadow, the underpainting">
+          <div class="stroke-fill stroke-umber" aria-hidden="true"></div>
+          <div class="stroke-meta">
+            <span class="stroke-name">Burnt Umber Swirl</span>
+            <span class="stroke-role">Deep Shadow</span>
+            <span class="stroke-hex">#5A3225</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Plum stroke divider — directional change -->
+  <div class="stroke-divider stroke-divider-plum js-reveal" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       WHAT'S INSIDE — tilted, active typography
+  ═══════════════════════════════════════════ -->
+  <section id="whats-inside" aria-labelledby="inside-heading">
+    <div class="section-inner">
+
+      <div class="reveal-group js-reveal-group">
+        <span class="section-label">What's Inside</span>
+        <h2 class="section-heading" id="inside-heading">Everything Your Brand<br>Needs to Move.</h2>
+        <p class="section-body">
+          Starry Swirl is a complete brand identity system — eight colors, three typefaces,
+          and every surface your brand lives on. All of it built to carry the same urgency,
+          the same direction, the same sunset energy.
+        </p>
+      </div>
+
+      <div class="inside-grid" role="list">
+
+        <div class="inside-card reveal-on-scroll js-reveal" role="listitem">
+          <span class="inside-icon" aria-hidden="true">◈</span>
+          <h3 class="inside-heading">Color Palette</h3>
+          <p class="inside-body">
+            Eight colors with full material documentation — hex codes, contrast ratios,
+            WCAG accessibility pairs, structural roles, and usage guidance for every slot.
+          </p>
+        </div>
+
+        <div class="inside-card reveal-on-scroll js-reveal" role="listitem">
+          <span class="inside-icon" aria-hidden="true">◆</span>
+          <h3 class="inside-heading">Typography System</h3>
+          <p class="inside-body">
+            Fraunces for display (the movement), Lora for subheads (the current beneath),
+            Work Sans for body (steady, warm, belongs in the same room).
+            All Google Fonts — free forever.
+          </p>
+        </div>
+
+        <div class="inside-card reveal-on-scroll js-reveal" role="listitem">
+          <span class="inside-icon" aria-hidden="true">◇</span>
+          <h3 class="inside-heading">Brand Board</h3>
+          <p class="inside-body">
+            The full visual identity at a glance — palette, type, tone, and texture
+            in one reference surface. The whole painting at once.
+          </p>
+        </div>
+
+        <div class="inside-card reveal-on-scroll js-reveal" role="listitem">
+          <span class="inside-icon" aria-hidden="true">▷</span>
+          <h3 class="inside-heading">Social Headers</h3>
+          <p class="inside-body">
+            Profile and cover image templates ready for LinkedIn, Instagram, Facebook,
+            Pinterest. The swirl, scaled to every feed.
+          </p>
+        </div>
+
+        <div class="inside-card reveal-on-scroll js-reveal" role="listitem">
+          <span class="inside-icon" aria-hidden="true">○</span>
+          <h3 class="inside-heading">Link-in-Bio Page</h3>
+          <p class="inside-body">
+            A fully responsive standalone link page — ready to deploy.
+            Amber at the top. The painting holds the links.
+          </p>
+        </div>
+
+        <div class="inside-card reveal-on-scroll js-reveal" role="listitem">
+          <span class="inside-icon" aria-hidden="true">◉</span>
+          <h3 class="inside-heading">Color Combinations Cheat Sheet</h3>
+          <p class="inside-body">
+            Every approved pairing with contrast ratios so you always know which colors
+            can travel together — and which ones are meant to anchor.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Amber stroke divider -->
+  <div class="stroke-divider js-reveal" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       THE TEXTURES — color as material
+  ═══════════════════════════════════════════ -->
+  <section id="textures" aria-labelledby="textures-heading">
+    <div class="section-inner">
+
+      <div class="reveal-group js-reveal-group">
+        <span class="section-label">The Textures</span>
+        <h2 class="section-heading" id="textures-heading">Nothing Is Flat.<br>Everything Is Material.</h2>
+        <p class="section-body">
+          Van Gogh pressed the paint into the canvas with his whole hand sometimes.
+          These colors carry that — each one a material, not just a hex.
+          The impasto ridge. The wet paint. The canvas showing through.
+        </p>
+      </div>
+
+      <ul class="texture-rows" aria-label="Material texture descriptions for each palette color">
+
+        <li class="texture-row js-texture">
+          <div class="texture-swatch" style="background-color: var(--amber-glow);" aria-hidden="true"></div>
+          <div>
+            <span class="texture-name">Amber Glow</span>
+            <p class="texture-desc">
+              Thick impasto, visible brushstroke ridges catching light. Honey held up to a window. The center of every swirl — applied with pressure, left with intention.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-row js-texture">
+          <div class="texture-swatch" style="background-color: var(--plum-vortex);" aria-hidden="true"></div>
+          <div>
+            <span class="texture-name">Plum Vortex</span>
+            <p class="texture-desc">
+              Deep matte velvet with directional grain — like brushstrokes all pulled in one direction. The gravity that holds the swirl together. Rich, magnetic, unapologetic.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-row js-texture">
+          <div class="texture-swatch" style="background-color: var(--coral-flame);" aria-hidden="true"></div>
+          <div>
+            <span class="texture-name">Coral Flame</span>
+            <p class="texture-desc">
+              Slightly glossy — wet paint, fresh, just-applied energy. The underside of a cloud on fire. The most alive color in the box. Used in small quantities because it insists.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-row js-texture">
+          <div class="texture-swatch" style="background-color: var(--brushstroke-gold);" aria-hidden="true"></div>
+          <div>
+            <span class="texture-name">Brushstroke Gold</span>
+            <p class="texture-desc">
+              Textured metallic-paint — not smooth, not metallic. Gold paint layered thick with a palette knife. Van Gogh's stars, warmed by sunset. Optimistic without being naive.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-row js-texture">
+          <div class="texture-swatch" style="background-color: var(--rose-dust);" aria-hidden="true"></div>
+          <div>
+            <span class="texture-name">Rose Dust</span>
+            <p class="texture-desc">
+              Soft matte, like pastel chalk on textured paper. The sky between sunset and twilight — where coral cools down and plum warms up. Gentle but not weak.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-row js-texture">
+          <div class="texture-swatch" style="background-color: var(--burnt-umber);" aria-hidden="true"></div>
+          <div>
+            <span class="texture-name">Burnt Umber Swirl</span>
+            <p class="texture-desc">
+              Raw linen with oil paint soaked in — earthy, organic, warm. The underpainting. Where depth lives without coldness. The warm-value extreme; ideal for text-heavy layouts.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-row js-texture">
+          <div class="texture-swatch" style="background-color: var(--canvas-cream);" aria-hidden="true" style="border: 1px solid rgba(90,50,37,0.15);"></div>
+          <div>
+            <span class="texture-name">Canvas Cream</span>
+            <p class="texture-desc">
+              Actual canvas texture — woven, visible thread, warm. The ground the paint lives on. Clean space that still feels like part of the painting.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-row js-texture">
+          <div class="texture-swatch" style="background-color: var(--twilight-slate);" aria-hidden="true"></div>
+          <div>
+            <span class="texture-name">Twilight Slate</span>
+            <p class="texture-desc">
+              Smooth matte stone, cool to the touch, architectural. The village silhouette beneath Van Gogh's sky. Structural, quiet, necessary. The one cool anchor in an otherwise warm painting.
+            </p>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+
+  <!-- Plum stroke divider -->
+  <div class="stroke-divider stroke-divider-plum js-reveal" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       PULL QUOTE
+  ═══════════════════════════════════════════ -->
+  <section id="pull-quote" aria-label="Concept quote">
+    <div class="pull-quote-inner reveal-on-scroll js-reveal">
+      <blockquote>
+        <span class="quote-mark" aria-hidden="true">&ldquo;</span>
+        <p class="quote-text">
+          Van Gogh didn't paint the sky.<br>
+          He painted what the sky <em>felt like</em>.
+        </p>
+        <footer class="quote-attribution">
+          — The principle behind Starry Swirl
+        </footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- Amber stroke divider -->
+  <div class="stroke-divider js-reveal" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       THE FLIP — concept note
+  ═══════════════════════════════════════════ -->
+  <section id="the-flip" aria-labelledby="flip-heading">
+    <div class="section-inner">
+      <div class="flip-inner reveal-on-scroll js-reveal">
+        <h2 class="flip-heading" id="flip-heading">
+          The same movement.<br>
+          <span class="stroke">A different sky.</span>
+        </h2>
+        <p class="flip-body">
+          His was night. Hers is sunset, and it's on fire.
+        </p>
+        <p class="flip-body">
+          Van Gogh's swirls aren't random — every one follows a current. That's this kit.
+          Not chaos. Movement with direction. Energy with intention.
+          The sky didn't sit still. Neither did she.
+        </p>
+        <p class="section-body">
+          The impasto technique is the same. The sky is different. That's the whole thing:
+          a woman can take someone else's method, put it in a completely different time of day,
+          and make something no one has ever seen before. That's exactly what a brand can do.
         </p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- INSIDE THE KIT — moved up to position 2 so it's visible above the fold -->
-<section class="inside-section">
-  <div class="inside-inner">
-    <div class="inside-header">
-      <h2 class="inside-title reveal">Inside the kit.</h2>
-      <p class="inside-intro reveal">
-        Brand kits should be <em>complete worlds</em>, not single files. Flip through to see what arrives when Starry Swirl becomes yours.
+  <!-- ═══════════════════════════════════════════
+       CTA FOOTER — the swirls slow, the canvas settles
+       This IS the reduced-motion rest state.
+  ═══════════════════════════════════════════ -->
+  <section id="cta-footer" aria-label="Get Starry Swirl">
+
+    <!-- Slow-settling swirl — the painting coming to rest -->
+    <div class="footer-swirl" aria-hidden="true">
+      <div class="footer-swirl-layer"></div>
+    </div>
+
+    <div class="footer-content">
+
+      <p class="footer-tagline">
+        The movement was always in her.
       </p>
-    </div>
 
-    <div class="inside-grid">
+      <h2 class="footer-heading">
+        <span class="amber">Make it</span><br>yours.
+      </h2>
 
-      <!-- CAROUSEL -->
-      <div class="carousel reveal" id="kit-carousel">
-        <div class="carousel-stage">
+      <p class="footer-sub">Starry Swirl — Art Gallery Collection</p>
 
-          <!-- Slide 1: Brand Board -->
-          <div class="carousel-slide active" data-slide="0">
-            <div class="mockup-stage">
-              <div class="mock-brand-board">
-                <div class="mbb-header">
-                  <div class="mbb-eyebrow">Art Gallery &middot; Brand Board</div>
-                  <div class="mbb-title">Starry Swirl</div>
-                  <div class="mbb-tagline">Energy with intention &mdash; every swirl has a current</div>
-                </div>
-                <div class="mbb-body">
-                  <div class="mbb-palette">
-                    <div class="mbb-swatch" style="background: var(--ss-amber-glow);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-plum-vortex);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-coral-flame);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-brushstroke-gold);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-rose-dust);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-burnt-umber);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-canvas-cream); border: 1px solid rgba(90,50,37,0.1);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-twilight-slate);"></div>
-                  </div>
-                  <div class="mbb-type">
-                    <div class="mbb-type-display">Swirl.</div>
-                    <div class="mbb-type-sub">Fraunces &middot; Lora &middot; Work Sans</div>
-                    <div class="mbb-type-body">A display serif with expressive thick-thin contrast, set against a calligraphic subhead and a humanist body sans.</div>
-                  </div>
-                </div>
-                <div class="mbb-footer">By Emmy Bellamora &middot; Art Gallery Collection</div>
-              </div>
-            </div>
-          </div>
+      <!-- CTA scoped out: publishing/money = THE FOUR → flagged per brief -->
+      <a href="#" class="cta-button" aria-label="Get the Starry Swirl brand kit (publishing destination TBD — flagged for Heather)">
+        Get the Kit
+      </a>
 
-          <!-- Slide 2: Tier-2 Playground — Material samples (mirrors actual playground) -->
-          <div class="carousel-slide" data-slide="1">
-            <div class="mockup-stage" style="padding: 0;">
-              <div class="mock-playground">
-                <!-- Sample 1: Swirl Current (wave lines) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: repeating-linear-gradient(0deg, transparent 0 3px, rgba(242,181,82,0.5) 3px 4px, transparent 4px 6px), radial-gradient(ellipse at 50% 50%, rgba(232,132,42,0.25) 0%, transparent 70%); background-color: rgba(0,0,0,0.15);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Swirl Current</div>
-                  <div class="mp-sample-tagline">The Van Gogh sky &mdash;<br>every stroke has direction.</div>
-                </div>
-                <!-- Sample 2: Brushstroke Flow (impasto wave) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: repeating-linear-gradient(0deg, transparent 0 4px, rgba(242,181,82,0.7) 4px 5px, transparent 5px 8px), linear-gradient(135deg, var(--ss-amber-glow) 0%, #C45A1A 100%);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Brushstroke Flow</div>
-                  <div class="mp-sample-tagline">Impasto close-up.<br>Warm layers on plum depth.</div>
-                </div>
-                <!-- Sample 3: Star Field (dotted) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: radial-gradient(circle at 25% 25%, var(--ss-brushstroke-gold) 0%, transparent 8%), radial-gradient(circle at 75% 30%, var(--ss-canvas-cream) 0%, transparent 6%), radial-gradient(circle at 60% 70%, var(--ss-brushstroke-gold) 0%, transparent 8%), radial-gradient(circle at 30% 75%, var(--ss-canvas-cream) 0%, transparent 6%), radial-gradient(circle at 85% 60%, var(--ss-brushstroke-gold) 0%, transparent 7%); background-size: 32px 32px; background-color: var(--ss-burnt-umber);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Star Field</div>
-                  <div class="mp-sample-tagline">Van Gogh's stars &mdash; gold rings,<br>radiating strokes, atmospheric ions.</div>
-                </div>
-                <!-- Sample 4: Sunset Vapor (soft cream wash) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: repeating-linear-gradient(0deg, transparent 0 4px, rgba(232,132,42,0.18) 4px 5px, transparent 5px 9px), radial-gradient(ellipse at 50% 50%, rgba(242,181,82,0.4) 0%, rgba(232,132,42,0.15) 60%, transparent 100%); background-color: var(--ss-canvas-cream);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Sunset Vapor</div>
-                  <div class="mp-sample-tagline">Atmospheric. Soft color blends<br>on canvas-cream ground.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 3: Cheat Sheet -->
-          <div class="carousel-slide" data-slide="2">
-            <div class="mockup-stage">
-              <div class="mock-cheat-sheet">
-                <div class="mcs-header">Color Combinations</div>
-                <div class="mcs-grid">
-                  <div class="mcs-cell" style="background: var(--ss-amber-glow); color: var(--ss-canvas-cream);">
-                    <div class="mcs-cell-name">Sunset<br>Meets Twilight</div>
-                    <div class="mcs-cell-meta">Amber &times; Plum &middot; AAA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-canvas-cream); color: var(--ss-burnt-umber); border: 1px solid rgba(90,50,37,0.1);">
-                    <div class="mcs-cell-name">Clean<br>Energy</div>
-                    <div class="mcs-cell-meta">Amber &times; Cream &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-plum-vortex); color: var(--ss-brushstroke-gold);">
-                    <div class="mcs-cell-name">Evening<br>Glow</div>
-                    <div class="mcs-cell-meta">Plum &times; Gold &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-coral-flame); color: var(--ss-canvas-cream);">
-                    <div class="mcs-cell-name">For<br>Calls to Action</div>
-                    <div class="mcs-cell-meta">Coral &times; Cream &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-rose-dust); color: var(--ss-burnt-umber);">
-                    <div class="mcs-cell-name">The Soft<br>Approach</div>
-                    <div class="mcs-cell-meta">Rose &times; Cream &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-burnt-umber); color: var(--ss-brushstroke-gold);">
-                    <div class="mcs-cell-name">Earth<br>and Light</div>
-                    <div class="mcs-cell-meta">Umber &times; Gold &middot; AA</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 4: Texture Vault -->
-          <div class="carousel-slide" data-slide="3">
-            <div class="mockup-stage" style="padding: 1rem;">
-              <div class="mock-texture">
-                <div class="mock-texture-cell" data-name="Amber Glow" style="background: linear-gradient(135deg, #E8842A 0%, #D67318 100%); background-image: linear-gradient(135deg, #E8842A 0%, #D67318 100%), repeating-linear-gradient(45deg, transparent 0 4px, rgba(0,0,0,0.08) 4px 6px);"></div>
-                <div class="mock-texture-cell" data-name="Plum Vortex" style="background: var(--ss-plum-vortex); background-image: radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.08) 0%, transparent 50%), var(--ss-plum-vortex);"></div>
-                <div class="mock-texture-cell" data-name="Coral Flame" style="background: linear-gradient(160deg, #E05A3A 0%, #B83D20 100%); background-image: linear-gradient(160deg, #E05A3A 0%, #B83D20 100%), repeating-linear-gradient(0deg, transparent 0 3px, rgba(0,0,0,0.06) 3px 4px);"></div>
-                <div class="mock-texture-cell" data-name="Brushstroke Gold" style="background: linear-gradient(135deg, #F2B552 0%, #D89A3A 100%); background-image: linear-gradient(135deg, #F2B552 0%, #D89A3A 100%), repeating-linear-gradient(135deg, transparent 0 2px, rgba(255,255,255,0.12) 2px 3px);"></div>
-                <div class="mock-texture-cell" data-name="Rose Dust" style="background: var(--ss-rose-dust); background-image: radial-gradient(circle at 40% 40%, rgba(255,255,255,0.18) 0%, transparent 60%), var(--ss-rose-dust);"></div>
-                <div class="mock-texture-cell" data-name="Burnt Umber" style="background: var(--ss-burnt-umber); background-image: repeating-linear-gradient(90deg, transparent 0 2px, rgba(0,0,0,0.15) 2px 3px), var(--ss-burnt-umber);"></div>
-                <div class="mock-texture-cell" data-name="Canvas Cream" style="background: var(--ss-canvas-cream); background-image: repeating-linear-gradient(45deg, transparent 0 2px, rgba(90,50,37,0.06) 2px 3px), var(--ss-canvas-cream); color: var(--ss-burnt-umber);"></div>
-                <div class="mock-texture-cell" data-name="Twilight Slate" style="background: var(--ss-twilight-slate); background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06) 0%, transparent 70%), var(--ss-twilight-slate);"></div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Quiet dots — discoverable, not loud -->
-        <div class="carousel-dots">
-          <button class="carousel-dot active" data-go="0" aria-label="Brand Board"></button>
-          <button class="carousel-dot" data-go="1" aria-label="Tier-2 Playground"></button>
-          <button class="carousel-dot" data-go="2" aria-label="Cheat Sheet"></button>
-          <button class="carousel-dot" data-go="3" aria-label="Texture Vault"></button>
-        </div>
-
-        <!-- Quiet caption — italic, no background block -->
-        <div class="carousel-caption-row">
-          <div class="caption-label" id="caption-label">Brand Board</div>
-          <div class="caption-name" id="caption-name">The kit at a glance</div>
-        </div>
-      </div>
-
-      <!-- COMPANION LIST -->
-      <div class="inside-list reveal">
-        <div class="inside-list-title">Everything Included</div>
-
-        <div class="inside-item">
-          <div class="inside-icon">01</div>
-          <div class="inside-text">
-            <strong>Whole Box Color Palette</strong>
-            <span>Eight materially-named colors with hex codes, role descriptions, and texture notes.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">02</div>
-          <div class="inside-text">
-            <strong>Typography System</strong>
-            <span>Fraunces + Lora + Work Sans. Display, subhead, body. With the rule that holds them together.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">03</div>
-          <div class="inside-text">
-            <strong>Brand Board</strong>
-            <span>One page that captures the entire kit at a glance &mdash; for presentations or quick reference.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">04</div>
-          <div class="inside-text">
-            <strong>Color Combinations Cheat Sheet</strong>
-            <span>Pre-vetted combinations with WCAG contrast scores. Beautiful AND accessible.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">05</div>
-          <div class="inside-text">
-            <strong>Tier-2 Playground</strong>
-            <span>Full sandbox of the kit in motion &mdash; layouts, social tiles, link-in-bio templates.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">06</div>
-          <div class="inside-text">
-            <strong>Texture Vault</strong>
-            <span>High-res material textures for each color &mdash; impasto, painted gold, canvas weave.</span>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- THE PAINTING -->
-<section class="painting-section">
-  <div class="painting-grid">
-    <div class="reveal">
-      <div class="painting-label">The Painting Behind It</div>
-      <h2 class="painting-title">Vincent van Gogh<br>painted what the<br>sky <em style="color: var(--ss-amber-glow); font-style: italic;">felt like</em>.</h2>
-      <p class="painting-attribution">Inspired by <em style="color:var(--ss-canvas-cream);">The Starry Night</em>, 1889</p>
-    </div>
-    <div class="painting-body reveal">
-      <p>
-        Those swirls. Thick, layered, urgent brushstrokes that turn a night sky into something alive &mdash; spinning, breathing, pulling you in. <strong>Van Gogh didn't paint what the sky looked like. He painted what the sky FELT like.</strong> Every stroke is visible because the hand that made it was present.
+      <p class="footer-note">
+        Part of the Art Gallery collection — refined kits for makers who think in movements.
       </p>
-      <p>
-        The technique is <em>impasto vortexes</em>: thick paint applied in swirling, directional strokes that create physical texture and visual movement. The sky doesn't sit still. Nothing sits still.
-      </p>
-      <p>
-        Van Gogh's original lives in deep blues, teals, and golden yellows &mdash; nighttime. <strong>Starry Swirl takes that same swirling, urgent energy and sets it on fire.</strong> Sunset. Amber. Coral. Plum. The movement is the same. The time of day changed everything.
-      </p>
-      <p>
-        This is the kit for the person whose ideas never sit still. She has seventeen tabs open, three notebooks with different color pens, and a vision that moves faster than she can explain it. Her brand shouldn't look calm and composed &mdash; it should look like it's <em>going somewhere</em>.
-      </p>
-    </div>
-  </div>
-</section>
-
-<!-- PALETTE -->
-<section class="palette-section">
-  <div class="palette-inner">
-    <div class="palette-header">
-      <h2 class="palette-title reveal">The Whole Box.<br>Every color material.</h2>
-      <p class="palette-intro reveal">
-        Eight colors. Each one named for what it actually <em>is</em>, because "orange" tells you nothing and <em>Amber Glow</em> tells you everything. <em>Nothing here is flat. Everything is material.</em>
-      </p>
-    </div>
-
-    <div class="palette-grid">
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-amber-glow);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Primary Warm</div>
-          <div class="palette-name">Amber Glow</div>
-          <div class="palette-hex">#E8842A</div>
-          <p class="palette-feel">Pure sunset amber &mdash; the moment before orange becomes gold. Thick and luminous, like honey held up to a window.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-plum-vortex);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Signature Deep</div>
-          <div class="palette-name">Plum Vortex</div>
-          <div class="palette-hex">#6B2D5B</div>
-          <p class="palette-feel">Where sunset meets night. Deep magenta-purple that pulls you in the way a Van Gogh swirl pulls your eye.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-coral-flame);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Hot Accent</div>
-          <div class="palette-name">Coral Flame</div>
-          <div class="palette-hex">#E05A3A</div>
-          <p class="palette-feel">The underside of a cloud on fire. Red-orange with warmth that radiates. The most alive color in the box.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-brushstroke-gold);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Golden Lift</div>
-          <div class="palette-name">Brushstroke Gold</div>
-          <div class="palette-hex">#F2B552</div>
-          <p class="palette-feel">Not metallic gold &mdash; painted gold. The thick, impasto yellow of Van Gogh's stars, but warmer.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-rose-dust);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Soft Mid</div>
-          <div class="palette-name">Rose Dust</div>
-          <div class="palette-hex">#C87F8A</div>
-          <p class="palette-feel">Where coral cools down and plum warms up. The sky between sunset and twilight. Gentle but not weak.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-burnt-umber);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Warm Shadow</div>
-          <div class="palette-name">Burnt Umber Swirl</div>
-          <div class="palette-hex">#5A3225</div>
-          <p class="palette-feel">The dark that isn't dark &mdash; warm brown with movement baked in. Where depth lives without coldness.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-canvas-cream); border-bottom: 1px solid rgba(0,0,0,0.06);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Light Ground</div>
-          <div class="palette-name">Canvas Cream</div>
-          <div class="palette-hex">#FFF3E4</div>
-          <p class="palette-feel">Warm white with a golden cast &mdash; the actual canvas showing through impasto strokes. Clean space that still feels painted.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-twilight-slate);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Cool Contrast</div>
-          <div class="palette-name">Twilight Slate</div>
-          <div class="palette-hex">#4A4458</div>
-          <p class="palette-feel">The one cool color. Deep blue-purple gray that grounds the warmth &mdash; like the village silhouette beneath Van Gogh's sky.</p>
-        </div>
-      </div>
 
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- TYPOGRAPHY -->
-<section class="type-section">
-  <div class="type-header">
-    <h2 class="type-title reveal">Three fonts.<br>One current.</h2>
-    <p class="type-intro reveal">
-      <strong>Fraunces brings the movement. Lora holds the direction. Work Sans does the walking.</strong> Every swirl has a current &mdash; these fonts follow it. All three are free Google Fonts, forever yours.
-    </p>
-  </div>
+</main>
 
-  <div class="type-card reveal">
-    <div class="type-card-meta">Headline &middot; Fraunces 700&ndash;900</div>
-    <div class="type-card-display">Swirl with intention.</div>
-    <div class="type-card-name">Fraunces, 72pt &middot; Plum Vortex</div>
-  </div>
-
-  <div class="type-card reveal">
-    <div class="type-card-meta">Subhead &middot; Lora 400&ndash;600 italic</div>
-    <p class="type-card-subhead">A display serif with expressive, almost wonky thick-thin contrast &mdash; letterforms with visible quirks, soft curves that feel hand-shaped rather than machine-cut.</p>
-    <div class="type-card-name">Lora 500 italic, 28pt &middot; Burnt Umber Swirl</div>
-  </div>
-
-  <div class="type-card reveal">
-    <div class="type-card-meta">Body &middot; Work Sans 300&ndash;400</div>
-    <p class="type-card-body">
-      Slightly warmer and more humanist than Inter. Work Sans has subtle personality in its proportions &mdash; friendly without being casual, clean without being clinical. In a kit that's already this energetic at the headline level, the body font needs to be a calm anchor, and Work Sans does that while still feeling like it belongs in the same room as Fraunces. The current under the swirl. The walking pace under the wind.
-    </p>
-    <div class="type-card-name">Work Sans 300, 16pt &middot; Twilight Slate on Canvas Cream</div>
-  </div>
-
-  <div class="type-rule reveal">
-    The rule:<br>
-    <em>Fraunces moves. Lora steadies. Work Sans walks.</em>
-  </div>
-</section>
-
-<!-- COMBINATIONS -->
-<section class="combo-section">
-  <div class="combo-header">
-    <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
-    <p class="combo-intro reveal">
-      A color swatch on white tells you nothing. What matters is how a color <em>behaves</em> next to other colors. These are the signature pairings &mdash; the combinations Starry Swirl was built for.
-    </p>
-  </div>
-
-  <div class="combo-grid">
-    <div class="combo-card combo-1 reveal">
-      <div>
-        <div class="combo-pair">The Signature</div>
-        <div class="combo-name">Sunset Meets Twilight</div>
-      </div>
-    </div>
-    <div class="combo-card combo-2 reveal">
-      <div>
-        <div class="combo-pair">Clean Energy</div>
-        <div class="combo-name">Amber on Canvas</div>
-      </div>
-    </div>
-    <div class="combo-card combo-3 reveal">
-      <div>
-        <div class="combo-pair">Evening Glow</div>
-        <div class="combo-name">Plum &amp; Brushstroke</div>
-      </div>
-    </div>
-    <div class="combo-card combo-4 reveal">
-      <div>
-        <div class="combo-pair">For Calls to Action</div>
-        <div class="combo-name">Coral &amp; Cream</div>
-      </div>
-    </div>
-    <div class="combo-card combo-5 reveal">
-      <div>
-        <div class="combo-pair">The Soft Approach</div>
-        <div class="combo-name">Rose Dust &amp; Cream</div>
-      </div>
-    </div>
-    <div class="combo-card combo-6 reveal">
-      <div>
-        <div class="combo-pair">Earth and Light</div>
-        <div class="combo-name">Umber &amp; Gold</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section">
-  <div class="cta-label">Take it Home</div>
-  <h2 class="cta-big reveal">Make Starry Swirl<br>your brand.</h2>
-  <p class="cta-sub reveal">
-    The kit is available now. If you want a custom kit built specifically for your world &mdash; or if you'd like Emmy to translate Starry Swirl into a full website &mdash; that's available too.
-  </p>
-  <div class="cta-buttons reveal">
-    <a href="mailto:hello@emmybellamora.com?subject=Starry Swirl Kit" class="btn-primary">Get the Kit</a>
-    <a href="../../index.html#working-together" class="btn-ghost">Talk to Emmy</a>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-name">Emmy Bellamora</div>
-  <div class="footer-note">Creative Director &middot; Cognitive UX Designer &middot; Fairy With Bite 🧚‍♀️</div>
-</footer>
-
-<!-- REVEAL + CAROUSEL -->
 <script>
-  // Reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
+/* ─────────────────────────────────────────────
+   STARRY SWIRL — JavaScript enhancement layer
+   Runs only when JS is present (documentElement.classList has 'js').
+   Everything below is enhancement — the page is complete without it.
+
+   1. Hero entrance sequence (staggered reveals)
+   2. Scroll-observer: IntersectionObserver reveals content sections
+   3. Scroll-speed control: scroll progress → --swirl-speed custom prop
+   4. Cursor-part interaction: swirl-cursor-layer follows pointer
+───────────────────────────────────────────── */
+
+(function () {
+  'use strict';
+
+  /* ── 1. Hero entrance ── */
+  const heroEls = [
+    document.getElementById('hero-eyebrow'),
+    document.getElementById('hero-title'),
+    document.getElementById('hero-subtitle'),
+    document.getElementById('hero-rule'),
+    document.getElementById('hero-descriptor'),
+  ];
+
+  function revealHero() {
+    heroEls.forEach(function (el, i) {
+      if (!el) return;
+      setTimeout(function () {
+        el.classList.add('revealed');
+      }, 200 + i * 160);
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => observer.observe(el));
+  }
 
-  // Carousel — invisible chrome, click-to-advance, quiet dots
-  (function () {
-    const carousel = document.getElementById('kit-carousel');
-    if (!carousel) return;
-    const stage = carousel.querySelector('.carousel-stage');
-    const slides = carousel.querySelectorAll('.carousel-slide');
-    const dots = carousel.querySelectorAll('.carousel-dot');
-    const captionLabel = document.getElementById('caption-label');
-    const captionName = document.getElementById('caption-name');
-    const total = slides.length;
-    let current = 0;
+  /* Start entrance quickly — content is already visible by default, this just adds the flourish */
+  setTimeout(revealHero, 50);
 
-    const captions = [
-      { label: 'Brand Board',         name: 'The kit at a glance' },
-      { label: 'Tier-2 Playground',   name: 'The kit in motion' },
-      { label: 'Cheat Sheet',         name: 'Combinations, vetted for accessibility' },
-      { label: 'Texture Vault',       name: 'Eight materials — nothing is flat' }
-    ];
-
-    function go(i) {
-      current = (i + total) % total;
-      slides.forEach((slide, idx) => slide.classList.toggle('active', idx === current));
-      dots.forEach((dot, idx) => dot.classList.toggle('active', idx === current));
-      if (captions[current]) {
-        captionLabel.textContent = captions[current].label;
-        captionName.textContent = captions[current].name;
+  /* ── 2. IntersectionObserver for scroll reveals ── */
+  var revealObserver = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        var el = entry.target;
+        el.classList.add('revealed');
+        revealObserver.unobserve(el);
       }
-    }
-
-    // Click anywhere on the slide stage to advance
-    stage.addEventListener('click', () => go(current + 1));
-
-    // Dots
-    dots.forEach((dot) => dot.addEventListener('click', (e) => {
-      e.stopPropagation();
-      go(parseInt(dot.dataset.go, 10));
-    }));
-
-    // Keyboard support when carousel is in view
-    document.addEventListener('keydown', (e) => {
-      const rect = carousel.getBoundingClientRect();
-      const inView = rect.top < window.innerHeight && rect.bottom > 0;
-      if (!inView) return;
-      if (e.key === 'ArrowLeft') go(current - 1);
-      if (e.key === 'ArrowRight') go(current + 1);
     });
-  })();
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+  /* Single-element reveals */
+  document.querySelectorAll('.js-reveal').forEach(function (el) {
+    revealObserver.observe(el);
+  });
+
+  /* Texture rows with staggered delay */
+  document.querySelectorAll('.js-texture').forEach(function (el, i) {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          setTimeout(function () {
+            entry.target.classList.add('revealed');
+          }, i * 75);
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+    obs.observe(el);
+  });
+
+  /* Group reveals (staggered children via CSS) */
+  document.querySelectorAll('.js-reveal-group').forEach(function (el) {
+    var groupObs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          groupObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    groupObs.observe(el);
+  });
+
+  /* ── 3. Scroll-speed control ── */
+  /* As user scrolls down, swirls intensify (speed increases).
+     By mid-page: fastest. At bottom: slows to settle. */
+  var root = document.documentElement;
+  var baseSpeed = 28; /* seconds — matches --swirl-speed default */
+
+  function updateSwirlSpeed() {
+    var scrolled = window.scrollY;
+    var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    var progress = docHeight > 0 ? scrolled / docHeight : 0;
+
+    /* Arc: accelerate to mid-page, decelerate to end
+       0 → 0.5: speed drops from 28s to 12s (faster animation = higher frequency)
+       0.5 → 1.0: speed rises from 12s back to 22s (slower — settling) */
+    var speed;
+    if (progress <= 0.5) {
+      speed = baseSpeed - (baseSpeed - 12) * (progress / 0.5);
+    } else {
+      speed = 12 + (22 - 12) * ((progress - 0.5) / 0.5);
+    }
+    root.style.setProperty('--swirl-speed', speed.toFixed(1) + 's');
+  }
+
+  window.addEventListener('scroll', updateSwirlSpeed, { passive: true });
+
+  /* ── 4. Cursor-part interaction ── */
+  var cursorLayer = document.getElementById('cursor-layer');
+  var heroEl = document.querySelector('.hero');
+
+  if (cursorLayer && heroEl) {
+    var heroRect;
+
+    function updateHeroRect() {
+      heroRect = heroEl.getBoundingClientRect();
+    }
+    updateHeroRect();
+    window.addEventListener('resize', updateHeroRect, { passive: true });
+
+    heroEl.addEventListener('mousemove', function (e) {
+      cursorLayer.style.display = 'block';
+      /* Position relative to the hero element */
+      var x = e.clientX - heroRect.left;
+      var y = e.clientY - heroRect.top;
+      cursorLayer.style.left = x + 'px';
+      cursorLayer.style.top  = y + 'px';
+    }, { passive: true });
+
+    heroEl.addEventListener('mouseleave', function () {
+      cursorLayer.style.display = 'none';
+    });
+
+    /* Recalc rect on scroll (hero is at top, minimal drift) */
+    window.addEventListener('scroll', function () {
+      if (window.scrollY < 200) { updateHeroRect(); }
+    }, { passive: true });
+  }
+
+})();
 </script>
 
 </body>

@@ -1,1870 +1,1593 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- JS gate: added before any CSS so no-JS renders at full opacity from first paint -->
+<script>document.documentElement.classList.add('js')</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Golden Mosaic — Art Gallery Brand Kit · Emmy Bellamora</title>
-<meta name="description" content="Golden Mosaic is Klimt cooled — Byzantine empress meets modern maker. Hammered gold, Byzantine teal, mulberry wine — for the brand that's genuinely too much and has stopped apologizing.">
+<title>Golden Mosaic — Kit Experience</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&family=Cinzel:wght@400;500;600;700;900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,600;1,6..96,400&family=DM+Sans:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
 <style>
-/* ============================================
-   GOLDEN MOSAIC — kit deep-dive page
-   Built by Emmy. Kit-true visual language inside
-   Emmy's site frame.
-   ============================================ */
+/* ─────────────────────────────────────────────
+   GOLDEN MOSAIC — Page Experience v1
+   Kit: Art Gallery #3 | Inspired by: Klimt — The Kiss
+   Build: Otto 🦉 | 2026-06-15
+   Palette source: color-palette-v3.md
+   Typography source: typography-selections-v1.md
+   Blueprint: page-experience-blueprint.md
+───────────────────────────────────────────── */
 
 :root {
-  /* Emmy's site frame colors (nav, footer, page chrome) */
-  --deep-night: #0D0A14;
-  --amethyst: #6B3FA0;
-  --amethyst-light: #9B6FD0;
-  --violet-dusk: #2D1B4E;
-  --fairy-silver: #C8B8E8;
-  --moonpetal: #E8D8F8;
-  --snowflake: #F5F0FF;
+  /* Palette — Golden Mosaic v3 */
+  --hammered-gold:    #C9A84C;
+  --byzantine-teal:   #1B5E6B;
+  --ivory-tessera:    #F5EDE0;
+  --lead-came:        #404048;
+  --rose-quartz:      #C4909A;
+  --mosaic-midnight:  #1A2F3A;
+  --mulberry-wine:    #7A2848;
+  --antique-bronze:   #8B6F47;
+  --pale-gilt:        #E8D5A3;
 
-  /* Golden Mosaic kit palette — full Whole Box */
-  --ss-amber-glow: #C9A84C;
-  --ss-plum-vortex: #1A2F3A;
-  --ss-coral-flame: #1B5E6B;
-  --ss-brushstroke-gold: #7A2848;
-  --ss-rose-dust: #C4909A;
-  --ss-burnt-umber: #8B6F47;
-  --ss-canvas-cream: #F5EDE0;
-  --ss-twilight-slate: #E8D5A3;
+  /* Derived / functional */
+  --grout-unfilled:   var(--mosaic-midnight);
+  --grout-filled:     var(--hammered-gold);
+  --page-bg:          var(--ivory-tessera);
+  --text-body:        var(--lead-came);        /* 8.84:1 on ivory — primary body pair */
+  --text-display:     var(--mosaic-midnight);  /* 11.96:1 on ivory — display-dark */
 
-  /* Type — Emmy's frame */
-  --font-emmy-display: 'Cormorant Garamond', serif;
-  --font-emmy-body: 'Jost', sans-serif;
+  /* Tile gap (grout width) */
+  --grout: 3px;
 
-  /* Type — Golden Mosaic kit fonts (The Tessera) */
-  --font-ss-display: 'Cinzel', serif;
-  --font-ss-subhead: 'Bodoni Moda', serif;
-  --font-ss-body: 'DM Sans', sans-serif;
+  /* Transition timing */
+  --reveal-duration: 0.8s;
+  --tile-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* ─── RESET ─── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
 
+/* ─── REDUCED MOTION — jump to end state, skip all animation ─── */
+@media (prefers-reduced-motion: reduce) {
+  /* All grout fills immediately */
+  .grout-h, .grout-v { background: var(--grout-filled) !important; }
+  /* All tiles are visible from paint */
+  .mosaic-tile { opacity: 1 !important; transform: scale(1) !important; }
+  /* Palette tiles: no hover transform */
+  .palette-tile:hover { transform: none !important; }
+  /* Kill all transitions and animations */
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ─── BASE ─── */
 body {
-  /* Kit atmosphere — the page IS the kit. Frame stays Emmy's purple (nav, footer, CTA button). */
-  background: var(--ss-burnt-umber);
-  color: var(--ss-canvas-cream);
-  font-family: var(--font-emmy-body);
-  font-weight: 300;
+  background: var(--page-bg);
+  color: var(--text-body);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
   overflow-x: hidden;
-  line-height: 1.7;
 }
 
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--ss-burnt-umber); }
-::-webkit-scrollbar-thumb { background: var(--amethyst); border-radius: 2px; }
-
-/* ============================================
-   NAV — same as home page
-   ============================================ */
-
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 1.5rem 3rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(to bottom, rgba(13,10,20,0.95) 0%, transparent 100%);
-  backdrop-filter: blur(2px);
-}
-
-.nav-name {
-  font-family: var(--font-emmy-display);
-  font-size: 1.1rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--fairy-silver);
-  letter-spacing: 0.05em;
+/* ─── SKIP LINK (accessibility) ─── */
+.skip-link {
+  position: absolute;
+  top: -999px;
+  left: 0;
+  background: var(--hammered-gold);
+  color: var(--mosaic-midnight);
+  padding: 0.5rem 1rem;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  z-index: 9999;
   text-decoration: none;
-  transition: color 0.3s ease;
+}
+.skip-link:focus {
+  top: 0;
 }
 
-.nav-name:hover { color: var(--moonpetal); }
+/* ─────────────────────────────────────────────
+   MOSAIC GRID INFRASTRUCTURE
+   Strategy: CSS grid with explicit grout gaps.
+   Grout elements are separate divs that transition
+   from --mosaic-midnight → --hammered-gold on scroll.
+   Content lives in the DOM fully; mosaic is a layer.
+───────────────────────────────────────────── */
 
-.nav-links {
-  display: flex;
-  gap: 2.5rem;
-  list-style: none;
-}
-
-.nav-links a {
-  font-family: var(--font-emmy-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--fairy-silver);
-  text-decoration: none;
-  transition: color 0.3s ease;
-  opacity: 0.7;
-}
-
-.nav-links a:hover { color: var(--moonpetal); opacity: 1; }
-
-/* ============================================
-   BREADCRUMB
-   ============================================ */
-
-/* Hairline strip — sits tight against nav. Kit-tinted to bridge Emmy's frame and the kit's room. */
-.breadcrumb {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4.75rem 3rem 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-emmy-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ss-brushstroke-gold);
-  opacity: 0.55;
-}
-
-.breadcrumb a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.3s ease, opacity 0.3s ease;
-}
-
-.breadcrumb a:hover { color: var(--ss-canvas-cream); opacity: 1; }
-
-.breadcrumb-sep { opacity: 0.45; }
-
-/* ============================================
-   KIT HERO — full bleed, edge to edge
-   ============================================ */
-
-.kit-hero {
-  margin: 1.5rem 0 0;
-  padding: 0;
-}
-
-.kit-hero-inner {
-  border-radius: 0;
+/* The mosaic container wraps the full-bleed areas */
+.mosaic-wrap {
+  position: relative;
   overflow: hidden;
-  background:
-    radial-gradient(ellipse at 80% 20%, var(--ss-brushstroke-gold) 0%, rgba(122,40,72,0.4) 18%, transparent 38%),
-    radial-gradient(ellipse at 20% 80%, var(--ss-plum-vortex) 0%, rgba(26,47,58,0.5) 30%, transparent 55%),
-    radial-gradient(ellipse at 55% 55%, rgba(201,168,76,0.55) 0%, transparent 45%),
-    linear-gradient(135deg, var(--ss-burnt-umber) 0%, var(--ss-plum-vortex) 50%, var(--ss-amber-glow) 100%);
-  position: relative;
-  min-height: 380px;
-  padding: 4rem 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
-.kit-hero-wrap {
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-  padding: 0 3rem;
-  position: relative;
-  z-index: 1;
-}
-
-.kit-hero-inner::before {
-  /* Sharp star points */
-  content: '';
+/*
+  Grout overlay: an absolutely-positioned grid of thin lines
+  that covers a section. Grid lines START as mosaic-midnight
+  (dark grout), transition to hammered-gold on .grout-revealed.
+  This creates the "gold flowing in" effect.
+*/
+.grout-overlay {
   position: absolute;
   inset: 0;
-  background-image:
-    radial-gradient(circle, var(--ss-canvas-cream) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-brushstroke-gold) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-canvas-cream) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-brushstroke-gold) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-canvas-cream) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-brushstroke-gold) 0%, transparent 60%);
-  background-size: 6px 6px, 4px 4px, 5px 5px, 3px 3px, 4px 4px, 5px 5px;
-  background-position: 18% 22%, 82% 14%, 60% 30%, 35% 65%, 90% 55%, 70% 80%;
-  background-repeat: no-repeat;
-  opacity: 0.85;
   pointer-events: none;
+  z-index: 2;
+  display: grid;
+  /* Horizontal grout bands */
+  grid-template-rows: repeat(8, 1fr var(--grout)) 1fr;
+  grid-template-columns: 1fr;
 }
 
-.kit-hero-content {
+.grout-h {
+  background: var(--grout-unfilled);
+  transition: background var(--reveal-duration) var(--tile-ease);
+  grid-column: 1;
+}
+.grout-h.revealed { background: var(--grout-filled); }
+
+/* For vertical grout lines within a tile grid, we use
+   an overlay grid on the palette section specifically. */
+.grout-overlay-2d {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+.grout-overlay-2d::before,
+.grout-overlay-2d::after {
+  content: '';
+  position: absolute;
+  background: var(--grout-unfilled);
+  transition: background var(--reveal-duration) var(--tile-ease);
+}
+
+/* ─────────────────────────────────────────────
+   MOSAIC TILE PATTERN LIBRARY
+   8 micro-patterns in inline SVG via background-image.
+   Each tile gets its color + a distinguishing pattern.
+   Patterns are subtle so text on tiles remains readable.
+───────────────────────────────────────────── */
+
+/* Base tile — always visible; JS adds entrance animation when observer fires */
+.mosaic-tile {
   position: relative;
+  overflow: hidden;
+}
+.js .mosaic-tile.revealed {
+  animation: tile-entrance var(--reveal-duration) var(--tile-ease) both;
+}
+@keyframes tile-entrance {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── Pattern 1: Hammered Gold — tiny irregular rectangles (hammered metal surface) */
+.pattern-hammered-gold {
+  background-color: var(--hammered-gold);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Crect x='1' y='2' width='7' height='4' rx='0.5' fill='none' stroke='rgba(0,0,0,0.12)' stroke-width='0.5'/%3E%3Crect x='11' y='1' width='6' height='3' rx='0.5' fill='none' stroke='rgba(0,0,0,0.12)' stroke-width='0.5'/%3E%3Crect x='2' y='9' width='5' height='3' rx='0.5' fill='none' stroke='rgba(0,0,0,0.12)' stroke-width='0.5'/%3E%3Crect x='10' y='8' width='8' height='4' rx='0.5' fill='none' stroke='rgba(0,0,0,0.12)' stroke-width='0.5'/%3E%3Crect x='0' y='15' width='6' height='3' rx='0.5' fill='none' stroke='rgba(0,0,0,0.12)' stroke-width='0.5'/%3E%3Crect x='9' y='14' width='9' height='4' rx='0.5' fill='none' stroke='rgba(0,0,0,0.10)' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+
+/* ── Pattern 2: Byzantine Teal — glazed ceramic tile with hairline crackle */
+.pattern-byzantine-teal {
+  background-color: var(--byzantine-teal);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M0 0 L8 4 L12 0' fill='none' stroke='rgba(255,255,255,0.12)' stroke-width='0.5'/%3E%3Cpath d='M12 0 L18 7 L24 3' fill='none' stroke='rgba(255,255,255,0.10)' stroke-width='0.5'/%3E%3Cpath d='M0 12 L5 16 L10 12 L16 18 L24 14' fill='none' stroke='rgba(255,255,255,0.10)' stroke-width='0.5'/%3E%3Cpath d='M4 24 L9 20 L14 24' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+
+/* ── Pattern 3: Ivory Tessera — barely-visible warm crosshatch (marble veining) */
+.pattern-ivory-tessera {
+  background-color: var(--ivory-tessera);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M0 20 Q10 18 20 20 Q30 22 40 20' fill='none' stroke='rgba(139,111,71,0.15)' stroke-width='0.7'/%3E%3Cpath d='M0 10 Q15 8 25 11 Q35 13 40 10' fill='none' stroke='rgba(139,111,71,0.10)' stroke-width='0.5'/%3E%3Cpath d='M0 30 Q12 28 22 31 Q32 33 40 30' fill='none' stroke='rgba(139,111,71,0.10)' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+
+/* ── Pattern 4: Lead Came — granular oxidized lead (irregular matte dots) */
+.pattern-lead-came {
+  background-color: var(--lead-came);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Ccircle cx='2' cy='2' r='0.8' fill='rgba(255,255,255,0.08)'/%3E%3Ccircle cx='7' cy='5' r='0.6' fill='rgba(255,255,255,0.06)'/%3E%3Ccircle cx='3' cy='9' r='0.7' fill='rgba(255,255,255,0.07)'/%3E%3Ccircle cx='10' cy='2' r='0.5' fill='rgba(255,255,255,0.05)'/%3E%3Ccircle cx='10' cy='10' r='0.8' fill='rgba(255,255,255,0.06)'/%3E%3C/svg%3E");
+}
+
+/* ── Pattern 5: Rose Quartz — soft circular crystal growth rings */
+.pattern-rose-quartz {
+  background-color: var(--rose-quartz);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='15' cy='15' r='12' fill='none' stroke='rgba(255,255,255,0.12)' stroke-width='0.6'/%3E%3Ccircle cx='15' cy='15' r='7' fill='none' stroke='rgba(255,255,255,0.09)' stroke-width='0.5'/%3E%3Ccircle cx='15' cy='15' r='3' fill='none' stroke='rgba(255,255,255,0.07)' stroke-width='0.5'/%3E%3C/svg%3E");
+}
+
+/* ── Pattern 6: Mosaic Midnight — smooth, no pattern — structural dark tile */
+.pattern-mosaic-midnight {
+  background-color: var(--mosaic-midnight);
+  /* No pattern — the structural tile that defines everything else */
+}
+
+/* ── Pattern 7: Mulberry Wine — crushed velvet directional pile */
+.pattern-mulberry-wine {
+  background-color: var(--mulberry-wine);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cline x1='0' y1='0' x2='0' y2='8' stroke='rgba(255,255,255,0.10)' stroke-width='0.6'/%3E%3Cline x1='3' y1='0' x2='3' y2='8' stroke='rgba(255,255,255,0.07)' stroke-width='0.4'/%3E%3Cline x1='6' y1='0' x2='6' y2='8' stroke='rgba(255,255,255,0.10)' stroke-width='0.6'/%3E%3C/svg%3E");
+}
+
+/* ── Pattern 8: Antique Bronze — patina dot accumulation (verdigris) */
+.pattern-antique-bronze {
+  background-color: var(--antique-bronze);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='4' cy='4' r='1.2' fill='rgba(27,94,107,0.20)'/%3E%3Ccircle cx='12' cy='3' r='0.8' fill='rgba(27,94,107,0.15)'/%3E%3Ccircle cx='8' cy='10' r='1.5' fill='rgba(27,94,107,0.18)'/%3E%3Ccircle cx='2' cy='12' r='0.9' fill='rgba(27,94,107,0.12)'/%3E%3Ccircle cx='14' cy='12' r='1.1' fill='rgba(27,94,107,0.16)'/%3E%3C/svg%3E");
+}
+
+/* ── Pattern 9: Pale Gilt — thin gold-leaf striations */
+.pattern-pale-gilt {
+  background-color: var(--pale-gilt);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='6'%3E%3Cline x1='0' y1='1' x2='40' y2='1' stroke='rgba(201,168,76,0.25)' stroke-width='0.4'/%3E%3Cline x1='0' y1='3' x2='40' y2='3' stroke='rgba(201,168,76,0.18)' stroke-width='0.3'/%3E%3Cline x1='0' y1='5' x2='40' y2='5' stroke='rgba(201,168,76,0.20)' stroke-width='0.4'/%3E%3C/svg%3E");
+}
+
+/* ─────────────────────────────────────────────
+   HERO SECTION
+───────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem 2rem 4rem;
+  text-align: center;
+  overflow: hidden;
+  background: var(--mosaic-midnight);
+}
+
+/* Hero mosaic background — the fractured tiles that fill */
+.hero-mosaic {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  /* Irregular mosaic grid — 12 cols × 8 rows */
+  grid-template-columns: 7% 11% 9% 13% 8% 10% 12% 9% 8% 7% 4% 2%;
+  grid-template-rows: 10% 14% 12% 9% 13% 11% 15% 16%;
+  gap: var(--grout);
+  padding: var(--grout);
+  z-index: 0;
+}
+
+/* Individual hero background tiles — visible by default; hidden only with JS */
+.hero-tile {
+  transition:
+    opacity var(--reveal-duration) var(--tile-ease),
+    transform var(--reveal-duration) var(--tile-ease);
+}
+.js .hero-tile { opacity: 0; }
+.js .hero-tile.revealed { opacity: 1; }
+
+/* Hero content floats above the tile layer */
+.hero-content {
+  position: relative;
+  z-index: 5;
+  max-width: 700px;
+}
+
+.hero-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--hammered-gold);
+  margin-bottom: 1.5rem;
+  transition: opacity 0.6s ease 0.3s, transform 0.6s ease 0.3s;
+}
+.js .hero-eyebrow { opacity: 0; transform: translateY(12px); }
+.js .hero-eyebrow.revealed { opacity: 1; transform: translateY(0); }
+
+.hero-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  color: var(--ivory-tessera);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  transition: opacity 0.7s ease 0.5s, transform 0.7s ease 0.5s;
+}
+.hero-title .gold { color: var(--hammered-gold); }
+.js .hero-title { opacity: 0; transform: translateY(16px); }
+.js .hero-title.revealed { opacity: 1; transform: translateY(0); }
+
+.hero-subtitle {
+  font-family: 'Bodoni Moda', serif;
+  font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+  font-style: italic;
+  color: var(--pale-gilt);
+  margin-bottom: 2.5rem;
+  transition: opacity 0.6s ease 0.7s, transform 0.6s ease 0.7s;
+}
+.js .hero-subtitle { opacity: 0; transform: translateY(12px); }
+.js .hero-subtitle.revealed { opacity: 1; transform: translateY(0); }
+
+.hero-divider {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--hammered-gold), transparent);
+  margin: 0 auto 2rem;
+  transition: opacity 0.5s ease 0.9s;
+}
+.js .hero-divider { opacity: 0; }
+.js .hero-divider.revealed { opacity: 1; }
+
+.hero-descriptor {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--ivory-tessera);
+  opacity: 0.8;
+  max-width: 460px;
+  margin: 0 auto;
+  transition: opacity 0.6s ease 1s;
+}
+.js .hero-descriptor { opacity: 0; }
+.js .hero-descriptor.revealed { opacity: 0.8; }
+
+/* Gold grout seams over the hero mosaic */
+.hero-grout-h {
+  position: absolute;
+  left: 0; right: 0;
+  height: var(--grout);
+  background: var(--grout-unfilled);
   z-index: 1;
-  max-width: 720px;
+  transition: background 0.6s var(--tile-ease);
 }
+.hero-grout-h.revealed { background: var(--grout-filled); }
 
-.kit-hero-meta {
-  font-family: var(--font-ss-body);
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-brushstroke-gold);
-  margin-bottom: 1.25rem;
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.85rem;
+  gap: 0.5rem;
+  opacity: 0;
+  animation: fadeIn 0.8s ease 1.5s forwards;
 }
-
-.kit-hero-meta::before {
-  content: '';
-  display: block;
-  width: 1.5rem;
-  height: 1px;
-  background: var(--ss-brushstroke-gold);
-  opacity: 0.7;
-}
-
-.kit-hero-name {
-  font-family: var(--font-ss-display);
-  font-size: clamp(3.5rem, 7vw, 6rem);
-  font-weight: 700;
-  font-style: normal;
-  color: var(--ss-canvas-cream);
-  line-height: 1.0;
-  letter-spacing: -0.015em;
-  margin-bottom: 1.5rem;
-  text-shadow: 0 2px 24px rgba(0,0,0,0.4);
-}
-
-.kit-hero-tagline {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
-  color: var(--ss-canvas-cream);
-  line-height: 1.6;
-  opacity: 0.95;
-  text-shadow: 0 2px 16px rgba(0,0,0,0.5);
-  max-width: 580px;
-}
-
-/* ============================================
-   THE PAINTING — story strip
-   ============================================ */
-
-.painting-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-}
-
-.painting-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 5rem;
-  align-items: start;
-}
-
-.painting-label {
-  font-family: var(--font-emmy-body);
-  font-size: 0.58rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  margin-bottom: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.painting-label::before {
-  content: '';
-  display: block;
-  width: 1.5rem;
-  height: 1px;
-  background: var(--ss-amber-glow);
-  opacity: 0.6;
-}
-
-.painting-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2rem, 3.5vw, 2.8rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
-}
-
-.painting-attribution {
-  font-family: var(--font-emmy-body);
+.scroll-hint span {
+  font-family: 'DM Sans', sans-serif;
   font-size: 0.7rem;
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  color: var(--ss-canvas-cream);
-  opacity: 0.7;
-  margin-bottom: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--hammered-gold);
+}
+.scroll-arrow {
+  width: 20px;
+  height: 20px;
+  border-right: 1.5px solid var(--hammered-gold);
+  border-bottom: 1.5px solid var(--hammered-gold);
+  transform: rotate(45deg);
+  animation: bounce 2s ease infinite 2s;
 }
 
-.painting-body p {
-  font-family: var(--font-emmy-body);
-  font-size: 0.92rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  margin-bottom: 1.5rem;
-  opacity: 0.88;
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes bounce {
+  0%, 100% { transform: rotate(45deg) translateY(0); }
+  50% { transform: rotate(45deg) translateY(4px); }
 }
 
-.painting-body p strong {
-  color: var(--ss-canvas-cream);
-  font-weight: 400;
+/* ─────────────────────────────────────────────
+   SECTION SHARED STYLES
+───────────────────────────────────────────── */
+section {
+  padding: 5rem 2rem;
 }
 
-.painting-body p em {
-  color: var(--ss-brushstroke-gold);
-  font-style: italic;
-}
-
-/* ============================================
-   PALETTE — Whole Box, materially-named
-   ============================================ */
-
-.palette-section {
-  /* Kit atmosphere — deeper inside the Whole Box */
-  background: linear-gradient(to bottom, var(--ss-burnt-umber) 0%, var(--ss-plum-vortex) 50%, var(--ss-burnt-umber) 100%);
-  padding: 7rem 0;
-}
-
-.palette-inner {
-  max-width: 1200px;
+.section-inner {
+  max-width: 900px;
   margin: 0 auto;
-  padding: 0 3rem;
 }
 
-.palette-header {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  margin-bottom: 4rem;
-  align-items: end;
+.section-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--antique-bronze);
+  margin-bottom: 1rem;
+  display: block;
 }
 
-.palette-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
+.section-heading {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  font-weight: 700;
+  color: var(--text-display);  /* #1A2F3A — 11.96:1 on ivory */
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
 }
 
-.palette-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
+.section-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  color: var(--text-body);    /* #404048 — 8.84:1 on ivory */
+  line-height: 1.75;
+  max-width: 600px;
 }
 
-.palette-intro em {
-  color: var(--ss-canvas-cream);
-  font-style: italic;
+/* Section reveal — always visible; observer adds entrance animation as flourish */
+.js .reveal-on-scroll.revealed {
+  animation: reveal-up 0.7s ease both;
+}
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Stagger children of a reveal group — always visible; observer triggers entrance */
+.js .reveal-group.revealed > *:nth-child(1) { animation: reveal-up 0.6s ease both; animation-delay: 0s; }
+.js .reveal-group.revealed > *:nth-child(2) { animation: reveal-up 0.6s ease both; animation-delay: 0.08s; }
+.js .reveal-group.revealed > *:nth-child(3) { animation: reveal-up 0.6s ease both; animation-delay: 0.16s; }
+.js .reveal-group.revealed > *:nth-child(4) { animation: reveal-up 0.6s ease both; animation-delay: 0.24s; }
+.js .reveal-group.revealed > *:nth-child(5) { animation: reveal-up 0.6s ease both; animation-delay: 0.32s; }
+.js .reveal-group.revealed > *:nth-child(6) { animation: reveal-up 0.6s ease both; animation-delay: 0.40s; }
+.js .reveal-group.revealed > *:nth-child(7) { animation: reveal-up 0.6s ease both; animation-delay: 0.48s; }
+.js .reveal-group.revealed > *:nth-child(8) { animation: reveal-up 0.6s ease both; animation-delay: 0.56s; }
+.js .reveal-group.revealed > *:nth-child(9) { animation: reveal-up 0.6s ease both; animation-delay: 0.64s; }
+
+/* ─────────────────────────────────────────────
+   GROUT STRIPE — THE GOLD REVEAL BETWEEN SECTIONS
+   Full-width horizontal bands that start dark (midnight grout)
+   and transition to hammered gold when scrolled into view.
+───────────────────────────────────────────── */
+.grout-stripe {
+  height: 4px;
+  background: var(--grout-unfilled);
+  transition: background 0.9s var(--tile-ease);
+}
+.grout-stripe.revealed { background: var(--grout-filled); }
+
+/* Double stripe for section transitions */
+.grout-stripe-wide {
+  height: 8px;
+  background: var(--grout-unfilled);
+  transition: background 0.9s var(--tile-ease);
+  position: relative;
+}
+.grout-stripe-wide::before {
+  content: '';
+  position: absolute;
+  inset: 2px 0;
+  background: var(--grout-unfilled);
+  transition: background 0.9s var(--tile-ease) 0.15s;
+}
+.grout-stripe-wide.revealed { background: var(--grout-filled); }
+.grout-stripe-wide.revealed::before { background: var(--pale-gilt); }
+
+/* ─────────────────────────────────────────────
+   THE PALETTE SECTION
+───────────────────────────────────────────── */
+#palette {
+  background: var(--ivory-tessera);
 }
 
 .palette-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: var(--grout);
+  background: var(--grout-unfilled);
+  border: var(--grout) solid var(--grout-unfilled);
+  transition: background 1s var(--tile-ease), border-color 1s var(--tile-ease);
+  margin-top: 3rem;
+}
+.palette-grid.revealed {
+  background: var(--grout-filled);
+  border-color: var(--grout-filled);
 }
 
-.palette-card {
-  border-radius: 12px;
-  overflow: hidden;
-  /* Kit's deepest earth, slightly transparent — sits inside the kit's gradient */
-  background: rgba(139,111,71,0.55);
-  border: 1px solid rgba(245,237,224,0.10);
-  transition: border-color 0.3s ease, transform 0.3s ease;
-}
-
-.palette-card:hover {
-  border-color: rgba(122,40,72,0.35);
-  transform: translateY(-2px);
-}
-
-.palette-swatch {
-  width: 100%;
-  aspect-ratio: 1.4;
+.palette-tile {
+  aspect-ratio: 1;
+  cursor: pointer;
   position: relative;
+  overflow: hidden;
+  /* Tile lifts on hover */
+  transition:
+    transform 0.3s var(--tile-ease),
+    box-shadow 0.3s ease;
+}
+.palette-tile:hover,
+.palette-tile:focus-visible {
+  transform: scale(1.06);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.35), 0 0 0 2px var(--hammered-gold);
+  z-index: 10;
+  outline: none;
 }
 
-.palette-card-body {
-  padding: 1.25rem 1.25rem 1.5rem;
-}
-
-.palette-role {
-  font-family: var(--font-emmy-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
+/* Material label — appears in the "grout space" (below the tile) */
+.palette-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(26, 47, 58, 0.88);
+  color: var(--pale-gilt);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  opacity: 0.7;
-  margin-bottom: 0.4rem;
+  padding: 0.4rem 0.5rem 0.3rem;
+  transform: translateY(100%);
+  transition: transform 0.3s var(--tile-ease);
 }
-
-.palette-name {
-  font-family: var(--font-emmy-display);
-  font-size: 1.15rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  margin-bottom: 0.4rem;
-  line-height: 1.2;
-}
+.palette-tile:hover .palette-label,
+.palette-tile:focus-visible .palette-label { transform: translateY(0); }
 
 .palette-hex {
-  font-family: var(--font-emmy-body);
-  font-size: 0.6rem;
+  display: block;
   font-weight: 400;
-  letter-spacing: 0.1em;
-  color: var(--ss-canvas-cream);
-  opacity: 0.6;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
-}
-
-.palette-feel {
-  font-family: var(--font-emmy-body);
-  font-size: 0.72rem;
-  font-weight: 300;
-  line-height: 1.6;
-  color: var(--ss-canvas-cream);
-  opacity: 0.8;
-}
-
-/* ============================================
-   TYPOGRAPHY — kit-true showcase
-   ============================================ */
-
-.type-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-}
-
-.type-header {
-  margin-bottom: 4rem;
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  align-items: end;
-}
-
-.type-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
-}
-
-.type-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
-
-.type-intro strong {
-  color: var(--ss-canvas-cream);
-  font-weight: 400;
-}
-
-.type-card {
-  background: var(--ss-canvas-cream);
-  border-radius: 16px;
-  padding: 4rem 3.5rem;
-  margin-bottom: 1.5rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.type-card-meta {
-  font-family: var(--font-ss-body);
-  font-size: 0.55rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.7;
-  margin-bottom: 1rem;
-}
-
-.type-card-display {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  line-height: 1.0;
-  color: var(--ss-plum-vortex);
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
-}
-
-.type-card-display.amber { color: var(--ss-amber-glow); }
-.type-card-display.coral { color: var(--ss-coral-flame); }
-
-.type-card-name {
-  font-family: var(--font-ss-body);
+  letter-spacing: 0.05em;
+  color: var(--hammered-gold);
   font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.65;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
+  margin-top: 0.1rem;
 }
 
-.type-card-subhead {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
-  color: var(--ss-burnt-umber);
-  line-height: 1.4;
-  margin-bottom: 1.5rem;
-  max-width: 720px;
+/* Accessible: label always readable when tile is focused by keyboard */
+.palette-tile:focus-visible .palette-label { transform: translateY(0); }
+
+/* ─────────────────────────────────────────────
+   WHAT'S INSIDE — TILE GRID
+───────────────────────────────────────────── */
+#whats-inside {
+  background: var(--lead-came);
 }
 
-.type-card-body {
-  font-family: var(--font-ss-body);
-  font-weight: 300;
-  font-size: 1rem;
-  line-height: 1.75;
-  color: var(--ss-twilight-slate);
-  max-width: 620px;
-}
+#whats-inside .section-heading { color: var(--ivory-tessera); }
+#whats-inside .section-body { color: var(--pale-gilt); }
+#whats-inside .section-label { color: var(--hammered-gold); }
 
-.type-rule {
-  background: var(--ss-burnt-umber);
-  border-radius: 16px;
-  padding: 3.5rem 3.5rem;
-  text-align: center;
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(1.3rem, 2.4vw, 1.9rem);
-  line-height: 1.5;
-  color: var(--ss-canvas-cream);
-}
-
-.type-rule em {
-  color: var(--ss-brushstroke-gold);
-  font-style: italic;
-}
-
-/* ============================================
-   COMBINATIONS — color in context
-   ============================================ */
-
-.combo-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-}
-
-.combo-header {
-  margin-bottom: 4rem;
+.contents-grid {
   display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  align-items: end;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: var(--grout);
+  background: var(--grout-unfilled);
+  border: var(--grout) solid var(--grout-unfilled);
+  margin-top: 3rem;
+  transition: background 1s var(--tile-ease), border-color 1s var(--tile-ease);
+}
+.contents-grid.revealed {
+  background: var(--grout-filled);
+  border-color: var(--grout-filled);
 }
 
-.combo-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
-}
-
-.combo-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
-
-.combo-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-}
-
-.combo-card {
-  border-radius: 14px;
-  overflow: hidden;
-  aspect-ratio: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 2rem;
-  position: relative;
-  transition: transform 0.3s ease;
-}
-
-.combo-card:hover { transform: translateY(-3px); }
-
-.combo-name {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 1.5rem;
-  line-height: 1.1;
-  margin-bottom: 0.4rem;
-}
-
-.combo-pair {
-  font-family: var(--font-ss-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-
-.combo-1 { background: linear-gradient(135deg, var(--ss-amber-glow), var(--ss-plum-vortex)); color: var(--ss-canvas-cream); }
-.combo-2 { background: linear-gradient(135deg, var(--ss-amber-glow), var(--ss-canvas-cream)); color: var(--ss-burnt-umber); }
-.combo-3 { background: linear-gradient(135deg, var(--ss-plum-vortex), var(--ss-brushstroke-gold)); color: var(--ss-canvas-cream); }
-.combo-4 { background: linear-gradient(135deg, var(--ss-coral-flame), var(--ss-canvas-cream)); color: var(--ss-burnt-umber); }
-.combo-5 { background: linear-gradient(135deg, var(--ss-rose-dust), var(--ss-canvas-cream)); color: var(--ss-burnt-umber); }
-.combo-6 { background: linear-gradient(135deg, var(--ss-burnt-umber), var(--ss-brushstroke-gold)); color: var(--ss-canvas-cream); }
-
-/* ============================================
-   INSIDE THE KIT — carousel + companion list
-   ============================================ */
-
-.inside-section {
-  /* Deeper inside the kit — the Whole Box's purple-rose core */
-  background: var(--ss-plum-vortex);
-  padding: 7rem 0;
+.content-tile {
+  background: var(--mosaic-midnight);
+  padding: 2rem 1.5rem;
   position: relative;
   overflow: hidden;
 }
 
-.inside-section::before {
+/* Low-opacity pattern behind content tile text */
+.content-tile::before {
   content: '';
   position: absolute;
-  top: -30%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  height: 200%;
-  /* Warm light-leak — kit's accent filtering through */
-  background: radial-gradient(ellipse, rgba(201,168,76,0.10) 0%, transparent 60%);
+  inset: 0;
+  opacity: 0.06;
   pointer-events: none;
 }
+.content-tile:nth-child(1)::before { background-color: var(--hammered-gold); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Crect x='1' y='2' width='7' height='4' rx='0.5' fill='none' stroke='white' stroke-width='1'/%3E%3Crect x='11' y='1' width='6' height='3' rx='0.5' fill='none' stroke='white' stroke-width='1'/%3E%3Crect x='2' y='9' width='5' height='3' rx='0.5' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E"); }
+.content-tile:nth-child(2)::before { background-color: var(--byzantine-teal); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M0 0 L8 4 L12 0' fill='none' stroke='white' stroke-width='1'/%3E%3Cpath d='M0 12 L6 16 L12 12 L18 17 L24 14' fill='none' stroke='white' stroke-width='1'/%3E%3C/svg%3E"); }
+.content-tile:nth-child(3)::before { background-color: var(--mulberry-wine); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cline x1='0' y1='0' x2='0' y2='8' stroke='white' stroke-width='1.2'/%3E%3Cline x1='4' y1='0' x2='4' y2='8' stroke='white' stroke-width='0.8'/%3E%3C/svg%3E"); }
+.content-tile:nth-child(4)::before { background-color: var(--rose-quartz); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='15' cy='15' r='12' fill='none' stroke='white' stroke-width='1'/%3E%3Ccircle cx='15' cy='15' r='6' fill='none' stroke='white' stroke-width='0.7'/%3E%3C/svg%3E"); }
+.content-tile:nth-child(5)::before { background-color: var(--antique-bronze); background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='4' cy='4' r='2' fill='white'/%3E%3Ccircle cx='12' cy='12' r='1.5' fill='white'/%3E%3C/svg%3E"); }
+.content-tile:nth-child(6)::before { background-color: var(--pale-gilt); }
 
-.inside-inner {
-  max-width: 1200px;
+.content-tile-icon {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.content-tile-heading {
+  font-family: 'Cinzel', serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--hammered-gold);
+  margin-bottom: 0.5rem;
+}
+
+.content-tile-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  color: var(--ivory-tessera);
+  line-height: 1.6;
+}
+
+/* ─────────────────────────────────────────────
+   TEXTURES SECTION
+───────────────────────────────────────────── */
+#textures {
+  background: var(--ivory-tessera);
+}
+
+.texture-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--grout);
+  margin-top: 2.5rem;
+}
+
+.texture-item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 1.5rem;
+  align-items: center;
+  padding: 1rem;
+  background: var(--ivory-tessera);
+  border-left: var(--grout) solid var(--grout-unfilled);
+  transition: border-color 0.6s ease;
+}
+.texture-item.revealed { border-color: var(--grout-filled); }
+
+.texture-swatch {
+  width: 80px;
+  height: 56px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.texture-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-display);
+  margin-bottom: 0.2rem;
+}
+
+.texture-description {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.875rem;
+  color: var(--text-body);
+  line-height: 1.5;
+}
+
+/* ─────────────────────────────────────────────
+   PULL QUOTE SECTION
+───────────────────────────────────────────── */
+#pull-quote {
+  background: var(--ivory-tessera);
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* The tile under the quote — Ivory Tessera, breathing room, the resting eye */
+.pull-quote-tile {
+  max-width: 700px;
   margin: 0 auto;
-  padding: 0 3rem;
+  padding: 4rem 3rem;
+  background: var(--mosaic-midnight);
+  position: relative;
+  text-align: center;
+  border: var(--grout) solid var(--grout-unfilled);
+  transition: border-color 1s var(--tile-ease);
+}
+.pull-quote-tile.revealed { border-color: var(--grout-filled); }
+
+.pull-quote-tile::before {
+  content: '';
+  position: absolute;
+  inset: var(--grout);
+  background: var(--mosaic-midnight);
+  z-index: 0;
+}
+
+blockquote {
   position: relative;
   z-index: 1;
 }
 
-.inside-header {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  margin-bottom: 4rem;
-  align-items: end;
-}
-
-.inside-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
+.pull-quote-text {
+  font-family: 'Bodoni Moda', serif;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
   font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
-}
-
-.inside-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
-
-.inside-intro em {
-  color: var(--ss-canvas-cream);
-  font-style: italic;
-}
-
-/* Carousel + list layout */
-.inside-grid {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 3rem;
-  align-items: start;
-}
-
-/* CAROUSEL — invisible chrome, the work is the chrome */
-.carousel {
-  position: relative;
-}
-
-.carousel-stage {
-  position: relative;
-  aspect-ratio: 4/3;
-  overflow: hidden;
-  border-radius: 14px;
-  cursor: pointer;
-  background: transparent;
-}
-
-.carousel-slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.carousel-slide.active {
-  opacity: 1;
-  z-index: 2;
-  pointer-events: auto;
-}
-
-.carousel-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Mockup slides — rendered preview cards (when no PNG available) */
-.mockup-stage {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Brand Board mockup */
-.mock-brand-board {
-  background: var(--ss-canvas-cream);
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  padding: 2rem;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 1.25rem;
-  font-family: var(--font-ss-body);
-}
-
-.mbb-header {
-  text-align: center;
-  border-bottom: 1px solid rgba(139,111,71,0.15);
-  padding-bottom: 1rem;
-}
-
-.mbb-eyebrow {
-  font-family: var(--font-ss-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.65;
-  margin-bottom: 0.4rem;
-}
-
-.mbb-title {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 2.2rem;
-  color: var(--ss-plum-vortex);
-  line-height: 1;
-  margin-bottom: 0.35rem;
-}
-
-.mbb-tagline {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: 0.78rem;
-  color: var(--ss-burnt-umber);
-  opacity: 0.85;
-}
-
-.mbb-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.mbb-palette {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.4rem;
-  align-content: start;
-}
-
-.mbb-swatch {
-  aspect-ratio: 1;
-  border-radius: 4px;
-  position: relative;
-}
-
-.mbb-swatch span {
-  position: absolute;
-  bottom: 0.15rem;
-  left: 0.25rem;
-  font-size: 0.4rem;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  color: rgba(255,255,255,0.85);
-}
-
-.mbb-type {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.5rem;
-  padding-left: 0.5rem;
-  border-left: 1px solid rgba(139,111,71,0.12);
-}
-
-.mbb-type-display {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--ss-amber-glow);
-  line-height: 1;
-}
-
-.mbb-type-sub {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: 0.7rem;
-  color: var(--ss-burnt-umber);
-  opacity: 0.75;
-}
-
-.mbb-type-body {
-  font-family: var(--font-ss-body);
-  font-weight: 300;
-  font-size: 0.55rem;
-  color: var(--ss-twilight-slate);
   line-height: 1.5;
+  color: var(--ivory-tessera);
+  margin-bottom: 1.5rem;
 }
 
-.mbb-footer {
-  text-align: center;
-  font-family: var(--font-ss-body);
-  font-size: 0.5rem;
-  font-weight: 400;
+.pull-quote-attribution {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.55;
-  border-top: 1px solid rgba(139,111,71,0.15);
-  padding-top: 0.75rem;
+  color: var(--hammered-gold);
 }
 
-/* Cheat Sheet mockup */
-.mock-cheat-sheet {
-  background: var(--ss-canvas-cream);
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.mcs-header {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--ss-plum-vortex);
-  border-bottom: 1px solid rgba(139,111,71,0.15);
-  padding-bottom: 0.5rem;
-}
-
-.mcs-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.6rem;
-  flex: 1;
-}
-
-.mcs-cell {
-  border-radius: 4px;
-  padding: 0.6rem 0.75rem;
-  font-family: var(--font-ss-body);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 0;
-}
-
-.mcs-cell-name {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-style: italic;
-  font-size: 0.85rem;
-  line-height: 1.1;
-}
-
-.mcs-cell-meta {
-  font-size: 0.45rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-
-/* Texture Vault mockup */
-.mock-texture {
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 4px;
-  padding: 4px;
-  background: var(--ss-burnt-umber);
-}
-
-.mock-texture-cell {
-  border-radius: 4px;
-  position: relative;
-  overflow: hidden;
-}
-
-.mock-texture-cell::after {
-  content: attr(data-name);
-  position: absolute;
-  bottom: 0.4rem;
-  left: 0.5rem;
-  font-family: var(--font-ss-body);
-  font-size: 0.45rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: rgba(255,255,255,0.85);
-  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
-}
-
-/* Caption — quiet line below the slide, no background block */
-.carousel-caption-row {
-  padding: 1.25rem 0.25rem 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  text-align: center;
-}
-
-.caption-label {
-  font-family: var(--font-emmy-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  opacity: 0.65;
-  transition: opacity 0.4s ease;
-}
-
-.caption-name {
-  font-family: var(--font-emmy-display);
-  font-size: 0.95rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  opacity: 0.8;
-  transition: opacity 0.4s ease;
-}
-
-/* Quiet dots — discoverable but not loud */
-.carousel-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.55rem;
-  padding: 0.75rem 0 0;
-}
-
-.carousel-dot {
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 50%;
-  background: rgba(200,184,232,0.25);
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  transition: background 0.4s ease, transform 0.4s ease, width 0.4s ease;
-}
-
-.carousel-dot:hover {
-  background: rgba(200,184,232,0.5);
-}
-
-.carousel-dot.active {
-  background: var(--ss-amber-glow);
-  width: 1.4rem;
-  border-radius: 100px;
-}
-
-/* Tier-2 playground 2x2 mockup — Material samples grid
-   Mirrors the actual playground's texture cards: 4 named material tiles
-   on the kit's signature dark background */
-.mock-playground {
-  width: 100%;
-  height: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 1rem;
-  padding: 1.25rem;
-  background: var(--ss-plum-vortex);
-  background-image:
-    radial-gradient(ellipse at 20% 80%, rgba(201,168,76,0.08) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 20%, rgba(122,40,72,0.06) 0%, transparent 50%);
-}
-
-.mp-sample {
-  border-radius: 4px;
-  padding: 1rem 1rem 0.85rem;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  text-align: center;
-}
-
-.mp-sample-swatch {
-  flex: 1;
-  border-radius: 3px;
-  margin-bottom: 0.85rem;
-  min-height: 0;
-}
-
-.mp-sample-name {
-  font-family: var(--font-ss-body);
-  font-size: 0.42rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  margin-bottom: 0.35rem;
-  opacity: 0.85;
-}
-
-.mp-sample-tagline {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: 0.6rem;
-  line-height: 1.4;
-  opacity: 0.85;
-}
-
-/* (carousel controls removed — invisible chrome; only quiet dots below remain) */
-
-/* COMPANION LIST */
-.inside-list {
-  padding-top: 0.5rem;
-}
-
-.inside-list-title {
-  font-family: var(--font-emmy-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-brushstroke-gold);
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-}
-
-.inside-list-title::before {
+/* Corner grout accents */
+.pull-quote-tile::after {
   content: '';
-  display: block;
-  width: 1.5rem;
-  height: 1px;
-  background: var(--ss-brushstroke-gold);
-  opacity: 0.7;
+  position: absolute;
+  top: calc(-1 * var(--grout));
+  right: calc(-1 * var(--grout));
+  width: 40px;
+  height: 40px;
+  background: var(--grout-unfilled);
+  transition: background 1s var(--tile-ease) 0.3s;
+}
+.pull-quote-tile.revealed::after { background: var(--grout-filled); }
+
+/* ─────────────────────────────────────────────
+   THE KLIMT NOTE — philosophy section
+───────────────────────────────────────────── */
+#klimt-note {
+  background: var(--byzantine-teal);
+  padding: 5rem 2rem;
 }
 
-.inside-item {
-  padding: 1.1rem 0;
-  border-bottom: 1px solid rgba(200,184,232,0.1);
-  display: grid;
-  grid-template-columns: 2rem 1fr;
-  gap: 0.75rem;
-  align-items: start;
+#klimt-note .section-label { color: var(--pale-gilt); }
+#klimt-note .section-heading {
+  color: var(--ivory-tessera);  /* 6.32:1 on byzantine teal — AA body */
+  font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+}
+#klimt-note .section-body { color: var(--ivory-tessera); opacity: 0.9; }
+
+.klimt-note-rule {
+  width: 60px;
+  height: 2px;
+  background: var(--hammered-gold);
+  margin: 2rem 0;
 }
 
-.inside-item:first-of-type {
-  border-top: 1px solid rgba(200,184,232,0.1);
-}
-
-.inside-icon {
-  font-family: var(--font-emmy-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  color: var(--ss-brushstroke-gold);
-  opacity: 0.85;
-  padding-top: 0.2rem;
-}
-
-.inside-text strong {
-  display: block;
-  font-family: var(--font-emmy-body);
-  font-size: 0.85rem;
-  font-weight: 400;
-  color: var(--ss-canvas-cream);
-  margin-bottom: 0.3rem;
-  letter-spacing: 0.02em;
-}
-
-.inside-text span {
-  font-family: var(--font-emmy-body);
-  font-size: 0.72rem;
-  font-weight: 300;
-  color: var(--ss-canvas-cream);
-  opacity: 0.78;
-  line-height: 1.6;
-}
-
-/* ============================================
-   CTA — close
-   ============================================ */
-
-.cta-section {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
+/* ─────────────────────────────────────────────
+   CTA FOOTER
+───────────────────────────────────────────── */
+#cta-footer {
+  background: var(--mosaic-midnight);
+  padding: 7rem 2rem;
   text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
-.cta-label {
-  font-family: var(--font-emmy-body);
-  font-size: 0.58rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  margin-bottom: 1.25rem;
+/* Gold completion: grout stripes across the footer, all revealed */
+.footer-grout {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--grout-unfilled);
+  transition: background 0.8s var(--tile-ease);
 }
+.footer-grout.revealed { background: var(--grout-filled); }
+.footer-grout:nth-child(1)  { top: 12%;  transition-delay: 0.0s; }
+.footer-grout:nth-child(2)  { top: 24%;  transition-delay: 0.1s; }
+.footer-grout:nth-child(3)  { top: 36%;  transition-delay: 0.2s; }
+.footer-grout:nth-child(4)  { top: 48%;  transition-delay: 0.3s; }
+.footer-grout:nth-child(5)  { top: 60%;  transition-delay: 0.4s; }
+.footer-grout:nth-child(6)  { top: 72%;  transition-delay: 0.5s; }
+.footer-grout:nth-child(7)  { top: 84%;  transition-delay: 0.6s; }
+.footer-grout:nth-child(8)  { top: 96%;  transition-delay: 0.7s; }
 
-.cta-big {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 300;
+.footer-content { position: relative; z-index: 2; }
+
+.footer-tagline {
+  font-family: 'Bodoni Moda', serif;
+  font-size: clamp(1rem, 2.5vw, 1.4rem);
   font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
+  color: var(--pale-gilt);
+  margin-bottom: 2rem;
+  letter-spacing: 0.03em;
 }
 
-.cta-sub {
-  font-family: var(--font-emmy-body);
-  font-style: normal;
-  font-size: 1rem;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-  line-height: 1.8;
-  margin-bottom: 2.5rem;
-  max-width: 580px;
-  margin-left: auto;
-  margin-right: auto;
+.footer-heading {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  color: var(--ivory-tessera);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  margin-bottom: 1rem;
 }
+.footer-heading .gold { color: var(--hammered-gold); }
 
-.cta-buttons {
-  display: flex;
-  gap: 1.25rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btn-primary {
-  display: inline-block;
-  padding: 0.95rem 2.5rem;
-  background: var(--amethyst);
-  color: var(--snowflake);
-  font-family: var(--font-emmy-body);
-  font-size: 0.65rem;
+.footer-sub {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
   font-weight: 400;
+  color: var(--antique-bronze);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+}
+
+/* The CTA button — itself a tile */
+.cta-button {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: var(--hammered-gold);
+  color: var(--mosaic-midnight);  /* 6.08:1 — AA large */
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
   text-decoration: none;
-  border-radius: 4px;
-  transition: background 0.3s ease, transform 0.2s ease;
+  border: var(--grout) solid var(--grout-unfilled);
+  transition:
+    background 0.3s ease,
+    transform 0.3s var(--tile-ease),
+    border-color 0.6s var(--tile-ease);
+  cursor: pointer;
 }
-
-.btn-primary:hover {
-  background: var(--amethyst-light);
-  transform: translateY(-1px);
+.cta-button:hover,
+.cta-button:focus-visible {
+  background: var(--pale-gilt);
+  transform: translateY(-2px);
+  outline: none;
+  box-shadow: 0 0 0 3px var(--hammered-gold);
 }
-
-.btn-ghost {
-  display: inline-block;
-  padding: 0.95rem 2.5rem;
-  border: 1px solid rgba(200,184,232,0.3);
-  color: var(--ss-canvas-cream);
-  font-family: var(--font-emmy-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: border-color 0.3s ease, color 0.3s ease;
-}
-
-.btn-ghost:hover {
-  border-color: var(--ss-canvas-cream);
-  color: var(--ss-canvas-cream);
-}
-
-/* ============================================
-   FOOTER — same as home
-   ============================================ */
-
-footer {
-  padding: 3rem;
-  border-top: 1px solid rgba(200,184,232,0.08);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-name {
-  font-family: var(--font-emmy-display);
-  font-style: italic;
-  font-size: 1rem;
-  color: var(--fairy-silver);
-  opacity: 0.5;
-}
+.cta-button.grout-gold { border-color: var(--grout-filled); }
 
 .footer-note {
-  font-family: var(--font-emmy-body);
-  font-size: 0.6rem;
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  color: var(--fairy-silver);
-  opacity: 0.35;
+  margin-top: 2.5rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--antique-bronze);
+  letter-spacing: 0.05em;
 }
 
-/* ============================================
-   REVEAL / ANIMATIONS
-   ============================================ */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-
-@media (max-width: 900px) {
-  nav { padding: 1.25rem 1.5rem; }
-  .nav-links { gap: 1.5rem; }
-  .breadcrumb { padding: 4.25rem 1.5rem 0.4rem; }
-
-  .kit-hero-wrap { padding: 0 1.5rem; }
-  .kit-hero-inner { padding: 3rem 0; min-height: 320px; }
-
-  .painting-section,
-  .type-section,
-  .combo-section,
-  .cta-section { padding: 5rem 1.5rem; }
-
-  .palette-inner { padding: 0 1.5rem; }
-  .palette-section,
-  .inside-section { padding: 5rem 0; }
-  .inside-inner { padding: 0 1.5rem; }
-
-  .painting-grid,
-  .palette-header,
-  .type-header,
-  .combo-header,
-  .inside-header,
-  .inside-grid { grid-template-columns: 1fr; gap: 2rem; }
-
-  .palette-grid { grid-template-columns: repeat(2, 1fr); }
-  .combo-grid { grid-template-columns: 1fr 1fr; }
-
-  .type-card { padding: 3rem 2rem; }
-  .type-rule { padding: 2.5rem 2rem; }
-
-  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 3rem 1.5rem; }
-}
-
+/* ─────────────────────────────────────────────
+   RESPONSIVE — stack gracefully at small sizes
+───────────────────────────────────────────── */
 @media (max-width: 600px) {
-  .nav-links { display: none; }
-  .palette-grid { grid-template-columns: 1fr; }
-  .combo-grid { grid-template-columns: 1fr; }
-  .cta-buttons { flex-direction: column; align-items: center; }
+  .hero { padding: 4rem 1.25rem 3rem; }
+  section { padding: 3.5rem 1.25rem; }
+  .pull-quote-tile { padding: 2.5rem 1.5rem; }
+  .palette-grid { grid-template-columns: repeat(3, 1fr); }
+  .contents-grid { grid-template-columns: 1fr; }
+  .texture-item { grid-template-columns: 56px 1fr; gap: 1rem; }
+  .texture-swatch { width: 56px; height: 40px; }
 }
+
 </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="../../index.html" class="nav-name">Emmy Bellamora</a>
-  <ul class="nav-links">
-    <li><a href="../../index.html#about">About</a></li>
-    <li><a href="../../index.html#work">Work</a></li>
-    <li><a href="../../index.html#approach">Approach</a></li>
-    <li><a href="../../index.html#working-together">Together</a></li>
-    <li><a href="../../index.html#contact">Contact</a></li>
-  </ul>
-</nav>
+<a href="#main" class="skip-link">Skip to content</a>
 
-<!-- BREADCRUMB -->
-<div class="breadcrumb">
-  <a href="../../index.html">Emmy</a>
-  <span class="breadcrumb-sep">/</span>
-  <a href="../../index.html#work">Brand Kits</a>
-  <span class="breadcrumb-sep">/</span>
-  <a href="../../index.html#work">Art Gallery</a>
-  <span class="breadcrumb-sep">/</span>
-  <span>Golden Mosaic</span>
-</div>
+<main id="main">
 
-<!-- KIT HERO -->
-<section class="kit-hero">
-  <div class="kit-hero-inner">
-    <div class="kit-hero-wrap">
-      <div class="kit-hero-content">
-        <div class="kit-hero-meta">Art Gallery &middot; Kit 03</div>
-        <h1 class="kit-hero-name">Golden Mosaic</h1>
-        <p class="kit-hero-tagline">
-          Byzantine empress meets modern maker. Hammered gold tying every pattern together &mdash; for the brand that's genuinely too much, and has stopped apologizing.
+  <!-- ═══════════════════════════════════════════
+       HERO — The mosaic arrives fractured (dark grout).
+       Tiles and content are present in DOM from first paint.
+       JS reveals them on load + scroll (enhancement layer).
+  ═══════════════════════════════════════════ -->
+  <section class="hero" aria-label="Golden Mosaic — Kit Introduction">
+
+    <!-- Background mosaic tiles (decorative, aria-hidden) -->
+    <div class="hero-mosaic" aria-hidden="true">
+      <!-- Row 1 -->
+      <div class="hero-tile mosaic-tile pattern-hammered-gold"></div>
+      <div class="hero-tile mosaic-tile pattern-byzantine-teal"></div>
+      <div class="hero-tile mosaic-tile pattern-mosaic-midnight"></div>
+      <div class="hero-tile mosaic-tile pattern-mulberry-wine"></div>
+      <div class="hero-tile mosaic-tile pattern-pale-gilt"></div>
+      <div class="hero-tile mosaic-tile pattern-byzantine-teal"></div>
+      <div class="hero-tile mosaic-tile pattern-hammered-gold"></div>
+      <div class="hero-tile mosaic-tile pattern-mosaic-midnight"></div>
+      <div class="hero-tile mosaic-tile pattern-antique-bronze"></div>
+      <div class="hero-tile mosaic-tile pattern-byzantine-teal"></div>
+      <div class="hero-tile mosaic-tile pattern-mulberry-wine"></div>
+      <div class="hero-tile mosaic-tile pattern-pale-gilt"></div>
+
+      <!-- Row 2 -->
+      <div class="hero-tile mosaic-tile pattern-mosaic-midnight"></div>
+      <div class="hero-tile mosaic-tile pattern-antique-bronze"></div>
+      <div class="hero-tile mosaic-tile pattern-hammered-gold"></div>
+      <div class="hero-tile mosaic-tile pattern-byzantine-teal"></div>
+      <div class="hero-tile mosaic-tile pattern-rose-quartz"></div>
+      <div class="hero-tile mosaic-tile pattern-mosaic-midnight"></div>
+      <div class="hero-tile mosaic-tile pattern-pale-gilt"></div>
+      <div class="hero-tile mosaic-tile pattern-hammered-gold"></div>
+      <div class="hero-tile mosaic-tile pattern-mulberry-wine"></div>
+      <div class="hero-tile mosaic-tile pattern-ivory-tessera"></div>
+      <div class="hero-tile mosaic-tile pattern-byzantine-teal"></div>
+      <div class="hero-tile mosaic-tile pattern-mosaic-midnight"></div>
+
+      <!-- Row 3 -->
+      <div class="hero-tile mosaic-tile pattern-pale-gilt"></div>
+      <div class="hero-tile mosaic-tile pattern-mosaic-midnight"></div>
+      <div class="hero-tile mosaic-tile pattern-mulberry-wine"></div>
+      <div class="hero-tile mosaic-tile pattern-hammered-gold"></div>
+      <div class="hero-tile mosaic-tile pattern-byzantine-teal"></div>
+      <div class="hero-tile mosaic-tile pattern-antique-bronze"></div>
+      <div class="hero-tile mosaic-tile pattern-mosaic-midnight"></div>
+      <div class="hero-tile mosaic-tile pattern-pale-gilt"></div>
+      <div class="hero-tile mosaic-tile pattern-rose-quartz"></div>
+      <div class="hero-tile mosaic-tile pattern-hammered-gold"></div>
+      <div class="hero-tile mosaic-tile pattern-ivory-tessera"></div>
+      <div class="hero-tile mosaic-tile pattern-mulberry-wine"></div>
+
+      <!-- Row 4 -->
+      <div class="hero-tile mosaic-tile pattern-byzantine-teal"></div>
+      <div class="hero-tile mosaic-tile pattern-hammered-gold"></div>
+      <div class="hero-tile mosaic-tile pattern-ivory-tessera"></div>
+      <div class="hero-tile mosaic-tile pattern-mosaic-midnight"></div>
+      <div class="hero-tile mosaic-tile pattern-antique-bronze"></div>
+      <div class="hero-tile mosaic-tile pattern-mulberry-wine"></div>
+      <div class="hero-tile mosaic-tile pattern-byzantine-teal"></div>
+      <div class="hero-tile mosaic-tile pattern-hammered-gold"></div>
+      <div class="hero-tile mosaic-tile pattern-pale-gilt"></div>
+      <div class="hero-tile mosaic-tile pattern-mosaic-midnight"></div>
+      <div class="hero-tile mosaic-tile pattern-rose-quartz"></div>
+      <div class="hero-tile mosaic-tile pattern-antique-bronze"></div>
+
+      <!-- Row 5 -->
+      <div class="hero-tile mosaic-tile pattern-mulberry-wine"></div>
+      <div class="hero-tile mosaic-tile pattern-ivory-tessera"></div>
+      <div class="hero-tile mosaic-tile pattern-byzantine-teal"></div>
+      <div class="hero-tile mosaic-tile pattern-pale-gilt"></div>
+      <div class="hero-tile mosaic-tile pattern-hammered-gold"></div>
+      <div class="hero-tile mosaic-tile pattern-mosaic-midnight"></div>
+      <div class="hero-tile mosaic-tile pattern-antique-bronze"></div>
+      <div class="hero-tile mosaic-tile pattern-mulberry-wine"></div>
+      <div class="hero-tile mosaic-tile pattern-byzantine-teal"></div>
+      <div class="hero-tile mosaic-tile pattern-ivory-tessera"></div>
+      <div class="hero-tile mosaic-tile pattern-hammered-gold"></div>
+      <div class="hero-tile mosaic-tile pattern-pale-gilt"></div>
+
+      <!-- Row 6 -->
+      <div class="hero-tile mosaic-tile pattern-antique-bronze"></div>
+      <div class="hero-tile mosaic-tile pattern-mosaic-midnight"></div>
+      <div class="hero-tile mosaic-tile pattern-rose-quartz"></div>
+      <div class="hero-tile mosaic-tile pattern-hammered-gold"></div>
+      <div class="hero-tile mosaic-tile pattern-byzantine-teal"></div>
+      <div class="hero-tile mosaic-tile pattern-pale-gilt"></div>
+      <div class="hero-tile mosaic-tile pattern-mosaic-midnight"></div>
+      <div class="hero-tile mosaic-tile pattern-ivory-tessera"></div>
+      <div class="hero-tile mosaic-tile pattern-mulberry-wine"></div>
+      <div class="hero-tile mosaic-tile pattern-antique-bronze"></div>
+      <div class="hero-tile mosaic-tile pattern-byzantine-teal"></div>
+      <div class="hero-tile mosaic-tile pattern-hammered-gold"></div>
+
+      <!-- Row 7 -->
+      <div class="hero-tile mosaic-tile pattern-pale-gilt"></div>
+      <div class="hero-tile mosaic-tile pattern-hammered-gold"></div>
+      <div class="hero-tile mosaic-tile pattern-mosaic-midnight"></div>
+      <div class="hero-tile mosaic-tile pattern-byzantine-teal"></div>
+      <div class="hero-tile mosaic-tile pattern-ivory-tessera"></div>
+      <div class="hero-tile mosaic-tile pattern-mulberry-wine"></div>
+      <div class="hero-tile mosaic-tile pattern-hammered-gold"></div>
+      <div class="hero-tile mosaic-tile pattern-antique-bronze"></div>
+      <div class="hero-tile mosaic-tile pattern-pale-gilt"></div>
+      <div class="hero-tile mosaic-tile pattern-mosaic-midnight"></div>
+      <div class="hero-tile mosaic-tile pattern-rose-quartz"></div>
+      <div class="hero-tile mosaic-tile pattern-byzantine-teal"></div>
+
+      <!-- Row 8 -->
+      <div class="hero-tile mosaic-tile pattern-mosaic-midnight"></div>
+      <div class="hero-tile mosaic-tile pattern-mulberry-wine"></div>
+      <div class="hero-tile mosaic-tile pattern-antique-bronze"></div>
+      <div class="hero-tile mosaic-tile pattern-pale-gilt"></div>
+      <div class="hero-tile mosaic-tile pattern-hammered-gold"></div>
+      <div class="hero-tile mosaic-tile pattern-byzantine-teal"></div>
+      <div class="hero-tile mosaic-tile pattern-ivory-tessera"></div>
+      <div class="hero-tile mosaic-tile pattern-mosaic-midnight"></div>
+      <div class="hero-tile mosaic-tile pattern-hammered-gold"></div>
+      <div class="hero-tile mosaic-tile pattern-pale-gilt"></div>
+      <div class="hero-tile mosaic-tile pattern-mulberry-wine"></div>
+      <div class="hero-tile mosaic-tile pattern-antique-bronze"></div>
+    </div>
+
+    <!-- Hero content — always in DOM, always readable -->
+    <div class="hero-content">
+      <span class="hero-eyebrow" id="hero-eyebrow">Art Gallery Collection — Kit No. 3</span>
+      <h1 class="hero-title" id="hero-title">
+        <span class="gold">Golden</span><br>Mosaic
+      </h1>
+      <p class="hero-subtitle" id="hero-subtitle">
+        Byzantine empress meets modern maker.
+      </p>
+      <div class="hero-divider" id="hero-divider"></div>
+      <p class="hero-descriptor" id="hero-descriptor">
+        Pattern on pattern on pattern — and it works.<br>
+        Maximalism with taste.
+      </p>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+
+  </section>
+
+  <!-- Gold grout between hero and palette -->
+  <div class="grout-stripe-wide js-reveal" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       THE PALETTE
+  ═══════════════════════════════════════════ -->
+  <section id="palette" aria-labelledby="palette-heading">
+    <div class="section-inner">
+
+      <div class="reveal-group js-reveal-group">
+        <span class="section-label">The Palette</span>
+        <h2 class="section-heading" id="palette-heading">Nine Materials.<br>One Gold Thread.</h2>
+        <p class="section-body">
+          Nothing here is flat. Every color has a material name because it carries a material world.
+          The gold is hammered. The teal is ancient. The ivory is marble.
+          The nine colors are the tiles; the gold grout is what makes them one thing.
+        </p>
+      </div>
+
+      <!-- Palette tile grid — gap is the grout, grout color transitions on scroll -->
+      <div class="palette-grid js-grout-reveal reveal-group js-reveal-group" role="list" aria-label="Golden Mosaic color palette">
+
+        <!-- 1. Hammered Gold -->
+        <div class="palette-tile mosaic-tile pattern-hammered-gold js-tile" role="listitem" tabindex="0"
+             aria-label="Hammered Gold, hex C9A84C — kit anchor, the unifying thread">
+          <span class="palette-label">
+            Hammered Gold
+            <span class="palette-hex">#C9A84C</span>
+          </span>
+        </div>
+
+        <!-- 2. Byzantine Teal -->
+        <div class="palette-tile mosaic-tile pattern-byzantine-teal js-tile" role="listitem" tabindex="0"
+             aria-label="Byzantine Teal, hex 1B5E6B — counterweight, cool anchor">
+          <span class="palette-label">
+            Byzantine Teal
+            <span class="palette-hex">#1B5E6B</span>
+          </span>
+        </div>
+
+        <!-- 3. Ivory Tessera -->
+        <div class="palette-tile mosaic-tile pattern-ivory-tessera js-tile" role="listitem" tabindex="0"
+             aria-label="Ivory Tessera, hex F5EDE0 — warm carrier neutral, marble ground">
+          <span class="palette-label">
+            Ivory Tessera
+            <span class="palette-hex">#F5EDE0</span>
+          </span>
+        </div>
+
+        <!-- 4. Lead Came -->
+        <div class="palette-tile mosaic-tile pattern-lead-came js-tile" role="listitem" tabindex="0"
+             aria-label="Lead Came, hex 404048 — cool carrier neutral, structural metal">
+          <span class="palette-label">
+            Lead Came
+            <span class="palette-hex">#404048</span>
+          </span>
+        </div>
+
+        <!-- 5. Rose Quartz -->
+        <div class="palette-tile mosaic-tile pattern-rose-quartz js-tile" role="listitem" tabindex="0"
+             aria-label="Rose Quartz, hex C4909A — flex hue, the humanizing color">
+          <span class="palette-label">
+            Rose Quartz
+            <span class="palette-hex">#C4909A</span>
+          </span>
+        </div>
+
+        <!-- 6. Mosaic Midnight -->
+        <div class="palette-tile mosaic-tile pattern-mosaic-midnight js-tile" role="listitem" tabindex="0"
+             aria-label="Mosaic Midnight, hex 1A2F3A — pattern-edge dark, the grout between tiles">
+          <span class="palette-label">
+            Mosaic Midnight
+            <span class="palette-hex">#1A2F3A</span>
+          </span>
+        </div>
+
+        <!-- 7. Mulberry Wine -->
+        <div class="palette-tile mosaic-tile pattern-mulberry-wine js-tile" role="listitem" tabindex="0"
+             aria-label="Mulberry Wine, hex 7A2848 — saturated berry accent, the jewel">
+          <span class="palette-label">
+            Mulberry Wine
+            <span class="palette-hex">#7A2848</span>
+          </span>
+        </div>
+
+        <!-- 8. Antique Bronze -->
+        <div class="palette-tile mosaic-tile pattern-antique-bronze js-tile" role="listitem" tabindex="0"
+             aria-label="Antique Bronze, hex 8B6F47 — warm bridge, gold's earthier cousin">
+          <span class="palette-label" style="color: var(--ivory-tessera);">
+            Antique Bronze
+            <span class="palette-hex" style="color: var(--pale-gilt);">#8B6F47</span>
+          </span>
+        </div>
+
+        <!-- 9. Pale Gilt -->
+        <div class="palette-tile mosaic-tile pattern-pale-gilt js-tile" role="listitem" tabindex="0"
+             aria-label="Pale Gilt, hex E8D5A3 — light metallic, gold diluted with sunlight">
+          <span class="palette-label">
+            Pale Gilt
+            <span class="palette-hex">#E8D5A3</span>
+          </span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="grout-stripe js-reveal" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       WHAT'S INSIDE
+  ═══════════════════════════════════════════ -->
+  <section id="whats-inside" aria-labelledby="inside-heading">
+    <div class="section-inner">
+
+      <div class="reveal-group js-reveal-group">
+        <span class="section-label">What's Inside</span>
+        <h2 class="section-heading" id="inside-heading">Everything.<br>Placed.</h2>
+        <p class="section-body">
+          The Golden Mosaic kit is a complete brand identity system.
+          Nine colors, three typefaces, and every surface your brand lives on —
+          all built to carry the same richness, the same intention,
+          the same gold thread running through.
+        </p>
+      </div>
+
+      <div class="contents-grid js-grout-reveal reveal-group js-reveal-group">
+
+        <div class="content-tile mosaic-tile js-tile">
+          <span class="content-tile-icon" aria-hidden="true">◆</span>
+          <h3 class="content-tile-heading">Color Palette</h3>
+          <p class="content-tile-body">
+            Nine colors with full material documentation —
+            hex codes, contrast ratios, WCAG accessibility pairs,
+            and usage guidance for every slot.
+          </p>
+        </div>
+
+        <div class="content-tile mosaic-tile js-tile">
+          <span class="content-tile-icon" aria-hidden="true">◇</span>
+          <h3 class="content-tile-heading">Typography System</h3>
+          <p class="content-tile-body">
+            Cinzel for display (carved gold),
+            Bodoni Moda for subheadings (hairline and drama),
+            DM Sans for body (the grout that holds it together).
+            All Google Fonts, all free.
+          </p>
+        </div>
+
+        <div class="content-tile mosaic-tile js-tile">
+          <span class="content-tile-icon" aria-hidden="true">▪</span>
+          <h3 class="content-tile-heading">Brand Board</h3>
+          <p class="content-tile-body">
+            The full visual identity at a glance —
+            palette, type, tone, and texture in one reference surface.
+          </p>
+        </div>
+
+        <div class="content-tile mosaic-tile js-tile">
+          <span class="content-tile-icon" aria-hidden="true">○</span>
+          <h3 class="content-tile-heading">Social Headers</h3>
+          <p class="content-tile-body">
+            Profile and cover image templates ready for
+            LinkedIn, Instagram, Facebook, Pinterest.
+            The mosaic, scaled to every feed.
+          </p>
+        </div>
+
+        <div class="content-tile mosaic-tile js-tile">
+          <span class="content-tile-icon" aria-hidden="true">◉</span>
+          <h3 class="content-tile-heading">Link-in-Bio Page</h3>
+          <p class="content-tile-body">
+            A fully responsive standalone link page — ready to deploy.
+            Pattern on pattern, the gold thread running through every button.
+          </p>
+        </div>
+
+        <div class="content-tile mosaic-tile js-tile">
+          <span class="content-tile-icon" aria-hidden="true">◈</span>
+          <h3 class="content-tile-heading">Color Combinations Cheat Sheet</h3>
+          <p class="content-tile-body">
+            Every approved pairing with contrast ratios.
+            So you always know which tiles can sit next to each other.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="grout-stripe js-reveal" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       THE TEXTURES — Material Descriptions
+  ═══════════════════════════════════════════ -->
+  <section id="textures" aria-labelledby="textures-heading">
+    <div class="section-inner">
+
+      <div class="reveal-group js-reveal-group">
+        <span class="section-label">The Textures</span>
+        <h2 class="section-heading" id="textures-heading">Nothing Is Flat.<br>Everything Is Material.</h2>
+        <p class="section-body">
+          In Klimt's work, gold leaf is pressed over oil paint.
+          The surface has depth, irregularity, history.
+          These colors are built the same way — each one a material, not just a hex.
+        </p>
+      </div>
+
+      <ul class="texture-list" aria-label="Material texture descriptions for each palette color">
+
+        <li class="texture-item reveal-on-scroll js-reveal">
+          <div class="texture-swatch pattern-hammered-gold" aria-hidden="true"></div>
+          <div>
+            <p class="texture-name">Hammered Gold</p>
+            <p class="texture-description">
+              Not shiny-smooth gold. Hammered, textured, ancient —
+              gold that's been worn and handled and still catches light.
+              The unifying thread of the whole collection.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-item reveal-on-scroll js-reveal">
+          <div class="texture-swatch pattern-byzantine-teal" aria-hidden="true"></div>
+          <div>
+            <p class="texture-name">Byzantine Teal</p>
+            <p class="texture-description">
+              Glazed ceramic tile with hairline crackle — the weight of a mosaic
+              tile from a Mediterranean palace, worn by a thousand years of salt air.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-item reveal-on-scroll js-reveal">
+          <div class="texture-swatch pattern-ivory-tessera" aria-hidden="true"></div>
+          <div>
+            <p class="texture-name">Ivory Tessera</p>
+            <p class="texture-description">
+              Old marble with the faintest warm veining. The blank tile
+              that rests the eye between all that richness.
+              Warm ivory, faintly golden — nothing stark here.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-item reveal-on-scroll js-reveal">
+          <div class="texture-swatch pattern-lead-came" aria-hidden="true"></div>
+          <div>
+            <p class="texture-name">Lead Came</p>
+            <p class="texture-description">
+              Oxidized lead — matte, granular, slightly irregular.
+              The structural metal that holds the stained glass tiles in place.
+              Not the grout, not the tile: the metal behind both.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-item reveal-on-scroll js-reveal">
+          <div class="texture-swatch pattern-rose-quartz" aria-hidden="true"></div>
+          <div>
+            <p class="texture-name">Rose Quartz</p>
+            <p class="texture-description">
+              Crystal texture — slightly translucent, soft-focus,
+              warm glow from within. The skin tone in Klimt's figure work.
+              The reminder that a person lives inside all this pattern.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-item reveal-on-scroll js-reveal">
+          <div class="texture-swatch pattern-mosaic-midnight" aria-hidden="true"></div>
+          <div>
+            <p class="texture-name">Mosaic Midnight</p>
+            <p class="texture-description">
+              Smooth dark stone — polished granite, dense basalt.
+              The grout between the tiles. Without this, the mosaic has no structure.
+              This color is the edge that defines everything around it.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-item reveal-on-scroll js-reveal">
+          <div class="texture-swatch pattern-mulberry-wine" aria-hidden="true"></div>
+          <div>
+            <p class="texture-name">Mulberry Wine</p>
+            <p class="texture-description">
+              Crushed velvet with directional pile — deep and light-absorbing.
+              The jewel in the center of the brooch.
+              The color that makes you look twice.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-item reveal-on-scroll js-reveal">
+          <div class="texture-swatch pattern-antique-bronze" aria-hidden="true"></div>
+          <div>
+            <p class="texture-name">Antique Bronze</p>
+            <p class="texture-description">
+              Oxidized metal with verdigris hints — the patina of old jewelry,
+              the wood of the box that holds it.
+              Warm without being bright. Gold's earthier, quieter cousin.
+            </p>
+          </div>
+        </li>
+
+        <li class="texture-item reveal-on-scroll js-reveal">
+          <div class="texture-swatch pattern-pale-gilt" aria-hidden="true"></div>
+          <div>
+            <p class="texture-name">Pale Gilt</p>
+            <p class="texture-description">
+              Gold leaf over textured surface — translucent, catching light unevenly.
+              Gold diluted with sunlight. The lightest metallic:
+              shimmering but soft, precious but not heavy.
+            </p>
+          </div>
+        </li>
+
+      </ul>
+    </div>
+  </section>
+
+  <div class="grout-stripe-wide js-reveal" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       PULL QUOTE
+  ═══════════════════════════════════════════ -->
+  <section id="pull-quote" aria-label="Kit philosophy">
+    <div class="section-inner">
+      <div class="pull-quote-tile js-grout-reveal" id="pull-quote-tile">
+        <blockquote>
+          <p class="pull-quote-text">
+            "She's not too much. She's the right amount.
+            She just stopped measuring herself
+            against people with smaller appetites."
+          </p>
+          <footer class="pull-quote-attribution">
+            — Golden Mosaic Kit
+          </footer>
+        </blockquote>
+      </div>
+    </div>
+  </section>
+
+  <div class="grout-stripe js-reveal" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       THE KLIMT NOTE
+  ═══════════════════════════════════════════ -->
+  <section id="klimt-note" aria-labelledby="klimt-heading">
+    <div class="section-inner">
+      <div class="reveal-group js-reveal-group">
+        <span class="section-label">The Inspiration</span>
+        <h2 class="section-heading" id="klimt-heading">Every Square Inch<br>Is a Different Pattern.</h2>
+        <div class="klimt-note-rule"></div>
+        <p class="section-body">
+          In <em>The Kiss</em>, Klimt painted rectangles on his robe and circles on hers.
+          Gold leaf layered over oil paint. Every surface covered with something different.
+          It shouldn't work. It works because the gold is the unifying thread —
+          no matter how many patterns he layers, the gold runs through all of them
+          like a single note that everything harmonizes with.
+        </p>
+        <br>
+        <p class="section-body">
+          This kit is built the same way. The gold makes it one thing.
+          The patterns make it everything else.
+          Maximalism with taste means: not everything thrown at the wall —
+          everything placed with intention, so densely that the intention itself
+          becomes the aesthetic.
         </p>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- INSIDE THE KIT — moved up to position 2 so it's visible above the fold -->
-<section class="inside-section">
-  <div class="inside-inner">
-    <div class="inside-header">
-      <h2 class="inside-title reveal">Inside the kit.</h2>
-      <p class="inside-intro reveal">
-        Brand kits should be <em>complete worlds</em>, not single files. Flip through to see what arrives when Golden Mosaic becomes yours.
-      </p>
+  <div class="grout-stripe-wide js-reveal" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════
+       CTA FOOTER — Gold grout completes.
+  ═══════════════════════════════════════════ -->
+  <section id="cta-footer" aria-label="Get the Golden Mosaic kit">
+
+    <!-- Grout lines (dark → gold as section reveals) -->
+    <div class="footer-grout js-footer-grout" aria-hidden="true"></div>
+    <div class="footer-grout js-footer-grout" aria-hidden="true"></div>
+    <div class="footer-grout js-footer-grout" aria-hidden="true"></div>
+    <div class="footer-grout js-footer-grout" aria-hidden="true"></div>
+    <div class="footer-grout js-footer-grout" aria-hidden="true"></div>
+    <div class="footer-grout js-footer-grout" aria-hidden="true"></div>
+    <div class="footer-grout js-footer-grout" aria-hidden="true"></div>
+    <div class="footer-grout js-footer-grout" aria-hidden="true"></div>
+
+    <div class="footer-content reveal-group js-reveal-group">
+      <p class="footer-tagline">The gold was always the answer.</p>
+      <h2 class="footer-heading">
+        <span class="gold">Golden</span><br>Mosaic
+      </h2>
+      <p class="footer-sub">Art Gallery Collection — Kit No. 3</p>
+      <a href="#" class="cta-button js-cta" role="button">This Is Yours</a>
+      <p class="footer-note">Inspired by Gustav Klimt — <em>The Kiss</em>, 1907–1908</p>
     </div>
 
-    <div class="inside-grid">
+  </section>
 
-      <!-- CAROUSEL -->
-      <div class="carousel reveal" id="kit-carousel">
-        <div class="carousel-stage">
+</main>
 
-          <!-- Slide 1: Brand Board -->
-          <div class="carousel-slide active" data-slide="0">
-            <div class="mockup-stage">
-              <div class="mock-brand-board">
-                <div class="mbb-header">
-                  <div class="mbb-eyebrow">Art Gallery &middot; Brand Board</div>
-                  <div class="mbb-title">Golden Mosaic</div>
-                  <div class="mbb-tagline">Maximalism with taste. Pattern on pattern.</div>
-                </div>
-                <div class="mbb-body">
-                  <div class="mbb-palette">
-                    <div class="mbb-swatch" style="background: var(--ss-amber-glow);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-plum-vortex);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-coral-flame);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-brushstroke-gold);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-rose-dust);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-burnt-umber);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-canvas-cream); border: 1px solid rgba(139,111,71,0.1);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-twilight-slate);"></div>
-                  </div>
-                  <div class="mbb-type">
-                    <div class="mbb-type-display">Mosaic.</div>
-                    <div class="mbb-type-sub">Cinzel &middot; Bodoni Moda &middot; DM Sans</div>
-                    <div class="mbb-type-body">An uppercase-native Roman serif paired with a high-contrast Didone and a clean geometric sans. Cinzel builds the mosaic, Bodoni Moda lays the gold, DM Sans is the grout.</div>
-                  </div>
-                </div>
-                <div class="mbb-footer">By Emmy Bellamora &middot; Art Gallery Collection</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 2: Tier-2 Playground — Material samples (mirrors actual playground) -->
-          <div class="carousel-slide" data-slide="1">
-            <div class="mockup-stage" style="padding: 0;">
-              <div class="mock-playground">
-                <!-- Sample 1: Swirl Current (wave lines) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: repeating-linear-gradient(0deg, transparent 0 3px, rgba(122,40,72,0.5) 3px 4px, transparent 4px 6px), radial-gradient(ellipse at 50% 50%, rgba(201,168,76,0.25) 0%, transparent 70%); background-color: rgba(0,0,0,0.15);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Hammered Metal</div>
-                  <div class="mp-sample-tagline">Uneven gold light-catch.<br>Ancient and warm.</div>
-                </div>
-                <!-- Sample 2: Brushstroke Flow (impasto wave) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: repeating-linear-gradient(0deg, transparent 0 4px, rgba(122,40,72,0.7) 4px 5px, transparent 5px 8px), linear-gradient(135deg, var(--ss-amber-glow) 0%, #C45A1A 100%);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Mosaic Tile</div>
-                  <div class="mp-sample-tagline">Glazed teal ceramic.<br>Hairline crackle pattern.</div>
-                </div>
-                <!-- Sample 3: Star Field (dotted) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: radial-gradient(circle at 25% 25%, var(--ss-brushstroke-gold) 0%, transparent 8%), radial-gradient(circle at 75% 30%, var(--ss-canvas-cream) 0%, transparent 6%), radial-gradient(circle at 60% 70%, var(--ss-brushstroke-gold) 0%, transparent 8%), radial-gradient(circle at 30% 75%, var(--ss-canvas-cream) 0%, transparent 6%), radial-gradient(circle at 85% 60%, var(--ss-brushstroke-gold) 0%, transparent 7%); background-size: 32px 32px; background-color: var(--ss-burnt-umber);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Crushed Velvet</div>
-                  <div class="mp-sample-tagline">Mulberry deep-pile.<br>Light-absorbing, jewel-rich.</div>
-                </div>
-                <!-- Sample 4: Sunset Vapor (soft cream wash) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: repeating-linear-gradient(0deg, transparent 0 4px, rgba(201,168,76,0.18) 4px 5px, transparent 5px 9px), radial-gradient(ellipse at 50% 50%, rgba(122,40,72,0.4) 0%, rgba(201,168,76,0.15) 60%, transparent 100%); background-color: var(--ss-canvas-cream);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Marble Tessera</div>
-                  <div class="mp-sample-tagline">Ivory with warm vein.<br>The blank tile that rests.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 3: Cheat Sheet -->
-          <div class="carousel-slide" data-slide="2">
-            <div class="mockup-stage">
-              <div class="mock-cheat-sheet">
-                <div class="mcs-header">Color Combinations</div>
-                <div class="mcs-grid">
-                  <div class="mcs-cell" style="background: var(--ss-amber-glow); color: var(--ss-canvas-cream);">
-                    <div class="mcs-cell-name">Sunset<br>Meets Twilight</div>
-                    <div class="mcs-cell-meta">Amber &times; Plum &middot; AAA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-canvas-cream); color: var(--ss-burnt-umber); border: 1px solid rgba(139,111,71,0.1);">
-                    <div class="mcs-cell-name">Clean<br>Energy</div>
-                    <div class="mcs-cell-meta">Amber &times; Cream &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-plum-vortex); color: var(--ss-brushstroke-gold);">
-                    <div class="mcs-cell-name">Evening<br>Glow</div>
-                    <div class="mcs-cell-meta">Plum &times; Gold &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-coral-flame); color: var(--ss-canvas-cream);">
-                    <div class="mcs-cell-name">For<br>Calls to Action</div>
-                    <div class="mcs-cell-meta">Coral &times; Cream &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-rose-dust); color: var(--ss-burnt-umber);">
-                    <div class="mcs-cell-name">The Soft<br>Approach</div>
-                    <div class="mcs-cell-meta">Rose &times; Cream &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-burnt-umber); color: var(--ss-brushstroke-gold);">
-                    <div class="mcs-cell-name">Earth<br>and Light</div>
-                    <div class="mcs-cell-meta">Umber &times; Gold &middot; AA</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 4: Texture Vault -->
-          <div class="carousel-slide" data-slide="3">
-            <div class="mockup-stage" style="padding: 1rem;">
-              <div class="mock-texture">
-                <div class="mock-texture-cell" data-name="Hammered Gold" style="background: linear-gradient(135deg, #C9A84C 0%, #9C833B 100%); background-image: linear-gradient(135deg, #C9A84C 0%, #9C833B 100%), repeating-linear-gradient(45deg, transparent 0 4px, rgba(0,0,0,0.08) 4px 6px);"></div>
-                <div class="mock-texture-cell" data-name="Mosaic Midnight" style="background: var(--ss-plum-vortex); background-image: radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.08) 0%, transparent 50%), var(--ss-plum-vortex);"></div>
-                <div class="mock-texture-cell" data-name="Byzantine Teal" style="background: linear-gradient(160deg, #1B5E6B 0%, #154953 100%); background-image: linear-gradient(160deg, #1B5E6B 0%, #154953 100%), repeating-linear-gradient(0deg, transparent 0 3px, rgba(0,0,0,0.06) 3px 4px);"></div>
-                <div class="mock-texture-cell" data-name="Mulberry Wine" style="background: linear-gradient(135deg, #7A2848 0%, #5F1F38 100%); background-image: linear-gradient(135deg, #7A2848 0%, #5F1F38 100%), repeating-linear-gradient(135deg, transparent 0 2px, rgba(255,255,255,0.12) 2px 3px);"></div>
-                <div class="mock-texture-cell" data-name="Rose Quartz" style="background: var(--ss-rose-dust); background-image: radial-gradient(circle at 40% 40%, rgba(255,255,255,0.18) 0%, transparent 60%), var(--ss-rose-dust);"></div>
-                <div class="mock-texture-cell" data-name="Antique Bronze" style="background: var(--ss-burnt-umber); background-image: repeating-linear-gradient(90deg, transparent 0 2px, rgba(0,0,0,0.15) 2px 3px), var(--ss-burnt-umber);"></div>
-                <div class="mock-texture-cell" data-name="Ivory Tessera" style="background: var(--ss-canvas-cream); background-image: repeating-linear-gradient(45deg, transparent 0 2px, rgba(139,111,71,0.06) 2px 3px), var(--ss-canvas-cream); color: var(--ss-burnt-umber);"></div>
-                <div class="mock-texture-cell" data-name="Pale Gilt" style="background: var(--ss-twilight-slate); background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06) 0%, transparent 70%), var(--ss-twilight-slate);"></div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Quiet dots — discoverable, not loud -->
-        <div class="carousel-dots">
-          <button class="carousel-dot active" data-go="0" aria-label="Brand Board"></button>
-          <button class="carousel-dot" data-go="1" aria-label="Tier-2 Playground"></button>
-          <button class="carousel-dot" data-go="2" aria-label="Cheat Sheet"></button>
-          <button class="carousel-dot" data-go="3" aria-label="Texture Vault"></button>
-        </div>
-
-        <!-- Quiet caption — italic, no background block -->
-        <div class="carousel-caption-row">
-          <div class="caption-label" id="caption-label">Brand Board</div>
-          <div class="caption-name" id="caption-name">The kit at a glance</div>
-        </div>
-      </div>
-
-      <!-- COMPANION LIST -->
-      <div class="inside-list reveal">
-        <div class="inside-list-title">Everything Included</div>
-
-        <div class="inside-item">
-          <div class="inside-icon">01</div>
-          <div class="inside-text">
-            <strong>Whole Box Color Palette</strong>
-            <span>Eight materially-named colors with hex codes, role descriptions, and texture notes.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">02</div>
-          <div class="inside-text">
-            <strong>Typography System</strong>
-            <span>Cinzel + Bodoni Moda + DM Sans. Display, subhead, body. With the rule that holds them together.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">03</div>
-          <div class="inside-text">
-            <strong>Brand Board</strong>
-            <span>One page that captures the entire kit at a glance &mdash; for presentations or quick reference.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">04</div>
-          <div class="inside-text">
-            <strong>Color Combinations Cheat Sheet</strong>
-            <span>Pre-vetted combinations with WCAG contrast scores. Beautiful AND accessible.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">05</div>
-          <div class="inside-text">
-            <strong>Tier-2 Playground</strong>
-            <span>Full sandbox of the kit in motion &mdash; layouts, social tiles, link-in-bio templates.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">06</div>
-          <div class="inside-text">
-            <strong>Texture Vault</strong>
-            <span>High-res material textures for each color &mdash; impasto, painted gold, canvas weave.</span>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- THE PAINTING -->
-<section class="painting-section">
-  <div class="painting-grid">
-    <div class="reveal">
-      <div class="painting-label">The Painting Behind It</div>
-      <h2 class="painting-title">Gustav Klimt covered<br>every surface in<br><em style="color: var(--ss-amber-glow); font-style: italic;">gold</em>.</h2>
-      <p class="painting-attribution">Inspired by <em style="color:var(--ss-canvas-cream);">The Kiss</em>, 1907&ndash;1908</p>
-    </div>
-    <div class="painting-body reveal">
-      <p>Every square inch of <em>The Kiss</em> is a different pattern. Rectangles on his robe. Circles on hers. Gold leaf layered over oil paint. Flowers under their knees. The background dissolves into gold dust. <strong>It shouldn't work &mdash; it's too much, too dense, too ornate.</strong></p>
-      <p>But it works because the gold UNIFIES everything. No matter how many patterns Klimt layers, the gold ties them together like a single thread running through a quilt. <em>Horror vacui</em> &mdash; the fear of empty space &mdash; turned into generosity instead of clutter.</p>
-      <p>Klimt's palette is dominated by gold, bronze, and warm skin tones. <strong>Golden Mosaic keeps the gold as the unifying thread but introduces deep teal and berry &mdash; cool tones Klimt never touched.</strong> The pattern density stays. The metallic richness stays. The temperature shifts.</p>
-      <p>This is the kit for the person who is genuinely too much &mdash; and has stopped apologizing for it. She layers patterns. She mixes metals. <em>Her brand should feel like an art collection, not a template.</em></p>
-    </div>
-  </div>
-</section>
-
-<!-- PALETTE -->
-<section class="palette-section">
-  <div class="palette-inner">
-    <div class="palette-header">
-      <h2 class="palette-title reveal">The Whole Box.<br>Every color material.</h2>
-      <p class="palette-intro reveal">
-        Eight colors. Each one named for what it actually <em>is</em>, because "gold" tells you nothing and <em>Hammered Gold</em> tells you everything. <em>Nothing here is flat. Everything is laid by hand.</em>
-      </p>
-    </div>
-
-    <div class="palette-grid">
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-amber-glow);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Primary Metallic</div>
-          <div class="palette-name">Hammered Gold</div>
-          <div class="palette-hex">#C9A84C</div>
-          <p class="palette-feel">Not shiny-smooth gold &mdash; hammered, textured, ancient. Gold that's been worn and handled and still catches light. The thread that runs through everything.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-plum-vortex);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Cool Depth</div>
-          <div class="palette-name">Mosaic Midnight</div>
-          <div class="palette-hex">#1A2F3A</div>
-          <p class="palette-feel">The grout between the tiles. Deep teal-black that defines the pattern edges. Without this, the mosaic has no structure.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-coral-flame);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Signature Cool</div>
-          <div class="palette-name">Byzantine Teal</div>
-          <div class="palette-hex">#1B5E6B</div>
-          <p class="palette-feel">Deep teal with the weight of a mosaic tile. The cool counterpoint to all that gold. Where blue goes when it's been living in a Mediterranean palace for a thousand years.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-brushstroke-gold);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Rich Accent</div>
-          <div class="palette-name">Mulberry Wine</div>
-          <div class="palette-hex">#7A2848</div>
-          <p class="palette-feel">Berry-purple-red. The jewel in the center of the brooch. Deep, saturated, the color that makes you look twice because it's almost too rich to be real.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-rose-dust);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Pink Bridge</div>
-          <div class="palette-name">Rose Quartz</div>
-          <div class="palette-hex">#C4909A</div>
-          <p class="palette-feel">The unexpected pink. In Klimt's work, there's always skin tone &mdash; warm, human, alive. This is that warmth extracted. The color that reminds you there's a person inside all that pattern.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-burnt-umber);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Warm Mid</div>
-          <div class="palette-name">Antique Bronze</div>
-          <div class="palette-hex">#8B6F47</div>
-          <p class="palette-feel">Gold's earthier cousin. The patina on old metal, the wood of the jewelry box itself. Warm without being bright.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-canvas-cream); border-bottom: 1px solid rgba(0,0,0,0.06);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Warm Ground</div>
-          <div class="palette-name">Ivory Tessera</div>
-          <div class="palette-hex">#F5EDE0</div>
-          <p class="palette-feel">The white of old marble &mdash; not stark, not cold. Warm ivory with the faintest golden cast. The blank tile that rests the eye.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-twilight-slate);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Light Metallic</div>
-          <div class="palette-name">Pale Gilt</div>
-          <div class="palette-hex">#E8D5A3</div>
-          <p class="palette-feel">Gold that's been diluted with sunlight. The lightest metallic &mdash; shimmering but soft. For backgrounds that still feel precious.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- TYPOGRAPHY -->
-<section class="type-section">
-  <div class="type-header">
-    <h2 class="type-title reveal">Three fonts.<br>The Tessera.</h2>
-    <p class="type-intro reveal">
-      <strong>Cinzel builds the mosaic. Bodoni Moda lays the gold. DM Sans is the grout that holds it all together.</strong> A good mosaic is nothing without its grout. All three are free Google Fonts, forever yours.
-    </p>
-  </div>
-
-  <div class="type-card reveal">
-    <div class="type-card-meta">Headline &middot; Cinzel 700&ndash;900</div>
-    <div class="type-card-display">Too much, on purpose.</div>
-    <div class="type-card-name">Cinzel 700, 72pt &middot; Hammered Gold</div>
-  </div>
-
-  <div class="type-card reveal">
-    <div class="type-card-meta">Subhead &middot; Bodoni Moda 400&ndash;600 italic</div>
-    <p class="type-card-subhead">High-contrast Didone serif with fashion-forward elegance. The extreme thick-thin contrast of Bodoni Moda creates visual richness that <em>matches the density</em> of Klimt's patterning. The hairline strokes practically shimmer against the ink of the main stems.</p>
-    <div class="type-card-name">Bodoni Moda 500 italic, 24pt &middot; Mulberry Wine</div>
-  </div>
-
-  <div class="type-card reveal">
-    <div class="type-card-meta">Body &middot; DM Sans 300&ndash;500</div>
-    <p class="type-card-body">
-      Clean geometric sans with just enough warmth. In a kit this ornate at the headline level, the body font must provide rest for the eye without disappearing entirely. DM Sans has geometric clarity that echoes the underlying grid structure of mosaic patterns while its slightly rounded terminals prevent it from feeling cold. The grout that holds the gold.
-    </p>
-    <div class="type-card-name">DM Sans 400, 16pt &middot; Mosaic Midnight on Ivory Tessera</div>
-  </div>
-
-  <div class="type-rule reveal">
-    The rule:<br>
-    <em>Cinzel builds. Bodoni Moda lays. DM Sans grouts.</em>
-  </div>
-</section>
-
-<!-- COMBINATIONS -->
-<section class="combo-section">
-  <div class="combo-header">
-    <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
-    <p class="combo-intro reveal">
-      A color swatch on white tells you nothing. What matters is how a color <em>behaves</em> next to other colors. These are the signature pairings &mdash; the combinations Golden Mosaic was built for.
-    </p>
-  </div>
-
-  <div class="combo-grid">
-    <div class="combo-card combo-1 reveal">
-      <div>
-        <div class="combo-pair">The Signature</div>
-        <div class="combo-name">Hammered Gold &amp; Teal</div>
-      </div>
-    </div>
-    <div class="combo-card combo-2 reveal">
-      <div>
-        <div class="combo-pair">Cathedral Ceiling</div>
-        <div class="combo-name">Gold &amp; Mosaic Midnight</div>
-      </div>
-    </div>
-    <div class="combo-card combo-3 reveal">
-      <div>
-        <div class="combo-pair">Cool Depth, Warm Light</div>
-        <div class="combo-name">Byzantine Teal &amp; Pale Gilt</div>
-      </div>
-    </div>
-    <div class="combo-card combo-4 reveal">
-      <div>
-        <div class="combo-pair">Brooch on Blouse</div>
-        <div class="combo-name">Mulberry &amp; Ivory Tessera</div>
-      </div>
-    </div>
-    <div class="combo-card combo-5 reveal">
-      <div>
-        <div class="combo-pair">The Unexpected Pair</div>
-        <div class="combo-name">Byzantine Teal &amp; Rose Quartz</div>
-      </div>
-    </div>
-    <div class="combo-card combo-6 reveal">
-      <div>
-        <div class="combo-pair">Quiet Bronze</div>
-        <div class="combo-name">Antique Bronze &amp; Ivory</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section">
-  <div class="cta-label">Take it Home</div>
-  <h2 class="cta-big reveal">Make Golden Mosaic<br>your brand.</h2>
-  <p class="cta-sub reveal">
-    The kit is available now. If you want a custom kit built specifically for your world &mdash; or if you'd like Emmy to translate Golden Mosaic into a full website &mdash; that's available too.
-  </p>
-  <div class="cta-buttons reveal">
-    <a href="mailto:hello@emmybellamora.com?subject=Golden Mosaic Kit" class="btn-primary">Get the Kit</a>
-    <a href="../../index.html#working-together" class="btn-ghost">Talk to Emmy</a>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="footer-name">Emmy Bellamora</div>
-  <div class="footer-note">Creative Director &middot; Cognitive UX Designer &middot; Fairy With Bite 🧚‍♀️</div>
-</footer>
-
-<!-- REVEAL + CAROUSEL -->
 <script>
-  // Reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => observer.observe(el));
+/* ─────────────────────────────────────────────
+   GOLDEN MOSAIC — Page Experience JS
+   Strategy: content is in DOM from first paint (no JS required
+   to read the page). This JS is a pure enhancement layer that:
+   1. On load: reveals hero tiles in a staggered cascade
+   2. On scroll: uses IntersectionObserver to trigger:
+      - .mosaic-tile.revealed (tile opacity/scale transition)
+      - .js-grout-reveal.revealed (grout color Midnight → Gold)
+      - .js-reveal.revealed (grout stripes, texture items)
+      - .reveal-group.revealed (staggered content fades)
+   3. prefers-reduced-motion: handled entirely in CSS (end state
+      already applied; no JS needed to manage it)
+───────────────────────────────────────────── */
 
-  // Carousel — invisible chrome, click-to-advance, quiet dots
-  (function () {
-    const carousel = document.getElementById('kit-carousel');
-    if (!carousel) return;
-    const stage = carousel.querySelector('.carousel-stage');
-    const slides = carousel.querySelectorAll('.carousel-slide');
-    const dots = carousel.querySelectorAll('.carousel-dot');
-    const captionLabel = document.getElementById('caption-label');
-    const captionName = document.getElementById('caption-name');
-    const total = slides.length;
-    let current = 0;
+(function () {
+  'use strict';
 
-    const captions = [
-      { label: 'Brand Board',         name: 'The kit at a glance' },
-      { label: 'Tier-2 Playground',   name: 'The kit in motion' },
-      { label: 'Cheat Sheet',         name: 'Combinations, vetted for accessibility' },
-      { label: 'Texture Vault',       name: 'Eight materials — nothing is flat' }
-    ];
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    function go(i) {
-      current = (i + total) % total;
-      slides.forEach((slide, idx) => slide.classList.toggle('active', idx === current));
-      dots.forEach((dot, idx) => dot.classList.toggle('active', idx === current));
-      if (captions[current]) {
-        captionLabel.textContent = captions[current].label;
-        captionName.textContent = captions[current].name;
-      }
+  /* ── HERO ENTRANCE
+     If reduced motion: tiles are visible via CSS already.
+     If not: stagger them in on load. */
+  function runHeroEntrance () {
+    if (prefersReducedMotion) {
+      // CSS handles it. Mark everything revealed immediately.
+      document.querySelectorAll('.hero .hero-tile').forEach(el => el.classList.add('revealed'));
+      document.querySelectorAll('#hero-eyebrow, #hero-title, #hero-subtitle, #hero-divider, #hero-descriptor')
+        .forEach(el => el.classList.add('revealed'));
+      return;
     }
 
-    // Click anywhere on the slide stage to advance
-    stage.addEventListener('click', () => go(current + 1));
-
-    // Dots
-    dots.forEach((dot) => dot.addEventListener('click', (e) => {
-      e.stopPropagation();
-      go(parseInt(dot.dataset.go, 10));
-    }));
-
-    // Keyboard support when carousel is in view
-    document.addEventListener('keydown', (e) => {
-      const rect = carousel.getBoundingClientRect();
-      const inView = rect.top < window.innerHeight && rect.bottom > 0;
-      if (!inView) return;
-      if (e.key === 'ArrowLeft') go(current - 1);
-      if (e.key === 'ArrowRight') go(current + 1);
+    // Stagger hero tiles: spread over ~1.4s, center outward
+    const tiles = Array.from(document.querySelectorAll('.hero-mosaic .hero-tile'));
+    tiles.forEach(function (tile, i) {
+      const delay = 80 + (i * 18);
+      setTimeout(function () { tile.classList.add('revealed'); }, delay);
     });
-  })();
+
+    // Content sequence: eyebrow → title → subtitle → divider → descriptor
+    // (CSS transition-delay handles the offset; we just add the class)
+    setTimeout(function () {
+      document.querySelectorAll('#hero-eyebrow, #hero-title, #hero-subtitle, #hero-divider, #hero-descriptor')
+        .forEach(el => el.classList.add('revealed'));
+    }, 200);
+  }
+
+  /* ── INTERSECTION OBSERVER — scroll reveals ── */
+  function initScrollReveals () {
+    // Shared observer config: trigger when element is 15% visible
+    var observerOptions = { threshold: 0.15, rootMargin: '0px 0px -40px 0px' };
+
+    // Observer 1: grout stripes + single-element reveals
+    var groutObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          groutObserver.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll('.js-reveal').forEach(function (el) {
+      if (prefersReducedMotion) { el.classList.add('revealed'); }
+      else { groutObserver.observe(el); }
+    });
+
+    // Observer 2: grout-fill + tile reveal for palette + content grids
+    var groutGridObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          // Also reveal child tiles staggered
+          var tiles = entry.target.querySelectorAll('.js-tile, .mosaic-tile');
+          tiles.forEach(function (tile, i) {
+            if (prefersReducedMotion) {
+              tile.classList.add('revealed');
+            } else {
+              setTimeout(function () { tile.classList.add('revealed'); }, i * 55);
+            }
+          });
+          groutGridObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05 });
+
+    document.querySelectorAll('.js-grout-reveal').forEach(function (el) {
+      if (prefersReducedMotion) {
+        el.classList.add('revealed');
+        el.querySelectorAll('.js-tile, .mosaic-tile').forEach(t => t.classList.add('revealed'));
+      } else {
+        groutGridObserver.observe(el);
+      }
+    });
+
+    // Observer 3: section content (reveal-group) — reveals whole group
+    var groupObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          groupObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.10 });
+
+    document.querySelectorAll('.js-reveal-group').forEach(function (el) {
+      if (prefersReducedMotion) { el.classList.add('revealed'); }
+      else { groupObserver.observe(el); }
+    });
+
+    // Observer 4: individual texture items (stagger within the list)
+    var textureObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+          textureObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.texture-item').forEach(function (el, i) {
+      if (prefersReducedMotion) {
+        el.classList.add('revealed');
+      } else {
+        // Stagger via CSS: add a style delay based on index
+        el.style.transitionDelay = (i * 0.06) + 's';
+        textureObserver.observe(el);
+      }
+    });
+
+    // Observer 5: footer grout lines
+    var footerObserver = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          document.querySelectorAll('.js-footer-grout').forEach(function (g) {
+            g.classList.add('revealed');
+          });
+          document.querySelector('.js-cta') && document.querySelector('.js-cta').classList.add('grout-gold');
+          footerObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.05 });
+
+    var footer = document.querySelector('#cta-footer');
+    if (footer) {
+      if (prefersReducedMotion) {
+        document.querySelectorAll('.js-footer-grout').forEach(g => g.classList.add('revealed'));
+      } else {
+        footerObserver.observe(footer);
+      }
+    }
+  }
+
+  /* ── INIT ── */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      runHeroEntrance();
+      initScrollReveals();
+    });
+  } else {
+    runHeroEntrance();
+    initScrollReveals();
+  }
+
+})();
 </script>
 
 </body>

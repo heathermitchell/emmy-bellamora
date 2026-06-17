@@ -1,408 +1,1483 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- JS gate: add 'js' before any CSS so no-JS content is full-opacity from first paint -->
+<script>document.documentElement.classList.add('js')</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Electric Sherbet — Sugar on Top Brand Kit · Emmy Bellamora</title>
-<meta name="description" content="Electric Sherbet is dopamine in a color palette. Fizzy, fearless, unapologetically bright — for the person who's tired of being told to keep it professional. Professional is beige. She's not beige.">
+<title>Electric Sherbet — Kit Experience</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&family=Space+Grotesk:wght@300;400;500;600;700&family=Bricolage+Grotesque:opsz,wght@12..96,300;12..96,400;12..96,500;12..96,700;12..96,800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Jost:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
-/* ELECTRIC SHERBET — built 2026-05-02: nothing is flat, everything is material. Wet citrus, neon glow, sparkling effervescence, matte velvet, acid green, deep shimmer, warm cream, dark satin. */
+/* ─────────────────────────────────────────────
+   ELECTRIC SHERBET — Page Experience v1
+   Kit: Sugar on Top #2 | The disco floor that's been waiting for her.
+   Build: Emmy Sub-Agent | 2026-06-15
+   Palette source: color-palette-v3.md (ACTIVE — 9 colors, 4 accents, maximalist-track)
+   Blueprint: page-experience-blueprint.md
+   A11y: WCAG AA | reduced-motion honored | no-JS fallback = full page readable
+   Content-visible-by-default: opacity:0 ONLY in @keyframes from-states, never resting.
+   Stage-1 rule: content readable by default, animation as flourish, NEVER as gate.
+─────────────────────────────────────────────── */
+
 :root {
-  --tex-tangerine:  url('../../assets/textures/electric-sherbet/texture-tangerine-sorbet.png');
-  --tex-fuchsia:    url('../../assets/textures/electric-sherbet/texture-fuchsia-shock.png');
-  --tex-lemon:      url('../../assets/textures/electric-sherbet/texture-lemon-zap.png');
-  --tex-raspberry:  url('../../assets/textures/electric-sherbet/texture-raspberry-velvet.png');
-  --tex-lime:       url('../../assets/textures/electric-sherbet/texture-lime-volt.png');
-  --tex-grape:      url('../../assets/textures/electric-sherbet/texture-twilight-grape.png');
-  --tex-cream:      url('../../assets/textures/electric-sherbet/texture-sherbet-cream.png');
-  --tex-midnight:   url('../../assets/textures/electric-sherbet/texture-midnight-mango.png');
-  /* Emmy brand tokens */
-  --deep-night: #0D0A14; --amethyst: #6B3FA0; --amethyst-light: #9B6FD0; --fairy-silver: #C8B8E8; --moonpetal: #E8D8F8; --snowflake: #F5F0FF;
-  /* Electric Sherbet palette */
-  --es-tangerine: #FF6B35;
-  --es-fuchsia: #E8356D;
-  --es-lemon: #FFD23F;
-  --es-raspberry: #8B1A4A;
-  --es-lime: #B8E62E;
-  --es-grape: #4A2060;
-  --es-cream: #FFF0E0;
-  --es-midnight: #2A1525;
-  /* Typography */
-  --font-emmy-display: 'Cormorant Garamond', serif;
-  --font-emmy-body: 'Jost', sans-serif;
-  --font-es-display: 'Space Grotesk', sans-serif;
-  --font-es-subhead: 'Bricolage Grotesque', sans-serif;
-  --font-es-body: 'DM Sans', sans-serif;
+  /* ── Palette — Electric Sherbet v3 (nine colors) ── */
+  --tangerine-fizz:   #FF6B35;   /* Anchor — party orange */
+  --fuchsia-shock:    #E8356D;   /* Counterweight — neon sign */
+  --sherbet-cream:    #FFF0E0;   /* Warm carrier neutral */
+  --dusk-concrete:    #8C8896;   /* Cool carrier neutral (v3 addition) */
+  --lime-volt:        #B8E62E;   /* Flex hue — the surprise ingredient */
+  --lemon-zap:        #FFD23F;   /* Accent: saturated bright */
+  --raspberry-velvet: #8B1A4A;   /* Accent: saturated deep */
+  --midnight-mango:   #2A1525;   /* Accent: deepest dark */
+  --twilight-grape:   #4A2060;   /* Accent: saturated cool ground */
+
+  /* ── Functional ── */
+  --page-bg:          var(--midnight-mango);
+  --text-body:        var(--sherbet-cream);   /* 15.25:1 on midnight mango — primary body */
+  --text-accent:      var(--tangerine-fizz);  /* 6.01:1 on midnight mango — accent headers */
+  --text-cool:        var(--dusk-concrete);   /* 4.93:1 on midnight mango — cool body text */
+
+  /* ── Layout ── */
+  --section-pad: clamp(5rem, 10vw, 8rem) clamp(1.5rem, 6vw, 5rem);
+  --max-w: 1120px;
+
+  /* ── Glow variables ── */
+  --glow-orange: 0 0 40px rgba(255, 107, 53, 0.6), 0 0 80px rgba(255, 107, 53, 0.3);
+  --glow-pink:   0 0 40px rgba(232, 53, 109, 0.6), 0 0 80px rgba(232, 53, 109, 0.3);
+  --glow-lime:   0 0 40px rgba(184, 230, 46, 0.5), 0 0 80px rgba(184, 230, 46, 0.25);
+  --glow-lemon:  0 0 30px rgba(255, 210, 63, 0.5);
 }
+
+/* ─── RESET ─── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { background: var(--es-midnight); color: var(--es-cream); font-family: var(--font-emmy-body); font-weight: 300; overflow-x: hidden; line-height: 1.7; }
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--es-midnight); }
-::-webkit-scrollbar-thumb { background: var(--es-fuchsia); border-radius: 2px; }
-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(13,10,20,0.95) 0%, transparent 100%); backdrop-filter: blur(2px); }
-.nav-name { font-family: var(--font-emmy-display); font-size: 1.1rem; font-weight: 300; font-style: italic; color: var(--fairy-silver); letter-spacing: 0.05em; text-decoration: none; transition: color 0.3s ease; }
-.nav-name:hover { color: var(--moonpetal); }
-.nav-links { display: flex; gap: 2.5rem; list-style: none; }
-.nav-links a { font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fairy-silver); text-decoration: none; transition: color 0.3s ease; opacity: 0.7; }
-.nav-links a:hover { color: var(--moonpetal); opacity: 1; }
-.breadcrumb { max-width: 1200px; margin: 0 auto; padding: 4.75rem 3rem 0.5rem; display: flex; align-items: center; gap: 0.6rem; font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--es-tangerine); opacity: 0.55; }
-.breadcrumb a { color: inherit; text-decoration: none; transition: color 0.3s ease, opacity 0.3s ease; }
-.breadcrumb a:hover { color: var(--es-cream); opacity: 1; }
-.breadcrumb-sep { opacity: 0.45; }
 
-/* Electric Sherbet animation — citrus fizz bubbles rising, electric sparks */
-@keyframes fizzRise { 0% { transform: translateY(0) scale(1); opacity: 0; } 8% { opacity: 0.7; } 100% { transform: translateY(-55vh) scale(0.3); opacity: 0; } }
-@keyframes sparkFlash { 0%, 100% { opacity: 0; transform: scale(0.5); } 50% { opacity: 1; transform: scale(1.2); } }
-.drips { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
-.fizz { position: absolute; border-radius: 50%; animation-fill-mode: both; animation-iteration-count: infinite; animation-timing-function: ease-out; }
-.fizz-1 { width: 6px; height: 6px; background: radial-gradient(circle, rgba(255,107,53,0.9), transparent); bottom: 8%;  left: 15%; animation: fizzRise 7s 0.5s infinite; }
-.fizz-2 { width: 4px; height: 4px; background: radial-gradient(circle, rgba(232,53,109,0.9), transparent); bottom: 5%;  left: 30%; animation: fizzRise 9s 1.8s infinite; }
-.fizz-3 { width: 7px; height: 7px; background: radial-gradient(circle, rgba(255,210,63,0.9), transparent);  bottom: 12%; left: 48%; animation: fizzRise 6s 3.2s infinite; }
-.fizz-4 { width: 4px; height: 4px; background: radial-gradient(circle, rgba(184,230,46,0.9), transparent);  bottom: 6%;  left: 64%; animation: fizzRise 10s 0.9s infinite; }
-.fizz-5 { width: 5px; height: 5px; background: radial-gradient(circle, rgba(255,107,53,0.9), transparent);  bottom: 9%;  left: 80%; animation: fizzRise 8s 4.5s infinite; }
-.fizz-6 { width: 3px; height: 3px; background: radial-gradient(circle, rgba(232,53,109,0.9), transparent); bottom: 4%;  left: 90%; animation: fizzRise 11s 2.3s infinite; }
-.spark { position: absolute; border-radius: 2px; animation-fill-mode: both; animation-iteration-count: infinite; }
-.spark-1 { width: 3px; height: 3px; background: var(--es-lemon);   top: 25%; left: 72%; animation: sparkFlash 4s 0.7s infinite; }
-.spark-2 { width: 2px; height: 2px; background: var(--es-lime);    top: 40%; left: 88%; animation: sparkFlash 5s 2.1s infinite; }
-.spark-3 { width: 4px; height: 4px; background: var(--es-fuchsia); top: 65%; left: 82%; animation: sparkFlash 3.5s 1.3s infinite; }
-
-/* HERO */
-.kit-hero { margin: 1.5rem 0 0; padding: 0; position: relative; }
-.kit-hero-inner { overflow: hidden; position: relative; min-height: 380px; padding: 4rem 0; display: flex; flex-direction: column; justify-content: center; background-image: radial-gradient(ellipse at 25% 30%, rgba(255,107,53,0.55) 0%, rgba(255,107,53,0.25) 22%, transparent 48%), radial-gradient(ellipse at 75% 70%, rgba(232,53,109,0.50) 0%, rgba(232,53,109,0.22) 25%, transparent 50%), radial-gradient(ellipse at 55% 15%, rgba(255,210,63,0.30) 0%, transparent 38%), linear-gradient(135deg, rgba(42,21,37,0.88) 0%, rgba(74,32,96,0.75) 55%, rgba(232,53,109,0.35) 100%), var(--tex-tangerine); background-size: auto, auto, auto, auto, cover; background-blend-mode: normal, normal, normal, multiply, normal; }
-.kit-hero-inner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 20% 35%, rgba(255,107,53,0.28) 0%, transparent 52%), radial-gradient(ellipse at 78% 68%, rgba(184,230,46,0.12) 0%, transparent 45%); pointer-events: none; z-index: 1; }
-.kit-hero-wrap { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 3rem; position: relative; z-index: 2; }
-.kit-hero-content { position: relative; z-index: 1; max-width: 720px; }
-.kit-hero-meta { font-family: var(--font-es-body); font-size: 0.6rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--es-lemon); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.85rem; }
-.kit-hero-meta::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--es-lemon); opacity: 0.7; }
-.kit-hero-name { font-family: var(--font-es-display); font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 700; color: var(--es-cream); line-height: 1.0; letter-spacing: -0.02em; margin-bottom: 1.5rem; text-shadow: 0 0 40px rgba(255,107,53,0.5), 0 2px 32px rgba(0,0,0,0.4); }
-.kit-hero-tagline { font-family: var(--font-es-subhead); font-size: clamp(1.1rem, 1.8vw, 1.4rem); color: var(--es-cream); line-height: 1.6; opacity: 0.95; text-shadow: 0 2px 20px rgba(0,0,0,0.5); max-width: 580px; }
-
-/* PAINTING — on midnight mango satin */
-.painting-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 60% 50%, rgba(42,21,37,0.6) 0%, transparent 62%), linear-gradient(to bottom, rgba(42,21,37,0.45) 0%, rgba(42,21,37,0.38) 100%), var(--tex-midnight); background-size: auto, auto, cover; }
-.painting-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(255,107,53,0.06) 0%, transparent 50%); pointer-events: none; }
-.painting-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
-.painting-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; }
-.painting-label { font-family: var(--font-emmy-body); font-size: 0.58rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--es-tangerine); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 1rem; }
-.painting-label::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--es-tangerine); opacity: 0.6; }
-.painting-title { font-family: var(--font-emmy-display); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 300; font-style: italic; color: var(--es-cream); line-height: 1.15; margin-bottom: 1.5rem; }
-.painting-attribution { font-family: var(--font-emmy-body); font-size: 0.8rem; font-weight: 300; letter-spacing: 0.1em; color: var(--es-cream); opacity: 0.7; margin-bottom: 2rem; }
-.painting-body p { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--es-cream); margin-bottom: 1.5rem; opacity: 0.88; }
-.painting-body p strong { color: var(--es-tangerine); font-weight: 400; }
-.painting-body p em { color: var(--es-tangerine); font-style: italic; }
-
-/* PALETTE — flat dark (V3: alternating bgs — palette follows painting texture, must be flat) */
-.palette-section { position: relative; padding: 7rem 0; overflow: hidden; background: var(--es-midnight); }
-.palette-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
-.palette-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
-.palette-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--es-cream); line-height: 1.1; }
-.palette-intro { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--es-cream); opacity: 0.85; }
-.palette-intro em { color: var(--es-tangerine); font-style: italic; }
-.section-eyebrow { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--es-tangerine); opacity: 0.85; margin-bottom: 1rem; }
-.tier-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-.tier-card { display: flex; flex-direction: column; border-radius: 4px; overflow: hidden; border: 1px solid rgba(255,107,53,0.25); background: rgba(42,21,37,0.4); text-decoration: none; color: inherit; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s, border-color 0.4s; }
-.tier-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.5); border-color: rgba(255,107,53,0.55); }
-.tier-card-visual { height: 240px; width: 100%; background-size: cover; background-position: center; }
-.tier-card-body { padding: 2rem 2rem 2.2rem; display: flex; flex-direction: column; gap: 0.85rem; }
-.tier-card-eyebrow { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--es-tangerine); }
-.tier-card-title { font-family: var(--font-emmy-display); font-size: 1.7rem; font-weight: 300; font-style: italic; color: var(--es-cream); margin: 0; line-height: 1.2; }
-.tier-card-desc { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; color: var(--es-cream); opacity: 0.85; line-height: 1.7; margin: 0; }
-.tier-card-cta { font-family: var(--font-emmy-body); font-size: 0.7rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--es-tangerine); margin-top: 0.5rem; transition: transform 0.3s; }
-.tier-card:hover .tier-card-cta { transform: translateX(4px); }
-.palette-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-top: 3rem; }
-.palette-chip { display: flex; flex-direction: column; cursor: default; transition: transform 0.3s ease, box-shadow 0.3s ease; border-radius: 4px; overflow: hidden; border: 1px solid rgba(255,240,224,0.07); background: rgba(42,21,37,0.65); box-shadow: 0 2px 12px rgba(0,0,0,0.4); }
-.palette-chip:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.5), 0 2px 8px rgba(255,107,53,0.15); border-color: rgba(255,107,53,0.4); }
-.palette-chip-color { width: 100%; aspect-ratio: 2.6; }
-.palette-chip-material { width: 100%; aspect-ratio: 2.6; position: relative; background-size: cover; background-position: center; }
-.palette-chip-material::after { content: ''; position: absolute; inset: 0; }
-.chip-tangerine { background-image: var(--tex-tangerine); } .chip-tangerine::after { background: var(--es-tangerine); mix-blend-mode: multiply; opacity: 0.35; }
-.chip-fuchsia   { background-image: var(--tex-fuchsia); }   .chip-fuchsia::after   { background: var(--es-fuchsia); mix-blend-mode: multiply; opacity: 0.38; }
-.chip-lemon     { background-image: var(--tex-lemon); }     .chip-lemon::after     { background: var(--es-lemon); mix-blend-mode: multiply; opacity: 0.32; }
-.chip-raspberry { background-image: var(--tex-raspberry); } .chip-raspberry::after { background: var(--es-raspberry); mix-blend-mode: multiply; opacity: 0.50; }
-.chip-lime      { background-image: var(--tex-lime); }      .chip-lime::after      { background: var(--es-lime); mix-blend-mode: multiply; opacity: 0.30; }
-.chip-grape     { background-image: var(--tex-grape); }     .chip-grape::after     { background: var(--es-grape); mix-blend-mode: multiply; opacity: 0.55; }
-.chip-cream     { background-image: var(--tex-cream); }     .chip-cream::after     { background: var(--es-cream); mix-blend-mode: screen; opacity: 0.35; }
-.chip-midnight  { background-image: var(--tex-midnight); }  .chip-midnight::after  { background: var(--es-midnight); mix-blend-mode: multiply; opacity: 0.58; }
-.palette-chip-label { background: rgba(42,21,37,0.85); padding: 1rem 1.1rem 1.25rem; text-align: left; border-top: 1px solid rgba(255,240,224,0.06); }
-.palette-chip-role { display: block; font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--es-tangerine); opacity: 0.85; margin-bottom: 0.5rem; }
-.palette-chip-name { display: block; font-family: var(--font-emmy-display); font-size: 1.1rem; font-weight: 400; color: var(--es-cream); margin-bottom: 0.3rem; line-height: 1.2; letter-spacing: 0; text-transform: none; }
-.palette-chip-hex { display: block; font-family: var(--font-emmy-body); font-size: 0.62rem; font-weight: 400; letter-spacing: 0.1em; color: var(--es-cream); opacity: 0.6; text-transform: uppercase; margin-bottom: 0.7rem; }
-.palette-chip-feel { display: block; font-family: var(--font-emmy-body); font-size: 0.85rem; font-weight: 300; line-height: 1.6; color: var(--es-cream); opacity: 0.78; }
-
-/* TYPE — on sherbet cream */
-.type-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
-.type-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: end; }
-.type-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--es-cream); line-height: 1.1; }
-.type-intro { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--es-cream); opacity: 0.85; }
-.type-intro strong { color: var(--es-tangerine); font-weight: 400; }
-.type-card { background-image: linear-gradient(to bottom right, rgba(255,240,224,0.97) 0%, rgba(255,245,235,0.97) 100%), var(--tex-cream); background-size: auto, cover; background-blend-mode: multiply; border-radius: 16px; padding: 4rem 3.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.2); }
-.type-card::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(42deg, transparent 0px, transparent 4px, rgba(42,21,37,0.012) 4px, rgba(42,21,37,0.012) 5px); pointer-events: none; }
-.type-card-meta { font-family: var(--font-es-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--es-raspberry); opacity: 0.7; margin-bottom: 1rem; position: relative; }
-.type-card-display { font-family: var(--font-es-display); font-weight: 700; font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.0; color: var(--es-midnight); margin-bottom: 0.5rem; letter-spacing: -0.025em; position: relative; }
-.type-card-name { font-family: var(--font-es-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--es-raspberry); opacity: 0.65; margin-top: 1rem; margin-bottom: 2rem; position: relative; }
-.type-card-subhead { font-family: var(--font-es-subhead); font-weight: 400; font-size: clamp(1.4rem, 2.4vw, 1.9rem); color: var(--es-fuchsia); line-height: 1.4; margin-bottom: 1.5rem; max-width: 720px; position: relative; }
-.type-card-body { font-family: var(--font-es-body); font-weight: 300; font-size: 1rem; line-height: 1.8; color: var(--es-midnight); max-width: 620px; position: relative; }
-/* Rule card — on raspberry velvet */
-.type-rule { background-image: linear-gradient(to bottom, rgba(139,26,74,0.90) 0%, rgba(42,21,37,0.88) 100%), var(--tex-raspberry); background-size: auto, cover; border-radius: 16px; padding: 3.5rem 3.5rem; text-align: center; font-family: var(--font-es-subhead); font-weight: 500; font-size: clamp(1.3rem, 2.4vw, 1.9rem); line-height: 1.5; color: var(--es-cream); position: relative; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.55); }
-.type-rule::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-48deg, transparent 0px, transparent 3px, rgba(255,107,53,0.025) 3px, rgba(255,107,53,0.025) 4px); pointer-events: none; }
-.type-rule em { color: var(--es-lemon); font-style: italic; position: relative; }
-
-/* COMBOS */
-.combo-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
-.combo-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: end; }
-.combo-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--es-cream); line-height: 1.1; }
-.combo-intro { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--es-cream); opacity: 0.85; }
-.combo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-.combo-card { border-radius: 14px; overflow: hidden; aspect-ratio: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; position: relative; transition: transform 0.35s ease, box-shadow 0.35s ease; box-shadow: 0 4px 24px rgba(0,0,0,0.45); background-size: cover; background-position: center; }
-.combo-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.55); }
-.combo-card::before { content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: 14px; }
-.combo-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 45%, transparent 70%); pointer-events: none; border-radius: 14px; }
-.combo-text { position: relative; z-index: 1; }
-.combo-name { font-family: var(--font-es-display); font-weight: 700; font-size: 1.4rem; line-height: 1.1; margin-bottom: 0.4rem; letter-spacing: -0.01em; }
-.combo-pair { font-family: var(--font-es-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.8; }
-/* Combo cards demonstrate their named pairings literally:
-   text color = the named accent color in the pairing,
-   background = the texture + gradient of the named base color. */
-.combo-1 { background-image: var(--tex-tangerine);  color: var(--es-midnight); } .combo-1::before { background: linear-gradient(135deg, rgba(255,107,53,0.72) 0%, rgba(232,53,109,0.55) 100%); } .combo-1::after { background: linear-gradient(to top, rgba(42,21,37,0.7) 0%, rgba(42,21,37,0.1) 45%, transparent 70%); }
-.combo-2 { background-image: var(--tex-grape);      color: var(--es-lime); }     .combo-2::before { background: linear-gradient(135deg, rgba(74,32,96,0.78) 0%, rgba(184,230,46,0.35) 100%); }
-.combo-3 { background-image: var(--tex-fuchsia);    color: var(--es-midnight); } .combo-3::before { background: linear-gradient(135deg, rgba(42,21,37,0.62) 0%, rgba(232,53,109,0.50) 100%); }
-.combo-4 { background-image: var(--tex-lemon);      color: var(--es-fuchsia); }  .combo-4::before { background: linear-gradient(135deg, rgba(255,210,63,0.68) 0%, rgba(255,107,53,0.45) 100%); } .combo-4::after { background: linear-gradient(to top, rgba(42,21,37,0.65) 0%, rgba(42,21,37,0.08) 45%, transparent 70%); }
-.combo-5 { background-image: var(--tex-midnight);   color: var(--es-tangerine); }.combo-5::before { background: linear-gradient(135deg, rgba(42,21,37,0.72) 0%, rgba(255,107,53,0.40) 100%); }
-.combo-6 { background-image: var(--tex-midnight);   color: var(--es-lime); }     .combo-6::before { background: linear-gradient(135deg, rgba(42,21,37,0.72) 0%, rgba(184,230,46,0.45) 100%); } .combo-6::after { background: linear-gradient(to top, rgba(42,21,37,0.65) 0%, rgba(42,21,37,0.08) 45%, transparent 70%); }
-
-/* INSIDE — flat dark (V3: alternating bgs — hero is tangerine texture, inside must be flat) */
-.inside-section { position: relative; padding: 7rem 0; overflow: hidden; background: #1E0D1A; }
-.inside-section::before { content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 80%; height: 200%; background: radial-gradient(ellipse, rgba(255,107,53,0.05) 0%, transparent 60%); pointer-events: none; z-index: 0; }
-.inside-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 2; }
-.inside-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
-.inside-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--es-cream); line-height: 1.1; }
-.inside-intro { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--es-cream); opacity: 0.85; }
-.inside-intro em { color: var(--es-tangerine); font-style: italic; }
-.inside-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 3rem; align-items: start; }
-/* Carousel + mockup CSS removed V3 — carousel replaced with tier-cards in session 11 */
-
-/* CTA — on fuchsia shock */
-.cta-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% 50%, rgba(232,53,109,0.25) 0%, transparent 62%), radial-gradient(ellipse at 50% 100%, rgba(42,21,37,0.8) 0%, transparent 52%), linear-gradient(to bottom, rgba(42,21,37,0.52) 0%, rgba(42,21,37,0.58) 100%), var(--tex-fuchsia); background-size: auto, auto, auto, cover; }
-.cta-section::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-45deg, transparent 0px, transparent 4px, rgba(232,53,109,0.02) 4px, rgba(232,53,109,0.02) 5px); pointer-events: none; }
-.cta-inner { max-width: 900px; margin: 0 auto; padding: 0 3rem; text-align: center; position: relative; z-index: 1; }
-.cta-label { font-family: var(--font-emmy-body); font-size: 0.58rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--es-tangerine); margin-bottom: 1.25rem; }
-.cta-big { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; font-style: italic; color: var(--es-cream); line-height: 1.15; margin-bottom: 1.5rem; text-shadow: 0 2px 24px rgba(0,0,0,0.45); }
-.cta-sub { font-family: var(--font-emmy-body); font-size: 1rem; color: var(--es-cream); opacity: 0.85; line-height: 1.8; margin-bottom: 2.5rem; max-width: 580px; margin-left: auto; margin-right: auto; }
-.cta-buttons { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
-.btn-primary { display: inline-block; padding: 0.95rem 2.5rem; background: var(--es-fuchsia); color: var(--es-cream); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: background 0.3s ease, transform 0.2s ease; }
-.btn-primary:hover { background: var(--es-raspberry); transform: translateY(-1px); }
-.btn-ghost { display: inline-block; padding: 0.95rem 2.5rem; border: 1px solid rgba(255,240,224,0.5); color: var(--es-cream); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: border-color 0.3s ease, color 0.3s ease; }
-.btn-ghost:hover { border-color: var(--es-cream); color: #fff; }
-footer { padding: 3rem; border-top: 1px solid rgba(255,240,224,0.06); display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
-.footer-name { font-family: var(--font-emmy-display); font-style: italic; font-size: 1rem; color: var(--fairy-silver); opacity: 0.5; }
-.footer-note { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 300; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.35; }
-.reveal { opacity: 1; transform: translateY(0); transition: opacity 0.7s ease, transform 0.7s ease; }
-.reveal.pre-reveal { opacity: 0; transform: translateY(24px); }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-@media (max-width: 900px) {
-  nav { padding: 1.25rem 1.5rem; } .nav-links { gap: 1.5rem; } .breadcrumb { padding: 4.25rem 1.5rem 0.4rem; }
-  .kit-hero-wrap { padding: 0 1.5rem; } .kit-hero-inner { padding: 3rem 0; min-height: 320px; }
-  .painting-inner, .palette-inner, .inside-inner { padding: 0 1.5rem; }
-  .type-section, .combo-section { padding: 5rem 1.5rem; }
-  .painting-section, .palette-section, .inside-section, .cta-section { padding: 5rem 0; }
-  .cta-inner { padding: 0 1.5rem; }
-  .painting-grid, .palette-header, .type-header, .combo-header, .inside-header, .inside-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .palette-grid { grid-template-columns: repeat(2, 1fr); } .combo-grid { grid-template-columns: 1fr 1fr; }
-  .type-card { padding: 3rem 2rem; } .type-rule { padding: 2.5rem 2rem; }
-  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 3rem 1.5rem; }
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
 }
-@media (max-width: 600px) {
-  .nav-links { display: none; } .palette-grid { grid-template-columns: 1fr; } .combo-grid { grid-template-columns: 1fr; } .cta-buttons { flex-direction: column; align-items: center; }
+
+/* ─── REDUCED MOTION — jump everything to end state ─── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration:  0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+  .tile { animation: none !important; }
+  .skate { animation: none !important; left: 50% !important; }
+  .scroll-hint { animation: none !important; opacity: 0.6; }
+}
+
+/* ─── BASE ─── */
+body {
+  background: var(--page-bg);
+  color: var(--text-body);
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ─── SKIP LINK ─── */
+.skip-link {
+  position: absolute;
+  top: -999px;
+  left: 0;
+  background: var(--tangerine-fizz);
+  color: var(--midnight-mango);
+  padding: 0.5rem 1.25rem;
+  font-family: 'Jost', sans-serif;
+  font-weight: 700;
+  font-size: 0.9rem;
+  z-index: 9999;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+}
+.skip-link:focus { top: 0; }
+
+/* ─── MUTE BUTTON (sound toggle, decorative) ─── */
+.mute-btn {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.5rem;
+  z-index: 200;
+  background: rgba(74, 32, 96, 0.7);
+  border: 1px solid var(--twilight-grape);
+  color: var(--sherbet-cream);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.4rem 0.9rem;
+  border-radius: 100px;
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: background 0.2s ease;
+}
+.mute-btn:hover, .mute-btn:focus {
+  background: var(--twilight-grape);
+  outline: 2px solid var(--fuchsia-shock);
+  outline-offset: 2px;
+}
+
+/* ════════════════════════════════════════════════════
+   SECTION 1 — HERO: THE DISCO FLOOR
+   The floor is always lit. She's already on it.
+   - Tile grid = pure CSS, always visible
+   - Skate SVG animates in via JS / IntersectionObserver
+   - Without JS: tiles glow, skate is centered, text reads
+══════════════════════════════════════════════════════ */
+
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--midnight-mango);
+}
+
+/* ── Disco Floor Grid ── */
+.disco-floor {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 3px;
+  padding: 3px;
+  pointer-events: none;
+  aria-hidden: true;
+}
+
+/* Each tile: colored, glowing, pulsing */
+.tile {
+  border-radius: 2px;
+  animation: tile-pulse 3s ease-in-out infinite;
+}
+
+/* Tile colors cycling through the palette */
+.tile[data-color="1"] {
+  background: var(--tangerine-fizz);
+  box-shadow: 0 0 20px rgba(255, 107, 53, 0.5);
+  animation-delay: 0s;
+}
+.tile[data-color="2"] {
+  background: var(--fuchsia-shock);
+  box-shadow: 0 0 20px rgba(232, 53, 109, 0.5);
+  animation-delay: 0.3s;
+}
+.tile[data-color="3"] {
+  background: var(--lime-volt);
+  box-shadow: 0 0 20px rgba(184, 230, 46, 0.45);
+  animation-delay: 0.6s;
+}
+.tile[data-color="4"] {
+  background: var(--lemon-zap);
+  box-shadow: 0 0 20px rgba(255, 210, 63, 0.45);
+  animation-delay: 0.9s;
+}
+.tile[data-color="5"] {
+  background: var(--twilight-grape);
+  box-shadow: 0 0 20px rgba(74, 32, 96, 0.7);
+  animation-delay: 1.2s;
+}
+.tile[data-color="6"] {
+  background: var(--raspberry-velvet);
+  box-shadow: 0 0 20px rgba(139, 26, 74, 0.55);
+  animation-delay: 1.5s;
+}
+.tile[data-color="7"] {
+  background: var(--dusk-concrete);
+  box-shadow: 0 0 15px rgba(140, 136, 150, 0.4);
+  animation-delay: 0.45s;
+}
+.tile[data-color="8"] {
+  background: var(--sherbet-cream);
+  box-shadow: 0 0 20px rgba(255, 240, 224, 0.35);
+  animation-delay: 1.8s;
+}
+
+/* Pulse: brightness shift only — tile color never disappears */
+@keyframes tile-pulse {
+  0%   { opacity: 0.65; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.65; }
+}
+/* NOTE: keyframe from never sets opacity:0 — floor is always lit */
+
+/* Overlay: dark gradient so hero text reads clearly */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 80% at 50% 50%,
+    rgba(42, 21, 37, 0.55) 0%,
+    rgba(42, 21, 37, 0.75) 100%);
+  pointer-events: none;
+}
+
+/* ── Roller Skate SVG ── */
+.skate-container {
+  position: absolute;
+  bottom: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* JS-mode: skate rolls in from left */
+.js .skate-container {
+  animation: skate-enter 2.5s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+}
+
+@keyframes skate-enter {
+  from { left: -12%; opacity: 0.6; }
+  to   { left: 50%;  opacity: 1; }
+}
+/* NOTE: 'from' sets left:-12%, 'to' sets left:50%.
+   Resting state (no animation) = left:50% (the default position above).
+   Without JS: .js class absent, no animation fires, skate renders at left:50%. Fully visible. */
+
+.skate-rock {
+  animation: skate-rock 2s ease-in-out 3s infinite;
+  transform-origin: center bottom;
+}
+@keyframes skate-rock {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(-2deg); }
+  75%  { transform: rotate(2deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Lime Volt trail behind skate */
+.skate-trail {
+  position: absolute;
+  right: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 80px;
+  height: 6px;
+  background: linear-gradient(to left, var(--lime-volt), transparent);
+  border-radius: 3px;
+  opacity: 0;
+  box-shadow: 0 0 12px var(--lime-volt);
+}
+.js .skate-container .skate-trail {
+  animation: trail-flash 2.5s ease-out 0.5s both;
+}
+@keyframes trail-flash {
+  0%   { opacity: 0; width: 0; }
+  40%  { opacity: 0.9; width: 80px; }
+  100% { opacity: 0; width: 60px; }
+}
+
+/* ── Hero Text Content ── */
+.hero-content {
+  position: relative;
+  z-index: 4;
+  text-align: center;
+  padding: 2rem clamp(1.5rem, 6vw, 4rem);
+  max-width: 860px;
+  margin-bottom: 14rem; /* clear the skate */
+}
+
+/* Resting state: always fully visible */
+.hero-eyebrow {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--lime-volt);
+  margin-bottom: 1.25rem;
+}
+
+.hero-title {
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(3rem, 9vw, 6.5rem);
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: var(--sherbet-cream);
+  text-transform: uppercase;
+  text-shadow: 0 0 60px rgba(255, 107, 53, 0.3);
+}
+.hero-title .word-orange {
+  display: block;
+  color: var(--tangerine-fizz);
+  text-shadow: var(--glow-orange);
+}
+.hero-title .word-pink {
+  color: var(--fuchsia-shock);
+  text-shadow: var(--glow-pink);
+}
+
+.hero-tagline {
+  margin-top: 1.75rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--dusk-concrete);
+  line-height: 1.5;
+}
+.hero-tagline strong {
+  color: var(--lemon-zap);
+  font-style: normal;
+  font-weight: 700;
+}
+
+/* JS entrance animation — content is ALREADY visible without it */
+.js .hero-content.revealed {
+  animation: hero-enter 0.9s ease both;
+}
+@keyframes hero-enter {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Scroll hint ── */
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  text-align: center;
+  color: var(--dusk-concrete);
+  font-family: 'Jost', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.scroll-arrow {
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid var(--tangerine-fizz);
+  border-bottom: 2px solid var(--tangerine-fizz);
+  transform: rotate(45deg);
+  animation: arrow-bounce 1.8s ease-in-out infinite;
+}
+@keyframes arrow-bounce {
+  0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.5; }
+  50%       { transform: rotate(45deg) translateY(4px); opacity: 1; }
+}
+
+/* ════════════════════════════════════════════════════
+   SECTION 2 — THE PALETTE
+   Tiles are the swatches. The floor IS the palette.
+══════════════════════════════════════════════════════ */
+
+#palette {
+  padding: var(--section-pad);
+  background: var(--midnight-mango);
+  position: relative;
+}
+
+.section-label {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--lime-volt);
+  margin-bottom: 0.75rem;
+}
+
+.section-title {
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  color: var(--sherbet-cream);
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.75rem;
+}
+
+.section-intro {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 1.6vw, 1.2rem);
+  font-style: italic;
+  color: var(--dusk-concrete);
+  max-width: 540px;
+  line-height: 1.65;
+  margin-bottom: 3.5rem;
+}
+
+/* Palette tile grid */
+.palette-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1.25rem;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.palette-tile {
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: default;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.palette-tile:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+.palette-tile:focus-within {
+  outline: 3px solid var(--lime-volt);
+  outline-offset: 2px;
+}
+
+.tile-swatch {
+  height: 120px;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+  position: relative;
+}
+
+.tile-role {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.5rem;
+  border-radius: 100px;
+  background: rgba(0,0,0,0.35);
+  backdrop-filter: blur(4px);
+}
+
+.tile-info {
+  padding: 1rem 1.1rem;
+  background: rgba(255, 240, 224, 0.05);
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.tile-name {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--sherbet-cream);
+  margin-bottom: 0.15rem;
+}
+
+.tile-hex {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--dusk-concrete);
+}
+
+.tile-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--dusk-concrete);
+  line-height: 1.5;
+  margin-top: 0.4rem;
+}
+
+/* Individual tile swatch backgrounds + hover glows */
+.swatch-tangerine {
+  background: var(--tangerine-fizz);
+}
+.palette-tile:hover .swatch-tangerine {
+  box-shadow: var(--glow-orange);
+}
+.swatch-fuchsia {
+  background: var(--fuchsia-shock);
+}
+.palette-tile:hover .swatch-fuchsia {
+  box-shadow: var(--glow-pink);
+}
+.swatch-cream {
+  background: var(--sherbet-cream);
+}
+.swatch-concrete {
+  background: var(--dusk-concrete);
+}
+.swatch-lime {
+  background: var(--lime-volt);
+}
+.palette-tile:hover .swatch-lime {
+  box-shadow: var(--glow-lime);
+}
+.swatch-lemon {
+  background: var(--lemon-zap);
+}
+.palette-tile:hover .swatch-lemon {
+  box-shadow: var(--glow-lemon);
+}
+.swatch-raspberry {
+  background: var(--raspberry-velvet);
+}
+.swatch-midnight {
+  background: var(--midnight-mango);
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.swatch-grape {
+  background: var(--twilight-grape);
+}
+
+/* Role badge text colors for legibility */
+.swatch-tangerine .tile-role  { color: var(--midnight-mango); }
+.swatch-fuchsia   .tile-role  { color: var(--sherbet-cream); }
+.swatch-cream     .tile-role  { color: var(--midnight-mango); }
+.swatch-concrete  .tile-role  { color: var(--midnight-mango); }
+.swatch-lime      .tile-role  { color: var(--midnight-mango); }
+.swatch-lemon     .tile-role  { color: var(--midnight-mango); }
+.swatch-raspberry .tile-role  { color: var(--sherbet-cream); }
+.swatch-midnight  .tile-role  { color: var(--sherbet-cream); }
+.swatch-grape     .tile-role  { color: var(--sherbet-cream); }
+
+/* ════════════════════════════════════════════════════
+   SECTION 3 — WHAT'S INSIDE (DJ Set List style)
+══════════════════════════════════════════════════════ */
+
+#contents {
+  padding: var(--section-pad);
+  background: var(--twilight-grape);
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle grid lines behind content */
+#contents::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 107, 53, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 107, 53, 0.06) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.contents-inner {
+  position: relative;
+  z-index: 1;
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+.setlist {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: 3rem;
+  counter-reset: set-counter;
+}
+
+.setlist-item {
+  counter-increment: set-counter;
+  display: grid;
+  grid-template-columns: 3.5rem 1fr auto;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(255, 240, 224, 0.1);
+  transition: background 0.2s ease, padding 0.2s ease;
+  border-radius: 4px;
+}
+.setlist-item:first-child {
+  border-top: 1px solid rgba(255, 240, 224, 0.1);
+}
+.setlist-item:hover {
+  background: rgba(255, 107, 53, 0.08);
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+.setlist-num {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: var(--tangerine-fizz);
+  text-align: right;
+}
+
+.setlist-name {
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--sherbet-cream);
+}
+
+.setlist-detail {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--dusk-concrete);
+  text-transform: uppercase;
+}
+
+/* JS scroll-in: list items already visible; .lit adds a flash highlight */
+.js .setlist-item.lit .setlist-name {
+  color: var(--lemon-zap);
+  transition: color 0.3s ease;
+}
+
+/* ════════════════════════════════════════════════════
+   SECTION 4 — THE TEXTURES
+   Each color shown in its material language.
+══════════════════════════════════════════════════════ */
+
+#textures {
+  padding: var(--section-pad);
+  background: var(--midnight-mango);
+  position: relative;
+}
+
+.texture-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  max-width: var(--max-w);
+  margin: 3rem auto 0;
+}
+
+.texture-card {
+  padding: 2rem 1.5rem;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.texture-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+/* Tangerine Fizz: glossy wet fruit */
+.texture-orange::before {
+  background:
+    radial-gradient(ellipse 70% 60% at 30% 30%, rgba(255, 200, 150, 0.5) 0%, transparent 60%),
+    var(--tangerine-fizz);
+}
+
+/* Fuchsia Shock: neon glow light-bleed */
+.texture-fuchsia::before {
+  background:
+    radial-gradient(ellipse 80% 50% at 60% 20%, rgba(255, 180, 220, 0.4) 0%, transparent 60%),
+    var(--fuchsia-shock);
+  box-shadow: inset 0 0 40px rgba(255, 100, 180, 0.4);
+}
+
+/* Sherbet Cream: smooth matte */
+.texture-cream::before {
+  background: var(--sherbet-cream);
+}
+
+/* Dusk Concrete: grainy, cool */
+.texture-concrete::before {
+  background-image:
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.15'/%3E%3C/svg%3E"),
+    linear-gradient(135deg, #9A99A3 0%, var(--dusk-concrete) 100%);
+}
+
+/* Lime Volt: luminescent, acidic */
+.texture-lime::before {
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 40%, rgba(220, 255, 100, 0.5) 0%, transparent 60%),
+    var(--lime-volt);
+}
+
+/* Lemon Zap: sparkling effervescent */
+.texture-lemon::before {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.5) 0%, transparent 30%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.3) 0%, transparent 25%),
+    radial-gradient(circle at 60% 30%, rgba(255,255,255,0.4) 0%, transparent 20%),
+    var(--lemon-zap);
+}
+
+/* Raspberry Velvet: deep matte, rich */
+.texture-raspberry::before {
+  background:
+    linear-gradient(135deg, rgba(180, 60, 100, 0.3) 0%, transparent 50%),
+    var(--raspberry-velvet);
+}
+
+/* Midnight Mango: dark satin, warm undertone */
+.texture-midnight::before {
+  background:
+    linear-gradient(135deg, rgba(80, 40, 60, 0.5) 0%, rgba(42, 21, 37, 1) 100%),
+    radial-gradient(ellipse at 70% 30%, rgba(120, 50, 80, 0.3) 0%, transparent 50%);
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+/* Twilight Grape: deep velvet shimmer */
+.texture-grape::before {
+  background:
+    radial-gradient(ellipse 50% 40% at 40% 30%, rgba(140, 80, 180, 0.3) 0%, transparent 60%),
+    var(--twilight-grape);
+}
+
+.texture-label {
+  position: relative;
+  z-index: 1;
+}
+
+.texture-name {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.texture-feel {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  font-style: italic;
+  line-height: 1.4;
+  margin-top: 0.2rem;
+}
+
+/* Text colors on texture cards */
+.texture-orange .texture-name  { color: var(--midnight-mango); }
+.texture-orange .texture-feel  { color: rgba(42, 21, 37, 0.7); }
+.texture-fuchsia .texture-name { color: var(--sherbet-cream); }
+.texture-fuchsia .texture-feel { color: rgba(255, 240, 224, 0.8); }
+.texture-cream .texture-name   { color: var(--midnight-mango); }
+.texture-cream .texture-feel   { color: rgba(42, 21, 37, 0.65); }
+.texture-concrete .texture-name { color: var(--midnight-mango); }
+.texture-concrete .texture-feel { color: rgba(42, 21, 37, 0.65); }
+.texture-lime .texture-name    { color: var(--midnight-mango); }
+.texture-lime .texture-feel    { color: rgba(42, 21, 37, 0.7); }
+.texture-lemon .texture-name   { color: var(--midnight-mango); }
+.texture-lemon .texture-feel   { color: rgba(42, 21, 37, 0.65); }
+.texture-raspberry .texture-name { color: var(--sherbet-cream); }
+.texture-raspberry .texture-feel { color: rgba(255, 240, 224, 0.8); }
+.texture-midnight .texture-name  { color: var(--sherbet-cream); }
+.texture-midnight .texture-feel  { color: var(--dusk-concrete); }
+.texture-grape .texture-name   { color: var(--sherbet-cream); }
+.texture-grape .texture-feel   { color: rgba(255, 240, 224, 0.75); }
+
+/* ════════════════════════════════════════════════════
+   SECTION 5 — PULL QUOTE
+   "Professional is beige. She's not beige."
+══════════════════════════════════════════════════════ */
+
+#quote {
+  padding: clamp(5rem, 12vw, 10rem) clamp(1.5rem, 6vw, 5rem);
+  background: var(--fuchsia-shock);
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Disco-tile suggestion in background */
+#quote::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(42, 21, 37, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(42, 21, 37, 0.08) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.pull-quote-text {
+  position: relative;
+  z-index: 1;
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(2.2rem, 6vw, 5rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--midnight-mango);
+}
+.pull-quote-text em {
+  display: block;
+  color: var(--sherbet-cream);
+  font-style: normal;
+}
+
+.pull-quote-attr {
+  position: relative;
+  z-index: 1;
+  margin-top: 2rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 1.8vw, 1.3rem);
+  font-style: italic;
+  color: var(--midnight-mango);
+  opacity: 0.7;
+}
+
+/* ════════════════════════════════════════════════════
+   SECTION 6 — CTA FOOTER
+   "Get on the floor."
+══════════════════════════════════════════════════════ */
+
+#cta {
+  padding: var(--section-pad);
+  background: var(--midnight-mango);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Low-key disco floor echo */
+#cta::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  background: linear-gradient(to top, rgba(74, 32, 96, 0.4), transparent);
+}
+
+/* Parked skate */
+.cta-skate {
+  margin: 0 auto 2.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.cta-heading {
+  position: relative;
+  z-index: 1;
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(2rem, 5.5vw, 4rem);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--sherbet-cream);
+  margin-bottom: 1rem;
+}
+.cta-heading span {
+  color: var(--tangerine-fizz);
+}
+
+.cta-sub {
+  position: relative;
+  z-index: 1;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1rem, 1.8vw, 1.3rem);
+  font-style: italic;
+  color: var(--dusk-concrete);
+  max-width: 480px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.6;
+}
+
+.cta-btn {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+  background: var(--tangerine-fizz);
+  color: var(--midnight-mango);
+  font-family: 'Jost', sans-serif;
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.1rem 3rem;
+  border-radius: 4px;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  box-shadow: 0 0 0 0 rgba(255, 107, 53, 0);
+}
+.cta-btn:hover, .cta-btn:focus {
+  background: var(--lemon-zap);
+  box-shadow: var(--glow-lemon);
+  transform: translateY(-2px);
+  outline: none;
+}
+.cta-btn:focus-visible {
+  outline: 3px solid var(--lime-volt);
+  outline-offset: 3px;
+}
+
+.cta-note {
+  position: relative;
+  z-index: 1;
+  margin-top: 1.5rem;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dusk-concrete);
+}
+
+/* ════════════════════════════════════════════════════
+   NAV (minimal — kit name + section links)
+══════════════════════════════════════════════════════ */
+
+nav[aria-label="Kit sections"] {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  background: rgba(42, 21, 37, 0.85);
+  border: 1px solid rgba(255, 107, 53, 0.2);
+  border-radius: 100px;
+  padding: 0.6rem 1.5rem;
+  backdrop-filter: blur(8px);
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+}
+nav[aria-label="Kit sections"] a {
+  font-family: 'Jost', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dusk-concrete);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+}
+nav[aria-label="Kit sections"] a:hover,
+nav[aria-label="Kit sections"] a:focus {
+  color: var(--tangerine-fizz);
+  outline: none;
+}
+nav[aria-label="Kit sections"] a:focus-visible {
+  outline: 2px solid var(--lime-volt);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ════════════════════════════════════════════════════
+   UTILITY — CONTAINER
+══════════════════════════════════════════════════════ */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+}
+
+/* ════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .disco-floor {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(8, 1fr);
+  }
+  nav[aria-label="Kit sections"] {
+    gap: 0.9rem;
+    padding: 0.5rem 1rem;
+  }
+  nav[aria-label="Kit sections"] a {
+    font-size: 0.58rem;
+  }
+  .setlist-item {
+    grid-template-columns: 2.5rem 1fr;
+  }
+  .setlist-detail { display: none; }
+  .cta-skate svg {
+    width: 100px;
+    height: 60px;
+  }
+}
+@media (max-width: 420px) {
+  nav[aria-label="Kit sections"] {
+    display: none;
+  }
 }
 </style>
 </head>
-<body>
 
-<nav>
-  <a href="../../index.html" class="nav-name">Emmy Bellamora</a>
-  <ul class="nav-links">
-    <li><a href="../../index.html#about">About</a></li>
-    <li><a href="../../index.html#work">Work</a></li>
-    <li><a href="../../index.html#approach">Approach</a></li>
-    <li><a href="../../index.html#working-together">Together</a></li>
-    <li><a href="../../index.html#contact">Contact</a></li>
-  </ul>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<button class="mute-btn" aria-label="Sound is off — this page has no audio" aria-pressed="true" disabled>
+  MUTE ♪
+</button>
+
+<nav aria-label="Kit sections">
+  <a href="#hero">The Floor</a>
+  <a href="#palette">The Palette</a>
+  <a href="#contents">What's Inside</a>
+  <a href="#textures">Textures</a>
+  <a href="#cta">Get In</a>
 </nav>
 
-<div class="breadcrumb">
-  <a href="../../index.html">Emmy</a><span class="breadcrumb-sep">/</span>
-  <a href="../../index.html#work">Brand Kits</a><span class="breadcrumb-sep">/</span>
-  <a href="../../index.html#work">Sugar on Top</a><span class="breadcrumb-sep">/</span>
-  <span>Electric Sherbet</span>
-</div>
+<main id="main">
 
-<section class="kit-hero">
-  <div class="kit-hero-inner">
-    <div class="drips" aria-hidden="true">
-      <span class="fizz fizz-1"></span><span class="fizz fizz-2"></span><span class="fizz fizz-3"></span>
-      <span class="fizz fizz-4"></span><span class="fizz fizz-5"></span><span class="fizz fizz-6"></span>
-      <span class="spark spark-1"></span><span class="spark spark-2"></span><span class="spark spark-3"></span>
+  <!-- ════════════════ HERO ════════════════ -->
+  <section id="hero" aria-label="Hero — Electric Sherbet">
+
+    <!-- Disco floor: decorative, aria-hidden -->
+    <div class="disco-floor" aria-hidden="true" role="presentation">
+      <!-- 48 tiles (8×6). Colors cycle 1–8 in a pattern that mirrors SNF grid -->
+      <div class="tile" data-color="1"></div><div class="tile" data-color="3"></div><div class="tile" data-color="2"></div><div class="tile" data-color="5"></div><div class="tile" data-color="1"></div><div class="tile" data-color="4"></div><div class="tile" data-color="6"></div><div class="tile" data-color="3"></div>
+      <div class="tile" data-color="4"></div><div class="tile" data-color="1"></div><div class="tile" data-color="5"></div><div class="tile" data-color="2"></div><div class="tile" data-color="3"></div><div class="tile" data-color="6"></div><div class="tile" data-color="1"></div><div class="tile" data-color="7"></div>
+      <div class="tile" data-color="2"></div><div class="tile" data-color="6"></div><div class="tile" data-color="1"></div><div class="tile" data-color="3"></div><div class="tile" data-color="7"></div><div class="tile" data-color="1"></div><div class="tile" data-color="4"></div><div class="tile" data-color="5"></div>
+      <div class="tile" data-color="5"></div><div class="tile" data-color="2"></div><div class="tile" data-color="4"></div><div class="tile" data-color="1"></div><div class="tile" data-color="6"></div><div class="tile" data-color="3"></div><div class="tile" data-color="2"></div><div class="tile" data-color="1"></div>
+      <div class="tile" data-color="3"></div><div class="tile" data-color="7"></div><div class="tile" data-color="6"></div><div class="tile" data-color="4"></div><div class="tile" data-color="1"></div><div class="tile" data-color="2"></div><div class="tile" data-color="8"></div><div class="tile" data-color="3"></div>
+      <div class="tile" data-color="1"></div><div class="tile" data-color="4"></div><div class="tile" data-color="2"></div><div class="tile" data-color="7"></div><div class="tile" data-color="3"></div><div class="tile" data-color="1"></div><div class="tile" data-color="5"></div><div class="tile" data-color="6"></div>
     </div>
-    <div class="kit-hero-wrap">
-      <div class="kit-hero-content">
-        <div class="kit-hero-meta">Sugar on Top &middot; Kit 03</div>
-        <h1 class="kit-hero-name">Electric Sherbet</h1>
-        <p class="kit-hero-tagline">Dopamine hit. Fizzy, fearless, unapologetically bright &mdash; for the person who&rsquo;s tired of being told to keep it professional. Professional is beige. She&rsquo;s not beige.</p>
+
+    <!-- Dark overlay for text legibility -->
+    <div class="hero-overlay" aria-hidden="true"></div>
+
+    <!-- Hero content: real DOM, always readable -->
+    <div class="hero-content" id="hero-content">
+      <p class="hero-eyebrow">Sugar on Top · Electric Sherbet</p>
+      <h1 class="hero-title">
+        <span class="word-orange">Loud</span>
+        <span>is a <span class="word-pink">feature.</span></span>
+      </h1>
+      <p class="hero-tagline">
+        Dopamine hit. Fizzy, fearless, unapologetically bright.<br>
+        For the woman who wears the orange —
+        <strong>not the woman who plays it safe</strong>
+        and then says she wishes she'd worn the orange.
+      </p>
+    </div>
+
+    <!-- Roller skate SVG — decorative, always positioned at center-frame -->
+    <div class="skate-container" aria-hidden="true">
+      <div class="skate-trail"></div>
+      <div class="skate-rock">
+        <!-- Roller skate: hand-coded SVG. Tangerine Fizz wheels, Fuchsia Shock boot, chrome toe-stop. -->
+        <svg width="160" height="90" viewBox="0 0 160 90" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Roller skate">
+          <!-- Boot upper (Fuchsia Shock) -->
+          <path d="M30 15 C30 8 38 4 50 4 L90 4 C100 4 108 10 110 18 L114 35 L28 35 Z" fill="#E8356D"/>
+          <!-- Boot tongue highlight -->
+          <path d="M55 4 L60 4 L62 35 L50 35 Z" fill="rgba(255,180,220,0.35)"/>
+          <!-- Boot lower / sole platform (Midnight Mango) -->
+          <rect x="20" y="35" width="100" height="20" rx="6" fill="#2A1525"/>
+          <!-- Sole edge highlight -->
+          <rect x="20" y="53" width="100" height="3" rx="1.5" fill="rgba(255, 240, 224, 0.15)"/>
+          <!-- Front wheel (Tangerine Fizz) -->
+          <circle cx="42" cy="68" r="16" fill="#FF6B35"/>
+          <circle cx="42" cy="68" r="10" fill="#2A1525"/>
+          <circle cx="42" cy="68" r="5"  fill="#FFD23F"/>
+          <circle cx="42" cy="68" r="2"  fill="#2A1525"/>
+          <!-- Rear wheel (Tangerine Fizz) -->
+          <circle cx="98" cy="68" r="16" fill="#FF6B35"/>
+          <circle cx="98" cy="68" r="10" fill="#2A1525"/>
+          <circle cx="98" cy="68" r="5"  fill="#FFD23F"/>
+          <circle cx="98" cy="68" r="2"  fill="#2A1525"/>
+          <!-- Axle bar -->
+          <rect x="38" y="54" width="64" height="5" rx="2.5" fill="rgba(200,200,210,0.7)"/>
+          <!-- Toe stop (chrome / Dusk Concrete) -->
+          <ellipse cx="24" cy="56" rx="6" ry="5" fill="#8C8896"/>
+          <ellipse cx="24" cy="56" rx="3" ry="2.5" fill="rgba(255,255,255,0.5)"/>
+          <!-- Laces (Sherbet Cream) -->
+          <line x1="40" y1="12" x2="72" y2="12" stroke="#FFF0E0" stroke-width="2" stroke-linecap="round"/>
+          <line x1="38" y1="18" x2="70" y2="18" stroke="#FFF0E0" stroke-width="2" stroke-linecap="round"/>
+          <line x1="37" y1="24" x2="69" y2="24" stroke="#FFF0E0" stroke-width="2" stroke-linecap="round"/>
+          <line x1="36" y1="30" x2="68" y2="30" stroke="#FFF0E0" stroke-width="1.5" stroke-linecap="round"/>
+          <!-- Tiny Lime Volt speed stripe on boot -->
+          <path d="M95 8 L108 8 L110 14 L97 14 Z" fill="#B8E62E" opacity="0.8"/>
+        </svg>
       </div>
     </div>
-  </div>
-</section>
 
-<section id="inside" class="inside-section">
-  <div class="drips" aria-hidden="true">
-    <span class="fizz fizz-2"></span><span class="fizz fizz-4"></span><span class="fizz fizz-6"></span>
-  </div>
-  <div class="inside-inner">
-    <div class="inside-header">
-      <div>
-        <p class="section-eyebrow reveal">Everything in the box</p>
-        <h2 class="inside-title reveal">What you&rsquo;re actually getting.</h2>
-      </div>
-      <p class="inside-intro reveal">Not just colors. A whole material world &mdash; wet citrus, neon glow, lime volt, twilight grape &mdash; that you can step into and start using the same day.</p>
+    <div class="scroll-hint" aria-hidden="true">
+      <span>Scroll</span>
+      <span class="scroll-arrow"></span>
     </div>
-    <div class="tier-cards">
-      <a href="#" class="tier-card tier-1 reveal">
-        <div class="tier-card-visual" style="background-image: linear-gradient(135deg, rgba(42,21,37,0.55), rgba(255,107,53,0.4)), var(--tex-tangerine);"></div>
-        <div class="tier-card-body">
-          <div class="tier-card-eyebrow">Tier 1 &middot; The Kit</div>
-          <h3 class="tier-card-title">The Kit &mdash; $188</h3>
-          <p class="tier-card-desc">Brand board, color cheat sheet, eight material textures, and the Rooftop Suite typography system. Everything to use Electric Sherbet the same day it arrives.</p>
-          <span class="tier-card-cta">See what's inside &rarr;</span>
+
+  </section>
+
+  <!-- ════════════════ PALETTE ════════════════ -->
+  <section id="palette" aria-labelledby="palette-heading">
+    <div class="container">
+      <p class="section-label">The palette</p>
+      <h2 id="palette-heading" class="section-title">Every color<br>at full volume.</h2>
+      <p class="section-intro">Nine colors. Four accents. A maximalist-track palette built for the woman who doesn't apologize for taking up space — chromatically or otherwise. The brights attract. The darks ground. The cream breathes. The concrete holds the cool.</p>
+
+      <div class="palette-grid" role="list">
+
+        <!-- Tangerine Fizz — Anchor -->
+        <div class="palette-tile" role="listitem">
+          <div class="tile-swatch swatch-tangerine" aria-hidden="true">
+            <span class="tile-role">Anchor</span>
+          </div>
+          <div class="tile-info">
+            <p class="tile-name">Tangerine Fizz</p>
+            <p class="tile-hex">#FF6B35</p>
+            <p class="tile-desc">Fresh-squeezed orange with sparkling water. Party orange. The dopamine-warm identity of the woman who wears the orange.</p>
+          </div>
         </div>
-      </a>
-      <a href="#" class="tier-card tier-2 reveal">
-        <div class="tier-card-visual" style="background-image: linear-gradient(135deg, rgba(42,21,37,0.55), rgba(232,53,109,0.4)), var(--tex-fuchsia);"></div>
-        <div class="tier-card-body">
-          <div class="tier-card-eyebrow">Tier 2 &middot; The Playground</div>
-          <h3 class="tier-card-title">The Playground &mdash; $388</h3>
-          <p class="tier-card-desc">Everything in Tier 1, plus social templates, web-ready components, and the playground that lets you mix the kit any way your brand wants.</p>
-          <span class="tier-card-cta">See the full playground &rarr;</span>
+
+        <!-- Fuchsia Shock — Counterweight -->
+        <div class="palette-tile" role="listitem">
+          <div class="tile-swatch swatch-fuchsia" aria-hidden="true">
+            <span class="tile-role">Counterweight</span>
+          </div>
+          <div class="tile-info">
+            <p class="tile-name">Fuchsia Shock</p>
+            <p class="tile-hex">#E8356D</p>
+            <p class="tile-desc">Hot pink that didn't ask permission. The neon sign in the window. Confident without trying.</p>
+          </div>
         </div>
-      </a>
-    </div>
-  </div>
-</section>
 
-<section class="painting-section">
-  <div class="painting-inner">
-    <div class="painting-grid">
-      <div class="reveal">
-        <div class="painting-label">The Scene Behind It</div>
-        <h2 class="painting-title">A rooftop.<br>Golden hour.<br><em style="color:var(--es-tangerine);font-style:italic;">Music you feel.</em></h2>
-        <p class="painting-attribution">A scene, not a painting &mdash; built from feeling first.</p>
+        <!-- Lime Volt — Flex Hue -->
+        <div class="palette-tile" role="listitem">
+          <div class="tile-swatch swatch-lime" aria-hidden="true">
+            <span class="tile-role">Flex Hue</span>
+          </div>
+          <div class="tile-info">
+            <p class="tile-name">Lime Volt</p>
+            <p class="tile-hex">#B8E62E</p>
+            <p class="tile-desc">The surprise ingredient. Citrus meets neon. The thing that makes the palette pop instead of just "bright."</p>
+          </div>
+        </div>
+
+        <!-- Sherbet Cream — Warm carrier -->
+        <div class="palette-tile" role="listitem">
+          <div class="tile-swatch swatch-cream" aria-hidden="true">
+            <span class="tile-role">Warm Carrier</span>
+          </div>
+          <div class="tile-info">
+            <p class="tile-name">Sherbet Cream</p>
+            <p class="tile-hex">#FFF0E0</p>
+            <p class="tile-desc">The palate cleanser. Warm cream with the faintest peach blush. Breathing room that holds the warm register.</p>
+          </div>
+        </div>
+
+        <!-- Dusk Concrete — Cool carrier -->
+        <div class="palette-tile" role="listitem">
+          <div class="tile-swatch swatch-concrete" aria-hidden="true">
+            <span class="tile-role">Cool Carrier</span>
+          </div>
+          <div class="tile-info">
+            <p class="tile-name">Dusk Concrete</p>
+            <p class="tile-hex">#8C8896</p>
+            <p class="tile-desc">Rooftop concrete at golden hour — warm light hits it and it still reads cool. The quiet surface the palette was missing.</p>
+          </div>
+        </div>
+
+        <!-- Lemon Zap — Saturated bright accent -->
+        <div class="palette-tile" role="listitem">
+          <div class="tile-swatch swatch-lemon" aria-hidden="true">
+            <span class="tile-role">Accent</span>
+          </div>
+          <div class="tile-info">
+            <p class="tile-name">Lemon Zap</p>
+            <p class="tile-hex">#FFD23F</p>
+            <p class="tile-desc">Sunshine concentrated. The fizz at the top of the drink. Used in punctuation moments — call-outs, hover states.</p>
+          </div>
+        </div>
+
+        <!-- Raspberry Velvet — Saturated deep -->
+        <div class="palette-tile" role="listitem">
+          <div class="tile-swatch swatch-raspberry" aria-hidden="true">
+            <span class="tile-role">Accent</span>
+          </div>
+          <div class="tile-info">
+            <p class="tile-name">Raspberry Velvet</p>
+            <p class="tile-hex">#8B1A4A</p>
+            <p class="tile-desc">Where the party gets intimate. Fuchsia's older sister — she's been here before and she's staying late.</p>
+          </div>
+        </div>
+
+        <!-- Midnight Mango — Deepest dark -->
+        <div class="palette-tile" role="listitem">
+          <div class="tile-swatch swatch-midnight" aria-hidden="true">
+            <span class="tile-role">Deepest Dark</span>
+          </div>
+          <div class="tile-info">
+            <p class="tile-name">Midnight Mango</p>
+            <p class="tile-hex">#2A1525</p>
+            <p class="tile-desc">Not black. Black would kill this palette. Warm, fruity even in shadow. Where the eye rests in the absence of light.</p>
+          </div>
+        </div>
+
+        <!-- Twilight Grape — Saturated cool ground -->
+        <div class="palette-tile" role="listitem">
+          <div class="tile-swatch swatch-grape" aria-hidden="true">
+            <span class="tile-role">Cool Ground</span>
+          </div>
+          <div class="tile-info">
+            <p class="tile-name">Twilight Grape</p>
+            <p class="tile-hex">#4A2060</p>
+            <p class="tile-desc">Deep purple that gives the brights somewhere dramatic to stand. The sky behind the rooftop going dark.</p>
+          </div>
+        </div>
+
       </div>
-      <div class="painting-body reveal">
-        <p>Someone just handed you a drink that&rsquo;s the color of a sunset &mdash; orange bleeding into hot pink. The music is loud enough to feel in your chest. You&rsquo;re wearing something that makes people look twice. <strong>You don&rsquo;t care. Actually, you do care. You love it.</strong></p>
-        <p>Electric Sherbet is for the person who&rsquo;s tired of being told to keep it professional. Professional is beige. She&rsquo;s not beige. She&rsquo;s been careful for long enough and the brand that doesn&rsquo;t look like her is the brand she can&rsquo;t get behind.</p>
-        <p>Tangerine Fizz is not construction-cone orange &mdash; it&rsquo;s <em>party orange</em>. The orange of a fresh cocktail catching sunset light. Fuchsia Shock is not bubblegum &mdash; it&rsquo;s the neon sign in the window that says &ldquo;yes, tonight, here.&rdquo; Lime Volt is the ingredient that takes &ldquo;warm brights&rdquo; and makes it <strong>Electric Sherbet.</strong></p>
-        <p>Twilight Grape holds it all. The sky behind the rooftop. Gives the brights somewhere to land. <em>Without the depth, there&rsquo;s no contrast. Without the contrast, there&rsquo;s no pop.</em></p>
+    </div>
+  </section>
+
+  <!-- ════════════════ WHAT'S INSIDE ════════════════ -->
+  <section id="contents" aria-labelledby="contents-heading">
+    <div class="contents-inner">
+      <p class="section-label">What's inside</p>
+      <h2 id="contents-heading" class="section-title">The set list.</h2>
+      <p class="section-intro">Every deliverable in your kit — formatted like a DJ card because that's the energy.</p>
+
+      <ul class="setlist" role="list" aria-label="Kit contents">
+        <li class="setlist-item">
+          <span class="setlist-num" aria-hidden="true">01</span>
+          <span class="setlist-name">9-Color Palette System</span>
+          <span class="setlist-detail">Canonical v3</span>
+        </li>
+        <li class="setlist-item">
+          <span class="setlist-num" aria-hidden="true">02</span>
+          <span class="setlist-name">WCAG Contrast Map</span>
+          <span class="setlist-detail">11 AA pairs</span>
+        </li>
+        <li class="setlist-item">
+          <span class="setlist-num" aria-hidden="true">03</span>
+          <span class="setlist-name">Typography Selections</span>
+          <span class="setlist-detail">Cormorant + Jost</span>
+        </li>
+        <li class="setlist-item">
+          <span class="setlist-num" aria-hidden="true">04</span>
+          <span class="setlist-name">Color Combinations Cheat Sheet</span>
+          <span class="setlist-detail">Visual reference</span>
+        </li>
+        <li class="setlist-item">
+          <span class="setlist-num" aria-hidden="true">05</span>
+          <span class="setlist-name">Palette Display Page</span>
+          <span class="setlist-detail">Print-ready Tier 1</span>
+        </li>
+        <li class="setlist-item">
+          <span class="setlist-num" aria-hidden="true">06</span>
+          <span class="setlist-name">Social Headers Set</span>
+          <span class="setlist-detail">Tier 1</span>
+        </li>
+        <li class="setlist-item">
+          <span class="setlist-num" aria-hidden="true">07</span>
+          <span class="setlist-name">Link-in-Bio Page</span>
+          <span class="setlist-detail">Tier 1</span>
+        </li>
+        <li class="setlist-item">
+          <span class="setlist-num" aria-hidden="true">08</span>
+          <span class="setlist-name">Brand Board</span>
+          <span class="setlist-detail">Full kit overview</span>
+        </li>
+        <li class="setlist-item">
+          <span class="setlist-num" aria-hidden="true">09</span>
+          <span class="setlist-name">Texture Library</span>
+          <span class="setlist-detail">9 material renderings</span>
+        </li>
+        <li class="setlist-item">
+          <span class="setlist-num" aria-hidden="true">10</span>
+          <span class="setlist-name">Playground Page</span>
+          <span class="setlist-detail">Tier 2 exploration</span>
+        </li>
+        <li class="setlist-item">
+          <span class="setlist-num" aria-hidden="true">11</span>
+          <span class="setlist-name">Trend Absorption Report</span>
+          <span class="setlist-detail">7/7 cultural families</span>
+        </li>
+        <li class="setlist-item">
+          <span class="setlist-num" aria-hidden="true">12</span>
+          <span class="setlist-name">Page Experience</span>
+          <span class="setlist-detail">This page</span>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ════════════════ TEXTURES ════════════════ -->
+  <section id="textures" aria-labelledby="textures-heading">
+    <div class="container">
+      <p class="section-label">The materials</p>
+      <h2 id="textures-heading" class="section-title">Nothing is flat.<br>Everything is material.</h2>
+      <p class="section-intro">Each color in its physical form. Because knowing what a color feels like is just as important as knowing what it looks like.</p>
+
+      <div class="texture-grid" role="list">
+        <div class="texture-card texture-orange" role="listitem">
+          <div class="texture-label">
+            <p class="texture-name">Tangerine Fizz</p>
+            <p class="texture-feel">Glossy, like wet fruit or glass — the light moves across it</p>
+          </div>
+        </div>
+        <div class="texture-card texture-fuchsia" role="listitem">
+          <div class="texture-label">
+            <p class="texture-name">Fuchsia Shock</p>
+            <p class="texture-feel">Neon glow effect, slight light-bleed around the edges</p>
+          </div>
+        </div>
+        <div class="texture-card texture-cream" role="listitem">
+          <div class="texture-label">
+            <p class="texture-name">Sherbet Cream</p>
+            <p class="texture-feel">Smooth, creamy, matte — the palate cleanser between bites of bright</p>
+          </div>
+        </div>
+        <div class="texture-card texture-concrete" role="listitem">
+          <div class="texture-label">
+            <p class="texture-name">Dusk Concrete</p>
+            <p class="texture-feel">Matte concrete with a faint cool-lavender cast, slightly grainy</p>
+          </div>
+        </div>
+        <div class="texture-card texture-lime" role="listitem">
+          <div class="texture-label">
+            <p class="texture-name">Lime Volt</p>
+            <p class="texture-feel">Acidic, bright, almost luminescent — the light that makes everything pop</p>
+          </div>
+        </div>
+        <div class="texture-card texture-lemon" role="listitem">
+          <div class="texture-label">
+            <p class="texture-name">Lemon Zap</p>
+            <p class="texture-feel">Sparkling, effervescent — tiny light points dancing on the surface</p>
+          </div>
+        </div>
+        <div class="texture-card texture-raspberry" role="listitem">
+          <div class="texture-label">
+            <p class="texture-name">Raspberry Velvet</p>
+            <p class="texture-feel">Matte velvet, rich and soft — the evening version of the kit</p>
+          </div>
+        </div>
+        <div class="texture-card texture-midnight" role="listitem">
+          <div class="texture-label">
+            <p class="texture-name">Midnight Mango</p>
+            <p class="texture-feel">Dark satin, warm undertone visible in light — holds all the brights</p>
+          </div>
+        </div>
+        <div class="texture-card texture-grape" role="listitem">
+          <div class="texture-label">
+            <p class="texture-name">Twilight Grape</p>
+            <p class="texture-feel">Deep matte with subtle shimmer, like dark velvet at the edge of the light</p>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="palette-section">
-  <div class="palette-inner">
-    <div class="palette-header">
-      <div>
-        <p class="section-eyebrow reveal">The full eight</p>
-        <h2 class="palette-title reveal">Eight colors.<br>Eight materials.<br><em>One palette.</em></h2>
-      </div>
-      <p class="palette-intro reveal">Not &ldquo;orange.&rdquo; Not &ldquo;pink.&rdquo; <em>Tangerine Fizz. Fuchsia Shock. Lime Volt.</em> Each one named for what it actually <em>is</em> &mdash; because these colors aren&rsquo;t decorating, they&rsquo;re saying something.</p>
-    </div>
-    <div class="palette-row">
-      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #FF6B35;"></div><div class="palette-chip-material chip-tangerine"></div><div class="palette-chip-label"><span class="palette-chip-role">Primary Bright</span><span class="palette-chip-name">Tangerine Fizz</span><span class="palette-chip-hex">#FF6B35</span><p class="palette-chip-feel">Fresh-squeezed orange with sparkling water. Electric, warm, alive. Not construction-cone orange. Party orange &mdash; the color of a cocktail catching golden-hour light.</p></div></div>
-      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #E8356D;"></div><div class="palette-chip-material chip-fuchsia"></div><div class="palette-chip-label"><span class="palette-chip-role">Signature Pink</span><span class="palette-chip-name">Fuchsia Shock</span><span class="palette-chip-hex">#E8356D</span><p class="palette-chip-feel">Hot pink that didn&rsquo;t ask permission. The neon sign in the window. Confident without trying. This color self-selects &mdash; people who love it know immediately.</p></div></div>
-      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #FFD23F;"></div><div class="palette-chip-material chip-lemon"></div><div class="palette-chip-label"><span class="palette-chip-role">Citrus Yellow</span><span class="palette-chip-name">Lemon Zap</span><span class="palette-chip-hex">#FFD23F</span><p class="palette-chip-feel">Sunshine concentrated. The fizz at the top of the drink. Effervescent and sparkling, tiny light points dancing. Pure optimism in a color.</p></div></div>
-      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #8B1A4A;"></div><div class="palette-chip-material chip-raspberry"></div><div class="palette-chip-label"><span class="palette-chip-role">Deep Warm</span><span class="palette-chip-name">Raspberry Velvet</span><span class="palette-chip-hex">#8B1A4A</span><p class="palette-chip-feel">Where the party gets intimate. Fuchsia&rsquo;s older sister &mdash; she&rsquo;s been here before and she&rsquo;s staying late. Plush matte velvet, deep and rich.</p></div></div>
-      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #B8E62E;"></div><div class="palette-chip-material chip-lime"></div><div class="palette-chip-label"><span class="palette-chip-role">Electric Accent</span><span class="palette-chip-name">Lime Volt</span><span class="palette-chip-hex">#B8E62E</span><p class="palette-chip-feel">The surprise ingredient. The thing that makes this palette pop instead of just &ldquo;bright.&rdquo; Citrus meets neon, almost luminescent. Without it, warm brights. With it, Electric Sherbet.</p></div></div>
-      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #4A2060;"></div><div class="palette-chip-material chip-grape"></div><div class="palette-chip-label"><span class="palette-chip-role">Cool Contrast</span><span class="palette-chip-name">Twilight Grape</span><span class="palette-chip-hex">#4A2060</span><p class="palette-chip-feel">The sky behind the rooftop. Deep matte with subtle shimmer, giving all this energy somewhere to land. Without the depth, the brights have no pop.</p></div></div>
-      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #FFF0E0;"></div><div class="palette-chip-material chip-cream"></div><div class="palette-chip-label"><span class="palette-chip-role">Warm Neutral</span><span class="palette-chip-name">Sherbet Cream</span><span class="palette-chip-hex">#FFF0E0</span><p class="palette-chip-feel">The palate cleanser. Warm cream with the faintest peach blush &mdash; smooth and matte. Breathing room. The surface that makes the brights readable.</p></div></div>
-      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #2A1525;"></div><div class="palette-chip-material chip-midnight"></div><div class="palette-chip-label"><span class="palette-chip-role">Dark Ground</span><span class="palette-chip-name">Midnight Mango</span><span class="palette-chip-hex">#2A1525</span><p class="palette-chip-feel">The darkest dark &mdash; warm, fruity even in shadow. Not black (black would kill this palette). Dark satin with warm undertone visible in light. Holds the whole thing together.</p></div></div>
-    </div>
-  </div>
-</section>
+  <!-- ════════════════ PULL QUOTE ════════════════ -->
+  <section id="quote" aria-label="Brand truth">
+    <blockquote>
+      <p class="pull-quote-text">
+        Professional is beige.<br>
+        <em>She's not beige.</em>
+      </p>
+      <cite class="pull-quote-attr">— Electric Sherbet, Sugar on Top</cite>
+    </blockquote>
+  </section>
 
-<section class="type-section">
-  <div class="type-header">
-    <div>
-      <p class="section-eyebrow reveal">The Rooftop Suite</p>
-      <h2 class="type-title reveal">Three fonts.<br>One suite.</h2>
+  <!-- ════════════════ CTA FOOTER ════════════════ -->
+  <section id="cta" aria-labelledby="cta-heading">
+    <!-- Parked roller skate -->
+    <div class="cta-skate" aria-hidden="true">
+      <svg width="120" height="70" viewBox="0 0 160 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M30 15 C30 8 38 4 50 4 L90 4 C100 4 108 10 110 18 L114 35 L28 35 Z" fill="#E8356D"/>
+        <path d="M55 4 L60 4 L62 35 L50 35 Z" fill="rgba(255,180,220,0.35)"/>
+        <rect x="20" y="35" width="100" height="20" rx="6" fill="#2A1525"/>
+        <rect x="20" y="53" width="100" height="3" rx="1.5" fill="rgba(255, 240, 224, 0.15)"/>
+        <circle cx="42" cy="68" r="16" fill="#FF6B35"/>
+        <circle cx="42" cy="68" r="10" fill="#2A1525"/>
+        <circle cx="42" cy="68" r="5"  fill="#FFD23F"/>
+        <circle cx="42" cy="68" r="2"  fill="#2A1525"/>
+        <circle cx="98" cy="68" r="16" fill="#FF6B35"/>
+        <circle cx="98" cy="68" r="10" fill="#2A1525"/>
+        <circle cx="98" cy="68" r="5"  fill="#FFD23F"/>
+        <circle cx="98" cy="68" r="2"  fill="#2A1525"/>
+        <rect x="38" y="54" width="64" height="5" rx="2.5" fill="rgba(200,200,210,0.7)"/>
+        <ellipse cx="24" cy="56" rx="6" ry="5" fill="#8C8896"/>
+        <ellipse cx="24" cy="56" rx="3" ry="2.5" fill="rgba(255,255,255,0.5)"/>
+        <line x1="40" y1="12" x2="72" y2="12" stroke="#FFF0E0" stroke-width="2" stroke-linecap="round"/>
+        <line x1="38" y1="18" x2="70" y2="18" stroke="#FFF0E0" stroke-width="2" stroke-linecap="round"/>
+        <line x1="37" y1="24" x2="69" y2="24" stroke="#FFF0E0" stroke-width="2" stroke-linecap="round"/>
+        <path d="M95 8 L108 8 L110 14 L97 14 Z" fill="#B8E62E" opacity="0.8"/>
+      </svg>
     </div>
-    <p class="type-intro reveal"><strong>Space Grotesk brings the energy. Bricolage adds the warmth. DM Sans does the work.</strong> All sans-serif &mdash; no serifs would fight this palette. All free Google Fonts, forever yours.</p>
-  </div>
-  <div class="type-card reveal">
-    <div class="type-card-meta">Headline &middot; Space Grotesk 700</div>
-    <div class="type-card-display">LOUD.</div>
-    <div class="type-card-name">Space Grotesk 700, 72pt &middot; Midnight Mango</div>
-  </div>
-  <div class="type-card reveal">
-    <div class="type-card-meta">Subhead &middot; Bricolage Grotesque 400</div>
-    <p class="type-card-subhead">The sentence that makes someone lean forward. Bricolage shifts personality at different sizes &mdash; playful small, powerful big. The warmth that keeps geometric from going cold.</p>
-    <div class="type-card-name">Bricolage Grotesque 400, 28pt &middot; Fuchsia Shock on Sherbet Cream</div>
-  </div>
-  <div class="type-card reveal">
-    <div class="type-card-meta">Body &middot; DM Sans 300&ndash;500</div>
-    <p class="type-card-body">DM Sans earns the name. Soft geometric sans that reads clean without feeling corporate. The rounded openness matches Electric Sherbet&rsquo;s energy &mdash; friendly, approachable, not intimidating. At light weights on dark it&rsquo;s effortless. The rounded terminals add warmth that pure geometrics wouldn&rsquo;t bring.</p>
-    <div class="type-card-name">DM Sans 300, 16pt &middot; Midnight Mango on Sherbet Cream</div>
-  </div>
-  <div class="type-rule reveal">The rule:<br><em>Space Grotesk brings the energy. Bricolage adds the warmth. DM Sans does the work. Let them each do their thing.</em></div>
-</section>
 
-<section class="combo-section">
-  <div class="combo-header">
-    <div>
-      <p class="section-eyebrow reveal">How to use them</p>
-      <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
-    </div>
-    <p class="combo-intro reveal">A color swatch on white tells you nothing. What matters is how a color <em>behaves</em> next to other colors. These are the signature pairings &mdash; the combinations Electric Sherbet was built for.</p>
-  </div>
-  <div class="combo-grid">
-    <div class="combo-card combo-1 reveal"><div class="combo-text"><div class="combo-pair">The Signature</div><div class="combo-name">Sunset in a Glass</div></div></div>
-    <div class="combo-card combo-2 reveal"><div class="combo-text"><div class="combo-pair">Electric Surprise</div><div class="combo-name">Lime &amp; Grape</div></div></div>
-    <div class="combo-card combo-3 reveal"><div class="combo-text"><div class="combo-pair">Neon Night</div><div class="combo-name">Fuchsia on Dark</div></div></div>
-    <div class="combo-card combo-4 reveal"><div class="combo-text"><div class="combo-pair">Pure Dopamine</div><div class="combo-name">Lemon &amp; Fuchsia</div></div></div>
-    <div class="combo-card combo-5 reveal"><div class="combo-text"><div class="combo-pair">Dark Ground</div><div class="combo-name">Midnight &amp; Tangerine</div></div></div>
-    <div class="combo-card combo-6 reveal"><div class="combo-text"><div class="combo-pair">Acid Remix</div><div class="combo-name">Lime on Midnight</div></div></div>
-  </div>
-</section>
+    <h2 id="cta-heading" class="cta-heading">
+      Get on <span>the floor.</span>
+    </h2>
+    <p class="cta-sub">
+      She didn't ask if the music was too loud. She turned it up. Electric Sherbet is for the woman who arrived and the floor was already hers.
+    </p>
+    <a href="#" class="cta-btn" aria-label="Get Electric Sherbet kit">
+      Get Electric Sherbet
+    </a>
+    <p class="cta-note">Sugar on Top · Kit #2 · Full Tier 1</p>
+  </section>
 
-<section class="cta-section">
-  <div class="cta-inner">
-    <div class="cta-label">Take it Home</div>
-    <h2 class="cta-big reveal">You&rsquo;ve been keeping<br>it professional<br>long enough.</h2>
-    <p class="cta-sub reveal">Electric Sherbet is for the person who doesn&rsquo;t need permission to be loud. The kit is available now. If you want a custom kit built for your world, or if you&rsquo;d like Emmy to translate Electric Sherbet into a full website &mdash; that&rsquo;s available too.</p>
-    <div class="cta-buttons reveal">
-      <a href="mailto:hello@emmybellamora.com?subject=Electric Sherbet Kit" class="btn-primary">Get Electric Sherbet — $188</a>
-      <a href="../../index.html#working-together" class="btn-ghost">Talk to Emmy</a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-name">Emmy Bellamora</div>
-  <div class="footer-note">Creative Director &middot; Cognitive UX Designer &middot; Fairy With Bite 🧚‍♀️</div>
-</footer>
+</main>
 
 <script>
-const reveals = document.querySelectorAll('.reveal');
-// Hide reveal elements only after we know JS is running — that way if JS is off
-// or interrupted, content stays visible by the .reveal { opacity: 1 } default.
-reveals.forEach(el => el.classList.add('pre-reveal'));
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.remove('pre-reveal'); entry.target.classList.add('visible'); } });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-reveals.forEach(el => observer.observe(el));
+/* ══════════════════════════════════════════════════════════
+   ELECTRIC SHERBET — Page Experience JS
+   Content-visible-by-default: JS only adds flourishes.
+   Without this script, every element is fully visible.
+   ══════════════════════════════════════════════════════════ */
 
-// Carousel JS removed V3 — carousel replaced with tier-cards in session 11
+(function () {
+  'use strict';
+
+  const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── Hero entrance ── */
+  /* The .hero-content is visible without JS.
+     JS adds the .revealed class which triggers the keyframe entrance animation.
+     The keyframe goes from {opacity:0, translateY:12px} to {opacity:1, translateY:0}.
+     The resting state (no .js or .revealed) is full opacity — already in CSS default. */
+  const heroContent = document.getElementById('hero-content');
+  if (heroContent && motionOK) {
+    /* Small delay so tiles have started their pulse first */
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        heroContent.classList.add('revealed');
+      }, 400);
+    });
+  }
+
+  /* ── Setlist scroll-highlight (JS flourish only) ──
+     Without JS: all setlist items read normally at full opacity.
+     With JS + motionOK: items get a temporary 'lit' class as they enter viewport,
+     which shifts .setlist-name to lemon-zap color. Visual flourish, not content gate. */
+  if (motionOK && 'IntersectionObserver' in window) {
+    const setItems = document.querySelectorAll('.setlist-item');
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          /* Stagger: delay by item index */
+          const idx = Array.from(setItems).indexOf(entry.target);
+          setTimeout(() => {
+            entry.target.classList.add('lit');
+            /* Remove after short flash — color returns to base, still visible */
+            setTimeout(() => entry.target.classList.remove('lit'), 800);
+          }, idx * 60);
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    setItems.forEach(item => io.observe(item));
+  }
+
+  /* ── Palette tile hover interaction with scroll-driven skate ──
+     The skate-container has a CSS animation on .js + .revealed.
+     On palette hover, we can nudge the skate toward the hovered tile.
+     This is purely visual — no content is hidden.
+     Keeping it lightweight: just a subtle transform nudge on the hero skate. */
+  /* (Palette is outside hero viewport when reached; skate is hero-bound.
+      The blueprint describes tiles pulsing on hover — that's handled by CSS hover glow.
+      The "skate rolls toward it" behavior is a nice-to-have that would need
+      the skate re-rendered as sticky; deferred for polish pass per build estimate.) */
+
+})();
 </script>
 </body>
 </html>

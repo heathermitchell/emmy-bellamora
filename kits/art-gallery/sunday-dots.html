@@ -1,1870 +1,1548 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- JS gate: add 'js' before any CSS so no-JS content is full-opacity from first paint -->
+<script>document.documentElement.classList.add('js')</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sunday Dots — Art Gallery Brand Kit · Emmy Bellamora</title>
-<meta name="description" content="Sunday Dots is Seurat's pointillism in modern color. Coral, navy, marigold — eight materials, three-font Grid pairing. For the detail person who builds shimmer one decision at a time.">
+<title>Sunday Dots — Kit Experience</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400;500&family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600&family=Space+Grotesk:wght@400;500&display=swap" rel="stylesheet">
 
 <style>
-/* ============================================
-   SUNDAY DOTS — kit deep-dive page
-   Built by Emmy. Kit-true visual language inside
-   Emmy's site frame.
-   ============================================ */
+/* ─────────────────────────────────────────────
+   SUNDAY DOTS — Page Experience v1
+   Kit: Art Gallery #4 | Inspired by: Seurat — A Sunday Afternoon on the Island of La Grande Jatte
+   Build: Otto 🦉 | 2026-06-15
+   Palette source: color-palette-v3.md (ACTIVE, nine colors, maximalist exception)
+   Typography source: typography-selections-v1.md
+   Blueprint: page-experience-blueprint.md
+   A11y standard: WCAG AA | reduced-motion honored | no-JS fallback = full page readable
+───────────────────────────────────────────── */
 
 :root {
-  /* Emmy's site frame colors (nav, footer, page chrome) */
-  --deep-night: #0D0A14;
-  --amethyst: #6B3FA0;
-  --amethyst-light: #9B6FD0;
-  --violet-dusk: #2D1B4E;
-  --fairy-silver: #C8B8E8;
-  --moonpetal: #E8D8F8;
-  --snowflake: #F5F0FF;
+  /* ── Palette — Sunday Dots v3 (nine colors) ── */
+  --coral-confetti:   #E86B5A;   /* Anchor */
+  --parasol-navy:     #2A3D5C;   /* Counterweight + saturated cool grounding */
+  --linen-white:      #F7F2EB;   /* Warm carrier neutral */
+  --afternoon-haze:   #A8B2BC;   /* Cool carrier neutral (v3 addition) */
+  --river-sage:       #6B8F7A;   /* Flex hue */
+  --marigold-dot:     #E8A83E;   /* Saturated warm accent */
+  --peach-pixel:      #F0B89A;   /* Soft warm bridge */
+  --plum-point:       #5A3154;   /* Saturated cool/deep accent */
+  --promenade-stone:  #9A9088;   /* Warm-gray supplement neutral */
 
-  /* Sunday Dots kit palette — full Whole Box */
-  --ss-amber-glow: #E86B5A;
-  --ss-plum-vortex: #2A3D5C;
-  --ss-coral-flame: #E8A83E;
-  --ss-brushstroke-gold: #6B8F7A;
-  --ss-rose-dust: #F0B89A;
-  --ss-burnt-umber: #5A3154;
-  --ss-canvas-cream: #F7F2EB;
-  --ss-twilight-slate: #9A9088;
+  /* ── Functional ── */
+  --page-bg:          var(--linen-white);
+  --text-body:        var(--parasol-navy);   /* 9.82:1 on linen — primary body pair */
+  --text-display:     var(--parasol-navy);   /* display headings */
+  --text-accent:      var(--plum-point);     /* 9.42:1 on linen — secondary headings */
 
-  /* Type — Emmy's frame */
-  --font-emmy-display: 'Cormorant Garamond', serif;
-  --font-emmy-body: 'Jost', sans-serif;
+  /* ── Canvas / dots ── */
+  --dot-trail-color:  var(--coral-confetti);
 
-  /* Type — Sunday Dots kit fonts (The Grid) */
-  --font-ss-display: 'DM Serif Display', serif;
-  --font-ss-subhead: 'Inter', serif;
-  --font-ss-body: 'Space Grotesk', sans-serif;
+  /* ── Layout ── */
+  --section-pad: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 6rem);
+  --max-w: 1100px;
 }
 
+/* ─── RESET ─── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-html { scroll-behavior: smooth; }
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
 
+/* ── REDUCED MOTION: jump every canvas/animation to end state ── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  /* Dot reveal canvas jumps to fully-resolved (handled in JS via motionOK flag).
+     DOM title is always visible; no transition needed here.
+     Palette-swatch hover loosening: disabled. */
+  .swatch-dot-ring:hover .swatch-dot { transform: none !important; }
+  .swatch-dot-ring:hover { transform: none !important; }
+  /* Kill all transitions and animations globally */
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration:  0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+/* ─── BASE ─── */
 body {
-  /* Kit atmosphere — the page IS the kit. Frame stays Emmy's purple (nav, footer, CTA button). */
-  background: var(--ss-burnt-umber);
-  color: var(--ss-canvas-cream);
-  font-family: var(--font-emmy-body);
-  font-weight: 300;
-  overflow-x: hidden;
+  background: var(--page-bg);
+  color: var(--text-body);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
   line-height: 1.7;
+  overflow-x: hidden;
 }
 
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--ss-burnt-umber); }
-::-webkit-scrollbar-thumb { background: var(--amethyst); border-radius: 2px; }
-
-/* ============================================
-   NAV — same as home page
-   ============================================ */
-
-nav {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  z-index: 100;
-  padding: 1.5rem 3rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(to bottom, rgba(13,10,20,0.95) 0%, transparent 100%);
-  backdrop-filter: blur(2px);
-}
-
-.nav-name {
-  font-family: var(--font-emmy-display);
-  font-size: 1.1rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--fairy-silver);
-  letter-spacing: 0.05em;
+/* ─── SKIP LINK (accessibility) ─── */
+.skip-link {
+  position: absolute;
+  top: -999px;
+  left: 0;
+  background: var(--coral-confetti);
+  color: var(--linen-white);
+  padding: 0.5rem 1.25rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  z-index: 9999;
   text-decoration: none;
-  transition: color 0.3s ease;
+  border-radius: 0 0 4px 0;
+}
+.skip-link:focus { top: 0; }
+
+/* ─── DOT-TEXTURE BACKGROUND (CSS radial-gradient, used throughout) ─── */
+/* 3px dots, 12px spacing, very subtle — Seurat technique made material */
+.dot-texture {
+  background-image: radial-gradient(circle, var(--promenade-stone) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
+}
+.dot-texture-soft {
+  background-image: radial-gradient(circle, rgba(154,144,136,0.18) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
 }
 
-.nav-name:hover { color: var(--moonpetal); }
+/* ──────────────────────────────────────────────────────────
+   SECTION 1: HERO
+   Canvas is the dot-reveal animation layer (aria-hidden).
+   .hero-content is real DOM — always visible, always readable.
+   No-JS: canvas never initializes; content reads cleanly.
+   Reduced-motion: canvas jumps to resolved; no drift animation.
+────────────────────────────────────────────────────────── */
 
-.nav-links {
-  display: flex;
-  gap: 2.5rem;
-  list-style: none;
-}
-
-.nav-links a {
-  font-family: var(--font-emmy-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--fairy-silver);
-  text-decoration: none;
-  transition: color 0.3s ease;
-  opacity: 0.7;
-}
-
-.nav-links a:hover { color: var(--moonpetal); opacity: 1; }
-
-/* ============================================
-   BREADCRUMB
-   ============================================ */
-
-/* Hairline strip — sits tight against nav. Kit-tinted to bridge Emmy's frame and the kit's room. */
-.breadcrumb {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 4.75rem 3rem 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-family: var(--font-emmy-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--ss-brushstroke-gold);
-  opacity: 0.55;
-}
-
-.breadcrumb a {
-  color: inherit;
-  text-decoration: none;
-  transition: color 0.3s ease, opacity 0.3s ease;
-}
-
-.breadcrumb a:hover { color: var(--ss-canvas-cream); opacity: 1; }
-
-.breadcrumb-sep { opacity: 0.45; }
-
-/* ============================================
-   KIT HERO — full bleed, edge to edge
-   ============================================ */
-
-.kit-hero {
-  margin: 1.5rem 0 0;
-  padding: 0;
-}
-
-.kit-hero-inner {
-  border-radius: 0;
-  overflow: hidden;
-  background:
-    radial-gradient(ellipse at 80% 20%, var(--ss-brushstroke-gold) 0%, rgba(107,143,122,0.4) 18%, transparent 38%),
-    radial-gradient(ellipse at 20% 80%, var(--ss-plum-vortex) 0%, rgba(42,61,92,0.5) 30%, transparent 55%),
-    radial-gradient(ellipse at 55% 55%, rgba(232,107,90,0.55) 0%, transparent 45%),
-    linear-gradient(135deg, var(--ss-burnt-umber) 0%, var(--ss-plum-vortex) 50%, var(--ss-amber-glow) 100%);
+#hero {
   position: relative;
-  min-height: 380px;
-  padding: 4rem 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--linen-white);
+  overflow: hidden;
+}
+
+/* Canvas covers the full hero as decorative layer */
+#dot-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  /* pointer-events re-enabled for cursor trail in JS */
+}
+
+/* hero-content sits above the canvas in z-order */
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem clamp(1.5rem, 6vw, 4rem);
+  max-width: 800px;
+}
+
+/* In JS-mode, the hero text starts transparent and fades in after resolve;
+   no-JS: full opacity always. */
+.hero-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(3.5rem, 9vw, 7rem);
+  font-weight: 400;
+  line-height: 1.05;
+  color: var(--parasol-navy);
+  letter-spacing: -0.02em;
+  /* JS will toggle opacity/transform; no-JS: visible */
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.hero-title .dot-word {
+  display: inline-block;
+  color: var(--coral-confetti);
+  font-style: italic;
+}
+
+.hero-subtitle {
+  margin-top: 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 500;
+  color: var(--parasol-navy);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0.75;
+}
+
+/* JS-mode: hero-content always visible; .revealed adds entrance flourish */
+.js .hero-content.revealed {
+  animation: hero-content-enter 0.8s ease both;
+}
+@keyframes hero-content-enter {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* reduced-motion: collapse the entrance animation instantly */
+@media (prefers-reduced-motion: reduce) {
+  .js .hero-content {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* Scroll hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--promenade-stone);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.scroll-hint-dots {
+  display: flex;
+  gap: 4px;
+}
+.scroll-hint-dots span {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--promenade-stone);
+  animation: hint-pulse 1.6s ease-in-out infinite;
+}
+.scroll-hint-dots span:nth-child(2) { animation-delay: 0.2s; }
+.scroll-hint-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes hint-pulse {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-hint-dots span { animation: none; opacity: 0.6; }
 }
 
-.kit-hero-wrap {
-  max-width: 1200px;
-  margin: 0 auto;
-  width: 100%;
-  padding: 0 3rem;
+/* ──────────────────────────────────────────────────────────
+   SECTION 2: THE PALETTE
+   Dot-swatches: SVG circles arranged in a disk.
+   Hover: dots loosen (spread outward), re-tighten on mouse-out.
+────────────────────────────────────────────────────────── */
+
+#palette {
+  padding: var(--section-pad);
+  background: var(--linen-white);
   position: relative;
-  z-index: 1;
 }
-
-.kit-hero-inner::before {
-  /* Sharp star points */
+#palette::before {
   content: '';
   position: absolute;
   inset: 0;
-  background-image:
-    radial-gradient(circle, var(--ss-canvas-cream) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-brushstroke-gold) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-canvas-cream) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-brushstroke-gold) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-canvas-cream) 0%, transparent 60%),
-    radial-gradient(circle, var(--ss-brushstroke-gold) 0%, transparent 60%);
-  background-size: 6px 6px, 4px 4px, 5px 5px, 3px 3px, 4px 4px, 5px 5px;
-  background-position: 18% 22%, 82% 14%, 60% 30%, 35% 65%, 90% 55%, 70% 80%;
-  background-repeat: no-repeat;
-  opacity: 0.85;
+  background-image: radial-gradient(circle, rgba(154,144,136,0.12) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
   pointer-events: none;
 }
 
-.kit-hero-content {
+.section-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
   position: relative;
   z-index: 1;
-  max-width: 720px;
 }
 
-.kit-hero-meta {
-  font-family: var(--font-ss-body);
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-brushstroke-gold);
-  margin-bottom: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-}
-
-.kit-hero-meta::before {
-  content: '';
-  display: block;
-  width: 1.5rem;
-  height: 1px;
-  background: var(--ss-brushstroke-gold);
-  opacity: 0.7;
-}
-
-.kit-hero-name {
-  font-family: var(--font-ss-display);
-  font-size: clamp(3.5rem, 7vw, 6rem);
-  font-weight: 700;
-  font-style: normal;
-  color: var(--ss-canvas-cream);
-  line-height: 1.0;
-  letter-spacing: -0.015em;
-  margin-bottom: 1.5rem;
-  text-shadow: 0 2px 24px rgba(0,0,0,0.4);
-}
-
-.kit-hero-tagline {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
-  color: var(--ss-canvas-cream);
-  line-height: 1.6;
-  opacity: 0.95;
-  text-shadow: 0 2px 16px rgba(0,0,0,0.5);
-  max-width: 580px;
-}
-
-/* ============================================
-   THE PAINTING — story strip
-   ============================================ */
-
-.painting-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-}
-
-.painting-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.4fr;
-  gap: 5rem;
-  align-items: start;
-}
-
-.painting-label {
-  font-family: var(--font-emmy-body);
-  font-size: 0.58rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  margin-bottom: 1.25rem;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.painting-label::before {
-  content: '';
-  display: block;
-  width: 1.5rem;
-  height: 1px;
-  background: var(--ss-amber-glow);
-  opacity: 0.6;
-}
-
-.painting-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2rem, 3.5vw, 2.8rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
-}
-
-.painting-attribution {
-  font-family: var(--font-emmy-body);
+.section-label {
+  font-family: 'Inter', sans-serif;
   font-size: 0.7rem;
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  color: var(--ss-canvas-cream);
-  opacity: 0.7;
-  margin-bottom: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--promenade-stone);
+  margin-bottom: 1rem;
 }
 
-.painting-body p {
-  font-family: var(--font-emmy-body);
-  font-size: 0.92rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  margin-bottom: 1.5rem;
-  opacity: 0.88;
-}
-
-.painting-body p strong {
-  color: var(--ss-canvas-cream);
+.section-heading {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
   font-weight: 400;
+  color: var(--text-display);
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
 }
 
-.painting-body p em {
-  color: var(--ss-brushstroke-gold);
-  font-style: italic;
-}
-
-/* ============================================
-   PALETTE — Whole Box, materially-named
-   ============================================ */
-
-.palette-section {
-  /* Kit atmosphere — deeper inside the Whole Box */
-  background: linear-gradient(to bottom, var(--ss-burnt-umber) 0%, var(--ss-plum-vortex) 50%, var(--ss-burnt-umber) 100%);
-  padding: 7rem 0;
-}
-
-.palette-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 3rem;
-}
-
-.palette-header {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  margin-bottom: 4rem;
-  align-items: end;
-}
-
-.palette-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
-}
-
-.palette-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
-
-.palette-intro em {
-  color: var(--ss-canvas-cream);
-  font-style: italic;
+.section-body {
+  font-size: clamp(0.95rem, 1.3vw, 1.05rem);
+  color: var(--text-body);
+  max-width: 60ch;
+  margin-bottom: 3.5rem;
+  line-height: 1.75;
 }
 
 .palette-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 2rem 1.5rem;
+}
+
+.palette-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 1rem;
+  text-align: center;
 }
 
-.palette-card {
-  border-radius: 12px;
-  overflow: hidden;
-  /* Kit's deepest earth, slightly transparent — sits inside the kit's gradient */
-  background: rgba(90,49,84,0.55);
-  border: 1px solid rgba(247,242,235,0.10);
-  transition: border-color 0.3s ease, transform 0.3s ease;
+/* Dot swatch: SVG ring of dots forming a disk */
+.swatch-dot-ring {
+  width: 100px;
+  height: 100px;
+  cursor: default;
+  /* hover handled via CSS for the dots inside */
 }
 
-.palette-card:hover {
-  border-color: rgba(107,143,122,0.35);
-  transform: translateY(-2px);
-}
-
-.palette-swatch {
-  width: 100%;
-  aspect-ratio: 1.4;
-  position: relative;
-}
-
-.palette-card-body {
-  padding: 1.25rem 1.25rem 1.5rem;
-}
-
-.palette-role {
-  font-family: var(--font-emmy-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  opacity: 0.7;
-  margin-bottom: 0.4rem;
+/* Dots in the swatch SVG respond to hover on the parent */
+.swatch-dot-ring:hover .inner-dot {
+  /* The SVG JS handles the loosen/retighten effect;
+     CSS provides the cursor */
+  cursor: default;
 }
 
 .palette-name {
-  font-family: var(--font-emmy-display);
-  font-size: 1.15rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  margin-bottom: 0.4rem;
-  line-height: 1.2;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--parasol-navy);
+  letter-spacing: 0.04em;
 }
 
 .palette-hex {
-  font-family: var(--font-emmy-body);
-  font-size: 0.6rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  color: var(--ss-canvas-cream);
-  opacity: 0.6;
-  text-transform: uppercase;
-  margin-bottom: 0.75rem;
+  font-family: 'Space Grotesk', monospace;
+  font-size: 0.75rem;
+  color: var(--promenade-stone);
+  letter-spacing: 0.06em;
 }
 
-.palette-feel {
-  font-family: var(--font-emmy-body);
-  font-size: 0.72rem;
-  font-weight: 300;
-  line-height: 1.6;
-  color: var(--ss-canvas-cream);
-  opacity: 0.8;
-}
-
-/* ============================================
-   TYPOGRAPHY — kit-true showcase
-   ============================================ */
-
-.type-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-}
-
-.type-header {
-  margin-bottom: 4rem;
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  align-items: end;
-}
-
-.type-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
+.palette-role {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  color: var(--promenade-stone);
   font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
+  line-height: 1.3;
 }
 
-.type-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
+/* ──────────────────────────────────────────────────────────
+   SECTION 3: WHAT'S INSIDE
+   Sharp grid. Jost → spec says Inter/Space Grotesk for this build.
+   Coral Confetti on Linen White. Tight, specific, precise.
+────────────────────────────────────────────────────────── */
 
-.type-intro strong {
-  color: var(--ss-canvas-cream);
-  font-weight: 400;
-}
-
-.type-card {
-  background: var(--ss-canvas-cream);
-  border-radius: 16px;
-  padding: 4rem 3.5rem;
-  margin-bottom: 1.5rem;
+#whats-inside {
+  padding: var(--section-pad);
+  background: var(--parasol-navy);
   position: relative;
   overflow: hidden;
 }
-
-.type-card-meta {
-  font-family: var(--font-ss-body);
-  font-size: 0.55rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.7;
-  margin-bottom: 1rem;
-}
-
-.type-card-display {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: clamp(3rem, 6vw, 5.5rem);
-  line-height: 1.0;
-  color: var(--ss-plum-vortex);
-  margin-bottom: 0.5rem;
-  letter-spacing: -0.02em;
-}
-
-.type-card-display.amber { color: var(--ss-amber-glow); }
-.type-card-display.coral { color: var(--ss-coral-flame); }
-
-.type-card-name {
-  font-family: var(--font-ss-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.65;
-  margin-top: 1rem;
-  margin-bottom: 2rem;
-}
-
-.type-card-subhead {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(1.4rem, 2.4vw, 1.9rem);
-  color: var(--ss-burnt-umber);
-  line-height: 1.4;
-  margin-bottom: 1.5rem;
-  max-width: 720px;
-}
-
-.type-card-body {
-  font-family: var(--font-ss-body);
-  font-weight: 300;
-  font-size: 1rem;
-  line-height: 1.75;
-  color: var(--ss-twilight-slate);
-  max-width: 620px;
-}
-
-.type-rule {
-  background: var(--ss-burnt-umber);
-  border-radius: 16px;
-  padding: 3.5rem 3.5rem;
-  text-align: center;
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(1.3rem, 2.4vw, 1.9rem);
-  line-height: 1.5;
-  color: var(--ss-canvas-cream);
-}
-
-.type-rule em {
-  color: var(--ss-brushstroke-gold);
-  font-style: italic;
-}
-
-/* ============================================
-   COMBINATIONS — color in context
-   ============================================ */
-
-.combo-section {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-}
-
-.combo-header {
-  margin-bottom: 4rem;
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  align-items: end;
-}
-
-.combo-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
-}
-
-.combo-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
-
-.combo-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-}
-
-.combo-card {
-  border-radius: 14px;
-  overflow: hidden;
-  aspect-ratio: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 2rem;
-  position: relative;
-  transition: transform 0.3s ease;
-}
-
-.combo-card:hover { transform: translateY(-3px); }
-
-.combo-name {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 1.5rem;
-  line-height: 1.1;
-  margin-bottom: 0.4rem;
-}
-
-.combo-pair {
-  font-family: var(--font-ss-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-
-.combo-1 { background: linear-gradient(135deg, var(--ss-amber-glow), var(--ss-plum-vortex)); color: var(--ss-canvas-cream); }
-.combo-2 { background: linear-gradient(135deg, var(--ss-amber-glow), var(--ss-canvas-cream)); color: var(--ss-burnt-umber); }
-.combo-3 { background: linear-gradient(135deg, var(--ss-plum-vortex), var(--ss-brushstroke-gold)); color: var(--ss-canvas-cream); }
-.combo-4 { background: linear-gradient(135deg, var(--ss-coral-flame), var(--ss-canvas-cream)); color: var(--ss-burnt-umber); }
-.combo-5 { background: linear-gradient(135deg, var(--ss-rose-dust), var(--ss-canvas-cream)); color: var(--ss-burnt-umber); }
-.combo-6 { background: linear-gradient(135deg, var(--ss-burnt-umber), var(--ss-brushstroke-gold)); color: var(--ss-canvas-cream); }
-
-/* ============================================
-   INSIDE THE KIT — carousel + companion list
-   ============================================ */
-
-.inside-section {
-  /* Deeper inside the kit — the Whole Box's purple-rose core */
-  background: var(--ss-plum-vortex);
-  padding: 7rem 0;
-  position: relative;
-  overflow: hidden;
-}
-
-.inside-section::before {
+#whats-inside::before {
   content: '';
   position: absolute;
-  top: -30%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  height: 200%;
-  /* Warm light-leak — kit's accent filtering through */
-  background: radial-gradient(ellipse, rgba(232,107,90,0.10) 0%, transparent 60%);
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(168,178,188,0.1) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
   pointer-events: none;
 }
 
-.inside-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 3rem;
+#whats-inside .section-label {
+  color: var(--afternoon-haze);
+}
+
+#whats-inside .section-heading {
+  color: var(--linen-white);
+}
+
+#whats-inside .section-body {
+  color: var(--afternoon-haze);
+}
+
+.kit-contents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
   position: relative;
   z-index: 1;
 }
 
-.inside-header {
-  display: grid;
-  grid-template-columns: 1fr 1.5fr;
-  gap: 4rem;
-  margin-bottom: 4rem;
-  align-items: end;
+.kit-item {
+  background: rgba(247, 242, 235, 0.07);
+  border: 1px solid rgba(168, 178, 188, 0.2);
+  border-radius: 4px;
+  padding: 1.5rem 1.25rem;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+.kit-item:hover {
+  background: rgba(232, 107, 90, 0.12);
+  border-color: rgba(232, 107, 90, 0.35);
 }
 
-.inside-title {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.1;
+.kit-item-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--coral-confetti);
+  margin-bottom: 0.75rem;
 }
 
-.inside-intro {
-  font-family: var(--font-emmy-body);
-  font-size: 0.95rem;
-  font-weight: 300;
-  line-height: 1.85;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-}
-
-.inside-intro em {
-  color: var(--ss-canvas-cream);
-  font-style: italic;
-}
-
-/* Carousel + list layout */
-.inside-grid {
-  display: grid;
-  grid-template-columns: 1.6fr 1fr;
-  gap: 3rem;
-  align-items: start;
-}
-
-/* CAROUSEL — invisible chrome, the work is the chrome */
-.carousel {
-  position: relative;
-}
-
-.carousel-stage {
-  position: relative;
-  aspect-ratio: 4/3;
-  overflow: hidden;
-  border-radius: 14px;
-  cursor: pointer;
-  background: transparent;
-}
-
-.carousel-slide {
-  position: absolute;
-  inset: 0;
-  opacity: 0;
-  transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  pointer-events: none;
-}
-
-.carousel-slide.active {
-  opacity: 1;
-  z-index: 2;
-  pointer-events: auto;
-}
-
-.carousel-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-/* Mockup slides — rendered preview cards (when no PNG available) */
-.mockup-stage {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Brand Board mockup */
-.mock-brand-board {
-  background: var(--ss-canvas-cream);
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  padding: 2rem;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 1.25rem;
-  font-family: var(--font-ss-body);
-}
-
-.mbb-header {
-  text-align: center;
-  border-bottom: 1px solid rgba(90,49,84,0.15);
-  padding-bottom: 1rem;
-}
-
-.mbb-eyebrow {
-  font-family: var(--font-ss-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.65;
-  margin-bottom: 0.4rem;
-}
-
-.mbb-title {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 2.2rem;
-  color: var(--ss-plum-vortex);
-  line-height: 1;
+.kit-item-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--linen-white);
+  letter-spacing: 0.02em;
   margin-bottom: 0.35rem;
 }
 
-.mbb-tagline {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: 0.78rem;
-  color: var(--ss-burnt-umber);
-  opacity: 0.85;
-}
-
-.mbb-body {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1rem;
-}
-
-.mbb-palette {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.4rem;
-  align-content: start;
-}
-
-.mbb-swatch {
-  aspect-ratio: 1;
-  border-radius: 4px;
-  position: relative;
-}
-
-.mbb-swatch span {
-  position: absolute;
-  bottom: 0.15rem;
-  left: 0.25rem;
-  font-size: 0.4rem;
-  font-weight: 400;
-  letter-spacing: 0.05em;
-  color: rgba(255,255,255,0.85);
-}
-
-.mbb-type {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 0.5rem;
-  padding-left: 0.5rem;
-  border-left: 1px solid rgba(90,49,84,0.12);
-}
-
-.mbb-type-display {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--ss-amber-glow);
-  line-height: 1;
-}
-
-.mbb-type-sub {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: 0.7rem;
-  color: var(--ss-burnt-umber);
-  opacity: 0.75;
-}
-
-.mbb-type-body {
-  font-family: var(--font-ss-body);
-  font-weight: 300;
-  font-size: 0.55rem;
-  color: var(--ss-twilight-slate);
+.kit-item-desc {
+  font-size: 0.8rem;
+  color: var(--afternoon-haze);
   line-height: 1.5;
 }
 
-.mbb-footer {
+/* ──────────────────────────────────────────────────────────
+   SECTION 4: THE TEXTURES
+   Color as material. Pointillist-adjacent descriptions.
+────────────────────────────────────────────────────────── */
+
+#textures {
+  padding: var(--section-pad);
+  background: var(--linen-white);
+  position: relative;
+}
+#textures::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(154,144,136,0.12) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
+  pointer-events: none;
+}
+
+.textures-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.25rem;
+  margin-top: 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.texture-card {
+  border-radius: 6px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.texture-swatch {
+  height: 80px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Each texture swatch has its own dot pattern variation */
+.texture-swatch--coral {
+  background-color: var(--coral-confetti);
+  background-image: radial-gradient(circle, rgba(255,255,255,0.25) 2px, transparent 2px);
+  background-size: 8px 8px;
+}
+.texture-swatch--navy {
+  background-color: var(--parasol-navy);
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 5px, rgba(168,178,188,0.15) 5px, rgba(168,178,188,0.15) 6px),
+    repeating-linear-gradient(90deg, transparent, transparent 5px, rgba(168,178,188,0.15) 5px, rgba(168,178,188,0.15) 6px);
+}
+.texture-swatch--linen {
+  background-color: var(--linen-white);
+  background-image:
+    repeating-linear-gradient(0deg, transparent, transparent 8px, rgba(154,144,136,0.18) 8px, rgba(154,144,136,0.18) 9px),
+    repeating-linear-gradient(90deg, transparent, transparent 6px, rgba(154,144,136,0.12) 6px, rgba(154,144,136,0.12) 7px);
+  border-bottom: 1px solid rgba(154,144,136,0.2);
+}
+.texture-swatch--haze {
+  background-color: var(--afternoon-haze);
+}
+.texture-swatch--sage {
+  background-color: var(--river-sage);
+  background-image: radial-gradient(ellipse 3px 2px, rgba(247,242,235,0.2) 40%, transparent 60%);
+  background-size: 9px 9px;
+}
+.texture-swatch--marigold {
+  background-color: var(--marigold-dot);
+  background-image: radial-gradient(circle, rgba(42,61,92,0.2) 1.5px, transparent 1.5px);
+  background-size: 6px 6px;
+}
+.texture-swatch--peach {
+  background-color: var(--peach-pixel);
+}
+.texture-swatch--plum {
+  background-color: var(--plum-point);
+}
+.texture-swatch--stone {
+  background-color: var(--promenade-stone);
+  background-image: radial-gradient(circle, rgba(90,49,84,0.15) 1px, transparent 1px);
+  background-size: 5px 5px;
+}
+
+.texture-label {
+  padding: 0.75rem 1rem;
+  background: white;
+  border: 1px solid rgba(154,144,136,0.15);
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+}
+
+.texture-name {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--parasol-navy);
+}
+
+.texture-desc {
+  font-size: 0.72rem;
+  color: var(--promenade-stone);
+  line-height: 1.45;
+  margin-top: 0.2rem;
+}
+
+/* ──────────────────────────────────────────────────────────
+   SECTION 5: PULL QUOTE
+   "Up close: just dots. Step back three feet."
+   One color per word alternating. The sentence IS the demonstration.
+────────────────────────────────────────────────────────── */
+
+#pull-quote {
+  padding: var(--section-pad);
+  background: var(--parasol-navy);
   text-align: center;
-  font-family: var(--font-ss-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--ss-burnt-umber);
-  opacity: 0.55;
-  border-top: 1px solid rgba(90,49,84,0.15);
-  padding-top: 0.75rem;
-}
-
-/* Cheat Sheet mockup */
-.mock-cheat-sheet {
-  background: var(--ss-canvas-cream);
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  padding: 2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.mcs-header {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-size: 1.2rem;
-  color: var(--ss-plum-vortex);
-  border-bottom: 1px solid rgba(90,49,84,0.15);
-  padding-bottom: 0.5rem;
-}
-
-.mcs-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.6rem;
-  flex: 1;
-}
-
-.mcs-cell {
-  border-radius: 4px;
-  padding: 0.6rem 0.75rem;
-  font-family: var(--font-ss-body);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  min-height: 0;
-}
-
-.mcs-cell-name {
-  font-family: var(--font-ss-display);
-  font-weight: 700;
-  font-style: italic;
-  font-size: 0.85rem;
-  line-height: 1.1;
-}
-
-.mcs-cell-meta {
-  font-size: 0.45rem;
-  font-weight: 400;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  opacity: 0.75;
-}
-
-/* Texture Vault mockup */
-.mock-texture {
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 4px;
-  padding: 4px;
-  background: var(--ss-burnt-umber);
-}
-
-.mock-texture-cell {
-  border-radius: 4px;
   position: relative;
   overflow: hidden;
 }
-
-.mock-texture-cell::after {
-  content: attr(data-name);
+#pull-quote::before {
+  content: '';
   position: absolute;
-  bottom: 0.4rem;
-  left: 0.5rem;
-  font-family: var(--font-ss-body);
-  font-size: 0.45rem;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(232,168,62,0.12) 2px, transparent 2px);
+  background-size: 18px 18px;
+  pointer-events: none;
+}
+
+.pull-quote-text {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 5vw, 3.75rem);
   font-weight: 400;
+  line-height: 1.2;
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  margin: 0 auto 1.5rem;
+}
+
+/* Color-per-word alternation */
+.pq-w1  { color: var(--coral-confetti); }
+.pq-w2  { color: var(--linen-white); }
+.pq-w3  { color: var(--marigold-dot); }
+.pq-sep { color: var(--afternoon-haze); font-style: italic; }
+.pq-w4  { color: var(--river-sage); }
+.pq-w5  { color: var(--linen-white); }
+.pq-w6  { color: var(--peach-pixel); }
+.pq-w7  { color: var(--marigold-dot); }
+.pq-w8  { color: var(--linen-white); }
+
+.pull-quote-attr {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgba(255,255,255,0.85);
-  text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  color: var(--afternoon-haze);
+  position: relative;
+  z-index: 1;
 }
 
-/* Caption — quiet line below the slide, no background block */
-.carousel-caption-row {
-  padding: 1.25rem 0.25rem 0.5rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  text-align: center;
+/* ──────────────────────────────────────────────────────────
+   SECTION 6: THE PHILOSOPHY
+   "If you get every small thing right, the big picture takes care of itself."
+────────────────────────────────────────────────────────── */
+
+#philosophy {
+  padding: var(--section-pad);
+  background: var(--linen-white);
+  position: relative;
+}
+#philosophy::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(154,144,136,0.12) 1.5px, transparent 1.5px);
+  background-size: 12px 12px;
+  pointer-events: none;
 }
 
-.caption-label {
-  font-family: var(--font-emmy-body);
-  font-size: 0.5rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  opacity: 0.65;
-  transition: opacity 0.4s ease;
-}
-
-.caption-name {
-  font-family: var(--font-emmy-display);
-  font-size: 0.95rem;
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  opacity: 0.8;
-  transition: opacity 0.4s ease;
-}
-
-/* Quiet dots — discoverable but not loud */
-.carousel-dots {
-  display: flex;
-  justify-content: center;
-  gap: 0.55rem;
-  padding: 0.75rem 0 0;
-}
-
-.carousel-dot {
-  width: 0.4rem;
-  height: 0.4rem;
-  border-radius: 50%;
-  background: rgba(200,184,232,0.25);
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  transition: background 0.4s ease, transform 0.4s ease, width 0.4s ease;
-}
-
-.carousel-dot:hover {
-  background: rgba(200,184,232,0.5);
-}
-
-.carousel-dot.active {
-  background: var(--ss-amber-glow);
-  width: 1.4rem;
-  border-radius: 100px;
-}
-
-/* Tier-2 playground 2x2 mockup — Material samples grid
-   Mirrors the actual playground's texture cards: 4 named material tiles
-   on the kit's signature dark background */
-.mock-playground {
-  width: 100%;
-  height: 100%;
+.philosophy-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 1rem;
-  padding: 1.25rem;
-  background: var(--ss-plum-vortex);
-  background-image:
-    radial-gradient(ellipse at 20% 80%, rgba(232,107,90,0.08) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 20%, rgba(107,143,122,0.06) 0%, transparent 50%);
+  gap: 4rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
 }
 
-.mp-sample {
-  border-radius: 4px;
-  padding: 1rem 1rem 0.85rem;
-  display: flex;
-  flex-direction: column;
+@media (max-width: 720px) {
+  .philosophy-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+.philosophy-quote-block {
+  padding: 2.5rem;
+  background: var(--parasol-navy);
+  border-radius: 2px;
+  position: relative;
+}
+
+.philosophy-quote-block::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--coral-confetti), var(--marigold-dot), var(--river-sage), var(--afternoon-haze));
+}
+
+.philosophy-quote {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+  font-weight: 400;
+  color: var(--linen-white);
+  line-height: 1.4;
+  font-style: italic;
+}
+
+.philosophy-quote strong {
+  color: var(--coral-confetti);
+  font-style: normal;
+}
+
+.philosophy-text h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 400;
+  color: var(--parasol-navy);
+  margin-bottom: 1.25rem;
+  line-height: 1.2;
+}
+
+.philosophy-text p {
+  font-size: clamp(0.95rem, 1.2vw, 1.05rem);
+  color: var(--text-body);
+  line-height: 1.75;
+  margin-bottom: 1rem;
+}
+
+.philosophy-text p:last-child { margin-bottom: 0; }
+
+/* ──────────────────────────────────────────────────────────
+   SECTION 7: CTA FOOTER
+   Dots coalesce into the button shape (CSS animation on the dot-bg).
+   "Every small thing." / Button: "Yours."
+────────────────────────────────────────────────────────── */
+
+#cta {
+  padding: var(--section-pad);
+  background: var(--linen-white);
+  text-align: center;
   position: relative;
   overflow: hidden;
-  text-align: center;
 }
 
-.mp-sample-swatch {
-  flex: 1;
-  border-radius: 3px;
-  margin-bottom: 0.85rem;
-  min-height: 0;
-}
-
-.mp-sample-name {
-  font-family: var(--font-ss-body);
-  font-size: 0.42rem;
-  font-weight: 500;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  margin-bottom: 0.35rem;
-  opacity: 0.85;
-}
-
-.mp-sample-tagline {
-  font-family: var(--font-ss-subhead);
-  font-style: italic;
-  font-size: 0.6rem;
-  line-height: 1.4;
-  opacity: 0.85;
-}
-
-/* (carousel controls removed — invisible chrome; only quiet dots below remain) */
-
-/* COMPANION LIST */
-.inside-list {
-  padding-top: 0.5rem;
-}
-
-.inside-list-title {
-  font-family: var(--font-emmy-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-brushstroke-gold);
-  margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-}
-
-.inside-list-title::before {
-  content: '';
-  display: block;
-  width: 1.5rem;
-  height: 1px;
-  background: var(--ss-brushstroke-gold);
-  opacity: 0.7;
-}
-
-.inside-item {
-  padding: 1.1rem 0;
-  border-bottom: 1px solid rgba(200,184,232,0.1);
-  display: grid;
-  grid-template-columns: 2rem 1fr;
-  gap: 0.75rem;
-  align-items: start;
-}
-
-.inside-item:first-of-type {
-  border-top: 1px solid rgba(200,184,232,0.1);
-}
-
-.inside-icon {
-  font-family: var(--font-emmy-body);
-  font-size: 0.55rem;
-  font-weight: 400;
-  letter-spacing: 0.1em;
-  color: var(--ss-brushstroke-gold);
-  opacity: 0.85;
-  padding-top: 0.2rem;
-}
-
-.inside-text strong {
-  display: block;
-  font-family: var(--font-emmy-body);
-  font-size: 0.85rem;
-  font-weight: 400;
-  color: var(--ss-canvas-cream);
-  margin-bottom: 0.3rem;
-  letter-spacing: 0.02em;
-}
-
-.inside-text span {
-  font-family: var(--font-emmy-body);
-  font-size: 0.72rem;
-  font-weight: 300;
-  color: var(--ss-canvas-cream);
-  opacity: 0.78;
-  line-height: 1.6;
-}
-
-/* ============================================
-   CTA — close
-   ============================================ */
-
-.cta-section {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 7rem 3rem;
-  text-align: center;
-}
-
-.cta-label {
-  font-family: var(--font-emmy-body);
-  font-size: 0.58rem;
-  font-weight: 400;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ss-amber-glow);
-  margin-bottom: 1.25rem;
-}
-
-.cta-big {
-  font-family: var(--font-emmy-display);
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  font-weight: 300;
-  font-style: italic;
-  color: var(--ss-canvas-cream);
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
-}
-
-.cta-sub {
-  font-family: var(--font-emmy-body);
-  font-style: normal;
-  font-size: 1rem;
-  color: var(--ss-canvas-cream);
-  opacity: 0.85;
-  line-height: 1.8;
-  margin-bottom: 2.5rem;
-  max-width: 580px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.cta-buttons {
-  display: flex;
-  gap: 1.25rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.btn-primary {
-  display: inline-block;
-  padding: 0.95rem 2.5rem;
-  background: var(--amethyst);
-  color: var(--snowflake);
-  font-family: var(--font-emmy-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: background 0.3s ease, transform 0.2s ease;
-}
-
-.btn-primary:hover {
-  background: var(--amethyst-light);
-  transform: translateY(-1px);
-}
-
-.btn-ghost {
-  display: inline-block;
-  padding: 0.95rem 2.5rem;
-  border: 1px solid rgba(200,184,232,0.3);
-  color: var(--ss-canvas-cream);
-  font-family: var(--font-emmy-body);
-  font-size: 0.65rem;
-  font-weight: 400;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  text-decoration: none;
-  border-radius: 4px;
-  transition: border-color 0.3s ease, color 0.3s ease;
-}
-
-.btn-ghost:hover {
-  border-color: var(--ss-canvas-cream);
-  color: var(--ss-canvas-cream);
-}
-
-/* ============================================
-   FOOTER — same as home
-   ============================================ */
-
-footer {
-  padding: 3rem;
-  border-top: 1px solid rgba(200,184,232,0.08);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-name {
-  font-family: var(--font-emmy-display);
-  font-style: italic;
-  font-size: 1rem;
-  color: var(--fairy-silver);
+/* Canvas CTA dot field: decorative background that settles */
+#cta-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
   opacity: 0.5;
 }
 
-.footer-note {
-  font-family: var(--font-emmy-body);
-  font-size: 0.6rem;
-  font-weight: 300;
-  letter-spacing: 0.1em;
-  color: var(--fairy-silver);
-  opacity: 0.35;
+.cta-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  margin: 0 auto;
 }
 
-/* ============================================
-   REVEAL / ANIMATIONS
-   ============================================ */
-
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+.cta-headline {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.25rem, 5vw, 3.5rem);
+  font-weight: 400;
+  color: var(--parasol-navy);
+  line-height: 1.1;
+  margin-bottom: 1rem;
 }
 
-.reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
+.cta-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1rem, 1.8vw, 1.15rem);
+  color: var(--promenade-stone);
+  margin-bottom: 2.5rem;
+  line-height: 1.6;
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
-
-@media (max-width: 900px) {
-  nav { padding: 1.25rem 1.5rem; }
-  .nav-links { gap: 1.5rem; }
-  .breadcrumb { padding: 4.25rem 1.5rem 0.4rem; }
-
-  .kit-hero-wrap { padding: 0 1.5rem; }
-  .kit-hero-inner { padding: 3rem 0; min-height: 320px; }
-
-  .painting-section,
-  .type-section,
-  .combo-section,
-  .cta-section { padding: 5rem 1.5rem; }
-
-  .palette-inner { padding: 0 1.5rem; }
-  .palette-section,
-  .inside-section { padding: 5rem 0; }
-  .inside-inner { padding: 0 1.5rem; }
-
-  .painting-grid,
-  .palette-header,
-  .type-header,
-  .combo-header,
-  .inside-header,
-  .inside-grid { grid-template-columns: 1fr; gap: 2rem; }
-
-  .palette-grid { grid-template-columns: repeat(2, 1fr); }
-  .combo-grid { grid-template-columns: 1fr 1fr; }
-
-  .type-card { padding: 3rem 2rem; }
-  .type-rule { padding: 2.5rem 2rem; }
-
-  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 3rem 1.5rem; }
+.cta-btn {
+  display: inline-block;
+  background: var(--coral-confetti);
+  color: var(--linen-white);
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1rem 2.5rem;
+  border-radius: 2px;
+  border: 2px solid var(--coral-confetti);
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  position: relative;
 }
 
+.cta-btn:hover,
+.cta-btn:focus-visible {
+  background: transparent;
+  color: var(--coral-confetti);
+  border-color: var(--coral-confetti);
+  outline: none;
+}
+
+.cta-btn:focus-visible {
+  outline: 3px solid var(--coral-confetti);
+  outline-offset: 3px;
+}
+
+/* dot-dot-dot beneath button */
+.cta-dots {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 2rem;
+}
+.cta-dots span {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+.cta-dots span:nth-child(1) { background: var(--coral-confetti); }
+.cta-dots span:nth-child(2) { background: var(--marigold-dot); }
+.cta-dots span:nth-child(3) { background: var(--river-sage); }
+.cta-dots span:nth-child(4) { background: var(--afternoon-haze); }
+.cta-dots span:nth-child(5) { background: var(--plum-point); }
+
+/* ──────────────────────────────────────────────────────────
+   CURSOR DOT TRAIL
+   Discrete coral dots, each a perfect circle, fading over 2s.
+   Only active when JS is on AND motion is OK.
+────────────────────────────────────────────────────────── */
+
+.cursor-dot {
+  position: fixed;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--coral-confetti);
+  pointer-events: none;
+  z-index: 9998;
+  /* transform-origin: center; */
+  animation: dot-fade 2s ease-out forwards;
+}
+@keyframes dot-fade {
+  0%   { opacity: 0.85; transform: scale(1); }
+  60%  { opacity: 0.5;  transform: scale(0.8); }
+  100% { opacity: 0;    transform: scale(0.4); }
+}
+
+/* ── UTILITY ── */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── RESPONSIVE HELPERS ── */
 @media (max-width: 600px) {
-  .nav-links { display: none; }
-  .palette-grid { grid-template-columns: 1fr; }
-  .combo-grid { grid-template-columns: 1fr; }
-  .cta-buttons { flex-direction: column; align-items: center; }
+  .palette-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem 0.75rem; }
+  .textures-grid { grid-template-columns: repeat(2, 1fr); }
+  .kit-contents-grid { grid-template-columns: 1fr 1fr; }
 }
 </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav>
-  <a href="../../index.html" class="nav-name">Emmy Bellamora</a>
-  <ul class="nav-links">
-    <li><a href="../../index.html#about">About</a></li>
-    <li><a href="../../index.html#work">Work</a></li>
-    <li><a href="../../index.html#approach">Approach</a></li>
-    <li><a href="../../index.html#working-together">Together</a></li>
-    <li><a href="../../index.html#contact">Contact</a></li>
-  </ul>
-</nav>
+<!-- ── SKIP LINK ── -->
+<a class="skip-link" href="#main-content">Skip to main content</a>
 
-<!-- BREADCRUMB -->
-<div class="breadcrumb">
-  <a href="../../index.html">Emmy</a>
-  <span class="breadcrumb-sep">/</span>
-  <a href="../../index.html#work">Brand Kits</a>
-  <span class="breadcrumb-sep">/</span>
-  <a href="../../index.html#work">Art Gallery</a>
-  <span class="breadcrumb-sep">/</span>
-  <span>Sunday Dots</span>
-</div>
+<!-- ── MAIN ── -->
+<main id="main-content">
 
-<!-- KIT HERO -->
-<section class="kit-hero">
-  <div class="kit-hero-inner">
-    <div class="kit-hero-wrap">
-      <div class="kit-hero-content">
-        <div class="kit-hero-meta">Art Gallery &middot; Kit 04</div>
-        <h1 class="kit-hero-name">Sunday Dots</h1>
-        <p class="kit-hero-tagline">
-          Pixels before pixels. Every small thing adds up to something bigger than itself &mdash; for the detail person who knows precision can dance.
+  <!-- ═══════════════════════════════════════════
+       HERO — Dot-field to resolved image.
+       Canvas is decorative (aria-hidden).
+       Real <h1> always readable.
+  ═══════════════════════════════════════════ -->
+  <section id="hero" aria-labelledby="hero-heading">
+
+    <!-- Dot-reveal canvas: decorative only -->
+    <canvas id="dot-canvas" aria-hidden="true" focusable="false"></canvas>
+
+    <div class="hero-content" id="hero-content">
+      <h1 id="hero-heading" class="hero-title">
+        Sunday<br><span class="dot-word">Dots.</span>
+      </h1>
+      <p class="hero-subtitle">Precision with personality — the grid that lets you dance.</p>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <div class="scroll-hint-dots">
+        <span></span><span></span><span></span>
+      </div>
+      <span>Scroll</span>
+    </div>
+
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       THE PALETTE — Dot-swatches with hover loosening.
+  ═══════════════════════════════════════════ -->
+  <section id="palette" aria-labelledby="palette-heading">
+    <div class="section-inner">
+      <p class="section-label">The Palette</p>
+      <h2 id="palette-heading" class="section-heading">Every color holds its own job.</h2>
+      <p class="section-body">Nine colors. Five structural roles. Seurat's whole technique applied as a naming system: each dot retains its identity, placed in proximity to create a luminous whole. Step back. The picture is already there.</p>
+
+      <div class="palette-grid" id="palette-grid">
+        <!-- Swatches are rendered by JS with SVG dot-rings.
+             No-JS: static color blocks generated below in <noscript> fallback area.
+             The grid is populated by JS; the noscript version replaces it. -->
+      </div>
+
+      <!-- No-JS fallback palette (hidden when JS runs) -->
+      <noscript>
+        <div class="palette-grid" style="margin-top:0">
+          <div class="palette-item">
+            <div style="width:80px;height:80px;border-radius:50%;background:#E86B5A;"></div>
+            <span class="palette-name">Coral Confetti</span>
+            <span class="palette-hex">#E86B5A</span>
+            <span class="palette-role">Anchor</span>
+          </div>
+          <div class="palette-item">
+            <div style="width:80px;height:80px;border-radius:50%;background:#2A3D5C;"></div>
+            <span class="palette-name">Parasol Navy</span>
+            <span class="palette-hex">#2A3D5C</span>
+            <span class="palette-role">Counterweight</span>
+          </div>
+          <div class="palette-item">
+            <div style="width:80px;height:80px;border-radius:50%;background:#F7F2EB;border:1px solid #ccc;"></div>
+            <span class="palette-name">Linen White</span>
+            <span class="palette-hex">#F7F2EB</span>
+            <span class="palette-role">Warm carrier</span>
+          </div>
+          <div class="palette-item">
+            <div style="width:80px;height:80px;border-radius:50%;background:#A8B2BC;"></div>
+            <span class="palette-name">Afternoon Haze</span>
+            <span class="palette-hex">#A8B2BC</span>
+            <span class="palette-role">Cool carrier</span>
+          </div>
+          <div class="palette-item">
+            <div style="width:80px;height:80px;border-radius:50%;background:#6B8F7A;"></div>
+            <span class="palette-name">River Sage</span>
+            <span class="palette-hex">#6B8F7A</span>
+            <span class="palette-role">Flex hue</span>
+          </div>
+          <div class="palette-item">
+            <div style="width:80px;height:80px;border-radius:50%;background:#E8A83E;"></div>
+            <span class="palette-name">Marigold Dot</span>
+            <span class="palette-hex">#E8A83E</span>
+            <span class="palette-role">Warm accent</span>
+          </div>
+          <div class="palette-item">
+            <div style="width:80px;height:80px;border-radius:50%;background:#F0B89A;"></div>
+            <span class="palette-name">Peach Pixel</span>
+            <span class="palette-hex">#F0B89A</span>
+            <span class="palette-role">Soft bridge</span>
+          </div>
+          <div class="palette-item">
+            <div style="width:80px;height:80px;border-radius:50%;background:#5A3154;"></div>
+            <span class="palette-name">Plum Point</span>
+            <span class="palette-hex">#5A3154</span>
+            <span class="palette-role">Deep accent</span>
+          </div>
+          <div class="palette-item">
+            <div style="width:80px;height:80px;border-radius:50%;background:#9A9088;"></div>
+            <span class="palette-name">Promenade Stone</span>
+            <span class="palette-hex">#9A9088</span>
+            <span class="palette-role">Supplement neutral</span>
+          </div>
+        </div>
+      </noscript>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       WHAT'S INSIDE
+  ═══════════════════════════════════════════ -->
+  <section id="whats-inside" aria-labelledby="inside-heading">
+    <div class="section-inner">
+      <p class="section-label">What's Inside</p>
+      <h2 id="inside-heading" class="section-heading">Everything placed. Nothing accidental.</h2>
+      <p class="section-body">Every file in the kit is a decision. Here's what you get — and what it does.</p>
+
+      <div class="kit-contents-grid" role="list">
+        <div class="kit-item" role="listitem">
+          <div class="kit-item-dot" aria-hidden="true"></div>
+          <div class="kit-item-name">Brand Color System</div>
+          <div class="kit-item-desc">Nine hex codes with structural role labels. Primary pairs, accent plays, the contrast stack — all mapped.</div>
+        </div>
+        <div class="kit-item" role="listitem">
+          <div class="kit-item-dot" aria-hidden="true"></div>
+          <div class="kit-item-name">Typography Suite</div>
+          <div class="kit-item-desc">DM Serif Display · Inter · Space Grotesk. Scale, weight, usage rules. The grid that lets you dance.</div>
+        </div>
+        <div class="kit-item" role="listitem">
+          <div class="kit-item-dot" aria-hidden="true"></div>
+          <div class="kit-item-name">Pointillist Textures</div>
+          <div class="kit-item-desc">Nine color-as-material textures. Stippled confetti, woven canvas, matte ink. Nothing here is flat.</div>
+        </div>
+        <div class="kit-item" role="listitem">
+          <div class="kit-item-dot" aria-hidden="true"></div>
+          <div class="kit-item-name">Pattern Library</div>
+          <div class="kit-item-desc">Dot-field backgrounds at multiple scales. Fine texture to bold dot grid. CSS-ready and Procreate-ready.</div>
+        </div>
+        <div class="kit-item" role="listitem">
+          <div class="kit-item-dot" aria-hidden="true"></div>
+          <div class="kit-item-name">Combination Cheat Sheet</div>
+          <div class="kit-item-desc">Every tested pairing, contrast ratio, and use-case note. Body, display, accent, reversed — all specified.</div>
+        </div>
+        <div class="kit-item" role="listitem">
+          <div class="kit-item-dot" aria-hidden="true"></div>
+          <div class="kit-item-name">Brand Board</div>
+          <div class="kit-item-desc">The full kit laid out at a glance. Social-ready. Your brand in one image — placed precisely, nothing missing.</div>
+        </div>
+        <div class="kit-item" role="listitem">
+          <div class="kit-item-dot" aria-hidden="true"></div>
+          <div class="kit-item-name">Social Headers</div>
+          <div class="kit-item-desc">Ready-to-use header files. Proportions pre-set. The detail person's brand, present in every corner.</div>
+        </div>
+        <div class="kit-item" role="listitem">
+          <div class="kit-item-dot" aria-hidden="true"></div>
+          <div class="kit-item-name">Link-in-Bio Page</div>
+          <div class="kit-item-desc">Fully styled link page. Your brand, not a template. Every small thing considered.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       THE TEXTURES — Color as material
+  ═══════════════════════════════════════════ -->
+  <section id="textures" aria-labelledby="textures-heading">
+    <div class="section-inner">
+      <p class="section-label">The Textures</p>
+      <h2 id="textures-heading" class="section-heading">Nothing here is flat.</h2>
+      <p class="section-body">Pointillism is a material discipline — Seurat pressed paint into canvas with precision, dot by dot. Every color in this kit carries the same logic: a surface quality, a texture, a material truth.</p>
+
+      <div class="textures-grid" role="list">
+        <article class="texture-card" role="listitem">
+          <div class="texture-swatch texture-swatch--coral" aria-label="Coral Confetti texture swatch — stippled dot pattern"></div>
+          <div class="texture-label">
+            <div class="texture-name">Coral Confetti</div>
+            <div class="texture-desc">Stippled dot on dot — the pointillist technique itself. Small, uniform, energetic. Each dot placed.</div>
+          </div>
+        </article>
+        <article class="texture-card" role="listitem">
+          <div class="texture-swatch texture-swatch--navy" aria-label="Parasol Navy texture swatch — woven fabric"></div>
+          <div class="texture-label">
+            <div class="texture-name">Parasol Navy</div>
+            <div class="texture-desc">Woven fabric. Like a tightly stitched parasol canvas — visible weave at close range.</div>
+          </div>
+        </article>
+        <article class="texture-card" role="listitem">
+          <div class="texture-swatch texture-swatch--linen" aria-label="Linen White texture swatch — linen crosshatch"></div>
+          <div class="texture-label">
+            <div class="texture-name">Linen White</div>
+            <div class="texture-desc">Actual linen. Visible crosshatch weave, warm. The canvas before the first dot is placed.</div>
+          </div>
+        </article>
+        <article class="texture-card" role="listitem">
+          <div class="texture-swatch texture-swatch--haze" aria-label="Afternoon Haze texture swatch — smooth atmospheric"></div>
+          <div class="texture-label">
+            <div class="texture-name">Afternoon Haze</div>
+            <div class="texture-desc">Smooth matte with atmospheric depth. Not paper, not fog — light before it lands on anything solid.</div>
+          </div>
+        </article>
+        <article class="texture-card" role="listitem">
+          <div class="texture-swatch texture-swatch--sage" aria-label="River Sage texture swatch — organic matte"></div>
+          <div class="texture-label">
+            <div class="texture-name">River Sage</div>
+            <div class="texture-desc">Soft matte with organic irregularity. Hand-pressed paper with botanical inclusions.</div>
+          </div>
+        </article>
+        <article class="texture-card" role="listitem">
+          <div class="texture-swatch texture-swatch--marigold" aria-label="Marigold Dot texture swatch — embossed braille dots"></div>
+          <div class="texture-label">
+            <div class="texture-name">Marigold Dot</div>
+            <div class="texture-desc">Matte with tiny raised dots. Like braille or embossed paper. Every dot earns its place.</div>
+          </div>
+        </article>
+        <article class="texture-card" role="listitem">
+          <div class="texture-swatch texture-swatch--peach" aria-label="Peach Pixel texture swatch — smooth warm matte"></div>
+          <div class="texture-label">
+            <div class="texture-name">Peach Pixel</div>
+            <div class="texture-desc">Smooth matte. Like matte photo paper — warm and even. The quiet version of coral.</div>
+          </div>
+        </article>
+        <article class="texture-card" role="listitem">
+          <div class="texture-swatch texture-swatch--plum" aria-label="Plum Point texture swatch — dense deep ink matte"></div>
+          <div class="texture-label">
+            <div class="texture-name">Plum Point</div>
+            <div class="texture-desc">Dense, deep matte. Ink that's dried on heavy stock. The shadow that proves the light.</div>
+          </div>
+        </article>
+        <article class="texture-card" role="listitem">
+          <div class="texture-swatch texture-swatch--stone" aria-label="Promenade Stone texture swatch — fine sandstone"></div>
+          <div class="texture-label">
+            <div class="texture-name">Promenade Stone</div>
+            <div class="texture-desc">Fine sandstone, slightly gritty, natural. The park path that holds everything else in place.</div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PULL QUOTE — One color per word
+  ═══════════════════════════════════════════ -->
+  <section id="pull-quote" aria-labelledby="quote-text">
+    <blockquote id="quote-text">
+      <p class="pull-quote-text">
+        <span class="pq-w1">Up</span>
+        <span class="pq-w2">close:</span>
+        <span class="pq-w3">just</span>
+        <span class="pq-w4">dots.</span>
+        <br aria-hidden="true">
+        <span class="pq-sep">Step back</span>
+        <span class="pq-w5">three</span>
+        <span class="pq-w6">feet.</span>
+      </p>
+      <footer class="pull-quote-attr">— Seurat's whole argument, made yours</footer>
+    </blockquote>
+  </section>
+
+  <!-- ═══════════════════════════════════════════
+       PHILOSOPHY
+  ═══════════════════════════════════════════ -->
+  <section id="philosophy" aria-labelledby="philosophy-heading">
+    <div class="philosophy-inner">
+      <div class="philosophy-quote-block" role="presentation">
+        <p class="philosophy-quote">
+          "If you get <strong>every small thing right,</strong> the big picture takes care of itself."
         </p>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- INSIDE THE KIT — moved up to position 2 so it's visible above the fold -->
-<section class="inside-section">
-  <div class="inside-inner">
-    <div class="inside-header">
-      <h2 class="inside-title reveal">Inside the kit.</h2>
-      <p class="inside-intro reveal">
-        Brand kits should be <em>complete worlds</em>, not single files. Flip through to see what arrives when Sunday Dots becomes yours.
-      </p>
-    </div>
-
-    <div class="inside-grid">
-
-      <!-- CAROUSEL -->
-      <div class="carousel reveal" id="kit-carousel">
-        <div class="carousel-stage">
-
-          <!-- Slide 1: Brand Board -->
-          <div class="carousel-slide active" data-slide="0">
-            <div class="mockup-stage">
-              <div class="mock-brand-board">
-                <div class="mbb-header">
-                  <div class="mbb-eyebrow">Art Gallery &middot; Brand Board</div>
-                  <div class="mbb-title">Sunday Dots</div>
-                  <div class="mbb-tagline">Precision with personality. The grid that lets you dance.</div>
-                </div>
-                <div class="mbb-body">
-                  <div class="mbb-palette">
-                    <div class="mbb-swatch" style="background: var(--ss-amber-glow);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-plum-vortex);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-coral-flame);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-brushstroke-gold);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-rose-dust);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-burnt-umber);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-canvas-cream); border: 1px solid rgba(90,49,84,0.1);"></div>
-                    <div class="mbb-swatch" style="background: var(--ss-twilight-slate);"></div>
-                  </div>
-                  <div class="mbb-type">
-                    <div class="mbb-type-display">Dots.</div>
-                    <div class="mbb-type-sub">DM Serif Display &middot; Inter &middot; Space Grotesk</div>
-                    <div class="mbb-type-body">An editorial display serif paired with the most optically refined sans on Google Fonts and a geometric grotesque with monospaced bones. Step back and the picture emerges.</div>
-                  </div>
-                </div>
-                <div class="mbb-footer">By Emmy Bellamora &middot; Art Gallery Collection</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 2: Tier-2 Playground — Material samples (mirrors actual playground) -->
-          <div class="carousel-slide" data-slide="1">
-            <div class="mockup-stage" style="padding: 0;">
-              <div class="mock-playground">
-                <!-- Sample 1: Swirl Current (wave lines) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: repeating-linear-gradient(0deg, transparent 0 3px, rgba(107,143,122,0.5) 3px 4px, transparent 4px 6px), radial-gradient(ellipse at 50% 50%, rgba(232,107,90,0.25) 0%, transparent 70%); background-color: rgba(0,0,0,0.15);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Stippled Coral</div>
-                  <div class="mp-sample-tagline">Uniform dots of pure color.<br>Energy, not noise.</div>
-                </div>
-                <!-- Sample 2: Brushstroke Flow (impasto wave) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: repeating-linear-gradient(0deg, transparent 0 4px, rgba(107,143,122,0.7) 4px 5px, transparent 5px 8px), linear-gradient(135deg, var(--ss-amber-glow) 0%, #C45A1A 100%);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Parasol Weave</div>
-                  <div class="mp-sample-tagline">Tightly stitched canvas.<br>Visible weave at close range.</div>
-                </div>
-                <!-- Sample 3: Star Field (dotted) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: radial-gradient(circle at 25% 25%, var(--ss-brushstroke-gold) 0%, transparent 8%), radial-gradient(circle at 75% 30%, var(--ss-canvas-cream) 0%, transparent 6%), radial-gradient(circle at 60% 70%, var(--ss-brushstroke-gold) 0%, transparent 8%), radial-gradient(circle at 30% 75%, var(--ss-canvas-cream) 0%, transparent 6%), radial-gradient(circle at 85% 60%, var(--ss-brushstroke-gold) 0%, transparent 7%); background-size: 32px 32px; background-color: var(--ss-burnt-umber);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Embossed Marigold</div>
-                  <div class="mp-sample-tagline">Matte with raised dots.<br>Sunshine you can feel.</div>
-                </div>
-                <!-- Sample 4: Sunset Vapor (soft cream wash) -->
-                <div class="mp-sample" style="background: var(--ss-plum-vortex); color: var(--ss-canvas-cream);">
-                  <div class="mp-sample-swatch" style="background-image: repeating-linear-gradient(0deg, transparent 0 4px, rgba(232,107,90,0.18) 4px 5px, transparent 5px 9px), radial-gradient(ellipse at 50% 50%, rgba(107,143,122,0.4) 0%, rgba(232,107,90,0.15) 60%, transparent 100%); background-color: var(--ss-canvas-cream);"></div>
-                  <div class="mp-sample-name" style="color: var(--ss-brushstroke-gold);">Linen Ground</div>
-                  <div class="mp-sample-tagline">Warm crosshatch weave.<br>The canvas every dot sits on.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 3: Cheat Sheet -->
-          <div class="carousel-slide" data-slide="2">
-            <div class="mockup-stage">
-              <div class="mock-cheat-sheet">
-                <div class="mcs-header">Color Combinations</div>
-                <div class="mcs-grid">
-                  <div class="mcs-cell" style="background: var(--ss-amber-glow); color: var(--ss-canvas-cream);">
-                    <div class="mcs-cell-name">Sunset<br>Meets Twilight</div>
-                    <div class="mcs-cell-meta">Amber &times; Plum &middot; AAA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-canvas-cream); color: var(--ss-burnt-umber); border: 1px solid rgba(90,49,84,0.1);">
-                    <div class="mcs-cell-name">Clean<br>Energy</div>
-                    <div class="mcs-cell-meta">Amber &times; Cream &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-plum-vortex); color: var(--ss-brushstroke-gold);">
-                    <div class="mcs-cell-name">Evening<br>Glow</div>
-                    <div class="mcs-cell-meta">Plum &times; Gold &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-coral-flame); color: var(--ss-canvas-cream);">
-                    <div class="mcs-cell-name">For<br>Calls to Action</div>
-                    <div class="mcs-cell-meta">Coral &times; Cream &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-rose-dust); color: var(--ss-burnt-umber);">
-                    <div class="mcs-cell-name">The Soft<br>Approach</div>
-                    <div class="mcs-cell-meta">Rose &times; Cream &middot; AA</div>
-                  </div>
-                  <div class="mcs-cell" style="background: var(--ss-burnt-umber); color: var(--ss-brushstroke-gold);">
-                    <div class="mcs-cell-name">Earth<br>and Light</div>
-                    <div class="mcs-cell-meta">Umber &times; Gold &middot; AA</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Slide 4: Texture Vault -->
-          <div class="carousel-slide" data-slide="3">
-            <div class="mockup-stage" style="padding: 1rem;">
-              <div class="mock-texture">
-                <div class="mock-texture-cell" data-name="Coral Confetti" style="background: linear-gradient(135deg, #E86B5A 0%, #B45346 100%); background-image: linear-gradient(135deg, #E86B5A 0%, #B45346 100%), repeating-linear-gradient(45deg, transparent 0 4px, rgba(0,0,0,0.08) 4px 6px);"></div>
-                <div class="mock-texture-cell" data-name="Parasol Navy" style="background: var(--ss-plum-vortex); background-image: radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.08) 0%, transparent 50%), var(--ss-plum-vortex);"></div>
-                <div class="mock-texture-cell" data-name="Marigold Dot" style="background: linear-gradient(160deg, #E8A83E 0%, #B48330 100%); background-image: linear-gradient(160deg, #E8A83E 0%, #B48330 100%), repeating-linear-gradient(0deg, transparent 0 3px, rgba(0,0,0,0.06) 3px 4px);"></div>
-                <div class="mock-texture-cell" data-name="River Sage" style="background: linear-gradient(135deg, #6B8F7A 0%, #536F5F 100%); background-image: linear-gradient(135deg, #6B8F7A 0%, #536F5F 100%), repeating-linear-gradient(135deg, transparent 0 2px, rgba(255,255,255,0.12) 2px 3px);"></div>
-                <div class="mock-texture-cell" data-name="Peach Pixel" style="background: var(--ss-rose-dust); background-image: radial-gradient(circle at 40% 40%, rgba(255,255,255,0.18) 0%, transparent 60%), var(--ss-rose-dust);"></div>
-                <div class="mock-texture-cell" data-name="Plum Point" style="background: var(--ss-burnt-umber); background-image: repeating-linear-gradient(90deg, transparent 0 2px, rgba(0,0,0,0.15) 2px 3px), var(--ss-burnt-umber);"></div>
-                <div class="mock-texture-cell" data-name="Linen White" style="background: var(--ss-canvas-cream); background-image: repeating-linear-gradient(45deg, transparent 0 2px, rgba(90,49,84,0.06) 2px 3px), var(--ss-canvas-cream); color: var(--ss-burnt-umber);"></div>
-                <div class="mock-texture-cell" data-name="Promenade Stone" style="background: var(--ss-twilight-slate); background-image: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.06) 0%, transparent 70%), var(--ss-twilight-slate);"></div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Quiet dots — discoverable, not loud -->
-        <div class="carousel-dots">
-          <button class="carousel-dot active" data-go="0" aria-label="Brand Board"></button>
-          <button class="carousel-dot" data-go="1" aria-label="Tier-2 Playground"></button>
-          <button class="carousel-dot" data-go="2" aria-label="Cheat Sheet"></button>
-          <button class="carousel-dot" data-go="3" aria-label="Texture Vault"></button>
-        </div>
-
-        <!-- Quiet caption — italic, no background block -->
-        <div class="carousel-caption-row">
-          <div class="caption-label" id="caption-label">Brand Board</div>
-          <div class="caption-name" id="caption-name">The kit at a glance</div>
-        </div>
-      </div>
-
-      <!-- COMPANION LIST -->
-      <div class="inside-list reveal">
-        <div class="inside-list-title">Everything Included</div>
-
-        <div class="inside-item">
-          <div class="inside-icon">01</div>
-          <div class="inside-text">
-            <strong>Whole Box Color Palette</strong>
-            <span>Eight materially-named colors with hex codes, role descriptions, and texture notes.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">02</div>
-          <div class="inside-text">
-            <strong>Typography System</strong>
-            <span>DM Serif Display + Inter + Space Grotesk. Display, subhead, body. With the rule that holds them together.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">03</div>
-          <div class="inside-text">
-            <strong>Brand Board</strong>
-            <span>One page that captures the entire kit at a glance &mdash; for presentations or quick reference.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">04</div>
-          <div class="inside-text">
-            <strong>Color Combinations Cheat Sheet</strong>
-            <span>Pre-vetted combinations with WCAG contrast scores. Beautiful AND accessible.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">05</div>
-          <div class="inside-text">
-            <strong>Tier-2 Playground</strong>
-            <span>Full sandbox of the kit in motion &mdash; layouts, social tiles, link-in-bio templates.</span>
-          </div>
-        </div>
-
-        <div class="inside-item">
-          <div class="inside-icon">06</div>
-          <div class="inside-text">
-            <strong>Texture Vault</strong>
-            <span>High-res material textures for each color &mdash; impasto, painted gold, canvas weave.</span>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- THE PAINTING -->
-<section class="painting-section">
-  <div class="painting-grid">
-    <div class="reveal">
-      <div class="painting-label">The Painting Behind It</div>
-      <h2 class="painting-title">Georges Seurat painted<br>a woman standing in<br><em style="color: var(--ss-amber-glow); font-style: italic;">dots</em>.</h2>
-      <p class="painting-attribution">Inspired by <em style="color:var(--ss-canvas-cream);">A Sunday Afternoon on La Grande Jatte</em>, 1884&ndash;1886</p>
-    </div>
-    <div class="painting-body reveal">
-      <p>Seurat didn't mix paint. He placed tiny dots of pure color next to each other and <strong>let your eyes do the mixing</strong>. Up close, just dots &mdash; blue dot, yellow dot, green dot, orange dot. Step back three feet and suddenly there's a woman with a parasol standing in dappled sunlight on a riverbank.</p>
-      <p>The technique is <em>pointillism</em>: tiny, uniform dots of pure color in calculated proximity. Optical mixing creates colors that are more luminous than any pre-mixed paint could be, because the individual hues retain their identity while creating a new whole.</p>
-      <p>Seurat's original is soft greens, blues, and earth tones &mdash; a Parisian park on a lazy afternoon. <strong>Sunday Dots takes the same dot-by-dot precision and fills it with confident, modern color.</strong> Coral and navy and marigold &mdash; the kind of palette that feels like a well-curated Instagram feed, except it was invented in 1886.</p>
-      <p>This is the kit for the detail person. The one who notices when something is two pixels off. Who has opinions about grid spacing. <em>Her brand should look like someone was present for every decision &mdash; because she was.</em></p>
-    </div>
-  </div>
-</section>
-
-<!-- PALETTE -->
-<section class="palette-section">
-  <div class="palette-inner">
-    <div class="palette-header">
-      <h2 class="palette-title reveal">The Whole Box.<br>Every color material.</h2>
-      <p class="palette-intro reveal">
-        Eight colors. Each one named for what it actually <em>is</em>, because "coral" tells you nothing and <em>Coral Confetti</em> tells you everything. <em>Nothing here is flat. Everything is one dot at a time.</em>
-      </p>
-    </div>
-
-    <div class="palette-grid">
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-amber-glow);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Primary Bright</div>
-          <div class="palette-name">Coral Confetti</div>
-          <div class="palette-hex">#E86B5A</div>
-          <p class="palette-feel">A coral that pops like a dot against everything around it. Not red, not orange &mdash; the specific warm-pink-orange of a celebration. Each dot of this color makes the surface come alive.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-plum-vortex);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Signature Structure</div>
-          <div class="palette-name">Parasol Navy</div>
-          <div class="palette-hex">#2A3D5C</div>
-          <p class="palette-feel">Deep navy with warmth hiding inside it. The structural color &mdash; the one that holds everything together while the brights do their thing. The parasol handle, not the fabric.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-coral-flame);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Warm Accent</div>
-          <div class="palette-name">Marigold Dot</div>
-          <div class="palette-hex">#E8A83E</div>
-          <p class="palette-feel">Golden-yellow that earns its name one dot at a time. Optimistic, specific, the color of a perfectly timed detail. Sunshine as punctuation.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-brushstroke-gold);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Cool Mid</div>
-          <div class="palette-name">River Sage</div>
-          <div class="palette-hex">#6B8F7A</div>
-          <p class="palette-feel">Muted green with the calmness of still water. The resting color &mdash; where the eye goes between the brights to catch its breath.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-rose-dust);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Soft Warm</div>
-          <div class="palette-name">Peach Pixel</div>
-          <div class="palette-hex">#F0B89A</div>
-          <p class="palette-feel">Coral Confetti's quieter version. Warm, approachable, the color of something that's been loved for a while. The faded awning, the sun-warmed stone.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-burnt-umber);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Deep Accent</div>
-          <div class="palette-name">Plum Point</div>
-          <div class="palette-hex">#5A3154</div>
-          <p class="palette-feel">The surprising dark. Purple-berry that adds depth and richness to what could otherwise be a pretty palette. The shadow that proves the light.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-canvas-cream); border-bottom: 1px solid rgba(0,0,0,0.06);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Light Ground</div>
-          <div class="palette-name">Linen White</div>
-          <div class="palette-hex">#F7F2EB</div>
-          <p class="palette-feel">Not pure white &mdash; the warm white of stretched canvas or good paper. The ground that every dot sits on. Clean but present.</p>
-        </div>
-      </div>
-
-      <div class="palette-card reveal">
-        <div class="palette-swatch" style="background: var(--ss-twilight-slate);"></div>
-        <div class="palette-card-body">
-          <div class="palette-role">Warm Gray</div>
-          <div class="palette-name">Promenade Stone</div>
-          <div class="palette-hex">#9A9088</div>
-          <p class="palette-feel">The neutral that doesn't disappear. Warm gray with a hint of mauve &mdash; the park path, the stone wall, the frame around the painting.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- TYPOGRAPHY -->
-<section class="type-section">
-  <div class="type-header">
-    <h2 class="type-title reveal">Three fonts.<br>The Grid.</h2>
-    <p class="type-intro reveal">
-      <strong>DM Serif Display places the dot. Inter draws the line. Space Grotesk fills the field.</strong> Step back and the picture emerges. All three are free Google Fonts, forever yours.
-    </p>
-  </div>
-
-  <div class="type-card reveal">
-    <div class="type-card-meta">Headline &middot; DM Serif Display 400</div>
-    <div class="type-card-display">Two pixels off.</div>
-    <div class="type-card-name">DM Serif Display 400, 72pt &middot; Parasol Navy</div>
-  </div>
-
-  <div class="type-card reveal">
-    <div class="type-card-meta">Subhead &middot; Inter 500&ndash;600</div>
-    <p class="type-card-subhead">The most optically refined sans on Google Fonts. Variable font with meticulous size-specific adjustments. Inter at medium weights creates clear geometric hierarchy beneath DM Serif Display's editorial presence. <em>Precision without pretension.</em></p>
-    <div class="type-card-name">Inter 600, 24pt &middot; Plum Point</div>
-  </div>
-
-  <div class="type-card reveal">
-    <div class="type-card-meta">Body &middot; Space Grotesk 400</div>
-    <p class="type-card-body">
-      Proportional sans-serif derived from the monospaced Space Mono family. Space Grotesk retains the geometric rigor of monospaced design while adapting for comfortable reading. It has personality DM Sans or Inter don't quite reach &mdash; a quiet confidence, a sense that someone who cares about grids chose this font.
-    </p>
-    <div class="type-card-name">Space Grotesk 400, 16pt &middot; Parasol Navy on Linen White</div>
-  </div>
-
-  <div class="type-rule reveal">
-    The rule:<br>
-    <em>DM Serif places. Inter draws. Space Grotesk fills.</em>
-  </div>
-</section>
-
-<!-- COMBINATIONS -->
-<section class="combo-section">
-  <div class="combo-header">
-    <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
-    <p class="combo-intro reveal">
-      A color swatch on white tells you nothing. What matters is how a color <em>behaves</em> next to other colors. These are the signature pairings &mdash; the combinations Sunday Dots was built for.
-    </p>
-  </div>
-
-  <div class="combo-grid">
-    <div class="combo-card combo-1 reveal">
-      <div>
-        <div class="combo-pair">The Signature</div>
-        <div class="combo-name">Coral &amp; Parasol Navy</div>
+      <div class="philosophy-text">
+        <h2 id="philosophy-heading" class="section-heading">The grid that lets you dance.</h2>
+        <p>Sunday Dots is the kit for the detail person. The one who notices when something is two pixels off. Who has opinions about grid spacing. Who believes that presence — being actually present for every decision — is how you make something beautiful.</p>
+        <p>Precision with personality. Not rigid. Not sparse. Pointillism is about density — thousands of dots, each its own color, creating richness. This kit should feel full, layered, generous with detail.</p>
+        <p>Seurat's original is soft greens and blues. Sunday Dots takes the same dot-by-dot precision and fills it with confident, modern color. The coral stays coral. The navy holds everything together. The third direction — River Sage — does the cultural work. The big picture was always there in the noise.</p>
       </div>
     </div>
-    <div class="combo-card combo-2 reveal">
-      <div>
-        <div class="combo-pair">The Flat-Lay</div>
-        <div class="combo-name">Coral &amp; Linen White</div>
-      </div>
-    </div>
-    <div class="combo-card combo-3 reveal">
-      <div>
-        <div class="combo-pair">Serious But Warm</div>
-        <div class="combo-name">Navy &amp; Marigold</div>
-      </div>
-    </div>
-    <div class="combo-card combo-4 reveal">
-      <div>
-        <div class="combo-pair">Sunny &amp; Open</div>
-        <div class="combo-name">Marigold &amp; Linen White</div>
-      </div>
-    </div>
-    <div class="combo-card combo-5 reveal">
-      <div>
-        <div class="combo-pair">The Whisper Pair</div>
-        <div class="combo-name">River Sage &amp; Linen</div>
-      </div>
-    </div>
-    <div class="combo-card combo-6 reveal">
-      <div>
-        <div class="combo-pair">Unexpected Warmth</div>
-        <div class="combo-name">Plum Point &amp; Peach Pixel</div>
-      </div>
-    </div>
-  </div>
-</section>
+  </section>
 
-<!-- CTA -->
-<section class="cta-section">
-  <div class="cta-label">Take it Home</div>
-  <h2 class="cta-big reveal">Make Sunday Dots<br>your brand.</h2>
-  <p class="cta-sub reveal">
-    The kit is available now. If you want a custom kit built specifically for your world &mdash; or if you'd like Emmy to translate Sunday Dots into a full website &mdash; that's available too.
-  </p>
-  <div class="cta-buttons reveal">
-    <a href="mailto:hello@emmybellamora.com?subject=Sunday Dots Kit" class="btn-primary">Get the Kit</a>
-    <a href="../../index.html#working-together" class="btn-ghost">Talk to Emmy</a>
-  </div>
-</section>
+  <!-- ═══════════════════════════════════════════
+       CTA FOOTER
+  ═══════════════════════════════════════════ -->
+  <section id="cta" aria-labelledby="cta-heading">
+    <canvas id="cta-canvas" aria-hidden="true" focusable="false"></canvas>
+    <div class="cta-inner">
+      <h2 id="cta-heading" class="cta-headline">Every small thing.</h2>
+      <p class="cta-sub">The picture was always there in the noise, waiting for the right scroll. Now yours.</p>
+      <a href="#" class="cta-btn" aria-label="Get Sunday Dots kit">Yours.</a>
+      <div class="cta-dots" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+  </section>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-name">Emmy Bellamora</div>
-  <div class="footer-note">Creative Director &middot; Cognitive UX Designer &middot; Fairy With Bite 🧚‍♀️</div>
-</footer>
+</main>
 
-<!-- REVEAL + CAROUSEL -->
 <script>
-  // Reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
+/* ────────────────────────────────────────────────
+   SUNDAY DOTS — Page Experience JS
+   Otto 🦉 | 2026-06-15
+
+   Three systems:
+   1. Hero dot-reveal canvas (scroll-driven lerp, ~1000 dots)
+   2. Palette dot-ring swatches (SVG, JS-rendered, hover-loosen)
+   3. Cursor dot trail (discrete coral dots, 2s fade)
+
+   Motion gate: window.matchMedia('(prefers-reduced-motion: reduce)')
+   — checked once at init; all animation disabled if true.
+
+   No-JS: this block never runs. Content reads cleanly.
+──────────────────────────────────────────────── */
+
+(function() {
+  'use strict';
+
+  const motionOK = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ── Palette data (v3 — nine colors) ── */
+  const palette = [
+    { hex: '#E86B5A', name: 'Coral Confetti',   role: 'Anchor' },
+    { hex: '#2A3D5C', name: 'Parasol Navy',      role: 'Counterweight' },
+    { hex: '#F7F2EB', name: 'Linen White',       role: 'Warm carrier', border: true },
+    { hex: '#A8B2BC', name: 'Afternoon Haze',    role: 'Cool carrier' },
+    { hex: '#6B8F7A', name: 'River Sage',        role: 'Flex hue' },
+    { hex: '#E8A83E', name: 'Marigold Dot',      role: 'Warm accent' },
+    { hex: '#F0B89A', name: 'Peach Pixel',       role: 'Soft bridge' },
+    { hex: '#5A3154', name: 'Plum Point',        role: 'Deep accent' },
+    { hex: '#9A9088', name: 'Promenade Stone',   role: 'Supplement neutral' }
+  ];
+
+  /* ── All hex values as an array (for dot field colors) ── */
+  const palHex = palette.map(c => c.hex);
+
+  /* ─────────────────────────────────────────────
+     1. HERO DOT-REVEAL CANVAS
+     Strategy:
+       - ~1000 dots, each with a random start position and a
+         target position sampled from the text shape.
+       - scroll progress (0→1) lerps each dot toward its target.
+       - At progress=0: noise field. At progress=1: resolved text.
+       - motionOK=false: draw resolved state immediately; no scroll handler.
+
+     Text shape: we render "Sunday Dots." into an offscreen canvas
+     and sample pixel positions to find target locations.
+  ───────────────────────────────────────────── */
+
+  const heroCanvas = document.getElementById('dot-canvas');
+  if (!heroCanvas) return;
+
+  const heroCtx = heroCanvas.getContext('2d');
+  const heroContent = document.getElementById('hero-content');
+
+  const DOT_COUNT = 900;
+  const DOT_RADIUS = 4;
+
+  let heroW, heroH;
+  let dots = [];
+  let scrollProgress = 0;
+  let rafHandle = null;
+
+  /* Parse hex to [r,g,b] */
+  function hexToRGB(hex) {
+    const r = parseInt(hex.slice(1,3),16);
+    const g = parseInt(hex.slice(3,5),16);
+    const b = parseInt(hex.slice(5,7),16);
+    return [r,g,b];
+  }
+  const palRGB = palHex.map(hexToRGB);
+
+  /* ── Sample target positions from text rendered offscreen ── */
+  function buildTargetPositions(w, h) {
+    const off = document.createElement('canvas');
+    off.width = w; off.height = h;
+    const ctx = off.getContext('2d');
+
+    /* Dark background so pixel sampling is clean */
+    ctx.fillStyle = '#000000';
+    ctx.fillRect(0, 0, w, h);
+
+    /* Render the kit name — centered, large */
+    const fontSize = Math.min(w * 0.14, h * 0.28, 110);
+    ctx.fillStyle = '#ffffff';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    /* Try to use DM Serif Display; fall back gracefully */
+    ctx.font = `italic ${fontSize}px 'DM Serif Display', Georgia, serif`;
+    ctx.fillText('Sunday Dots', w / 2, h * 0.42);
+
+    ctx.font = `${fontSize * 0.38}px 'Inter', system-ui, sans-serif`;
+    ctx.fillStyle = 'rgba(255,255,255,0.7)';
+    ctx.fillText('Art Gallery · Kit No. 4', w / 2, h * 0.62);
+
+    /* Sample bright pixels as target positions */
+    const data = ctx.getImageData(0, 0, w, h).data;
+    const targets = [];
+    /* Stride: skip pixels to keep sample count manageable */
+    const stride = 3;
+    for (let y = 0; y < h; y += stride) {
+      for (let x = 0; x < w; x += stride) {
+        const idx = (y * w + x) * 4;
+        if (data[idx] > 180) { /* bright = part of text shape */
+          targets.push({ x, y });
+        }
+      }
+    }
+    return targets;
+  }
+
+  /* ── Initialize dot field ── */
+  function initDots(w, h) {
+    const targets = buildTargetPositions(w, h);
+    dots = [];
+    for (let i = 0; i < DOT_COUNT; i++) {
+      /* Random start position across the viewport */
+      const sx = Math.random() * w;
+      const sy = Math.random() * h;
+      /* Pick a target from sampled text pixels (cycle if fewer targets than dots) */
+      const t = targets[i % Math.max(targets.length, 1)];
+      const tx = t ? t.x : Math.random() * w;
+      const ty = t ? t.y : Math.random() * h;
+      /* Pick a palette color */
+      const colorIdx = Math.floor(Math.random() * palRGB.length);
+      const [r,g,b] = palRGB[colorIdx];
+      dots.push({
+        sx, sy,      /* start: random noise field */
+        tx, ty,      /* target: text shape position */
+        cx: sx, cy: sy,  /* current (animated) position */
+        r, g, b,
+        /* Stagger: each dot starts moving at a slightly different progress point */
+        startAt: Math.random() * 0.25
+      });
+    }
+  }
+
+  /* ── Resize handler ── */
+  function resizeHeroCanvas() {
+    heroW = heroCanvas.offsetWidth;
+    heroH = heroCanvas.offsetHeight;
+    heroCanvas.width = heroW;
+    heroCanvas.height = heroH;
+    initDots(heroW, heroH);
+    if (!motionOK) {
+      drawHero(1);
+      heroContent.classList.add('revealed');
+    } else {
+      drawHero(scrollProgress);
+    }
+  }
+
+  /* ── Draw one frame ── */
+  function drawHero(progress) {
+    if (!heroCtx) return;
+    heroCtx.clearRect(0, 0, heroW, heroH);
+
+    dots.forEach(d => {
+      /* Remap progress to this dot's personal range [startAt, 1] */
+      const localP = d.startAt >= 1 ? 0 : Math.max(0, (progress - d.startAt) / (1 - d.startAt));
+      /* Ease: smoothstep */
+      const t = localP * localP * (3 - 2 * localP);
+      d.cx = d.sx + (d.tx - d.sx) * t;
+      d.cy = d.sy + (d.ty - d.sy) * t;
+      /* Opacity: fade from 0.65 (noise) to 0.9 (resolved) */
+      const alpha = 0.65 + t * 0.25;
+      heroCtx.beginPath();
+      heroCtx.arc(d.cx, d.cy, DOT_RADIUS, 0, Math.PI * 2);
+      heroCtx.fillStyle = `rgba(${d.r},${d.g},${d.b},${alpha})`;
+      heroCtx.fill();
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  reveals.forEach(el => observer.observe(el));
+  }
 
-  // Carousel — invisible chrome, click-to-advance, quiet dots
-  (function () {
-    const carousel = document.getElementById('kit-carousel');
-    if (!carousel) return;
-    const stage = carousel.querySelector('.carousel-stage');
-    const slides = carousel.querySelectorAll('.carousel-slide');
-    const dots = carousel.querySelectorAll('.carousel-dot');
-    const captionLabel = document.getElementById('caption-label');
-    const captionName = document.getElementById('caption-name');
-    const total = slides.length;
-    let current = 0;
+  /* ── Scroll handler: only when motionOK ── */
+  function onScroll() {
+    if (!motionOK) return;
+    const heroRect = document.getElementById('hero').getBoundingClientRect();
+    const heroScrollH = -heroRect.top;
+    const maxScroll = heroRect.height * 0.7;
+    scrollProgress = Math.min(1, Math.max(0, heroScrollH / maxScroll));
+    /* Canvas resolves on scroll — DOM content always visible (revealed on load) */
+    if (rafHandle) cancelAnimationFrame(rafHandle);
+    rafHandle = requestAnimationFrame(() => drawHero(scrollProgress));
+  }
 
-    const captions = [
-      { label: 'Brand Board',         name: 'The kit at a glance' },
-      { label: 'Tier-2 Playground',   name: 'The kit in motion' },
-      { label: 'Cheat Sheet',         name: 'Combinations, vetted for accessibility' },
-      { label: 'Texture Vault',       name: 'Eight materials — nothing is flat' }
-    ];
+  /* ── Init hero ── */
+  function initHero() {
+    resizeHeroCanvas();
+    if (motionOK) {
+      window.addEventListener('scroll', onScroll, { passive: true });
+      /* Initial draw: noise field */
+      drawHero(0);
+      /* If page loads mid-scroll */
+      onScroll();
+      /* Reveal DOM content immediately — canvas animation is decorative */
+      heroContent.classList.add('revealed');
+    } else {
+      /* No motion: jump to resolved, show content immediately */
+      drawHero(1);
+      heroContent.classList.add('revealed');
+    }
+  }
 
-    function go(i) {
-      current = (i + total) % total;
-      slides.forEach((slide, idx) => slide.classList.toggle('active', idx === current));
-      dots.forEach((dot, idx) => dot.classList.toggle('active', idx === current));
-      if (captions[current]) {
-        captionLabel.textContent = captions[current].label;
-        captionName.textContent = captions[current].name;
+  /* Fonts need a moment to load before the offscreen canvas renders them correctly */
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(initHero);
+  } else {
+    /* Fallback: tiny delay */
+    setTimeout(initHero, 300);
+  }
+
+  window.addEventListener('resize', function() {
+    clearTimeout(window._heroResizeTimer);
+    window._heroResizeTimer = setTimeout(resizeHeroCanvas, 150);
+  });
+
+
+  /* ─────────────────────────────────────────────
+     2. PALETTE DOT-RING SWATCHES
+     Each swatch is an SVG of ~48 dots arranged in a disk.
+     Hover: dots shift outward (+3px radius from center), then spring back.
+  ───────────────────────────────────────────── */
+
+  const SWATCH_SIZE = 100;    /* px */
+  const SWATCH_R   = 44;      /* disk radius */
+  const DOT_ROWS   = [        /* concentric rings: [radius, dotCount] */
+    [0,   1],
+    [14,  6],
+    [26, 12],
+    [38, 18],
+    [44,  8]
+  ];
+
+  function makeDotRingSVG(hex, showBorder) {
+    const cx = SWATCH_SIZE / 2;
+    const cy = SWATCH_SIZE / 2;
+    let dots = [];
+
+    DOT_ROWS.forEach(([r, count]) => {
+      for (let i = 0; i < count; i++) {
+        const angle = (i / count) * Math.PI * 2 - Math.PI / 2;
+        const x = cx + r * Math.cos(angle);
+        const y = cy + r * Math.sin(angle);
+        /* Dot radius: varies by ring */
+        const dr = r === 0 ? 5 : (r < 20 ? 4.5 : (r < 32 ? 4 : 3.5));
+        dots.push({ x, y, dr, cx: cx + r * Math.cos(angle), cy: cy + r * Math.sin(angle) });
+      }
+    });
+
+    let circles = dots.map((d, i) =>
+      `<circle class="inner-dot" cx="${d.x.toFixed(1)}" cy="${d.y.toFixed(1)}" r="${d.dr}" fill="${hex}" opacity="0.92" data-bx="${(d.x - cx).toFixed(1)}" data-by="${(d.y - cy).toFixed(1)}"/>`
+    ).join('\n');
+
+    const borderAttr = showBorder ? ` stroke="#d0cac1" stroke-width="1"` : '';
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="${SWATCH_SIZE}" height="${SWATCH_SIZE}" viewBox="0 0 ${SWATCH_SIZE} ${SWATCH_SIZE}" aria-hidden="true" focusable="false"${borderAttr}><rect width="${SWATCH_SIZE}" height="${SWATCH_SIZE}" rx="${SWATCH_SIZE/2}" fill="transparent"/>${circles}</svg>`;
+  }
+
+  function initPalette() {
+    const grid = document.getElementById('palette-grid');
+    if (!grid) return;
+
+    palette.forEach(color => {
+      const item = document.createElement('div');
+      item.className = 'palette-item';
+      item.setAttribute('role', 'listitem');
+
+      const swatchWrap = document.createElement('div');
+      swatchWrap.className = 'swatch-dot-ring';
+      swatchWrap.style.cssText = `width:${SWATCH_SIZE}px;height:${SWATCH_SIZE}px;cursor:default;`;
+      swatchWrap.setAttribute('aria-label', `${color.name} color swatch, ${color.hex}`);
+      swatchWrap.innerHTML = makeDotRingSVG(color.hex, !!color.border);
+
+      /* Hover loosen/retighten — only when motionOK */
+      if (motionOK) {
+        swatchWrap.addEventListener('mouseenter', () => {
+          const circs = swatchWrap.querySelectorAll('.inner-dot');
+          circs.forEach(c => {
+            const bx = parseFloat(c.getAttribute('data-bx'));
+            const by = parseFloat(c.getAttribute('data-by'));
+            const dist = Math.sqrt(bx*bx + by*by);
+            if (dist < 1) return; /* center dot stays */
+            const nx = parseFloat(c.getAttribute('cx')) + bx * 0.22;
+            const ny = parseFloat(c.getAttribute('cy')) + by * 0.22;
+            c.style.transition = 'cx 0.3s ease, cy 0.3s ease, opacity 0.3s ease';
+            c.setAttribute('cx', nx.toFixed(1));
+            c.setAttribute('cy', ny.toFixed(1));
+            c.setAttribute('opacity', '0.65');
+          });
+        });
+
+        swatchWrap.addEventListener('mouseleave', () => {
+          const circs = swatchWrap.querySelectorAll('.inner-dot');
+          circs.forEach(c => {
+            const bx = parseFloat(c.getAttribute('data-bx'));
+            const by = parseFloat(c.getAttribute('data-by'));
+            /* original positions: data-bx/by are relative to center */
+            const origX = SWATCH_SIZE/2 + bx;
+            const origY = SWATCH_SIZE/2 + by;
+            c.style.transition = 'cx 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), cy 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease';
+            c.setAttribute('cx', origX.toFixed(1));
+            c.setAttribute('cy', origY.toFixed(1));
+            c.setAttribute('opacity', '0.92');
+          });
+        });
+      }
+
+      const name = document.createElement('span');
+      name.className = 'palette-name';
+      name.textContent = color.name;
+
+      const hexSpan = document.createElement('span');
+      hexSpan.className = 'palette-hex';
+      hexSpan.textContent = color.hex;
+
+      const role = document.createElement('span');
+      role.className = 'palette-role';
+      role.textContent = color.role;
+
+      item.appendChild(swatchWrap);
+      item.appendChild(name);
+      item.appendChild(hexSpan);
+      item.appendChild(role);
+      grid.appendChild(item);
+    });
+
+    /* Make it a list */
+    grid.setAttribute('role', 'list');
+  }
+
+  initPalette();
+
+
+  /* ─────────────────────────────────────────────
+     3. CURSOR DOT TRAIL
+     Discrete coral dots, each a perfect circle, fading over 2s.
+     Only active when motionOK. Removed from DOM on animation end.
+  ───────────────────────────────────────────── */
+
+  if (motionOK) {
+    let trailThrottle = 0;
+    const TRAIL_INTERVAL = 40; /* ms between dots */
+
+    document.addEventListener('mousemove', function(e) {
+      const now = Date.now();
+      if (now - trailThrottle < TRAIL_INTERVAL) return;
+      trailThrottle = now;
+
+      /* Only trail inside the hero section */
+      const heroEl = document.getElementById('hero');
+      const rect = heroEl ? heroEl.getBoundingClientRect() : null;
+      if (rect && (e.clientY < rect.top || e.clientY > rect.bottom)) return;
+
+      const dot = document.createElement('div');
+      dot.className = 'cursor-dot';
+      dot.style.cssText = `left:${e.clientX - 3.5}px;top:${e.clientY - 3.5}px;`;
+      document.body.appendChild(dot);
+      dot.addEventListener('animationend', () => dot.remove(), { once: true });
+    });
+  }
+
+
+  /* ─────────────────────────────────────────────
+     4. CTA CANVAS — Settling dot field
+     Small dot field animation in the CTA section.
+     Dots start scattered, slowly drift to rest.
+     motionOK gate: static dots if false.
+  ───────────────────────────────────────────── */
+
+  const ctaCanvas = document.getElementById('cta-canvas');
+  if (ctaCanvas) {
+    const ctaCtx = ctaCanvas.getContext('2d');
+    let ctaW, ctaH, ctaDots, ctaRaf;
+
+    function initCTA() {
+      ctaW = ctaCanvas.offsetWidth;
+      ctaH = ctaCanvas.offsetHeight;
+      ctaCanvas.width = ctaW;
+      ctaCanvas.height = ctaH;
+
+      const count = 200;
+      ctaDots = [];
+      for (let i = 0; i < count; i++) {
+        const colorIdx = Math.floor(Math.random() * palRGB.length);
+        const [r,g,b] = palRGB[colorIdx];
+        ctaDots.push({
+          x: Math.random() * ctaW,
+          y: Math.random() * ctaH,
+          vx: (Math.random() - 0.5) * 0.4,
+          vy: (Math.random() - 0.5) * 0.4,
+          r, g, b,
+          size: 2.5 + Math.random() * 2.5
+        });
       }
     }
 
-    // Click anywhere on the slide stage to advance
-    stage.addEventListener('click', () => go(current + 1));
+    function drawCTA() {
+      if (!ctaCtx) return;
+      ctaCtx.clearRect(0, 0, ctaW, ctaH);
+      ctaDots.forEach(d => {
+        if (motionOK) {
+          d.x += d.vx;
+          d.y += d.vy;
+          /* Drift to slow stop */
+          d.vx *= 0.995;
+          d.vy *= 0.995;
+          /* Wrap edges */
+          if (d.x < 0) d.x = ctaW;
+          if (d.x > ctaW) d.x = 0;
+          if (d.y < 0) d.y = ctaH;
+          if (d.y > ctaH) d.y = 0;
+        }
+        ctaCtx.beginPath();
+        ctaCtx.arc(d.x, d.y, d.size, 0, Math.PI * 2);
+        ctaCtx.fillStyle = `rgba(${d.r},${d.g},${d.b},0.35)`;
+        ctaCtx.fill();
+      });
+      if (motionOK) ctaRaf = requestAnimationFrame(drawCTA);
+    }
 
-    // Dots
-    dots.forEach((dot) => dot.addEventListener('click', (e) => {
-      e.stopPropagation();
-      go(parseInt(dot.dataset.go, 10));
-    }));
+    /* Only run CTA animation when section is visible */
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            if (!ctaW) initCTA();
+            if (motionOK && !ctaRaf) ctaRaf = requestAnimationFrame(drawCTA);
+            else if (!motionOK) { initCTA(); drawCTA(); }
+          } else {
+            if (ctaRaf) { cancelAnimationFrame(ctaRaf); ctaRaf = null; }
+          }
+        });
+      }, { threshold: 0.1 });
+      obs.observe(ctaCanvas.parentElement);
+    } else {
+      initCTA();
+      if (motionOK) ctaRaf = requestAnimationFrame(drawCTA);
+      else drawCTA();
+    }
 
-    // Keyboard support when carousel is in view
-    document.addEventListener('keydown', (e) => {
-      const rect = carousel.getBoundingClientRect();
-      const inView = rect.top < window.innerHeight && rect.bottom > 0;
-      if (!inView) return;
-      if (e.key === 'ArrowLeft') go(current - 1);
-      if (e.key === 'ArrowRight') go(current + 1);
+    window.addEventListener('resize', function() {
+      clearTimeout(window._ctaResizeTimer);
+      window._ctaResizeTimer = setTimeout(() => { initCTA(); if (!motionOK) drawCTA(); }, 150);
     });
-  })();
+  }
+
+})();
 </script>
 
 </body>

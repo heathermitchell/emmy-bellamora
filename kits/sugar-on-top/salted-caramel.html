@@ -1,404 +1,1539 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- JS gate: add 'js' class before any CSS so no-JS content is full-opacity from first paint -->
+<script>document.documentElement.classList.add('js')</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Salted Caramel — Sugar on Top Brand Kit · Emmy Bellamora</title>
-<meta name="description" content="Salted Caramel is Sunday morning — warm, grounded, real. Eight material-named colors, three-font Sunday Kitchen Suite, full brand kit for the brand that feels like coming home.">
+<title>Salted Caramel — Kit Experience</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Lora:ital,wght@0,400;0,500;1,400;1,500&family=Work+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
-/* SALTED CARAMEL — rebuilt 2026-05-02: nothing is flat, everything is material. Real texture PNGs layered with color. Ceramic glaze, linen, dark wood, cinnamon-dusted foam, salt crystals, amber glass, bark, whipped cream. */
+/* ─────────────────────────────────────────────
+   SALTED CARAMEL — Page Experience v1
+   Kit: Sugar on Top #4
+   Build: Emmy (sub) 🧚‍♀️ | 2026-06-15
+   Palette source: color-palette-v3.md (ACTIVE)
+   Typography source: typography-selections-v1.md → The Sunday Kitchen Suite
+   Blueprint: page-experience-blueprint.md
+   A11y: WCAG AA | reduced-motion honored | no-JS fallback = full page readable
+   Tier-surface mapping (v3): Molasses text on Buttermilk (13.26:1) primary body pair
+   Decoration: caramel-pour SVG, pooling CSS, salt crystals — all aria-hidden
+   Content: always visible; animation is a flourish layered on top
+─────────────────────────────────────────────── */
+
 :root {
-  --tex-burnt-sugar:    url('../../assets/textures/salted-caramel/texture-burnt-sugar.png');
-  --tex-liquid-caramel:      url('../../assets/textures/salted-caramel/texture-liquid-caramel.png');
-  --tex-molasses:       url('../../assets/textures/salted-caramel/texture-molasses.png');
-  --tex-cinnamon-dust:  url('../../assets/textures/salted-caramel/texture-cinnamon-dust.png');
-  --tex-fleur-de-sel:   url('../../assets/textures/salted-caramel/texture-fleur-de-sel.png');
-  --tex-buttermilk:     url('../../assets/textures/salted-caramel/texture-buttermilk.png');
-  --tex-clove:          url('../../assets/textures/salted-caramel/texture-clove.png');
-  --tex-whipped-cream:  url('../../assets/textures/salted-caramel/texture-whipped-cream.png');
-  --deep-night: #0D0A14; --amethyst: #6B3FA0; --amethyst-light: #9B6FD0; --violet-dusk: #2D1B4E; --fairy-silver: #C8B8E8; --moonpetal: #E8D8F8; --snowflake: #F5F0FF;
-  --sc-burnt-sugar: #A0622E; --sc-molasses: #3D2212; --sc-liquid-caramel: #E8B960; --sc-cinnamon: #C49175; --sc-fleur: #D4CFC4; --sc-clove: #6B3E26; --sc-buttermilk: #FBF3E4; --sc-whipped: #FFFAF2;
-  --font-emmy-display: 'Cormorant Garamond', serif; --font-emmy-body: 'Jost', sans-serif;
-  --font-sc-display: 'Fraunces', serif; --font-sc-subhead: 'Lora', serif; --font-sc-body: 'Work Sans', sans-serif;
+  /* ── Palette — Salted Caramel v3 ── */
+  --molasses:        #3D2212;   /* Deep anchor / primary text */
+  --burnt-sugar:     #A0622E;   /* Anchor — kit identity */
+  --garden-sage:     #7A9582;   /* Counterweight + flex hue */
+  --buttermilk:      #FBF3E4;   /* Warm carrier neutral / page base */
+  --stone-counter:   #C9C2B8;   /* Cool carrier neutral */
+  --brass-pull:      #B5894A;   /* Metallic gleam */
+  --antique-blue:    #5C7A8C;   /* Saturated cool personality */
+  --terracotta-pot:  #B5673F;   /* Saturated warm personality / large accent only */
+
+  /* ── Functional ── */
+  --page-bg:         var(--buttermilk);
+  --text-body:       var(--molasses);    /* 13.26:1 on buttermilk ✅ AA pass */
+  --text-display:    var(--molasses);
+  --text-on-dark:    var(--buttermilk); /* 13.26:1 on molasses ✅ */
+  --accent-warm:     var(--burnt-sugar);/* headers only — 4.45:1 large text ✅ */
+  --accent-brass:    var(--brass-pull); /* 4.63:1 on molasses ✅ AA pass */
+
+  /* ── Layout ── */
+  --max-w: 1100px;
+  --section-pad: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 6rem);
+
+  /* ── Animation timing ── */
+  --pour-duration: 3.2s;
+  --pour-ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --settle-delay: 3.8s;
+  --salt-delay: 4.4s;
+  --content-delay: 5s;
 }
+
+/* ─── RESET ─── */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body { background: var(--sc-molasses); color: var(--sc-buttermilk); font-family: var(--font-emmy-body); font-weight: 300; overflow-x: hidden; line-height: 1.7; }
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--sc-molasses); }
-::-webkit-scrollbar-thumb { background: var(--amethyst); border-radius: 2px; }
-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(13,10,20,0.95) 0%, transparent 100%); backdrop-filter: blur(2px); }
-.nav-name { font-family: var(--font-emmy-display); font-size: 1.1rem; font-weight: 300; font-style: italic; color: var(--fairy-silver); letter-spacing: 0.05em; text-decoration: none; transition: color 0.3s ease; }
-.nav-name:hover { color: var(--moonpetal); }
-.nav-links { display: flex; gap: 2.5rem; list-style: none; }
-.nav-links a { font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fairy-silver); text-decoration: none; transition: color 0.3s ease; opacity: 0.7; }
-.nav-links a:hover { color: var(--moonpetal); opacity: 1; }
-.breadcrumb { max-width: 1200px; margin: 0 auto; padding: 4.75rem 3rem 0.5rem; display: flex; align-items: center; gap: 0.6rem; font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sc-liquid-caramel); opacity: 0.55; }
-.breadcrumb a { color: inherit; text-decoration: none; transition: color 0.3s ease, opacity 0.3s ease; }
-.breadcrumb a:hover { color: var(--sc-buttermilk); opacity: 1; }
-.breadcrumb-sep { opacity: 0.45; }
 
-/* Caramel drip animation — slow, heavy, warm */
-@keyframes caramelDrip { 0% { transform: translateY(-100%) scaleY(0.3); opacity: 0; } 15% { opacity: 0.6; transform: translateY(-20%) scaleY(0.7); } 60% { transform: translateY(30vh) scaleY(1.1); opacity: 0.4; } 100% { transform: translateY(70vh) scaleY(0.8); opacity: 0; } }
-@keyframes saltFloat { 0% { transform: translateY(0) rotate(0deg); opacity: 0; } 12% { opacity: 0.5; } 100% { transform: translateY(-50vh) rotate(180deg); opacity: 0; } }
-.drips { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
-.drip { position: absolute; border-radius: 50% 50% 60% 60%; background: radial-gradient(ellipse at 40% 30%, rgba(232,185,96,0.85) 0%, rgba(160,98,46,0.5) 50%, rgba(61,34,18,0.2) 100%); animation-fill-mode: both; animation-iteration-count: infinite; animation-timing-function: ease-in; }
-.drip-1 { width: 8px;  height: 14px; top: 0; left: 15%; animation: caramelDrip 11s 0s infinite; }
-.drip-2 { width: 5px;  height: 9px;  top: 0; left: 32%; animation: caramelDrip 14s 2.5s infinite; }
-.drip-3 { width: 10px; height: 16px; top: 0; left: 50%; animation: caramelDrip 9s  4.1s infinite; }
-.drip-4 { width: 6px;  height: 11px; top: 0; left: 68%; animation: caramelDrip 13s 1.2s infinite; }
-.drip-5 { width: 7px;  height: 12px; top: 0; left: 82%; animation: caramelDrip 10s 5.7s infinite; }
-.salt { position: absolute; border-radius: 2px; background: radial-gradient(circle, rgba(212,207,196,0.9) 0%, rgba(212,207,196,0.4) 100%); animation-fill-mode: both; animation-iteration-count: infinite; animation-timing-function: ease-out; }
-.salt-1 { width: 3px; height: 3px; bottom: 12%; left: 22%; animation: saltFloat 8s 0.8s infinite; }
-.salt-2 { width: 2px; height: 2px; bottom: 8%;  left: 45%; animation: saltFloat 10s 3.2s infinite; }
-.salt-3 { width: 4px; height: 4px; bottom: 15%; left: 64%; animation: saltFloat 12s 1.5s infinite; }
-.salt-4 { width: 2px; height: 2px; bottom: 6%;  left: 78%; animation: saltFloat 9s  5.1s infinite; }
-.salt-5 { width: 3px; height: 3px; bottom: 10%; left: 88%; animation: saltFloat 11s 2.7s infinite; }
-
-/* HERO */
-.kit-hero { margin: 1.5rem 0 0; padding: 0; position: relative; }
-.kit-hero-inner { border-radius: 0; overflow: hidden; position: relative; min-height: 380px; padding: 4rem 0; display: flex; flex-direction: column; justify-content: center; background-image: radial-gradient(ellipse at 75% 20%, rgba(232,185,96,0.45) 0%, rgba(232,185,96,0.2) 20%, transparent 42%), radial-gradient(ellipse at 15% 80%, rgba(61,34,18,0.8) 0%, rgba(61,34,18,0.45) 32%, transparent 58%), radial-gradient(ellipse at 50% 55%, rgba(160,98,46,0.3) 0%, transparent 45%), linear-gradient(135deg, rgba(61,34,18,0.88) 0%, rgba(107,62,38,0.78) 50%, rgba(232,185,96,0.35) 100%), var(--tex-burnt-sugar); background-size: auto, auto, auto, auto, cover; background-blend-mode: normal, normal, normal, multiply, normal; }
-.kit-hero-inner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 72% 28%, rgba(232,185,96,0.28) 0%, transparent 48%), radial-gradient(ellipse at 12% 72%, rgba(61,34,18,0.55) 0%, transparent 52%); pointer-events: none; z-index: 1; }
-.kit-hero-inner::after { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(0deg, transparent 0px, transparent 5px, rgba(232,185,96,0.02) 5px, rgba(232,185,96,0.02) 6px); pointer-events: none; z-index: 1; }
-.kit-hero-wrap { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 3rem; position: relative; z-index: 2; }
-.kit-hero-content { position: relative; z-index: 1; max-width: 720px; }
-.kit-hero-meta { font-family: var(--font-sc-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sc-liquid-caramel); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.85rem; }
-.kit-hero-meta::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--sc-liquid-caramel); opacity: 0.7; }
-.kit-hero-name { font-family: var(--font-sc-display); font-size: clamp(3.5rem, 7vw, 6rem); font-weight: 700; color: var(--sc-buttermilk); line-height: 1.0; letter-spacing: -0.015em; margin-bottom: 1.5rem; text-shadow: 0 2px 32px rgba(0,0,0,0.5), 0 4px 64px rgba(0,0,0,0.25); }
-.kit-hero-tagline { font-family: var(--font-sc-subhead); font-style: italic; font-size: clamp(1.1rem, 1.8vw, 1.4rem); color: var(--sc-buttermilk); line-height: 1.6; opacity: 0.95; text-shadow: 0 2px 20px rgba(0,0,0,0.55); max-width: 580px; }
-
-/* PAINTING — on dark wood + warm amber */
-.painting-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 60% 50%, rgba(61,34,18,0.55) 0%, transparent 65%), linear-gradient(to bottom, rgba(61,34,18,0.42) 0%, rgba(61,34,18,0.36) 100%), var(--tex-molasses); background-size: auto, auto, cover; }
-.painting-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(232,185,96,0.06) 0%, transparent 55%); pointer-events: none; }
-.painting-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
-.painting-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; }
-.painting-label { font-family: var(--font-emmy-body); font-size: 0.58rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sc-liquid-caramel); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 1rem; }
-.painting-label::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--sc-liquid-caramel); opacity: 0.6; }
-.painting-title { font-family: var(--font-emmy-display); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 300; font-style: italic; color: var(--sc-whipped); line-height: 1.15; margin-bottom: 1.5rem; }
-.painting-attribution { font-family: var(--font-emmy-body); font-size: 0.8rem; font-weight: 300; letter-spacing: 0.1em; color: var(--sc-fleur); opacity: 0.7; margin-bottom: 2rem; }
-.painting-body p { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--sc-buttermilk); margin-bottom: 1.5rem; opacity: 0.88; }
-.painting-body p strong { color: var(--sc-liquid-caramel); font-weight: 400; }
-.painting-body p em { color: var(--sc-liquid-caramel); font-style: italic; }
-
-/* PALETTE — flat dark (V3: alternating bgs — palette follows painting texture, must be flat) */
-.palette-section { position: relative; padding: 7rem 0; overflow: hidden; background: var(--sc-molasses); }
-.palette-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
-.palette-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
-.palette-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--sc-whipped); line-height: 1.1; }
-.palette-intro { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--sc-buttermilk); opacity: 0.85; }
-.palette-intro em { color: var(--sc-liquid-caramel); font-style: italic; }
-.section-eyebrow { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sc-liquid-caramel); opacity: 0.85; margin-bottom: 1rem; }
-.tier-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-.tier-card { display: flex; flex-direction: column; border-radius: 4px; overflow: hidden; border: 1px solid rgba(232,185,96,0.25); background: rgba(61,34,18,0.4); text-decoration: none; color: inherit; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s, border-color 0.4s; }
-.tier-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.5); border-color: rgba(232,185,96,0.55); }
-.tier-card-visual { height: 240px; width: 100%; background-size: cover; background-position: center; }
-.tier-card-body { padding: 2rem 2rem 2.2rem; display: flex; flex-direction: column; gap: 0.85rem; }
-.tier-card-eyebrow { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sc-liquid-caramel); }
-.tier-card-title { font-family: var(--font-emmy-display); font-size: 1.7rem; font-weight: 300; font-style: italic; color: var(--sc-buttermilk); margin: 0; line-height: 1.2; }
-.tier-card-desc { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; color: var(--sc-buttermilk); opacity: 0.85; line-height: 1.7; margin: 0; }
-.tier-card-cta { font-family: var(--font-emmy-body); font-size: 0.7rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--sc-liquid-caramel); margin-top: 0.5rem; transition: transform 0.3s; }
-.tier-card:hover .tier-card-cta { transform: translateX(4px); }
-.palette-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-top: 3rem; }
-.palette-chip { display: flex; flex-direction: column; cursor: default; transition: transform 0.3s ease, box-shadow 0.3s ease; border-radius: 4px; overflow: hidden; border: 1px solid rgba(251,243,228,0.10); background: rgba(61,34,18,0.6); box-shadow: 0 2px 12px rgba(0,0,0,0.35); }
-.palette-chip:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.45), 0 2px 8px rgba(232,185,96,0.12); border-color: rgba(232,185,96,0.4); }
-.palette-chip-color { width: 100%; aspect-ratio: 2.6; }
-.palette-chip-material { width: 100%; aspect-ratio: 2.6; position: relative; background-size: cover; background-position: center; }
-.palette-chip-material::after { content: ''; position: absolute; inset: 0; }
-.chip-burnt-sugar     { background-image: var(--tex-burnt-sugar); }     .chip-burnt-sugar::after     { background: var(--sc-burnt-sugar); mix-blend-mode: multiply; opacity: 0.45; }
-.chip-liquid-caramel  { background-image: var(--tex-liquid-caramel); }  .chip-liquid-caramel::after  { background: var(--sc-liquid-caramel); mix-blend-mode: multiply; opacity: 0.40; }
-.chip-molasses        { background-image: var(--tex-molasses); }        .chip-molasses::after        { background: var(--sc-molasses); mix-blend-mode: multiply; opacity: 0.55; }
-.chip-cinnamon        { background-image: var(--tex-cinnamon-dust); }   .chip-cinnamon::after        { background: var(--sc-cinnamon); mix-blend-mode: multiply; opacity: 0.42; }
-.chip-fleur           { background-image: var(--tex-fleur-de-sel); }    .chip-fleur::after           { background: var(--sc-fleur); mix-blend-mode: screen; opacity: 0.35; }
-.chip-clove           { background-image: var(--tex-clove); }           .chip-clove::after           { background: var(--sc-clove); mix-blend-mode: multiply; opacity: 0.5; }
-.chip-buttermilk      { background-image: var(--tex-buttermilk); }      .chip-buttermilk::after      { background: var(--sc-buttermilk); mix-blend-mode: screen; opacity: 0.38; }
-.chip-whipped         { background-image: var(--tex-whipped-cream); }   .chip-whipped::after         { background: var(--sc-whipped); mix-blend-mode: screen; opacity: 0.35; }
-.palette-chip-label { background: rgba(61,34,18,0.85); padding: 1rem 1.1rem 1.25rem; text-align: left; border-top: 1px solid rgba(251,243,228,0.06); }
-.palette-chip-role { display: block; font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--sc-liquid-caramel); opacity: 0.85; margin-bottom: 0.5rem; }
-.palette-chip-name { display: block; font-family: var(--font-emmy-display); font-size: 1.1rem; font-weight: 400; color: var(--sc-buttermilk); margin-bottom: 0.3rem; line-height: 1.2; letter-spacing: 0; text-transform: none; }
-.palette-chip-hex { display: block; font-family: var(--font-emmy-body); font-size: 0.62rem; font-weight: 400; letter-spacing: 0.1em; color: var(--sc-fleur); opacity: 0.6; text-transform: uppercase; margin-bottom: 0.7rem; }
-.palette-chip-feel { display: block; font-family: var(--font-emmy-body); font-size: 0.85rem; font-weight: 300; line-height: 1.6; color: var(--sc-buttermilk); opacity: 0.78; }
-.palette-hex { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.1em; color: var(--sc-fleur); opacity: 0.6; text-transform: uppercase; margin-bottom: 0.75rem; }
-.palette-feel { font-family: var(--font-emmy-body); font-size: 0.72rem; font-weight: 300; line-height: 1.6; color: var(--sc-buttermilk); opacity: 0.8; }
-
-/* TYPE — on buttermilk linen paper */
-.type-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
-.type-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: end; }
-.type-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--sc-whipped); line-height: 1.1; }
-.type-intro { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--sc-buttermilk); opacity: 0.85; }
-.type-intro strong { color: var(--sc-liquid-caramel); font-weight: 400; }
-/* Type cards sit on linen */
-.type-card { background-image: linear-gradient(to bottom right, rgba(251,243,228,0.97) 0%, rgba(255,250,242,0.97) 100%), var(--tex-buttermilk); background-size: auto, cover; background-blend-mode: multiply; border-radius: 16px; padding: 4rem 3.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.2); }
-.type-card::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(42deg, transparent 0px, transparent 4px, rgba(61,34,18,0.018) 4px, rgba(61,34,18,0.018) 5px); pointer-events: none; }
-.type-card-meta { font-family: var(--font-sc-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sc-clove); opacity: 0.7; margin-bottom: 1rem; position: relative; }
-.type-card-display { font-family: var(--font-sc-display); font-weight: 700; font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.0; color: var(--sc-molasses); margin-bottom: 0.5rem; letter-spacing: -0.02em; position: relative; }
-.type-card-name { font-family: var(--font-sc-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--sc-clove); opacity: 0.65; margin-top: 1rem; margin-bottom: 2rem; position: relative; }
-.type-card-subhead { font-family: var(--font-sc-subhead); font-style: italic; font-weight: 500; font-size: clamp(1.4rem, 2.4vw, 1.9rem); color: var(--sc-burnt-sugar); line-height: 1.4; margin-bottom: 1.5rem; max-width: 720px; position: relative; }
-.type-card-body { font-family: var(--font-sc-body); font-weight: 300; font-size: 1rem; line-height: 1.75; color: var(--sc-clove); max-width: 620px; position: relative; }
-/* Rule card — on dark bark */
-.type-rule { background-image: linear-gradient(to bottom, rgba(61,34,18,0.90) 0%, rgba(107,62,38,0.85) 100%), var(--tex-clove); background-size: auto, cover; border-radius: 16px; padding: 3.5rem 3.5rem; text-align: center; font-family: var(--font-sc-subhead); font-style: italic; font-weight: 500; font-size: clamp(1.3rem, 2.4vw, 1.9rem); line-height: 1.5; color: var(--sc-buttermilk); position: relative; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.5); }
-.type-rule::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-48deg, transparent 0px, transparent 3px, rgba(232,185,96,0.025) 3px, rgba(232,185,96,0.025) 4px); pointer-events: none; }
-.type-rule em { color: var(--sc-liquid-caramel); font-style: italic; position: relative; }
-
-/* COMBOS */
-.combo-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
-.combo-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: end; }
-.combo-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--sc-whipped); line-height: 1.1; }
-.combo-intro { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--sc-buttermilk); opacity: 0.85; }
-.combo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-.combo-card { border-radius: 14px; overflow: hidden; aspect-ratio: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; position: relative; transition: transform 0.35s ease, box-shadow 0.35s ease; box-shadow: 0 4px 24px rgba(0,0,0,0.4); background-size: cover; background-position: center; }
-.combo-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
-.combo-card::before { content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: 14px; }
-.combo-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 45%, transparent 70%); pointer-events: none; border-radius: 14px; }
-.combo-text { position: relative; z-index: 1; }
-.combo-name { font-family: var(--font-sc-display); font-weight: 700; font-size: 1.5rem; line-height: 1.1; margin-bottom: 0.4rem; }
-.combo-pair { font-family: var(--font-sc-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.8; }
-/* Each combo uses a different texture */
-/* Combo cards demonstrate their named pairings literally:
-   text color = the named accent color in the pairing,
-   background = the texture + gradient of the named base color. */
-.combo-1 { background-image: var(--tex-molasses); color: var(--sc-liquid-caramel); } .combo-1::before { background: linear-gradient(135deg, rgba(61,34,18,0.7) 0%, rgba(232,185,96,0.4) 100%); }
-.combo-2 { background-image: var(--tex-buttermilk); color: var(--sc-liquid-caramel); } .combo-2::before { background: linear-gradient(135deg, rgba(251,243,228,0.75) 0%, rgba(232,185,96,0.25) 100%); } .combo-2::after { background: linear-gradient(to top, rgba(251,243,228,0.6) 0%, rgba(251,243,228,0.1) 45%, transparent 70%); }
-.combo-3 { background-image: var(--tex-molasses); color: var(--sc-liquid-caramel); } .combo-3::before { background: linear-gradient(135deg, rgba(61,34,18,0.6) 0%, rgba(232,185,96,0.5) 100%); }
-.combo-4 { background-image: var(--tex-whipped-cream); color: var(--sc-cinnamon); } .combo-4::before { background: linear-gradient(135deg, rgba(196,145,117,0.5) 0%, rgba(255,250,242,0.55) 100%); } .combo-4::after { background: linear-gradient(to top, rgba(255,250,242,0.7) 0%, rgba(255,250,242,0.15) 45%, transparent 70%); }
-.combo-5 { background-image: var(--tex-burnt-sugar); color: var(--sc-buttermilk); } .combo-5::before { background: linear-gradient(135deg, rgba(107,62,38,0.68) 0%, rgba(232,185,96,0.42) 100%); }
-.combo-6 { background-image: var(--tex-molasses); color: var(--sc-buttermilk); } .combo-6::before { background: linear-gradient(135deg, rgba(61,34,18,0.72) 0%, rgba(107,62,38,0.5) 100%); }
-
-/* INSIDE — flat dark (V3: alternating bgs — hero is burnt-sugar texture, inside must be flat) */
-.inside-section { position: relative; padding: 7rem 0; overflow: hidden; background: #2D1608; }
-.inside-section::before { content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 80%; height: 200%; background: radial-gradient(ellipse, rgba(232,185,96,0.05) 0%, transparent 60%); pointer-events: none; z-index: 0; }
-.inside-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 2; }
-.inside-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
-.inside-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--sc-whipped); line-height: 1.1; }
-.inside-intro { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--sc-buttermilk); opacity: 0.85; }
-.inside-intro em { color: var(--sc-liquid-caramel); font-style: italic; }
-.inside-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 3rem; align-items: start; }
-/* Carousel + mockup CSS removed V3 — carousel replaced with tier-cards in session 11 */
-
-/* CTA — on fleur de sel */
-.cta-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% 50%, rgba(232,185,96,0.18) 0%, transparent 60%), radial-gradient(ellipse at 50% 100%, rgba(61,34,18,0.7) 0%, transparent 55%), linear-gradient(to bottom, rgba(61,34,18,0.48) 0%, rgba(61,34,18,0.52) 100%), var(--tex-fleur-de-sel); background-size: auto, auto, auto, cover; }
-.cta-section::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-45deg, transparent 0px, transparent 4px, rgba(232,185,96,0.02) 4px, rgba(232,185,96,0.02) 5px); pointer-events: none; }
-.cta-inner { max-width: 900px; margin: 0 auto; padding: 0 3rem; text-align: center; position: relative; z-index: 1; }
-.cta-label { font-family: var(--font-emmy-body); font-size: 0.58rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--sc-liquid-caramel); margin-bottom: 1.25rem; }
-.cta-big { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; font-style: italic; color: var(--sc-whipped); line-height: 1.15; margin-bottom: 1.5rem; text-shadow: 0 2px 24px rgba(0,0,0,0.4); }
-.cta-sub { font-family: var(--font-emmy-body); font-size: 1rem; color: var(--sc-buttermilk); opacity: 0.85; line-height: 1.8; margin-bottom: 2.5rem; max-width: 580px; margin-left: auto; margin-right: auto; }
-.cta-buttons { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
-.btn-primary { display: inline-block; padding: 0.95rem 2.5rem; background: var(--amethyst); color: var(--snowflake); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: background 0.3s ease, transform 0.2s ease; }
-.btn-primary:hover { background: var(--amethyst-light); transform: translateY(-1px); }
-.btn-ghost { display: inline-block; padding: 0.95rem 2.5rem; border: 1px solid rgba(251,243,228,0.55); color: var(--sc-buttermilk); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: border-color 0.3s ease, color 0.3s ease; }
-.btn-ghost:hover { border-color: var(--sc-buttermilk); color: #fff; }
-footer { padding: 3rem; border-top: 1px solid rgba(251,243,228,0.08); display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; }
-.footer-name { font-family: var(--font-emmy-display); font-style: italic; font-size: 1rem; color: var(--fairy-silver); opacity: 0.5; }
-.footer-note { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 300; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.35; }
-.reveal { opacity: 1; transform: translateY(0); transition: opacity 0.7s ease, transform 0.7s ease; }
-.reveal.pre-reveal { opacity: 0; transform: translateY(24px); }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-@media (max-width: 900px) {
-  nav { padding: 1.25rem 1.5rem; } .nav-links { gap: 1.5rem; } .breadcrumb { padding: 4.25rem 1.5rem 0.4rem; }
-  .kit-hero-wrap { padding: 0 1.5rem; } .kit-hero-inner { padding: 3rem 0; min-height: 320px; }
-  .painting-inner, .palette-inner, .inside-inner { padding: 0 1.5rem; }
-  .type-section, .combo-section { padding: 5rem 1.5rem; }
-  .painting-section, .palette-section, .inside-section, .cta-section { padding: 5rem 0; }
-  .cta-inner { padding: 0 1.5rem; }
-  .painting-grid, .palette-header, .type-header, .combo-header, .inside-header, .inside-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .palette-grid { grid-template-columns: repeat(2, 1fr); } .combo-grid { grid-template-columns: 1fr 1fr; }
-  .type-card { padding: 3rem 2rem; } .type-rule { padding: 2.5rem 2rem; }
-  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 3rem 1.5rem; }
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
 }
+
+/* ── REDUCED MOTION: jump everything to end state ── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+  }
+  /* Pour/pool decoration: just show a static warm fill */
+  .pour-ribbon { stroke-dashoffset: 0 !important; opacity: 1 !important; }
+  .pour-pool { opacity: 1 !important; clip-path: inset(0) !important; }
+  .salt-crystal { opacity: 0.9 !important; transform: none !important; }
+}
+
+/* ─── BASE ─── */
+body {
+  background: var(--page-bg);
+  color: var(--text-body);
+  font-family: 'Work Sans', sans-serif;
+  font-size: clamp(1rem, 1.1vw, 1.05rem);
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* ─── SKIP LINK (accessibility) ─── */
+.skip-link {
+  position: absolute;
+  top: -999px;
+  left: 0;
+  background: var(--molasses);
+  color: var(--buttermilk);
+  padding: 0.5rem 1.25rem;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  z-index: 9999;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+  outline: none;
+}
+.skip-link:focus { top: 0; }
+
+/* ─── MARBLE TEXTURE BACKGROUND UTILITY ─── */
+/* CSS pseudo-marbling: warm honey veins on buttermilk */
+.marble-bg {
+  background-color: var(--buttermilk);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cpath d='M30 0 Q80 40 60 90 Q40 140 90 170 Q140 200 120 250 Q100 300 150 300' fill='none' stroke='rgba(160,98,46,0.10)' stroke-width='2'/%3E%3Cpath d='M150 0 Q120 50 160 100 Q200 150 170 200 Q140 250 180 300' fill='none' stroke='rgba(160,98,46,0.07)' stroke-width='1.2'/%3E%3Cpath d='M220 20 Q240 70 210 120 Q180 170 220 220 Q260 270 240 300' fill='none' stroke='rgba(181,137,74,0.09)' stroke-width='1.5'/%3E%3Cpath d='M0 80 Q50 100 80 150 Q110 200 60 240' fill='none' stroke='rgba(160,98,46,0.06)' stroke-width='1'/%3E%3C/svg%3E");
+}
+
+/* ─── LINEN TEXTURE UTILITY ─── */
+.linen-bg {
+  background-color: var(--buttermilk);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cline x1='0' y1='0' x2='60' y2='0' stroke='rgba(61,34,18,0.04)' stroke-width='1'/%3E%3Cline x1='0' y1='15' x2='60' y2='15' stroke='rgba(61,34,18,0.03)' stroke-width='0.8'/%3E%3Cline x1='0' y1='30' x2='60' y2='30' stroke='rgba(61,34,18,0.04)' stroke-width='1'/%3E%3Cline x1='0' y1='45' x2='60' y2='45' stroke='rgba(61,34,18,0.03)' stroke-width='0.8'/%3E%3Cline x1='0' y1='0' x2='0' y2='60' stroke='rgba(61,34,18,0.03)' stroke-width='0.8'/%3E%3Cline x1='15' y1='0' x2='15' y2='60' stroke='rgba(61,34,18,0.025)' stroke-width='0.6'/%3E%3Cline x1='30' y1='0' x2='30' y2='60' stroke='rgba(61,34,18,0.03)' stroke-width='0.8'/%3E%3Cline x1='45' y1='0' x2='45' y2='60' stroke='rgba(61,34,18,0.025)' stroke-width='0.6'/%3E%3C/svg%3E");
+}
+
+/* ─── STONE TEXTURE UTILITY ─── */
+.stone-bg {
+  background-color: var(--stone-counter);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 60 Q40 55 80 62 Q120 68 160 60 Q200 52 200 60' fill='none' stroke='rgba(61,34,18,0.07)' stroke-width='0.8'/%3E%3Cpath d='M0 120 Q50 114 90 121 Q130 127 170 119 Q200 112 200 120' fill='none' stroke='rgba(61,34,18,0.06)' stroke-width='0.7'/%3E%3Cpath d='M20 0 Q18 40 22 80 Q24 120 18 160 Q14 200 20 200' fill='none' stroke='rgba(122,149,130,0.06)' stroke-width='0.6'/%3E%3C/svg%3E");
+}
+
+/* ──────────────────────────────────────────────────────────────
+   HERO SECTION
+   Strategy: SVG pour is aria-hidden decorative layer.
+   .hero-content (title, subtitle) is DOM — always visible.
+   JS-mode: pour animation runs on load; hero text gets a gentle
+   entrance keyframe starting from opacity: 0 (keyframe FROM state only).
+   No-JS: hero text reads at full opacity immediately.
+   Reduced-motion: both pour and entrance skip to end-state.
+────────────────────────────────────────────────────────────── */
+
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: var(--buttermilk);
+  /* Marble veining on hero */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cpath d='M30 0 Q80 40 60 90 Q40 140 90 170 Q140 200 120 250 Q100 300 150 300' fill='none' stroke='rgba(160,98,46,0.10)' stroke-width='2'/%3E%3Cpath d='M150 0 Q120 50 160 100 Q200 150 170 200 Q140 250 180 300' fill='none' stroke='rgba(160,98,46,0.07)' stroke-width='1.2'/%3E%3Cpath d='M220 20 Q240 70 210 120 Q180 170 220 220 Q260 270 240 300' fill='none' stroke='rgba(181,137,74,0.09)' stroke-width='1.5'/%3E%3C/svg%3E");
+}
+
+/* ── POUR DECORATION — aria-hidden, absolute, fills hero ── */
+/* Entire pour layer is decorative. Content reads without it. */
+.hero-pour-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+/* SVG-drawn pour ribbon: thick amber stroke drawing itself down
+   from upper-right toward center-bottom of hero */
+.pour-ribbon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 55%;
+  height: 90%;
+  /* Stroke-dashoffset animation creates the "drawing" effect.
+     In JS mode: starts fully offset (invisible), animates to 0 (fully drawn).
+     No-JS: stroke-dashoffset defaults to 0 (fully visible). */
+}
+
+/* The pour ribbon SVG path; JS adds .animate class to trigger draw */
+.pour-ribbon path {
+  fill: none;
+  stroke: #A0622E; /* Burnt Sugar */
+  stroke-width: 28;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.85;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 0; /* No-JS: fully drawn from paint */
+}
+/* JS-mode: start offset, then animate */
+.js .pour-ribbon path {
+  stroke-dashoffset: 1200;
+  animation: pour-draw var(--pour-duration) var(--pour-ease) 0.3s forwards;
+}
+@keyframes pour-draw {
+  from { stroke-dashoffset: 1200; }
+  to   { stroke-dashoffset: 0; }
+}
+
+/* Caramel pool: amber ellipse that expands at the base of the pour */
+.pour-pool {
+  position: absolute;
+  bottom: 12%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  background: radial-gradient(ellipse at center, #A0622E 30%, #B5894A 65%, rgba(160,98,46,0) 100%);
+  border-radius: 50%;
+  opacity: 0.6;
+}
+/* No-JS: pool visible at settled size */
+.pour-pool {
+  width: 420px;
+  height: 90px;
+}
+/* JS-mode: start invisible, expand into settled state */
+.js .pour-pool {
+  width: 0;
+  height: 0;
+  opacity: 0;
+  animation: pool-settle 1.8s var(--pour-ease) var(--settle-delay) forwards;
+}
+@keyframes pool-settle {
+  from { width: 0; height: 0; opacity: 0; }
+  60%  { width: 440px; height: 95px; opacity: 0.7; }
+  to   { width: 420px; height: 90px; opacity: 0.6; }
+}
+
+/* Salt crystals: 6 small SVG shapes that drift down and settle */
+.salt-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.salt-crystal {
+  position: absolute;
+  border-radius: 2px;
+  background: rgba(255, 251, 240, 0.92);
+  box-shadow: 0 1px 3px rgba(61,34,18,0.2), inset 0 0 4px rgba(255,255,255,0.6);
+  /* No-JS: crystals visible */
+  opacity: 0.9;
+}
+/* JS-mode: crystals start above view, drift down to resting position */
+.js .salt-crystal {
+  opacity: 0;
+  transform: translateY(-40px);
+}
+.js .salt-crystal.settled {
+  animation: crystal-fall 0.9s cubic-bezier(0.34, 1.0, 0.64, 1) var(--crystal-delay, 0s) forwards;
+}
+@keyframes crystal-fall {
+  from { opacity: 0; transform: translateY(-40px) rotate(var(--crystal-rot, 0deg)); }
+  60%  { opacity: 1; transform: translateY(4px) rotate(var(--crystal-rot, 0deg)); }
+  to   { opacity: 0.9; transform: translateY(0) rotate(var(--crystal-rot, 0deg)); }
+}
+
+/* ── HERO CONTENT — always visible ── */
+.hero-content {
+  position: relative;
+  z-index: 10; /* above pour layer */
+  text-align: center;
+  padding: 2rem clamp(1.5rem, 6vw, 5rem);
+  max-width: 780px;
+}
+
+.hero-eyebrow {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--molasses);
+  opacity: 0.55;
+  margin-bottom: 1.5rem;
+}
+
+.hero-title {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(3.5rem, 10vw, 7.5rem);
+  font-weight: 400;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: var(--molasses);
+  /* Content rests at opacity 1 — always visible */
+}
+.hero-title .title-accent {
+  font-style: italic;
+  color: var(--burnt-sugar);
+  display: block;
+}
+
+.hero-subtitle {
+  margin-top: 1.75rem;
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+  font-weight: 400;
+  color: var(--molasses);
+  opacity: 0.75;
+  line-height: 1.6;
+}
+
+/* JS entrance: gentle content fade-up (keyframe FROM only = opacity:0) */
+.js .hero-content {
+  animation: content-enter 0.9s ease 5s both;
+}
+/* No-JS: fully visible immediately — no rule sets resting opacity:0 */
+@keyframes content-enter {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Scroll hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--molasses);
+  opacity: 0.4;
+}
+.scroll-hint-bar {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, var(--burnt-sugar), transparent);
+  animation: hint-grow 1.8s ease-in-out infinite;
+}
+@keyframes hint-grow {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.3; }
+  50% { transform: scaleY(1); opacity: 0.7; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-hint-bar { animation: none; opacity: 0.4; transform: none; }
+}
+
+/* ──────────────────────────────────────────────────────────────
+   UTILITY / LAYOUT
+────────────────────────────────────────────────────────────── */
+
+.section-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.section-label {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--molasses);
+  margin-bottom: 0.85rem;
+  /* a11y: was --burnt-sugar (4.45:1 fail by 0.05 at 0.68rem) → molasses 13.26:1 on buttermilk. Director call: molasses over antique-blue — burnt-sugar's the kit identity, but a cool blue label in a warm kit is wrong; molasses is the kit's own deep anchor, warm + bulletproof, labels read quiet/grounded under the burnt-sugar headings. */
+}
+
+.section-heading {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2rem, 4.5vw, 3rem);
+  font-weight: 400;
+  color: var(--text-display);
+  line-height: 1.15;
+  margin-bottom: 0.6rem;
+}
+.section-heading em {
+  font-style: italic;
+  color: var(--burnt-sugar);
+}
+
+.section-subhead {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  color: var(--text-body);
+  opacity: 0.8;
+  max-width: 58ch;
+  margin-bottom: 3.5rem;
+  line-height: 1.7;
+}
+
+/* Scroll-reveal: content rests visible; JS + observer add entrance flourish */
+.reveal {
+  /* Resting state: fully visible — always */
+}
+.js .reveal {
+  animation: reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-play-state: paused;
+}
+.js .reveal.in-view {
+  animation-play-state: running;
+}
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Staggered children */
+.reveal-stagger > * {
+  /* Resting: visible */
+}
+.js .reveal-stagger > * {
+  animation: reveal-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-play-state: paused;
+}
+.js .reveal-stagger.in-view > * { animation-play-state: running; }
+.js .reveal-stagger.in-view > *:nth-child(1) { animation-delay: 0ms; }
+.js .reveal-stagger.in-view > *:nth-child(2) { animation-delay: 80ms; }
+.js .reveal-stagger.in-view > *:nth-child(3) { animation-delay: 160ms; }
+.js .reveal-stagger.in-view > *:nth-child(4) { animation-delay: 240ms; }
+.js .reveal-stagger.in-view > *:nth-child(5) { animation-delay: 320ms; }
+.js .reveal-stagger.in-view > *:nth-child(6) { animation-delay: 400ms; }
+.js .reveal-stagger.in-view > *:nth-child(7) { animation-delay: 480ms; }
+.js .reveal-stagger.in-view > *:nth-child(8) { animation-delay: 560ms; }
+
+/* ──────────────────────────────────────────────────────────────
+   SECTION 2: THE RECIPE (Palette as ingredients)
+────────────────────────────────────────────────────────────── */
+
+#palette {
+  padding: var(--section-pad);
+  background: var(--buttermilk);
+  position: relative;
+}
+#palette .marble-vein {
+  position: absolute;
+  inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cpath d='M0 100 Q80 90 160 102 Q240 114 320 98 Q370 88 400 100' fill='none' stroke='rgba(160,98,46,0.06)' stroke-width='1.5'/%3E%3Cpath d='M0 220 Q100 208 200 222 Q300 236 400 218' fill='none' stroke='rgba(160,98,46,0.05)' stroke-width='1'/%3E%3Cpath d='M0 340 Q90 328 180 342 Q270 356 400 336' fill='none' stroke='rgba(181,137,74,0.06)' stroke-width='1'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+.recipe-intro {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.2vw, 1.3rem);
+  color: var(--text-body);
+  max-width: 55ch;
+  line-height: 1.8;
+  margin-bottom: 4rem;
+  opacity: 0.85;
+}
+
+/* Recipe card — the palette-as-ingredients list */
+.recipe-card {
+  background: #fff9ef; /* slightly brighter than buttermilk for card lift */
+  border: 1px solid rgba(160,98,46,0.15);
+  border-radius: 4px;
+  padding: clamp(2rem, 4vw, 3.5rem);
+  max-width: 680px;
+  position: relative;
+  box-shadow: 0 2px 24px rgba(61,34,18,0.06);
+}
+.recipe-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cline x1='0' y1='0' x2='60' y2='0' stroke='rgba(61,34,18,0.025)' stroke-width='0.8'/%3E%3Cline x1='0' y1='20' x2='60' y2='20' stroke='rgba(61,34,18,0.02)' stroke-width='0.6'/%3E%3Cline x1='0' y1='40' x2='60' y2='40' stroke='rgba(61,34,18,0.025)' stroke-width='0.8'/%3E%3C/svg%3E");
+  pointer-events: none;
+  border-radius: 4px;
+}
+
+.recipe-card-title {
+  font-family: 'Fraunces', serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--molasses);
+  margin-bottom: 2rem;
+  opacity: 0.65;
+}
+
+.recipe-ingredient-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.recipe-ingredient {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.ingredient-swatch {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(61,34,18,0.12);
+  position: relative;
+}
+
+/* Material textures per swatch */
+.swatch-burnt-sugar {
+  background: radial-gradient(circle at 38% 38%, #c07840, #A0622E 55%, #7a4020);
+}
+.swatch-garden-sage {
+  background: radial-gradient(circle at 42% 38%, #9ab89e, #7A9582 55%, #5c7464);
+}
+.swatch-buttermilk {
+  background: radial-gradient(circle at 45% 40%, #fff9ee, #FBF3E4 60%, #e8dccc);
+  border-color: rgba(160,98,46,0.25);
+}
+.swatch-stone-counter {
+  background: radial-gradient(circle at 40% 38%, #ddd8d2, #C9C2B8 55%, #b0a89e);
+}
+.swatch-brass-pull {
+  background: radial-gradient(circle at 35% 30%, #d9b872, #B5894A 55%, #8a6428);
+  box-shadow: inset 0 1px 3px rgba(255,255,255,0.25), inset 0 -1px 2px rgba(61,34,18,0.3);
+}
+.swatch-molasses {
+  background: radial-gradient(circle at 40% 38%, #5a3520, #3D2212 60%, #20100a);
+}
+.swatch-antique-blue {
+  background: radial-gradient(circle at 40% 38%, #7a9eb2, #5C7A8C 55%, #3a5c70);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Ccircle cx='18' cy='18' r='16' fill='none' stroke='rgba(255,255,255,0.10)' stroke-width='0.5'/%3E%3Ccircle cx='18' cy='18' r='10' fill='none' stroke='rgba(255,255,255,0.07)' stroke-width='0.4'/%3E%3C/svg%3E"),
+    radial-gradient(circle at 40% 38%, #7a9eb2, #5C7A8C 55%, #3a5c70);
+}
+.swatch-terracotta {
+  background: radial-gradient(circle at 40% 38%, #d4895e, #B5673F 55%, #8a4428);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Ccircle cx='6' cy='6' r='1' fill='rgba(0,0,0,0.06)'/%3E%3Ccircle cx='20' cy='10' r='0.7' fill='rgba(0,0,0,0.05)'/%3E%3Ccircle cx='12' cy='22' r='1.2' fill='rgba(0,0,0,0.06)'/%3E%3Ccircle cx='26' cy='26' r='0.8' fill='rgba(0,0,0,0.04)'/%3E%3C/svg%3E"),
+    radial-gradient(circle at 40% 38%, #d4895e, #B5673F 55%, #8a4428);
+}
+
+.ingredient-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+.ingredient-amount {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--molasses);
+  opacity: 0.55;
+  line-height: 1.2;
+}
+.ingredient-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--molasses);
+  line-height: 1.2;
+}
+.ingredient-note {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--molasses);
+  opacity: 0.5;
+  line-height: 1.3;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   SECTION 3: WHAT'S INSIDE (Kit contents)
+────────────────────────────────────────────────────────────── */
+
+#contents {
+  padding: var(--section-pad);
+  background: var(--molasses);
+  position: relative;
+  overflow: hidden;
+}
+/* Warm vein overlay on dark */
+#contents::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cpath d='M0 80 Q100 70 200 82 Q300 94 400 76' fill='none' stroke='rgba(181,137,74,0.10)' stroke-width='1.5'/%3E%3Cpath d='M0 200 Q120 188 240 202 Q360 216 400 196' fill='none' stroke='rgba(181,137,74,0.08)' stroke-width='1'/%3E%3Cpath d='M0 320 Q80 308 180 322 Q280 336 400 314' fill='none' stroke='rgba(181,137,74,0.09)' stroke-width='1.2'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+#contents .section-label {
+  color: var(--brass-pull);
+  /* Brass Pull on Molasses = 4.63:1 ✅ AA at this label size */
+}
+#contents .section-heading {
+  color: var(--buttermilk);
+}
+#contents .section-subhead {
+  color: var(--buttermilk);
+  opacity: 0.7;
+}
+
+.contents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.content-card {
+  background: rgba(251,243,228,0.06);
+  border: 1px solid rgba(181,137,74,0.2);
+  border-radius: 4px;
+  padding: 1.75rem 1.5rem;
+  position: relative;
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+.content-card:hover {
+  border-color: rgba(181,137,74,0.4);
+  background: rgba(251,243,228,0.10);
+}
+@media (prefers-reduced-motion: reduce) {
+  .content-card { transition: none; }
+}
+
+.content-card-icon {
+  width: 28px;
+  height: 28px;
+  margin-bottom: 1rem;
+  opacity: 0.7;
+}
+
+.content-card-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: var(--buttermilk);
+  margin-bottom: 0.5rem;
+  line-height: 1.25;
+}
+
+.content-card-desc {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 300;
+  color: var(--buttermilk);
+  opacity: 0.65;
+  line-height: 1.7;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   SECTION 4: THE TEXTURES (Materials in their element)
+────────────────────────────────────────────────────────────── */
+
+#textures {
+  padding: var(--section-pad);
+  background: var(--stone-counter);
+  position: relative;
+  overflow: hidden;
+}
+#textures::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cpath d='M0 80 Q60 74 120 82 Q180 90 240 76 Q280 68 300 80' fill='none' stroke='rgba(61,34,18,0.06)' stroke-width='1'/%3E%3Cpath d='M0 160 Q80 152 160 162 Q240 172 300 156' fill='none' stroke='rgba(61,34,18,0.05)' stroke-width='0.8'/%3E%3Cpath d='M0 240 Q70 232 140 242 Q210 252 300 234' fill='none' stroke='rgba(61,34,18,0.06)' stroke-width='1'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+#textures .section-label { color: var(--molasses); opacity: 0.55; }
+#textures .section-heading { color: var(--molasses); }
+#textures .section-subhead { color: var(--molasses); opacity: 0.7; }
+
+.texture-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+}
+
+.texture-card {
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  aspect-ratio: 3 / 2;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Each texture card uses CSS to render its material feel */
+.texture-burnt-sugar {
+  background: radial-gradient(ellipse at 30% 30%, #c88040, #A0622E 50%, #6e3c18);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cellipse cx='40' cy='40' rx='38' ry='36' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='1'/%3E%3Cellipse cx='40' cy='40' rx='28' ry='26' fill='none' stroke='rgba(255,255,255,0.04)' stroke-width='0.8'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 30% 30%, #c88040, #A0622E 50%, #6e3c18);
+}
+.texture-garden-sage {
+  background: radial-gradient(ellipse at 40% 30%, #a0c4a8, #7A9582 55%, #556a5e);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M10 30 Q20 10 30 30' fill='none' stroke='rgba(255,255,255,0.10)' stroke-width='0.8'/%3E%3Cpath d='M5 20 Q15 5 25 20' fill='none' stroke='rgba(255,255,255,0.07)' stroke-width='0.6'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 40% 30%, #a0c4a8, #7A9582 55%, #556a5e);
+}
+.texture-buttermilk {
+  background: #FBF3E4;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cline x1='0' y1='0' x2='60' y2='0' stroke='rgba(61,34,18,0.05)' stroke-width='1'/%3E%3Cline x1='0' y1='20' x2='60' y2='20' stroke='rgba(61,34,18,0.04)' stroke-width='0.8'/%3E%3Cline x1='0' y1='40' x2='60' y2='40' stroke='rgba(61,34,18,0.05)' stroke-width='1'/%3E%3Cline x1='0' y1='0' x2='0' y2='60' stroke='rgba(61,34,18,0.04)' stroke-width='0.8'/%3E%3Cline x1='20' y1='0' x2='20' y2='60' stroke='rgba(61,34,18,0.03)' stroke-width='0.6'/%3E%3Cline x1='40' y1='0' x2='40' y2='60' stroke='rgba(61,34,18,0.04)' stroke-width='0.8'/%3E%3C/svg%3E");
+}
+.texture-stone-counter {
+  background: radial-gradient(ellipse at 35% 35%, #ddd6cc, #C9C2B8 55%, #a8a09a);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cpath d='M0 50 Q50 45 100 52 Q150 58 200 48' fill='none' stroke='rgba(61,34,18,0.08)' stroke-width='0.8'/%3E%3Cpath d='M0 120 Q60 113 120 121 Q170 128 200 116' fill='none' stroke='rgba(61,34,18,0.06)' stroke-width='0.7'/%3E%3Cpath d='M30 0 Q28 50 32 100 Q34 150 28 200' fill='none' stroke='rgba(122,149,130,0.07)' stroke-width='0.6'/%3E%3C/svg%3E");
+}
+.texture-brass-pull {
+  background: radial-gradient(ellipse at 25% 25%, #e8c872, #B5894A 50%, #7a5a20);
+  box-shadow: inset 0 0 30px rgba(255,255,255,0.15), inset 0 0 10px rgba(255,200,80,0.2);
+}
+.texture-antique-blue {
+  background: radial-gradient(ellipse at 40% 35%, #7a9eb2, #5C7A8C 55%, #3a5468);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 0 L20 8 L12 0' fill='none' stroke='rgba(255,255,255,0.10)' stroke-width='0.5'/%3E%3Cpath d='M30 10 L45 18 L40 10' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='0.4'/%3E%3Cpath d='M5 30 L15 38 L10 30' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='0.4'/%3E%3Cpath d='M35 40 L50 48 L44 40' fill='none' stroke='rgba(255,255,255,0.10)' stroke-width='0.5'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 40% 35%, #7a9eb2, #5C7A8C 55%, #3a5468);
+}
+.texture-terracotta {
+  background: radial-gradient(ellipse at 38% 32%, #d0885e, #B5673F 55%, #804228);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30'%3E%3Ccircle cx='5' cy='5' r='1.5' fill='rgba(0,0,0,0.08)'/%3E%3Ccircle cx='18' cy='8' r='1' fill='rgba(0,0,0,0.06)'/%3E%3Ccircle cx='10' cy='18' r='1.8' fill='rgba(0,0,0,0.07)'/%3E%3Ccircle cx='24' cy='22' r='1.2' fill='rgba(0,0,0,0.05)'/%3E%3Ccircle cx='3' cy='24' r='1' fill='rgba(0,0,0,0.06)'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 38% 32%, #d0885e, #B5673F 55%, #804228);
+}
+.texture-molasses {
+  background: radial-gradient(ellipse at 35% 30%, #5a3820, #3D2212 55%, #1a0a04);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20'%3E%3Cline x1='0' y1='0' x2='20' y2='20' stroke='rgba(255,255,255,0.03)' stroke-width='0.5'/%3E%3Cline x1='0' y1='10' x2='10' y2='20' stroke='rgba(255,255,255,0.02)' stroke-width='0.4'/%3E%3Cline x1='10' y1='0' x2='20' y2='10' stroke='rgba(255,255,255,0.025)' stroke-width='0.4'/%3E%3C/svg%3E"),
+    radial-gradient(ellipse at 35% 30%, #5a3820, #3D2212 55%, #1a0a04);
+}
+
+/* Texture card caption */
+.texture-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem 1.25rem 1rem;
+  background: linear-gradient(to top, rgba(61,34,18,0.7) 0%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.texture-label-name {
+  font-family: 'Fraunces', serif;
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--buttermilk);
+  line-height: 1.2;
+}
+.texture-label-material {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  color: var(--buttermilk);
+  opacity: 0.65;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   SECTION 5: PULL QUOTE
+────────────────────────────────────────────────────────────── */
+
+#pull-quote {
+  padding: clamp(5rem, 10vw, 9rem) clamp(1.5rem, 8vw, 8rem);
+  background: var(--buttermilk);
+  text-align: center;
+  position: relative;
+}
+/* Subtle horizontal rule ornament */
+#pull-quote::before {
+  content: '';
+  position: absolute;
+  top: 3.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(60px, 15vw, 120px);
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--burnt-sugar), transparent);
+  opacity: 0.4;
+}
+#pull-quote::after {
+  content: '';
+  position: absolute;
+  bottom: 3.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: clamp(60px, 15vw, 120px);
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--burnt-sugar), transparent);
+  opacity: 0.4;
+}
+
+.pull-quote-mark {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(4rem, 10vw, 8rem);
+  line-height: 0.5;
+  color: var(--burnt-sugar);
+  opacity: 0.2;
+  display: block;
+  margin-bottom: 1.5rem;
+  font-style: italic;
+  font-weight: 400;
+  user-select: none;
+  aria-hidden: "true";
+}
+
+.pull-quote-text {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-size: clamp(1.5rem, 4vw, 2.75rem);
+  font-weight: 400;
+  color: var(--molasses);
+  line-height: 1.35;
+  max-width: 18ch;
+  margin: 0 auto 1.5rem;
+}
+.pull-quote-text span {
+  display: block;
+}
+
+.pull-quote-attr {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--molasses);
+  opacity: 0.4;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   SECTION 6: THE SALT NOTE (Teaching moment)
+────────────────────────────────────────────────────────────── */
+
+#salt-note {
+  padding: var(--section-pad);
+  background: var(--garden-sage);
+  position: relative;
+  overflow: hidden;
+}
+/* Leaf-vein texture overlay */
+#salt-note::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cpath d='M50 10 Q45 50 50 90' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='0.8'/%3E%3Cpath d='M50 50 Q35 42 20 48' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='0.6'/%3E%3Cpath d='M50 50 Q65 42 80 46' fill='none' stroke='rgba(255,255,255,0.06)' stroke-width='0.6'/%3E%3Cpath d='M50 35 Q38 28 28 32' fill='none' stroke='rgba(255,255,255,0.05)' stroke-width='0.5'/%3E%3Cpath d='M50 35 Q62 28 72 30' fill='none' stroke='rgba(255,255,255,0.05)' stroke-width='0.5'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+#salt-note .section-label {
+  color: var(--molasses);
+  opacity: 0.55;
+}
+
+.salt-note-content {
+  max-width: 680px;
+}
+
+.salt-note-heading {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(1.75rem, 3.5vw, 2.4rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--molasses);
+  line-height: 1.2;
+  margin-bottom: 1.75rem;
+}
+
+.salt-note-body {
+  font-family: 'Work Sans', sans-serif;
+  font-size: clamp(1rem, 1.5vw, 1.1rem);
+  font-weight: 400;
+  color: var(--molasses);
+  line-height: 1.85;
+  margin-bottom: 1.5rem;
+}
+
+.salt-note-callout {
+  border-left: 3px solid var(--molasses);
+  padding-left: 1.5rem;
+  margin: 2rem 0;
+}
+.salt-note-callout p {
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: clamp(1.05rem, 2vw, 1.2rem);
+  color: var(--molasses);
+  line-height: 1.7;
+  opacity: 0.85;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   SECTION 7: CTA FOOTER
+   Note: CTA button is STYLED ONLY — wiring to purchase/Ko-fi
+   is a THE-FOUR decision. Scoped out. Flag surfaced in receipt.
+────────────────────────────────────────────────────────────── */
+
+#cta-footer {
+  padding: clamp(6rem, 12vw, 10rem) clamp(1.5rem, 6vw, 6rem);
+  background: var(--molasses);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+/* Warm accent wash */
+#cta-footer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 60%, rgba(160,98,46,0.15), transparent 70%);
+  pointer-events: none;
+}
+
+.cta-eyebrow {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--brass-pull);
+  /* Brass Pull on Molasses = 4.63:1 ✅ AA at this weight/size */
+  margin-bottom: 1.5rem;
+  display: block;
+}
+
+.cta-heading {
+  font-family: 'Fraunces', serif;
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--buttermilk);
+  line-height: 1.1;
+  margin-bottom: 2.5rem;
+}
+
+/* CTA button — styled only, no purchase action wired */
+.cta-button {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--molasses);   /* Molasses on Buttermilk = 13.26:1 ✅ */
+  background: var(--buttermilk);
+  border: none;
+  border-radius: 2px;
+  cursor: default;  /* not wired — visual only */
+  position: relative;
+  z-index: 1;
+  transition: background 0.25s ease, color 0.25s ease;
+}
+.cta-button:hover,
+.cta-button:focus {
+  background: var(--brass-pull);
+  color: var(--molasses);
+  /* Molasses on Brass Pull = ~3.1:1 — border/fill only, text is decorative state
+     Heather to choose final wired state / copy when THE-FOUR is actioned */
+  outline: 2px solid var(--brass-pull);
+  outline-offset: 3px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .cta-button { transition: none; }
+}
+
+.cta-note {
+  margin-top: 2rem;
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 0.9rem;
+  color: var(--buttermilk);
+  opacity: 0.45;
+}
+
+/* ──────────────────────────────────────────────────────────────
+   RESPONSIVE
+────────────────────────────────────────────────────────────── */
+
 @media (max-width: 600px) {
-  .nav-links { display: none; } .palette-grid { grid-template-columns: 1fr; } .combo-grid { grid-template-columns: 1fr; } .cta-buttons { flex-direction: column; align-items: center; }
+  :root { --section-pad: clamp(3rem, 8vw, 5rem) 1.25rem; }
+  .recipe-card { padding: 1.5rem; }
+  .texture-grid { grid-template-columns: 1fr 1fr; }
+  .contents-grid { grid-template-columns: 1fr; }
 }
+
 </style>
 </head>
+
 <body>
 
-<nav>
-  <a href="../../index.html" class="nav-name">Emmy Bellamora</a>
-  <ul class="nav-links">
-    <li><a href="../../index.html#about">About</a></li>
-    <li><a href="../../index.html#work">Work</a></li>
-    <li><a href="../../index.html#approach">Approach</a></li>
-    <li><a href="../../index.html#working-together">Together</a></li>
-    <li><a href="../../index.html#contact">Contact</a></li>
-  </ul>
-</nav>
+<!-- SKIP LINK -->
+<a href="#main-content" class="skip-link">Skip to main content</a>
 
-<div class="breadcrumb">
-  <a href="../../index.html">Emmy</a><span class="breadcrumb-sep">/</span>
-  <a href="../../index.html#work">Brand Kits</a><span class="breadcrumb-sep">/</span>
-  <a href="../../index.html#work">Sugar on Top</a><span class="breadcrumb-sep">/</span>
-  <span>Salted Caramel</span>
-</div>
+<!-- MAIN CONTENT LANDMARK — wraps the hero so the <h1> lives inside <main> (a11y fix) -->
+<main id="main-content">
 
-<section class="kit-hero">
-  <div class="kit-hero-inner">
-    <div class="drips" aria-hidden="true">
-      <span class="drip drip-1"></span><span class="drip drip-2"></span><span class="drip drip-3"></span>
-      <span class="drip drip-4"></span><span class="drip drip-5"></span>
+<!-- ══════════════════════════════════════════════════════════════
+     SECTION 1: HERO — The Pour
+     All pour decoration is aria-hidden.
+     .hero-content is always in DOM, always readable.
+═════════════════════════════════════════════════════════════════ -->
+<section id="hero" aria-label="Salted Caramel kit introduction">
+
+  <!-- Pour decoration layer — aria-hidden, purely visual -->
+  <div class="hero-pour-layer" aria-hidden="true">
+
+    <!-- Caramel ribbon SVG path drawing itself down the hero -->
+    <div class="pour-ribbon">
+      <svg viewBox="0 0 340 560" fill="none" xmlns="http://www.w3.org/2000/svg"
+           role="presentation" focusable="false"
+           style="width:100%; height:100%; overflow:visible;">
+        <!-- Inner pour ribbon — slightly darker, the body of the pour -->
+        <path class="pour-ribbon-path" d="
+          M 290 0
+          C 285 40, 300 80, 280 130
+          C 265 175, 230 200, 210 240
+          C 195 275, 200 300, 185 330
+          C 172 355, 155 365, 150 390
+        "
+          fill="none"
+          stroke="#8a4e1a"
+          stroke-width="18"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          opacity="0.7"
+          style="stroke-dasharray: 900; stroke-dashoffset: 0;"
+        />
+        <!-- Outer pour ribbon — lighter, the warm highlight of the pour -->
+        <path class="pour-ribbon-path" d="
+          M 298 0
+          C 294 42, 310 84, 290 134
+          C 273 178, 238 203, 218 244
+          C 202 280, 208 305, 193 336
+          C 180 361, 163 370, 158 395
+        "
+          fill="none"
+          stroke="#c07840"
+          stroke-width="10"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          opacity="0.5"
+          style="stroke-dasharray: 900; stroke-dashoffset: 0;"
+        />
+      </svg>
     </div>
-    <div class="salt" style="bottom:18%;left:35%;" aria-hidden="true"></div>
-    <span class="salt salt-1" aria-hidden="true"></span><span class="salt salt-2" aria-hidden="true"></span>
-    <span class="salt salt-3" aria-hidden="true"></span><span class="salt salt-4" aria-hidden="true"></span>
-    <span class="salt salt-5" aria-hidden="true"></span>
-    <div class="kit-hero-wrap">
-      <div class="kit-hero-content">
-        <div class="kit-hero-meta">Sugar on Top &middot; Kit 02</div>
-        <h1 class="kit-hero-name">Salted Caramel</h1>
-        <p class="kit-hero-tagline">Sunday morning in a kitchen that actually gets used. Warm, grounded, real &mdash; for the brand that feels like coming home.</p>
-      </div>
+
+    <!-- Pool — amber ellipse settling at base of pour -->
+    <div class="pour-pool" aria-hidden="true"></div>
+
+    <!-- Salt crystals drifting onto the pool -->
+    <div class="salt-layer" aria-hidden="true">
+      <!-- 6 crystals, each positioned near the pool center -->
+      <div class="salt-crystal" style="
+        width:8px; height:5px;
+        left:calc(50% - 30px); top:calc(82% + 8px);
+        --crystal-delay: 0s;
+        --crystal-rot: -12deg;
+        transform: rotate(-12deg);
+      "></div>
+      <div class="salt-crystal" style="
+        width:5px; height:4px;
+        left:calc(50% + 10px); top:calc(82% + 5px);
+        --crystal-delay: 0.15s;
+        --crystal-rot: 6deg;
+        transform: rotate(6deg);
+      "></div>
+      <div class="salt-crystal" style="
+        width:10px; height:4px;
+        left:calc(50% + 35px); top:calc(82% + 12px);
+        --crystal-delay: 0.28s;
+        --crystal-rot: -4deg;
+        transform: rotate(-4deg);
+      "></div>
+      <div class="salt-crystal" style="
+        width:6px; height:4px;
+        left:calc(50% - 55px); top:calc(82% + 4px);
+        --crystal-delay: 0.40s;
+        --crystal-rot: 18deg;
+        transform: rotate(18deg);
+      "></div>
+      <div class="salt-crystal" style="
+        width:7px; height:5px;
+        left:calc(50% - 10px); top:calc(83% + 14px);
+        --crystal-delay: 0.52s;
+        --crystal-rot: -8deg;
+        transform: rotate(-8deg);
+      "></div>
+      <div class="salt-crystal" style="
+        width:5px; height:3px;
+        left:calc(50% + 60px); top:calc(82% + 3px);
+        --crystal-delay: 0.65s;
+        --crystal-rot: 22deg;
+        transform: rotate(22deg);
+      "></div>
+    </div>
+  </div>
+
+  <!-- Hero content — always readable -->
+  <div class="hero-content">
+    <p class="hero-eyebrow">Sugar on Top — Salted Caramel</p>
+    <h1 class="hero-title">
+      Warm.
+      <span class="title-accent">Come on in.</span>
+    </h1>
+    <p class="hero-subtitle">
+      Something's baking.<br>
+      Rich, warm, unhurried — the hug you didn't know you needed.
+    </p>
+  </div>
+
+  <div class="scroll-hint" aria-hidden="true">
+    <span>Take your time</span>
+    <div class="scroll-hint-bar"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SECTION 2: THE RECIPE — Palette as ingredients
+═════════════════════════════════════════════════════════════════ -->
+<section id="palette" aria-labelledby="palette-heading">
+  <div class="marble-vein" aria-hidden="true"></div>
+  <div class="section-inner">
+
+    <p class="section-label" aria-hidden="true">The Recipe</p>
+
+    <h2 class="section-heading" id="palette-heading" aria-label="The Recipe — your color palette">
+      Eight ingredients.<br>
+      <em>One kitchen.</em>
+    </h2>
+
+    <p class="recipe-intro reveal" aria-live="polite">
+      Everything here was already on her counter. She didn't go looking for a palette —
+      she looked around the room she already lived in.
+    </p>
+
+    <div class="recipe-card reveal" role="region" aria-label="Color palette as recipe ingredients">
+      <p class="recipe-card-title">The Salted Caramel Recipe</p>
+      <ul class="recipe-ingredient-list reveal-stagger" aria-label="Color palette ingredients">
+
+        <li class="recipe-ingredient">
+          <div class="ingredient-swatch swatch-molasses" role="img" aria-label="Molasses — color swatch, deep dark brown"></div>
+          <div class="ingredient-text">
+            <span class="ingredient-amount">the foundation —</span>
+            <span class="ingredient-name">Molasses</span>
+            <span class="ingredient-note">#3D2212 · deep anchor · primary text · where the eye rests</span>
+          </div>
+        </li>
+
+        <li class="recipe-ingredient">
+          <div class="ingredient-swatch swatch-burnt-sugar" role="img" aria-label="Burnt Sugar — color swatch, warm amber brown"></div>
+          <div class="ingredient-text">
+            <span class="ingredient-amount">2 generous parts —</span>
+            <span class="ingredient-name">Burnt Sugar</span>
+            <span class="ingredient-note">#A0622E · kit anchor · the warm grounded glow</span>
+          </div>
+        </li>
+
+        <li class="recipe-ingredient">
+          <div class="ingredient-swatch swatch-buttermilk" role="img" aria-label="Buttermilk — color swatch, warm cream"></div>
+          <div class="ingredient-text">
+            <span class="ingredient-amount">a warm surface of —</span>
+            <span class="ingredient-name">Buttermilk</span>
+            <span class="ingredient-note">#FBF3E4 · warm carrier neutral · linen, parchment, cookbook pages</span>
+          </div>
+        </li>
+
+        <li class="recipe-ingredient">
+          <div class="ingredient-swatch swatch-stone-counter" role="img" aria-label="Stone Counter — color swatch, cool grey"></div>
+          <div class="ingredient-text">
+            <span class="ingredient-amount">the cool slab —</span>
+            <span class="ingredient-name">Stone Counter</span>
+            <span class="ingredient-note">#C9C2B8 · cool carrier neutral · marble pastry slab, slate windowsill</span>
+          </div>
+        </li>
+
+        <li class="recipe-ingredient">
+          <div class="ingredient-swatch swatch-garden-sage" role="img" aria-label="Garden Sage — color swatch, muted green"></div>
+          <div class="ingredient-text">
+            <span class="ingredient-amount">one sprig —</span>
+            <span class="ingredient-name">Garden Sage</span>
+            <span class="ingredient-note">#7A9582 · counterweight + flex hue · the rosemary on the windowsill</span>
+          </div>
+        </li>
+
+        <li class="recipe-ingredient">
+          <div class="ingredient-swatch swatch-brass-pull" role="img" aria-label="Brass Pull — color swatch, warm metallic gold"></div>
+          <div class="ingredient-text">
+            <span class="ingredient-amount">the heirloom detail —</span>
+            <span class="ingredient-name">Brass Pull</span>
+            <span class="ingredient-note">#B5894A · metallic gleam · the drawer pull, the kettle, the spoon-rest bowl</span>
+          </div>
+        </li>
+
+        <li class="recipe-ingredient">
+          <div class="ingredient-swatch swatch-antique-blue" role="img" aria-label="Antique Blue — color swatch, muted blue-grey"></div>
+          <div class="ingredient-text">
+            <span class="ingredient-amount">a small piece of —</span>
+            <span class="ingredient-name">Antique Blue</span>
+            <span class="ingredient-note">#5C7A8C · saturated cool · the pottery above the sink she didn't choose and now can't imagine without</span>
+          </div>
+        </li>
+
+        <li class="recipe-ingredient">
+          <div class="ingredient-swatch swatch-terracotta" role="img" aria-label="Terracotta Pot — color swatch, warm earthen orange"></div>
+          <div class="ingredient-text">
+            <span class="ingredient-amount">the clay vessel —</span>
+            <span class="ingredient-name">Terracotta Pot</span>
+            <span class="ingredient-note">#B5673F · saturated warm · the bread bowl, the rosemary pot, the earthenware</span>
+          </div>
+        </li>
+
+      </ul>
     </div>
   </div>
 </section>
 
-<section id="inside" class="inside-section">
-  <div class="drips" aria-hidden="true">
-    <span class="drip drip-2"></span><span class="drip drip-4"></span><span class="drip drip-5"></span>
-  </div>
-  <div class="inside-inner">
-    <div class="inside-header">
-      <div>
-        <p class="section-eyebrow reveal">Everything in the box</p>
-        <h2 class="inside-title reveal">What you&rsquo;re actually getting.</h2>
+<!-- ══════════════════════════════════════════════════════════════
+     SECTION 3: WHAT'S INSIDE — Kit contents
+═════════════════════════════════════════════════════════════════ -->
+<section id="contents" aria-labelledby="contents-heading">
+  <div class="section-inner">
+
+    <p class="section-label" aria-hidden="true">What's Inside</p>
+
+    <h2 class="section-heading" id="contents-heading">
+      Everything you need.<br>
+      In the order you'll use it.
+    </h2>
+    <p class="section-subhead">
+      A complete brand kit — not a color dump. Every file has a purpose.
+    </p>
+
+    <div class="contents-grid reveal-stagger" role="list" aria-label="Kit contents">
+
+      <div class="content-card" role="listitem">
+        <svg class="content-card-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <rect x="4" y="4" width="20" height="20" rx="2" stroke="#FBF3E4" stroke-width="1.5"/>
+          <line x1="8" y1="10" x2="20" y2="10" stroke="#B5894A" stroke-width="1"/>
+          <line x1="8" y1="14" x2="20" y2="14" stroke="#FBF3E4" stroke-width="0.8" opacity="0.5"/>
+          <line x1="8" y1="18" x2="16" y2="18" stroke="#FBF3E4" stroke-width="0.8" opacity="0.5"/>
+        </svg>
+        <h3 class="content-card-name">Color Palette Guide</h3>
+        <p class="content-card-desc">All eight colors with hex codes, CMYK, RGB — and the story of each one. The palette is the woman, not the name.</p>
       </div>
-      <p class="inside-intro reveal">Not just colors. A whole material world &mdash; molasses wood, liquid caramel, fleur de sel, buttermilk linen &mdash; that you can step into and start using the same day.</p>
+
+      <div class="content-card" role="listitem">
+        <svg class="content-card-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <circle cx="14" cy="14" r="8" stroke="#FBF3E4" stroke-width="1.5"/>
+          <circle cx="14" cy="14" r="4" fill="#B5894A" opacity="0.6"/>
+          <line x1="14" y1="4" x2="14" y2="6" stroke="#FBF3E4" stroke-width="1"/>
+          <line x1="14" y1="22" x2="14" y2="24" stroke="#FBF3E4" stroke-width="1"/>
+          <line x1="4" y1="14" x2="6" y2="14" stroke="#FBF3E4" stroke-width="1"/>
+          <line x1="22" y1="14" x2="24" y2="14" stroke="#FBF3E4" stroke-width="1"/>
+        </svg>
+        <h3 class="content-card-name">Brand Board</h3>
+        <p class="content-card-desc">Full-palette visual reference — all eight colors in their material context, side by side. Save it, pin it, live in it.</p>
+      </div>
+
+      <div class="content-card" role="listitem">
+        <svg class="content-card-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <path d="M6 8 L14 4 L22 8 L22 20 L14 24 L6 20 Z" stroke="#FBF3E4" stroke-width="1.5"/>
+          <path d="M6 8 L14 12 L22 8" stroke="#B5894A" stroke-width="1" opacity="0.7"/>
+          <line x1="14" y1="12" x2="14" y2="24" stroke="#FBF3E4" stroke-width="1" opacity="0.5"/>
+        </svg>
+        <h3 class="content-card-name">Typography Suite</h3>
+        <p class="content-card-desc">Fraunces, Lora, Work Sans — the Sunday Kitchen Suite. Instructions for where each font lives and why.</p>
+      </div>
+
+      <div class="content-card" role="listitem">
+        <svg class="content-card-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <rect x="3" y="6" width="22" height="16" rx="1.5" stroke="#FBF3E4" stroke-width="1.5"/>
+          <line x1="7" y1="11" x2="21" y2="11" stroke="#B5894A" stroke-width="1"/>
+          <line x1="7" y1="14.5" x2="18" y2="14.5" stroke="#FBF3E4" stroke-width="0.8" opacity="0.5"/>
+          <line x1="7" y1="18" x2="14" y2="18" stroke="#FBF3E4" stroke-width="0.8" opacity="0.5"/>
+        </svg>
+        <h3 class="content-card-name">Color Combinations Cheat Sheet</h3>
+        <p class="content-card-desc">Which colors pair with which, and for what: body text, headers, buttons, backgrounds, accents. WCAG-checked.</p>
+      </div>
+
+      <div class="content-card" role="listitem">
+        <svg class="content-card-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <rect x="6" y="6" width="8" height="8" rx="1" fill="#A0622E" opacity="0.7"/>
+          <rect x="16" y="6" width="8" height="8" rx="1" fill="#7A9582" opacity="0.7"/>
+          <rect x="6" y="16" width="8" height="8" rx="1" fill="#B5894A" opacity="0.7"/>
+          <rect x="16" y="16" width="8" height="8" rx="1" fill="#5C7A8C" opacity="0.7"/>
+        </svg>
+        <h3 class="content-card-name">Social Header Templates</h3>
+        <p class="content-card-desc">Four header layouts using your Salted Caramel palette — ready to customize. Warm, not loud.</p>
+      </div>
+
+      <div class="content-card" role="listitem">
+        <svg class="content-card-icon" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+          <path d="M14 3 L14 25 M3 14 L25 14" stroke="#FBF3E4" stroke-width="1" opacity="0.3"/>
+          <circle cx="14" cy="14" r="4" stroke="#B5894A" stroke-width="1.5"/>
+          <circle cx="14" cy="14" r="1.5" fill="#B5894A" opacity="0.6"/>
+        </svg>
+        <h3 class="content-card-name">Link-in-Bio Template</h3>
+        <p class="content-card-desc">A styled link landing page in your colors. Warm, unhurried, exactly what comes home with you.</p>
+      </div>
+
     </div>
-    <div class="tier-cards">
-      <a href="#" class="tier-card tier-1 reveal">
-        <div class="tier-card-visual" style="background-image: linear-gradient(135deg, rgba(61,34,18,0.55), rgba(160,98,46,0.4)), var(--tex-burnt-sugar);"></div>
-        <div class="tier-card-body">
-          <div class="tier-card-eyebrow">Tier 1 &middot; The Kit</div>
-          <h3 class="tier-card-title">The Kit &mdash; $188</h3>
-          <p class="tier-card-desc">Brand board, color cheat sheet, eight material textures, and the Sunday Kitchen typography suite. Everything to use Salted Caramel the same day it arrives.</p>
-          <span class="tier-card-cta">See what's inside &rarr;</span>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════════════
+     SECTION 4: THE TEXTURES — Materials in their element
+═════════════════════════════════════════════════════════════════ -->
+<section id="textures" aria-labelledby="textures-heading">
+  <div class="section-inner">
+
+    <p class="section-label" aria-hidden="true">The Materials</p>
+
+    <h2 class="section-heading" id="textures-heading">
+      Nothing is flat.<br>
+      <em>Everything is material.</em>
+    </h2>
+    <p class="section-subhead">
+      The colors only make sense in context. Here's the context.
+    </p>
+
+    <div class="texture-grid reveal-stagger" role="list" aria-label="Color materials and textures">
+
+      <div class="texture-card texture-burnt-sugar" role="listitem">
+        <div class="texture-label">
+          <span class="texture-label-name">Burnt Sugar</span>
+          <span class="texture-label-material">Matte ceramic glaze · the pour bowl</span>
         </div>
-      </a>
-      <a href="#" class="tier-card tier-2 reveal">
-        <div class="tier-card-visual" style="background-image: linear-gradient(135deg, rgba(61,34,18,0.55), rgba(232,185,96,0.4)), var(--tex-liquid-caramel);"></div>
-        <div class="tier-card-body">
-          <div class="tier-card-eyebrow">Tier 2 &middot; The Playground</div>
-          <h3 class="tier-card-title">The Playground &mdash; $388</h3>
-          <p class="tier-card-desc">Everything in Tier 1, plus social templates, web-ready components, and the playground that lets you mix the kit any way your brand wants.</p>
-          <span class="tier-card-cta">See the full playground &rarr;</span>
+      </div>
+
+      <div class="texture-card texture-garden-sage" role="listitem">
+        <div class="texture-label">
+          <span class="texture-label-name">Garden Sage</span>
+          <span class="texture-label-material">Herb-leaf surface · the windowsill</span>
         </div>
-      </a>
-    </div>
-  </div>
-</section>
-
-<section class="painting-section">
-  <div class="painting-inner">
-    <div class="painting-grid">
-      <div class="reveal">
-        <div class="painting-label">The Scene Behind It</div>
-        <h2 class="painting-title">A kitchen<br>that actually<br>gets <em style="color:var(--sc-liquid-caramel);font-style:italic;">used.</em></h2>
-        <p class="painting-attribution">A scene, not a painting &mdash; built from feeling first.</p>
       </div>
-      <div class="painting-body reveal">
-        <p>Sunday morning. The light comes in sideways through old windows. There's a cast-iron pan on the stove, a well-worn cookbook on the counter, and something that smells like brown sugar and butter just crossing into caramel. <strong>You know this kitchen. You love this kitchen.</strong></p>
-        <p>Salted Caramel is for the brand that doesn't have to perform warmth because warmth is just what it is. The dark in this kit is not cold &mdash; it is molasses-brown, the inside of an old spice cabinet, wood worn smooth by years of use. The gold is <em>amber glass with honey in it</em>, not metallic, not sharp.</p>
-        <p>The salt is the whole point. It's the pinch of something unexpected that makes everything taste more like itself. <strong>Depth without heaviness. Sweetness with character.</strong> This kit is for the person whose brand should feel like your grandmother's kitchen &mdash; if your grandmother had incredible taste.</p>
-        <p>Nothing here is trendy. These colors have been the colors of <em>comfort</em> for hundreds of years. You're not chasing a moment. You're building something that will still feel right in ten years &mdash; warm wood, soft linen, amber glass, the smell of something good.</p>
+
+      <div class="texture-card texture-buttermilk" role="listitem">
+        <div class="texture-label" style="background: linear-gradient(to top, rgba(61,34,18,0.5) 0%, transparent 100%);">
+          <span class="texture-label-name">Buttermilk</span>
+          <span class="texture-label-material">Linen weave · the kitchen napkin</span>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
 
-<section class="palette-section">
-  <div class="palette-inner">
-    <div class="palette-header">
-      <div>
-        <p class="section-eyebrow reveal">The full eight</p>
-        <h2 class="palette-title reveal">Eight colors.<br>Eight materials.<br><em>One palette.</em></h2>
+      <div class="texture-card texture-stone-counter" role="listitem">
+        <div class="texture-label">
+          <span class="texture-label-name">Stone Counter</span>
+          <span class="texture-label-material">Polished marble · the pastry slab</span>
+        </div>
       </div>
-      <p class="palette-intro reveal">Each one named for what it actually <em>is</em>, because &ldquo;beige&rdquo; tells you nothing and <em>Fleur de Sel</em> tells you everything. <em>Nothing here is flat. Everything is edible.</em></p>
-    </div>
-    <div class="palette-row">
-      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #A0622E;"></div><div class="palette-chip-material chip-burnt-sugar"></div><div class="palette-chip-label"><span class="palette-chip-role">Signature Warm</span><span class="palette-chip-name">Burnt Sugar</span><span class="palette-chip-hex">#A0622E</span><p class="palette-chip-feel">That exact moment sugar crosses over into caramel &mdash; amber-brown, matte, slightly rough. The color of a handmade ceramic mug that keeps your coffee warm.</p></div></div>
-      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #E8B960;"></div><div class="palette-chip-material chip-liquid-caramel"></div><div class="palette-chip-label"><span class="palette-chip-role">Golden Accent</span><span class="palette-chip-name">Liquid Caramel</span><span class="palette-chip-hex">#E8B960</span><p class="palette-chip-feel">Molten amber catching light &mdash; the moment caramel pours from the spoon. Glossy, golden-brown, alive. The sweetest color in the kit.</p></div></div>
-      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #3D2212;"></div><div class="palette-chip-material chip-molasses"></div><div class="palette-chip-label"><span class="palette-chip-role">Primary Dark</span><span class="palette-chip-name">Molasses</span><span class="palette-chip-hex">#3D2212</span><p class="palette-chip-feel">The darkest thing in a spice cabinet &mdash; almost-black brown with warmth inside it. Never flat, never cold. Dark wood, not dark mood.</p></div></div>
-      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #C49175;"></div><div class="palette-chip-material chip-cinnamon"></div><div class="palette-chip-label"><span class="palette-chip-role">Spice Mid-tone</span><span class="palette-chip-name">Cinnamon Dust</span><span class="palette-chip-hex">#C49175</span><p class="palette-chip-feel">Cinnamon powder on steamed milk foam. The smell of Sunday. A warm terracotta that sits between burnt sugar and cream without fighting either one.</p></div></div>
-      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #D4CFC4;"></div><div class="palette-chip-material chip-fleur"></div><div class="palette-chip-label"><span class="palette-chip-role">Cool Accent</span><span class="palette-chip-name">Fleur de Sel</span><span class="palette-chip-hex">#D4CFC4</span><p class="palette-chip-feel">The only cool color in a warm kit &mdash; pale mineral gray, the color of salt crystals on a dark surface. The unexpected pinch that makes everything taste more like itself.</p></div></div>
-      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #6B3E26;"></div><div class="palette-chip-material chip-clove"></div><div class="palette-chip-label"><span class="palette-chip-role">Deep Mid</span><span class="palette-chip-name">Clove</span><span class="palette-chip-hex">#6B3E26</span><p class="palette-chip-feel">Rich warm bark. The color of clove and cinnamon sticks before they go in. Deeper than Burnt Sugar, lighter than Molasses &mdash; the color the whole spice cabinet agrees on.</p></div></div>
-      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #FBF3E4;"></div><div class="palette-chip-material chip-buttermilk"></div><div class="palette-chip-label"><span class="palette-chip-role">Warm Neutral</span><span class="palette-chip-name">Buttermilk</span><span class="palette-chip-hex">#FBF3E4</span><p class="palette-chip-feel">Linen that's been washed a hundred times. Warm, not stark &mdash; the color of old recipe cards and well-loved cookbooks. The cream that holds everything else.</p></div></div>
-      <div class="palette-chip reveal"><div class="palette-chip-color" style="background-color: #FFFAF2;"></div><div class="palette-chip-material chip-whipped"></div><div class="palette-chip-label"><span class="palette-chip-role">Highlight</span><span class="palette-chip-name">Whipped Cream</span><span class="palette-chip-hex">#FFFAF2</span><p class="palette-chip-feel">The lightest possible warmth. Almost-white with the faintest cream undertone &mdash; like a dollop of fresh whipped cream before it dissolves. The softest surface in the kit.</p></div></div>
+
+      <div class="texture-card texture-brass-pull" role="listitem">
+        <div class="texture-label">
+          <span class="texture-label-name">Brass Pull</span>
+          <span class="texture-label-material">Heirloom brass · the drawer pull</span>
+        </div>
+      </div>
+
+      <div class="texture-card texture-antique-blue" role="listitem">
+        <div class="texture-label">
+          <span class="texture-label-name">Antique Blue</span>
+          <span class="texture-label-material">Crackle pottery glaze · above the sink</span>
+        </div>
+      </div>
+
+      <div class="texture-card texture-terracotta" role="listitem">
+        <div class="texture-label">
+          <span class="texture-label-name">Terracotta Pot</span>
+          <span class="texture-label-material">Unglazed clay · the herb pot</span>
+        </div>
+      </div>
+
+      <div class="texture-card texture-molasses" role="listitem">
+        <div class="texture-label">
+          <span class="texture-label-name">Molasses</span>
+          <span class="texture-label-material">Dark wood grain · the cabinet shadow</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<section class="type-section">
-  <div class="type-header">
-    <div>
-      <p class="section-eyebrow reveal">The Sunday Kitchen Suite</p>
-      <h2 class="type-title reveal">Three fonts.<br>One suite.</h2>
-    </div>
-    <p class="type-intro reveal"><strong>Fraunces commands. Lora warms. Work Sans clears the table.</strong> Three fonts that feel like a kitchen at different hours of the day. All three are free Google Fonts, forever yours.</p>
-  </div>
-  <div class="type-card reveal">
-    <div class="type-card-meta">Headline &middot; Fraunces 700 (optical size variable)</div>
-    <div class="type-card-display">Sunday morning.</div>
-    <div class="type-card-name">Fraunces 700, 72pt &middot; Molasses</div>
-  </div>
-  <div class="type-card reveal">
-    <div class="type-card-meta">Subhead &middot; Lora 400 italic</div>
-    <p class="type-card-subhead">The warmth between the headline and the work. Lora in italic has the quality of handwriting that got very good &mdash; practiced, natural, genuinely warm without being precious.</p>
-    <div class="type-card-name">Lora 400 italic, 28pt &middot; Clove on Buttermilk</div>
-  </div>
-  <div class="type-card reveal">
-    <div class="type-card-meta">Body &middot; Work Sans 300&ndash;400</div>
-    <p class="type-card-body">Work Sans earns its name. At 300 weight it steps back &mdash; the words matter, not the font. At 400 with a little tracking it becomes a clean, grounded caption voice. Not invisible like Inter, but present in a quiet way, like someone who knows when to talk and when to listen.</p>
-    <div class="type-card-name">Work Sans 300, 16pt &middot; Clove on Buttermilk</div>
-  </div>
-  <div class="type-rule reveal">The rule:<br><em>Fraunces commands. Lora warms. Work Sans clears the table. Never make them compete.</em></div>
+<!-- ══════════════════════════════════════════════════════════════
+     SECTION 5: PULL QUOTE
+═════════════════════════════════════════════════════════════════ -->
+<section id="pull-quote" aria-label="Brand character statement">
+  <blockquote>
+    <span class="pull-quote-mark" aria-hidden="true">"</span>
+    <p class="pull-quote-text">
+      <span>Sunday morning.</span>
+      <span>Rich, warm, unhurried.</span>
+      <span>The hug you didn't know you needed.</span>
+    </p>
+    <footer>
+      <cite class="pull-quote-attr">Salted Caramel — Sugar on Top</cite>
+    </footer>
+  </blockquote>
 </section>
 
-<section class="combo-section">
-  <div class="combo-header">
-    <div>
-      <p class="section-eyebrow reveal">How to use them</p>
-      <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
+<!-- ══════════════════════════════════════════════════════════════
+     SECTION 6: THE SALT NOTE — Teaching the kit while selling it
+═════════════════════════════════════════════════════════════════ -->
+<section id="salt-note" aria-labelledby="salt-note-heading">
+  <div class="section-inner">
+
+    <p class="section-label" aria-hidden="true">On the Salt</p>
+
+    <div class="salt-note-content reveal">
+      <h2 class="salt-note-heading" id="salt-note-heading">
+        "Every warm palette needs a moment of cool contrast —<br>
+        or it collapses into mud."
+      </h2>
+
+      <p class="salt-note-body">
+        This is why we named the kit <em>Salted</em> Caramel, not just Caramel.
+        Garden Sage and Stone Counter aren't decorations — they're the structural
+        counterweight that keeps the warm palette from going flat.
+      </p>
+
+      <div class="salt-note-callout">
+        <p>
+          "The salt that makes the caramel" is both a flavor principle and a
+          brand principle. A palette that's all warmth, all the time, has nowhere
+          to go. The contrast — the cool herb, the marble slab — is what makes
+          the warmth feel like warmth, and not just beige.
+        </p>
+      </div>
+
+      <p class="salt-note-body">
+        When you use this kit, let Garden Sage do its job. Put it on the
+        windowsill of your Instagram grid. Let Stone Counter carry your coolest
+        section backgrounds. The warmth will sing louder for having somewhere to
+        land between notes.
+      </p>
     </div>
-    <p class="combo-intro reveal">A color swatch on white tells you nothing. What matters is how a color <em>behaves</em> next to other colors. These are the signature pairings &mdash; the combinations Salted Caramel was built for.</p>
-  </div>
-  <div class="combo-grid">
-    <div class="combo-card combo-1 reveal"><div class="combo-text"><div class="combo-pair">The Signature</div><div class="combo-name">Molasses &amp; Honey</div></div></div>
-    <div class="combo-card combo-2 reveal"><div class="combo-text"><div class="combo-pair">Sunday Light</div><div class="combo-name">Honey on Linen</div></div></div>
-    <div class="combo-card combo-3 reveal"><div class="combo-text"><div class="combo-pair">Amber &amp; Warmth</div><div class="combo-name">Honey on Molasses</div></div></div>
-    <div class="combo-card combo-4 reveal"><div class="combo-text"><div class="combo-pair">Soft &amp; Sweet</div><div class="combo-name">Whipped &amp; Cinnamon</div></div></div>
-    <div class="combo-card combo-5 reveal"><div class="combo-text"><div class="combo-pair">The Warm Middle</div><div class="combo-name">Burnt Sugar &amp; Clove</div></div></div>
-    <div class="combo-card combo-6 reveal"><div class="combo-text"><div class="combo-pair">Depth &amp; Spice</div><div class="combo-name">Clove on Molasses</div></div></div>
   </div>
 </section>
 
-<section class="cta-section">
-  <div class="cta-inner">
-    <div class="cta-label">Take it Home</div>
-    <h2 class="cta-big reveal">Your brand should feel<br>like somewhere<br>people want to stay.</h2>
-    <p class="cta-sub reveal">Salted Caramel is for the brand that doesn&rsquo;t perform warmth &mdash; it just is warm. The kit is available now. If you want a custom kit built for your world, or if you&rsquo;d like Emmy to translate Salted Caramel into a full website &mdash; that&rsquo;s available too.</p>
-    <div class="cta-buttons reveal">
-      <a href="mailto:hello@emmybellamora.com?subject=Salted Caramel Kit" class="btn-primary">Get Salted Caramel — $188</a>
-      <a href="../../index.html#working-together" class="btn-ghost">Talk to Emmy</a>
-    </div>
+<!-- ══════════════════════════════════════════════════════════════
+     SECTION 7: CTA FOOTER
+     ⚠️  PUBLISHING / PAYMENT NOT WIRED — THE FOUR decision pending.
+     Button is display-only. Wire with Ko-fi or payment link when actioned.
+═════════════════════════════════════════════════════════════════ -->
+<section id="cta-footer" aria-labelledby="cta-heading">
+  <div class="section-inner">
+    <span class="cta-eyebrow">Your palette is waiting</span>
+    <h2 class="cta-heading" id="cta-heading">Take your time.</h2>
+    <!-- CTA button: DISPLAY ONLY — not wired to purchase (THE FOUR) -->
+    <a href="#" class="cta-button" aria-disabled="true" tabindex="-1"
+       aria-label="This kit — purchase link not yet active">
+      This is yours.
+    </a>
+    <p class="cta-note">When you're ready — it'll still be warm.</p>
   </div>
 </section>
 
-<footer>
-  <div class="footer-name">Emmy Bellamora</div>
-  <div class="footer-note">Creative Director &middot; Cognitive UX Designer &middot; Fairy With Bite 🧚‍♀️</div>
-</footer>
+</main>
 
 <script>
-const reveals = document.querySelectorAll('.reveal');
-// Hide reveal elements only after we know JS is running — that way if JS is off
-// or interrupted, content stays visible by the .reveal { opacity: 1 } default.
-reveals.forEach(el => el.classList.add('pre-reveal'));
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.remove('pre-reveal'); entry.target.classList.add('visible'); } });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-reveals.forEach(el => observer.observe(el));
+/* ─────────────────────────────────────────────────────────────
+   SALTED CARAMEL — Page Experience JS
+   Scope: animation triggers only. Content is ALWAYS visible
+   without JS. JS only adds entrance flourishes.
+   No-JS fallback: full page reads at 100% opacity.
+   Reduced-motion: prefers-reduced-motion bypasses all.
+────────────────────────────────────────────────────────────── */
 
-// Carousel JS removed V3 — carousel replaced with tier-cards in session 11
+(function () {
+  'use strict';
+
+  const motionOK = window.matchMedia('(prefers-reduced-motion: no-preference)').matches;
+
+  /* ── HERO POUR SEQUENCE ────────────────────────────────── */
+  /* SVG pour: animate stroke-dashoffset to draw the ribbon */
+  if (motionOK) {
+    const ribbonPaths = document.querySelectorAll('.pour-ribbon-path');
+    ribbonPaths.forEach(function (path) {
+      const length = path.getTotalLength ? path.getTotalLength() : 900;
+      path.style.strokeDasharray = length;
+      path.style.strokeDashoffset = length;
+      path.style.transition = 'stroke-dashoffset 3.2s cubic-bezier(0.22, 0.61, 0.36, 1) 0.3s';
+      /* Small timeout to let paint fire first */
+      setTimeout(function () {
+        path.style.strokeDashoffset = '0';
+      }, 80);
+    });
+
+    /* Salt crystals: trigger after settle delay (~4.4s) */
+    setTimeout(function () {
+      var crystals = document.querySelectorAll('.salt-crystal');
+      crystals.forEach(function (crystal) {
+        crystal.classList.add('settled');
+      });
+    }, 4400);
+
+  } else {
+    /* Reduced motion: pour ribbon immediately visible */
+    document.querySelectorAll('.pour-ribbon-path').forEach(function (p) {
+      p.style.strokeDashoffset = '0';
+    });
+    /* Crystals immediately visible */
+    document.querySelectorAll('.salt-crystal').forEach(function (c) {
+      c.style.opacity = '0.9';
+      c.style.transform = 'rotate(var(--crystal-rot, 0deg))';
+    });
+  }
+
+  /* ── SCROLL REVEAL (IntersectionObserver) ─────────────── */
+  /* Content rests at opacity 1 (CSS default, no override).
+     JS ONLY adds the .in-view class to trigger animation.
+     If observer never fires, content is ALREADY VISIBLE. */
+  if ('IntersectionObserver' in window && motionOK) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          io.unobserve(entry.target); /* fire once */
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal, .reveal-stagger').forEach(function (el) {
+      io.observe(el);
+    });
+  }
+  /* No observer or reduced-motion: .in-view never added;
+     content still renders at full opacity (CSS resting state = visible). */
+
+})();
 </script>
+
 </body>
 </html>
