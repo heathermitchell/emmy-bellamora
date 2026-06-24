@@ -11,7 +11,7 @@ type: workflow-note
 
 ## The setup
 
-- **Local working dir:** `zcos/zc-peeps/emmy/emmy-bellamora/` (this folder)
+- **Local working dir:** `~/Documents/emmy-biz/_emmy-bellamora/` (this folder — the vault-side path listed here originally no longer exists)
 - **Git repo:** has its own `.git` — separate from the vault's git repo
 - **Remote:** `https://github.com/heathermitchell/emmy-bellamora.git`
 - **Live site:** `https://emmybellamora.com` (Cloudflare Pages, auto-deploys on push to `main`)
