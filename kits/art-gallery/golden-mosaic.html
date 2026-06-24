@@ -271,6 +271,16 @@ body {
   max-width: 700px;
 }
 
+/* ── TEXT-FIELD TILE OVERRIDE
+   Tiles that fall behind the hero text get this class added by JS.
+   Background-color becomes Byzantine Teal so gold/cream text is legible.
+   The tile's pattern SVG (background-image) stays — it shows subtly through
+   on teal, which is correct: still a mosaic tile, now a readable field.
+   No scrim. No vignette. Just the right tile color under the right letters. */
+.hero-tile.text-field {
+  background-color: var(--byzantine-teal) !important;
+}
+
 .hero-eyebrow {
   font-family: 'DM Sans', sans-serif;
   font-size: 0.75rem;
@@ -1452,6 +1462,8 @@ blockquote {
       document.querySelectorAll('.hero .hero-tile').forEach(el => el.classList.add('revealed'));
       document.querySelectorAll('#hero-eyebrow, #hero-title, #hero-subtitle, #hero-divider, #hero-descriptor')
         .forEach(el => el.classList.add('revealed'));
+      // Mark text-field tiles immediately (tiles are in position at load)
+      markTextFieldTiles();
       return;
     }
 
@@ -1468,7 +1480,52 @@ blockquote {
       document.querySelectorAll('#hero-eyebrow, #hero-title, #hero-subtitle, #hero-divider, #hero-descriptor')
         .forEach(el => el.classList.add('revealed'));
     }, 200);
+
+    // Mark text-field tiles after layout is stable (tiles are positioned at load)
+    markTextFieldTiles();
   }
+
+  /* ── TEXT-FIELD TILE MARKING
+     Identifies which hero background tiles fall behind the hero text content
+     and adds the .text-field class so their background becomes Byzantine Teal.
+     The fix: tile color changes, mosaic structure stays intact. No scrim.
+     Runs once after tiles are revealed, then again on resize (debounced). */
+  function markTextFieldTiles () {
+    var content = document.querySelector('.hero-content');
+    var tiles   = document.querySelectorAll('.hero-mosaic .hero-tile');
+    if (!content || !tiles.length) return;
+
+    var cr = content.getBoundingClientRect();
+    /* Expand the zone slightly so edge tiles that partially overlap get caught */
+    var pad = 16;
+    var zone = {
+      top:    cr.top    - pad,
+      bottom: cr.bottom + pad,
+      left:   cr.left   - pad,
+      right:  cr.right  + pad
+    };
+
+    tiles.forEach(function (tile) {
+      var tr = tile.getBoundingClientRect();
+      /* Intersection: tile overlaps the content zone */
+      var overlaps = tr.right  > zone.left  &&
+                     tr.left   < zone.right &&
+                     tr.bottom > zone.top   &&
+                     tr.top    < zone.bottom;
+      if (overlaps) {
+        tile.classList.add('text-field');
+      } else {
+        tile.classList.remove('text-field');
+      }
+    });
+  }
+
+  /* Debounced resize handler — re-mark on viewport change */
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(markTextFieldTiles, 120);
+  });
 
   /* ── INTERSECTION OBSERVER — scroll reveals ── */
   function initScrollReveals () {
