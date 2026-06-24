@@ -22,7 +22,7 @@
   --deep-night: #0D0A14; --amethyst: #6B3FA0; --amethyst-light: #9B6FD0; --violet-dusk: #2D1B4E; --fairy-silver: #C8B8E8; --moonpetal: #E8D8F8; --snowflake: #F5F0FF;
   --vn-amber-glow: #D4A0A0; --vn-plum-vortex: #2C1810; --vn-coral-flame: #B87D7D; --vn-brushstroke-gold: #C4909B; --vn-rose-dust: #6B3A2A; --vn-burnt-umber: #1A0F0A; --vn-canvas-cream: #F2E6D9; --vn-twilight-slate: #FFF5EE;
   --font-emmy-display: 'Cormorant Garamond', serif; --font-emmy-body: 'Jost', sans-serif;
-  --font-vn-display: 'Playfair Display', serif; --font-ss-subhead: 'Cormorant Garamond', serif; --font-ss-body: 'Inter', sans-serif;
+  --font-vn-display: 'Playfair Display', serif; --font-vn-subhead: 'Cormorant Garamond', serif; --font-vn-body: 'Inter', sans-serif;
 }
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -60,10 +60,10 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .kit-hero-inner::after { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-52deg, transparent 0px, transparent 3px, rgba(212,160,160,0.04) 3px, rgba(212,160,160,0.04) 4px), repeating-linear-gradient(38deg, transparent 0px, transparent 3px, rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px); pointer-events: none; z-index: 1; }
 .kit-hero-wrap { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 3rem; position: relative; z-index: 2; }
 .kit-hero-content { position: relative; z-index: 1; max-width: 720px; }
-.kit-hero-meta { font-family: var(--font-ss-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--vn-brushstroke-gold); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.85rem; }
+.kit-hero-meta { font-family: var(--font-vn-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--vn-brushstroke-gold); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.85rem; }
 .kit-hero-meta::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--vn-brushstroke-gold); opacity: 0.7; }
 .kit-hero-name { font-family: var(--font-vn-display); font-size: clamp(3.5rem, 7vw, 6rem); font-weight: 700; color: var(--vn-canvas-cream); line-height: 1.0; letter-spacing: -0.015em; margin-bottom: 1.5rem; text-shadow: 0 2px 32px rgba(0,0,0,0.6), 0 4px 64px rgba(0,0,0,0.3); }
-.kit-hero-tagline { font-family: var(--font-ss-subhead); font-style: italic; font-size: clamp(1.1rem, 1.8vw, 1.4rem); color: var(--vn-canvas-cream); line-height: 1.6; opacity: 0.95; text-shadow: 0 2px 20px rgba(0,0,0,0.6); max-width: 580px; }
+.kit-hero-tagline { font-family: var(--font-vn-subhead); font-style: italic; font-size: clamp(1.1rem, 1.8vw, 1.4rem); color: var(--vn-canvas-cream); line-height: 1.6; opacity: 0.95; text-shadow: 0 2px 20px rgba(0,0,0,0.6); max-width: 580px; }
 .painting-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 60% 50%, rgba(44,24,16,0.45) 0%, transparent 65%), linear-gradient(to bottom, rgba(26,15,10,0.38) 0%, rgba(26,15,10,0.32) 100%), var(--tex-dark-ganache); background-size: auto, auto, cover; }
 .painting-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(212,160,160,0.08) 0%, transparent 55%); pointer-events: none; }
 .painting-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
@@ -108,12 +108,12 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .type-intro strong { color: var(--vn-amber-glow); font-weight: 400; }
 .type-card { background-image: linear-gradient(to bottom right, rgba(242,230,217,0.97) 0%, rgba(255,245,238,0.97) 100%), var(--tex-cocoa-cream); background-size: auto, cover; background-blend-mode: multiply; border-radius: 16px; padding: 4rem 3.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.2); }
 .type-card::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(42deg, transparent 0px, transparent 4px, rgba(26,15,10,0.022) 4px, rgba(26,15,10,0.022) 5px); pointer-events: none; }
-.type-card-meta { font-family: var(--font-ss-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--vn-burnt-umber); opacity: 0.7; margin-bottom: 1rem; position: relative; }
+.type-card-meta { font-family: var(--font-vn-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--vn-burnt-umber); opacity: 0.7; margin-bottom: 1rem; position: relative; }
 .type-card-display { font-family: var(--font-vn-display); font-weight: 700; font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.0; color: var(--vn-plum-vortex); margin-bottom: 0.5rem; letter-spacing: -0.02em; position: relative; }
-.type-card-name { font-family: var(--font-ss-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--vn-burnt-umber); opacity: 0.65; margin-top: 1rem; margin-bottom: 2rem; position: relative; }
-.type-card-subhead { font-family: var(--font-ss-subhead); font-style: italic; font-weight: 500; font-size: clamp(1.4rem, 2.4vw, 1.9rem); color: var(--vn-burnt-umber); line-height: 1.4; margin-bottom: 1.5rem; max-width: 720px; position: relative; }
-.type-card-body { font-family: var(--font-ss-body); font-weight: 300; font-size: 1rem; line-height: 1.75; color: var(--vn-rose-dust); max-width: 620px; position: relative; }
-.type-rule { background-image: linear-gradient(to bottom, rgba(26,15,10,0.92) 0%, rgba(44,24,16,0.88) 100%), var(--tex-velvet-drape); background-size: auto, cover; border-radius: 16px; padding: 3.5rem 3.5rem; text-align: center; font-family: var(--font-ss-subhead); font-style: italic; font-weight: 500; font-size: clamp(1.3rem, 2.4vw, 1.9rem); line-height: 1.5; color: var(--vn-canvas-cream); position: relative; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.5); }
+.type-card-name { font-family: var(--font-vn-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--vn-burnt-umber); opacity: 0.65; margin-top: 1rem; margin-bottom: 2rem; position: relative; }
+.type-card-subhead { font-family: var(--font-vn-subhead); font-style: italic; font-weight: 500; font-size: clamp(1.4rem, 2.4vw, 1.9rem); color: var(--vn-burnt-umber); line-height: 1.4; margin-bottom: 1.5rem; max-width: 720px; position: relative; }
+.type-card-body { font-family: var(--font-vn-body); font-weight: 300; font-size: 1rem; line-height: 1.75; color: var(--vn-rose-dust); max-width: 620px; position: relative; }
+.type-rule { background-image: linear-gradient(to bottom, rgba(26,15,10,0.92) 0%, rgba(44,24,16,0.88) 100%), var(--tex-velvet-drape); background-size: auto, cover; border-radius: 16px; padding: 3.5rem 3.5rem; text-align: center; font-family: var(--font-vn-subhead); font-style: italic; font-weight: 500; font-size: clamp(1.3rem, 2.4vw, 1.9rem); line-height: 1.5; color: var(--vn-canvas-cream); position: relative; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.5); }
 .type-rule::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-48deg, transparent 0px, transparent 3px, rgba(212,160,160,0.03) 3px, rgba(212,160,160,0.03) 4px); pointer-events: none; }
 .type-rule em { color: var(--vn-brushstroke-gold); font-style: italic; position: relative; }
 .combo-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
@@ -127,7 +127,7 @@ nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 
 .combo-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 45%, transparent 70%); pointer-events: none; border-radius: 14px; }
 .combo-text { position: relative; z-index: 1; }
 .combo-name { font-family: var(--font-vn-display); font-weight: 700; font-size: 1.5rem; line-height: 1.1; margin-bottom: 0.4rem; }
-.combo-pair { font-family: var(--font-ss-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.8; }
+.combo-pair { font-family: var(--font-vn-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.8; }
 /* Combo cards demonstrate their named pairings literally:
    text color = the named accent color in the pairing,
    background = the texture + gradient of the named base color. */
