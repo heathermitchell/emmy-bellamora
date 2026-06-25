@@ -62,7 +62,7 @@ html {
   /* All tiles are visible from paint */
   .mosaic-tile { opacity: 1 !important; transform: scale(1) !important; }
   /* Palette tiles: no hover transform */
-  .palette-tile:hover { transform: none !important; }
+  .palette-swatch:hover { transform: none !important; }
   /* Kill all transitions and animations */
   * {
     transition-duration: 0.01ms !important;
@@ -395,11 +395,11 @@ body {
    SECTION SHARED STYLES
 ───────────────────────────────────────────── */
 section {
-  padding: 5rem 2rem;
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 5rem);
 }
 
 .section-inner {
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
@@ -491,7 +491,7 @@ section {
 
 .palette-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--grout);
   background: var(--grout-unfilled);
   border: var(--grout) solid var(--grout-unfilled);
@@ -503,7 +503,7 @@ section {
   border-color: var(--grout-filled);
 }
 
-.palette-tile {
+.palette-swatch {
   aspect-ratio: 1;
   cursor: pointer;
   position: relative;
@@ -513,8 +513,8 @@ section {
     transform 0.3s var(--tile-ease),
     box-shadow 0.3s ease;
 }
-.palette-tile:hover,
-.palette-tile:focus-visible {
+.palette-swatch:hover,
+.palette-swatch:focus-visible {
   transform: scale(1.06);
   box-shadow: 0 8px 32px rgba(0,0,0,0.35), 0 0 0 2px var(--hammered-gold);
   z-index: 10;
@@ -538,8 +538,8 @@ section {
   transform: translateY(100%);
   transition: transform 0.3s var(--tile-ease);
 }
-.palette-tile:hover .palette-label,
-.palette-tile:focus-visible .palette-label { transform: translateY(0); }
+.palette-swatch:hover .palette-label,
+.palette-swatch:focus-visible .palette-label { transform: translateY(0); }
 
 .palette-hex {
   display: block;
@@ -551,7 +551,7 @@ section {
 }
 
 /* Accessible: label always readable when tile is focused by keyboard */
-.palette-tile:focus-visible .palette-label { transform: translateY(0); }
+.palette-swatch:focus-visible .palette-label { transform: translateY(0); }
 
 /* ─────────────────────────────────────────────
    WHAT'S INSIDE — TILE GRID
@@ -566,7 +566,7 @@ section {
 
 .contents-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--grout);
   background: var(--grout-unfilled);
   border: var(--grout) solid var(--grout-unfilled);
@@ -865,7 +865,7 @@ blockquote {
 /* ─────────────────────────────────────────────
    RESPONSIVE — stack gracefully at small sizes
 ───────────────────────────────────────────── */
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .hero { padding: 4rem 1.25rem 3rem; }
   section { padding: 3.5rem 1.25rem; }
   .pull-quote-tile { padding: 2.5rem 1.5rem; }
@@ -880,9 +880,9 @@ blockquote {
 
 <body>
 
-<a href="#main" class="skip-link">Skip to content</a>
+<a href="#main-content" class="skip-link">Skip to content</a>
 
-<main id="main">
+<main id="main-content">
 
   <!-- ═══════════════════════════════════════════
        HERO — The mosaic arrives fractured (dark grout).
@@ -1052,7 +1052,7 @@ blockquote {
       <div class="palette-grid js-grout-reveal reveal-group js-reveal-group" role="list" aria-label="Golden Mosaic color palette">
 
         <!-- 1. Hammered Gold -->
-        <div class="palette-tile mosaic-tile pattern-hammered-gold js-tile" role="listitem" tabindex="0"
+        <div class="palette-swatch mosaic-tile pattern-hammered-gold js-tile" role="listitem" tabindex="0"
              aria-label="Hammered Gold, hex C9A84C — kit anchor, the unifying thread">
           <span class="palette-label">
             Hammered Gold
@@ -1061,7 +1061,7 @@ blockquote {
         </div>
 
         <!-- 2. Byzantine Teal -->
-        <div class="palette-tile mosaic-tile pattern-byzantine-teal js-tile" role="listitem" tabindex="0"
+        <div class="palette-swatch mosaic-tile pattern-byzantine-teal js-tile" role="listitem" tabindex="0"
              aria-label="Byzantine Teal, hex 1B5E6B — counterweight, cool anchor">
           <span class="palette-label">
             Byzantine Teal
@@ -1070,7 +1070,7 @@ blockquote {
         </div>
 
         <!-- 3. Ivory Tessera -->
-        <div class="palette-tile mosaic-tile pattern-ivory-tessera js-tile" role="listitem" tabindex="0"
+        <div class="palette-swatch mosaic-tile pattern-ivory-tessera js-tile" role="listitem" tabindex="0"
              aria-label="Ivory Tessera, hex F5EDE0 — warm carrier neutral, marble ground">
           <span class="palette-label">
             Ivory Tessera
@@ -1079,7 +1079,7 @@ blockquote {
         </div>
 
         <!-- 4. Lead Came -->
-        <div class="palette-tile mosaic-tile pattern-lead-came js-tile" role="listitem" tabindex="0"
+        <div class="palette-swatch mosaic-tile pattern-lead-came js-tile" role="listitem" tabindex="0"
              aria-label="Lead Came, hex 404048 — cool carrier neutral, structural metal">
           <span class="palette-label">
             Lead Came
@@ -1088,7 +1088,7 @@ blockquote {
         </div>
 
         <!-- 5. Rose Quartz -->
-        <div class="palette-tile mosaic-tile pattern-rose-quartz js-tile" role="listitem" tabindex="0"
+        <div class="palette-swatch mosaic-tile pattern-rose-quartz js-tile" role="listitem" tabindex="0"
              aria-label="Rose Quartz, hex C4909A — flex hue, the humanizing color">
           <span class="palette-label">
             Rose Quartz
@@ -1097,7 +1097,7 @@ blockquote {
         </div>
 
         <!-- 6. Mosaic Midnight -->
-        <div class="palette-tile mosaic-tile pattern-mosaic-midnight js-tile" role="listitem" tabindex="0"
+        <div class="palette-swatch mosaic-tile pattern-mosaic-midnight js-tile" role="listitem" tabindex="0"
              aria-label="Mosaic Midnight, hex 1A2F3A — pattern-edge dark, the grout between tiles">
           <span class="palette-label">
             Mosaic Midnight
@@ -1106,7 +1106,7 @@ blockquote {
         </div>
 
         <!-- 7. Mulberry Wine -->
-        <div class="palette-tile mosaic-tile pattern-mulberry-wine js-tile" role="listitem" tabindex="0"
+        <div class="palette-swatch mosaic-tile pattern-mulberry-wine js-tile" role="listitem" tabindex="0"
              aria-label="Mulberry Wine, hex 7A2848 — saturated berry accent, the jewel">
           <span class="palette-label">
             Mulberry Wine
@@ -1115,7 +1115,7 @@ blockquote {
         </div>
 
         <!-- 8. Antique Bronze -->
-        <div class="palette-tile mosaic-tile pattern-antique-bronze js-tile" role="listitem" tabindex="0"
+        <div class="palette-swatch mosaic-tile pattern-antique-bronze js-tile" role="listitem" tabindex="0"
              aria-label="Antique Bronze, hex 8B6F47 — warm bridge, gold's earthier cousin">
           <span class="palette-label" style="color: var(--ivory-tessera);">
             Antique Bronze
@@ -1124,7 +1124,7 @@ blockquote {
         </div>
 
         <!-- 9. Pale Gilt -->
-        <div class="palette-tile mosaic-tile pattern-pale-gilt js-tile" role="listitem" tabindex="0"
+        <div class="palette-swatch mosaic-tile pattern-pale-gilt js-tile" role="listitem" tabindex="0"
              aria-label="Pale Gilt, hex E8D5A3 — light metallic, gold diluted with sunlight">
           <span class="palette-label">
             Pale Gilt
@@ -1425,7 +1425,7 @@ blockquote {
         <span class="gold">Golden</span><br>Mosaic
       </h2>
       <p class="footer-sub">Art Gallery Collection — Kit No. 3</p>
-      <a href="#" class="cta-button js-cta" role="button">This Is Yours</a>
+      <a href="#" class="cta-button js-cta" role="button" aria-disabled="true">This Is Yours</a>
       <p class="footer-note">Inspired by Gustav Klimt — <em>The Kiss</em>, 1907–1908</p>
     </div>
 

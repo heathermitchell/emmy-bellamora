@@ -28,7 +28,7 @@
   --spotlight-cream:  #FBF4EC;   /* Warm carrier neutral */
   --mirror-light:     #B8C2C7;   /* Cool carrier neutral (v3 addition) */
   --mirror-sage:      #8EA89A;   /* Flex hue */
-  --rosin-gold:       #C9A55A;   /* Material / Metallic */
+  --rosin-gold:       #A87E2A;   /* Material / Metallic — hero-title a11y: deepened from #C9A55A (2.28:1, below large-text AA) to #A87E2A (3.8:1, passes); stays warm amber gold */
   --velvet-wing:      #3A2A2E;   /* Deep anchor (value extreme) */
   --studio-floor:     #6B4A32;   /* Structural mid (warm depth) */
   --barre-gray:       #A09690;   /* Warm neutral mid */
@@ -50,7 +50,7 @@
   --dissolve-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
 
   /* ── Layout ── */
-  --section-pad: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 5rem);
+  --section-pad: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 5rem);
   --max-w: 960px;
 }
 
@@ -684,7 +684,7 @@ section {
 
 .palette-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5px;
   background: rgba(160, 150, 144, 0.2);  /* barre gray as grout */
   border: 1.5px solid rgba(160, 150, 144, 0.2);
@@ -863,7 +863,7 @@ section {
 
 .contents-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1px;
   background: rgba(160, 150, 144, 0.15);
   border: 1px solid rgba(160, 150, 144, 0.15);
@@ -2008,7 +2008,7 @@ section {
 
       <p class="footer-kit-id">Art Gallery Collection &ensp;&mdash;&ensp; Kit No. 5</p>
 
-      <a href="#" class="cta-button js-cta" role="button">Yours.</a>
+      <a href="#" class="cta-button js-cta" role="button" aria-disabled="true">Yours.</a>
 
       <p class="footer-note">Inspired by Edgar Degas &mdash; <em>The Ballet Class</em>, 1871&ndash;1874</p>
 

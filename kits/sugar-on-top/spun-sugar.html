@@ -253,7 +253,7 @@ body {
 }
 .hero-title .soft-word {
   display: inline-block;
-  background: linear-gradient(135deg, var(--champagne-rose), var(--dawn-blush));
+  background: linear-gradient(135deg, #A85570, #C4857A); /* a11y: deepened from champagne-rose/dawn-blush gradient; lightest stop (#C4857A) now 4.2:1 on cloud-linen — passes large-text AA */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -382,9 +382,26 @@ body {
 }
 
 .palette-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.palette-row {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 2.5rem 2rem;
+}
+
+.palette-row:nth-child(1),
+.palette-row:nth-child(3) {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.palette-row:nth-child(2) {
+  grid-template-columns: repeat(2, 1fr);
+  max-width: 66.666%;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .palette-item {
@@ -508,7 +525,7 @@ body {
 
 .contents-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 3rem 4rem;
   margin-top: 3rem;
 }
@@ -1000,14 +1017,17 @@ body {
 /* ─────────────────────────────────────────────────────────
    RESPONSIVE
 ───────────────────────────────────────────────────────── */
-@media (max-width: 768px) {
-  .palette-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem 1.5rem; }
+@media (max-width: 640px) {
+  .palette-row:nth-child(1),
+  .palette-row:nth-child(3) { grid-template-columns: 1fr 1fr; }
+  .palette-row:nth-child(2) { max-width: 100%; }
   .texture-grid { grid-template-columns: repeat(2, 1fr); }
   .combo-grid   { grid-template-columns: 1fr; }
   .type-specimens { grid-template-columns: 1fr; }
 }
 @media (max-width: 480px) {
-  .palette-grid { grid-template-columns: repeat(2, 1fr); gap: 1.5rem 1rem; }
+  .palette-row:nth-child(1),
+  .palette-row:nth-child(3) { grid-template-columns: 1fr 1fr; }
   .texture-grid { grid-template-columns: 1fr; }
 }
 
@@ -1102,85 +1122,100 @@ body {
 
     <div class="palette-grid" role="list">
 
-      <div class="palette-item js-reveal" role="listitem">
-        <div class="swatch-card swatch-dawn-blush" aria-label="Dawn Blush swatch">
-          <div class="swatch-fill"></div>
-        </div>
-        <p class="palette-name">Dawn Blush</p>
-        <p class="palette-role">Anchor</p>
-        <p class="palette-feeling">The sky ten minutes before sunrise. Warmth-by-choice.</p>
-        <p class="palette-hex">#EABFB9</p>
-      </div>
+      <!-- Row 1: 3 swatches -->
+      <div class="palette-row">
 
-      <div class="palette-item js-reveal" role="listitem">
-        <div class="swatch-card swatch-champagne-rose" aria-label="Champagne Rose swatch">
-          <div class="swatch-fill"></div>
+        <div class="palette-item js-reveal" role="listitem">
+          <div class="swatch-card swatch-dawn-blush" aria-label="Dawn Blush swatch">
+            <div class="swatch-fill"></div>
+          </div>
+          <p class="palette-name">Dawn Blush</p>
+          <p class="palette-role">Anchor</p>
+          <p class="palette-feeling">The sky ten minutes before sunrise. Warmth-by-choice.</p>
+          <p class="palette-hex">#EABFB9</p>
         </div>
-        <p class="palette-name">Champagne Rose</p>
-        <p class="palette-role">Counterweight</p>
-        <p class="palette-feeling">The proof of strength. Softness chose to be here.</p>
-        <p class="palette-hex">#C97A8C</p>
-      </div>
 
-      <div class="palette-item js-reveal" role="listitem">
-        <div class="swatch-card swatch-cloud-linen" aria-label="Cloud Linen swatch">
-          <div class="swatch-fill"></div>
+        <div class="palette-item js-reveal" role="listitem">
+          <div class="swatch-card swatch-champagne-rose" aria-label="Champagne Rose swatch">
+            <div class="swatch-fill"></div>
+          </div>
+          <p class="palette-name">Champagne Rose</p>
+          <p class="palette-role">Counterweight</p>
+          <p class="palette-feeling">The proof of strength. Softness chose to be here.</p>
+          <p class="palette-hex">#C97A8C</p>
         </div>
-        <p class="palette-name">Cloud Linen</p>
-        <p class="palette-role">Warm Carrier Neutral</p>
-        <p class="palette-feeling">The canvas. The breath. Linen more cloud than fabric.</p>
-        <p class="palette-hex">#FDF5F0</p>
-      </div>
 
-      <div class="palette-item js-reveal" role="listitem">
-        <div class="swatch-card swatch-wet-petal" aria-label="Wet Petal swatch">
-          <div class="swatch-fill"></div>
+        <div class="palette-item js-reveal" role="listitem">
+          <div class="swatch-card swatch-cloud-linen" aria-label="Cloud Linen swatch">
+            <div class="swatch-fill"></div>
+          </div>
+          <p class="palette-name">Cloud Linen</p>
+          <p class="palette-role">Warm Carrier Neutral</p>
+          <p class="palette-feeling">The canvas. The breath. Linen more cloud than fabric.</p>
+          <p class="palette-hex">#FDF5F0</p>
         </div>
-        <p class="palette-name">Wet Petal</p>
-        <p class="palette-role">Cool Carrier Neutral</p>
-        <p class="palette-feeling">Porcelain rim, mother-of-pearl, the underside of morning.</p>
-        <p class="palette-hex">#C5CCCE</p>
-      </div>
 
-      <div class="palette-item js-reveal" role="listitem">
-        <div class="swatch-card swatch-garden-sage" aria-label="Garden Sage swatch">
-          <div class="swatch-fill"></div>
-        </div>
-        <p class="palette-name">Garden Sage</p>
-        <p class="palette-role">Flex Hue</p>
-        <p class="palette-feeling">The rosemary on the windowsill. Grounded in what she loves.</p>
-        <p class="palette-hex">#9DAE96</p>
-      </div>
+      </div><!-- /palette-row 1 -->
 
-      <div class="palette-item js-reveal" role="listitem">
-        <div class="swatch-card swatch-plum-shadow" aria-label="Plum Shadow swatch">
-          <div class="swatch-fill"></div>
-        </div>
-        <p class="palette-name">Plum Shadow</p>
-        <p class="palette-role">Deep Value Accent</p>
-        <p class="palette-feeling">Night still clinging at the horizon. The depth the dream rises out of.</p>
-        <p class="palette-hex">#2D1E3A</p>
-      </div>
+      <!-- Row 2: 2 swatches (centered) -->
+      <div class="palette-row">
 
-      <div class="palette-item js-reveal" role="listitem">
-        <div class="swatch-card swatch-lilac-dusk" aria-label="Lilac Dusk swatch">
-          <div class="swatch-fill"></div>
+        <div class="palette-item js-reveal" role="listitem">
+          <div class="swatch-card swatch-wet-petal" aria-label="Wet Petal swatch">
+            <div class="swatch-fill"></div>
+          </div>
+          <p class="palette-name">Wet Petal</p>
+          <p class="palette-role">Cool Carrier Neutral</p>
+          <p class="palette-feeling">Porcelain rim, mother-of-pearl, the underside of morning.</p>
+          <p class="palette-hex">#C5CCCE</p>
         </div>
-        <p class="palette-name">Lilac Dusk</p>
-        <p class="palette-role">Cool Mid-Depth Accent</p>
-        <p class="palette-feeling">Where the soft colors go to get serious. The bridge.</p>
-        <p class="palette-hex">#7E6B8A</p>
-      </div>
 
-      <div class="palette-item js-reveal" role="listitem">
-        <div class="swatch-card swatch-morning-mist" aria-label="Morning Mist swatch">
-          <div class="swatch-fill"></div>
+        <div class="palette-item js-reveal" role="listitem">
+          <div class="swatch-card swatch-garden-sage" aria-label="Garden Sage swatch">
+            <div class="swatch-fill"></div>
+          </div>
+          <p class="palette-name">Garden Sage</p>
+          <p class="palette-role">Flex Hue</p>
+          <p class="palette-feeling">The rosemary on the windowsill. Grounded in what she loves.</p>
+          <p class="palette-hex">#9DAE96</p>
         </div>
-        <p class="palette-name">Morning Mist</p>
-        <p class="palette-role">Cool Mid-Tone Accent</p>
-        <p class="palette-feeling">Fog before the sun burns through. The inhale to the exhale.</p>
-        <p class="palette-hex">#9FB5C4</p>
-      </div>
+
+      </div><!-- /palette-row 2 -->
+
+      <!-- Row 3: 3 swatches -->
+      <div class="palette-row">
+
+        <div class="palette-item js-reveal" role="listitem">
+          <div class="swatch-card swatch-plum-shadow" aria-label="Plum Shadow swatch">
+            <div class="swatch-fill"></div>
+          </div>
+          <p class="palette-name">Plum Shadow</p>
+          <p class="palette-role">Deep Value Accent</p>
+          <p class="palette-feeling">Night still clinging at the horizon. The depth the dream rises out of.</p>
+          <p class="palette-hex">#2D1E3A</p>
+        </div>
+
+        <div class="palette-item js-reveal" role="listitem">
+          <div class="swatch-card swatch-lilac-dusk" aria-label="Lilac Dusk swatch">
+            <div class="swatch-fill"></div>
+          </div>
+          <p class="palette-name">Lilac Dusk</p>
+          <p class="palette-role">Cool Mid-Depth Accent</p>
+          <p class="palette-feeling">Where the soft colors go to get serious. The bridge.</p>
+          <p class="palette-hex">#7E6B8A</p>
+        </div>
+
+        <div class="palette-item js-reveal" role="listitem">
+          <div class="swatch-card swatch-morning-mist" aria-label="Morning Mist swatch">
+            <div class="swatch-fill"></div>
+          </div>
+          <p class="palette-name">Morning Mist</p>
+          <p class="palette-role">Cool Mid-Tone Accent</p>
+          <p class="palette-feeling">Fog before the sun burns through. The inhale to the exhale.</p>
+          <p class="palette-hex">#9FB5C4</p>
+        </div>
+
+      </div><!-- /palette-row 3 -->
 
     </div>
   </div>
@@ -1453,7 +1488,7 @@ body {
 <!-- ─────────────────────────────────────────────
      SECTION 8: CTA FOOTER
 ───────────────────────────────────────────── -->
-<footer id="cta" aria-label="Get the Spun Sugar kit">
+<footer id="cta-footer" aria-label="Get the Spun Sugar kit">
   <div class="cta-inner">
     <p class="cta-eyebrow">Delicate. On purpose.</p>
     <h2 class="cta-headline">She&rsquo;s<br>waiting.</h2>

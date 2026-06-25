@@ -135,7 +135,7 @@ body {
    SECTION SHARED STYLES
 ───────────────────────────────────────────── */
 section {
-  padding: 5rem 2rem;
+  padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 5rem);
 }
 
 .section-inner {
@@ -654,16 +654,20 @@ section {
    Flat blocks — bold, one word each.
    Outlined in Charcoal Ink.
 ───────────────────────────────────────────── */
-#colors {
+#palette {
   background: var(--cream-playbill);
 }
 
 .palette-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 0;
+  display: flex;
+  flex-direction: column;
   border: 3px solid var(--charcoal-ink);
   margin-top: 3rem;
+}
+
+.palette-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .palette-block {
@@ -1357,7 +1361,7 @@ section {
 /* ─────────────────────────────────────────────
    RESPONSIVE — stack at small sizes
 ───────────────────────────────────────────── */
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   section { padding: 3rem 1.25rem; }
   #pull-quote { padding: 4rem 1.25rem; }
   #pull-quote::before { inset: 1rem; }
@@ -1368,7 +1372,7 @@ section {
     height: min(460px, 80vh);
   }
 
-  .palette-grid { grid-template-columns: repeat(4, 1fr); }
+  .palette-row { grid-template-columns: repeat(4, 1fr); }
   .textures-grid { grid-template-columns: repeat(2, 1fr); }
   .kit-posters-grid { grid-template-columns: 1fr; }
   .fill-demo { flex-direction: column; align-items: flex-start; }
@@ -1376,8 +1380,8 @@ section {
   .peel-instruction { display: none; }
 }
 
-@media (max-width: 400px) {
-  .palette-grid { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 480px) {
+  .palette-row { grid-template-columns: repeat(2, 1fr); }
 }
 
 </style>
@@ -1399,6 +1403,11 @@ section {
        full scrollable sections below.
        No-JS: posters settled, all readable.
        Reduced-motion: same — posters settled, fills filled.
+
+       DOCUMENTED EXCEPTION (kit-page-standard):
+       rouge-poster hero = poster-stack with visually-hidden SR text.
+       NOT a standard hero section. Do not convert to standard hero shape.
+       SR accessibility provided by .visually-hidden <p> below.
   ═══════════════════════════════════════════ -->
   <section id="hero" aria-label="Rouge Poster — Kit introduction">
 
@@ -1464,7 +1473,7 @@ section {
        Flat color blocks — no gradients, no soft edges.
        One word each. Hover scale. Charcoal Ink outline.
   ═══════════════════════════════════════════ -->
-  <section id="colors" aria-labelledby="colors-heading">
+  <section id="palette" aria-labelledby="colors-heading">
     <div class="section-inner">
 
       <div class="reveal-group js-reveal-group">
@@ -1478,77 +1487,86 @@ section {
 
       <div class="palette-grid js-palette-grid" role="list" aria-label="Rouge Poster color palette">
 
-        <div class="palette-block block-cabaret reveal-on-scroll js-reveal"
-             role="listitem" tabindex="0"
-             aria-label="Cabaret Magenta, hex C4285C — Bold. The anchor. Presence as design choice.">
-          <div class="palette-block-label">
-            <span class="palette-block-word">Bold.</span>
-            <span class="palette-block-name">Cabaret Magenta #C4285C</span>
+        <!-- Row 1: 3 swatches -->
+        <div class="palette-row">
+          <div class="palette-block palette-swatch block-cabaret reveal-on-scroll js-reveal"
+               role="listitem" tabindex="0"
+               aria-label="Cabaret Magenta, hex C4285C — Bold. The anchor. Presence as design choice.">
+            <div class="palette-block-label">
+              <span class="palette-block-word">Bold.</span>
+              <span class="palette-block-name">Cabaret Magenta #C4285C</span>
+            </div>
           </div>
-        </div>
 
-        <div class="palette-block block-charcoal reveal-on-scroll js-reveal"
-             role="listitem" tabindex="0"
-             aria-label="Charcoal Ink, hex 2D2D30 — Line. The counterweight. The bold outline.">
-          <div class="palette-block-label">
-            <span class="palette-block-word">Line.</span>
-            <span class="palette-block-name">Charcoal Ink #2D2D30</span>
+          <div class="palette-block palette-swatch block-charcoal reveal-on-scroll js-reveal"
+               role="listitem" tabindex="0"
+               aria-label="Charcoal Ink, hex 2D2D30 — Line. The counterweight. The bold outline.">
+            <div class="palette-block-label">
+              <span class="palette-block-word">Line.</span>
+              <span class="palette-block-name">Charcoal Ink #2D2D30</span>
+            </div>
           </div>
-        </div>
 
-        <div class="palette-block block-absinthe reveal-on-scroll js-reveal"
-             role="listitem" tabindex="0"
-             aria-label="Absinthe, hex A8C43E — Electric. The flex hue. Yellow-green that crackles.">
-          <div class="palette-block-label">
-            <span class="palette-block-word">Electric.</span>
-            <span class="palette-block-name">Absinthe #A8C43E</span>
+          <div class="palette-block palette-swatch block-absinthe reveal-on-scroll js-reveal"
+               role="listitem" tabindex="0"
+               aria-label="Absinthe, hex A8C43E — Electric. The flex hue. Yellow-green that crackles.">
+            <div class="palette-block-label">
+              <span class="palette-block-word">Electric.</span>
+              <span class="palette-block-name">Absinthe #A8C43E</span>
+            </div>
           </div>
-        </div>
+        </div><!-- /palette-row 1 -->
 
-        <div class="palette-block block-ochre reveal-on-scroll js-reveal"
-             role="listitem" tabindex="0"
-             aria-label="Ochre Stage, hex C49548 — Warm. The vintage warmth bridge.">
-          <div class="palette-block-label">
-            <span class="palette-block-word">Warm.</span>
-            <span class="palette-block-name">Ochre Stage #C49548</span>
+        <!-- Row 2: 2 swatches (centered) -->
+        <div class="palette-row" style="grid-template-columns: repeat(2, 1fr);">
+          <div class="palette-block palette-swatch block-ochre reveal-on-scroll js-reveal"
+               role="listitem" tabindex="0"
+               aria-label="Ochre Stage, hex C49548 — Warm. The vintage warmth bridge.">
+            <div class="palette-block-label">
+              <span class="palette-block-word">Warm.</span>
+              <span class="palette-block-name">Ochre Stage #C49548</span>
+            </div>
           </div>
-        </div>
 
-        <div class="palette-block block-midnight reveal-on-scroll js-reveal"
-             role="listitem" tabindex="0"
-             aria-label="Midnight Velvet, hex 1A1428 — Drama. The deepest dark. Before the lights come up.">
-          <div class="palette-block-label">
-            <span class="palette-block-word">Drama.</span>
-            <span class="palette-block-name">Midnight Velvet #1A1428</span>
+          <div class="palette-block palette-swatch block-midnight reveal-on-scroll js-reveal"
+               role="listitem" tabindex="0"
+               aria-label="Midnight Velvet, hex 1A1428 — Drama. The deepest dark. Before the lights come up.">
+            <div class="palette-block-label">
+              <span class="palette-block-word">Drama.</span>
+              <span class="palette-block-name">Midnight Velvet #1A1428</span>
+            </div>
           </div>
-        </div>
+        </div><!-- /palette-row 2 -->
 
-        <div class="palette-block block-cream reveal-on-scroll js-reveal"
-             role="listitem" tabindex="0"
-             aria-label="Cream Playbill, hex F5EDD8 — Paper. The warm off-white of old poster paper.">
-          <div class="palette-block-label">
-            <span class="palette-block-word">Paper.</span>
-            <span class="palette-block-name">Cream Playbill #F5EDD8</span>
+        <!-- Row 3: 3 swatches -->
+        <div class="palette-row">
+          <div class="palette-block palette-swatch block-cream reveal-on-scroll js-reveal"
+               role="listitem" tabindex="0"
+               aria-label="Cream Playbill, hex F5EDD8 — Paper. The warm off-white of old poster paper.">
+            <div class="palette-block-label">
+              <span class="palette-block-word">Paper.</span>
+              <span class="palette-block-name">Cream Playbill #F5EDD8</span>
+            </div>
           </div>
-        </div>
 
-        <div class="palette-block block-blush reveal-on-scroll js-reveal"
-             role="listitem" tabindex="0"
-             aria-label="Blush Cancan, hex E89AA5 — Ruffle. Cabaret Magenta's softer echo.">
-          <div class="palette-block-label">
-            <span class="palette-block-word">Ruffle.</span>
-            <span class="palette-block-name">Blush Cancan #E89AA5</span>
+          <div class="palette-block palette-swatch block-blush reveal-on-scroll js-reveal"
+               role="listitem" tabindex="0"
+               aria-label="Blush Cancan, hex E89AA5 — Ruffle. Cabaret Magenta's softer echo.">
+            <div class="palette-block-label">
+              <span class="palette-block-word">Ruffle.</span>
+              <span class="palette-block-name">Blush Cancan #E89AA5</span>
+            </div>
           </div>
-        </div>
 
-        <div class="palette-block block-zinc reveal-on-scroll js-reveal"
-             role="listitem" tabindex="0"
-             aria-label="Zinc Matte, hex 7A7A7E — Street. The wall. The cool carrier neutral.">
-          <div class="palette-block-label">
-            <span class="palette-block-word">Street.</span>
-            <span class="palette-block-name">Zinc Matte #7A7A7E</span>
+          <div class="palette-block palette-swatch block-zinc reveal-on-scroll js-reveal"
+               role="listitem" tabindex="0"
+               aria-label="Zinc Matte, hex 7A7A7E — Street. The wall. The cool carrier neutral.">
+            <div class="palette-block-label">
+              <span class="palette-block-word">Street.</span>
+              <span class="palette-block-name">Zinc Matte #7A7A7E</span>
+            </div>
           </div>
-        </div>
+        </div><!-- /palette-row 3 -->
 
       </div>
 
@@ -1890,7 +1908,8 @@ section {
 
       <!-- CTA button — outline fills with Cabaret Magenta on scroll/hover -->
       <a href="#" class="cta-button js-cta-button"
-         aria-label="Get the Rouge Poster brand kit">
+         aria-label="Get the Rouge Poster brand kit"
+         aria-disabled="true">
         <span class="cta-button-text">YOURS.</span>
       </a>
 

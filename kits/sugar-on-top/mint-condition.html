@@ -250,7 +250,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--spearmint);
+  color: var(--evergreen); /* a11y: was --spearmint (2.15:1 fail on morning-glass) → evergreen 9.05:1 */
   margin-bottom: 1.5rem;
   display: block;
 }
@@ -357,7 +357,7 @@ body {
 
 .palette-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.25rem;
   margin-top: 0;
 }
@@ -604,7 +604,7 @@ body {
 
 .kit-contents-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem 2rem;
 }
 
@@ -1299,7 +1299,7 @@ body {
        NOTE: Button has no live href — publishing/money = THE FOUR.
        Flag: wire to Ko-fi or sales destination when Heather confirms.
   ═══════════════════════════════════════════ -->
-  <section id="cta" aria-labelledby="cta-heading">
+  <section id="cta-footer" aria-labelledby="cta-heading">
     <div class="cta-inner">
 
       <h2 id="cta-heading" class="cta-headline vapor-host">

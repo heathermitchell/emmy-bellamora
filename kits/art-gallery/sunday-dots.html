@@ -43,8 +43,8 @@
   --dot-trail-color:  var(--coral-confetti);
 
   /* ── Layout ── */
-  --section-pad: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 6rem);
-  --max-w: 1100px;
+  --section-pad: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 5vw, 5rem);
+  --max-w: 960px;
 }
 
 /* ─── RESET ─── */
@@ -287,7 +287,7 @@ body {
 
 .palette-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem 1.5rem;
 }
 
@@ -372,7 +372,7 @@ body {
 
 .kit-contents-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   position: relative;
   z-index: 1;
@@ -607,7 +607,7 @@ body {
   z-index: 1;
 }
 
-@media (max-width: 720px) {
+@media (max-width: 640px) {
   .philosophy-inner { grid-template-columns: 1fr; gap: 2.5rem; }
 }
 
@@ -664,7 +664,7 @@ body {
    "Every small thing." / Button: "Yours."
 ────────────────────────────────────────────────────────── */
 
-#cta {
+#cta-footer {
   padding: var(--section-pad);
   background: var(--linen-white);
   text-align: center;
@@ -706,7 +706,7 @@ body {
   line-height: 1.6;
 }
 
-.cta-btn {
+.cta-button {
   display: inline-block;
   background: var(--coral-confetti);
   color: var(--linen-white);
@@ -724,15 +724,15 @@ body {
   position: relative;
 }
 
-.cta-btn:hover,
-.cta-btn:focus-visible {
+.cta-button:hover,
+.cta-button:focus-visible {
   background: transparent;
   color: var(--coral-confetti);
   border-color: var(--coral-confetti);
   outline: none;
 }
 
-.cta-btn:focus-visible {
+.cta-button:focus-visible {
   outline: 3px solid var(--coral-confetti);
   outline-offset: 3px;
 }
@@ -790,7 +790,7 @@ body {
 }
 
 /* ── RESPONSIVE HELPERS ── */
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   .palette-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem 0.75rem; }
   .textures-grid { grid-template-columns: repeat(2, 1fr); }
   .kit-contents-grid { grid-template-columns: 1fr 1fr; }
@@ -847,6 +847,7 @@ body {
              The grid is populated by JS; the noscript version replaces it. -->
       </div>
 
+      <!-- sunday-dots: JS-rendered SVG swatches — noscript fallback required per kit-page-standard -->
       <!-- No-JS fallback palette (hidden when JS runs) -->
       <noscript>
         <div class="palette-grid" style="margin-top:0">
@@ -1081,12 +1082,12 @@ body {
   <!-- ═══════════════════════════════════════════
        CTA FOOTER
   ═══════════════════════════════════════════ -->
-  <section id="cta" aria-labelledby="cta-heading">
+  <section id="cta-footer" aria-labelledby="cta-heading">
     <canvas id="cta-canvas" aria-hidden="true" focusable="false"></canvas>
     <div class="cta-inner">
       <h2 id="cta-heading" class="cta-headline">Every small thing.</h2>
       <p class="cta-sub">The picture was always there in the noise, waiting for the right scroll. Now yours.</p>
-      <a href="#" class="cta-btn" aria-label="Get Sunday Dots kit">Yours.</a>
+      <a href="#" class="cta-button" aria-label="Get Sunday Dots kit" aria-disabled="true">Yours.</a>
       <div class="cta-dots" aria-hidden="true">
         <span></span><span></span><span></span><span></span><span></span>
       </div>

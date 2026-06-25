@@ -335,7 +335,7 @@ section {
 }
 
 .section-inner {
-  max-width: 900px;
+  max-width: 960px;
   margin: 0 auto;
 }
 
@@ -460,11 +460,16 @@ section {
 }
 
 /* Lily pads grid */
-.lily-pads-grid {
+.palette-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.palette-row {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem 1.5rem;
-  list-style: none;
   justify-items: center;
 }
 
@@ -1012,7 +1017,7 @@ blockquote cite {
 @media (max-width: 640px) {
   .hero { padding: 5rem 1.25rem 4rem; }
   section { padding: 3.5rem 1.25rem; }
-  .lily-pads-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem 1rem; }
+  .palette-row { grid-template-columns: 1fr; gap: 1.5rem; }
   .lily-pad { width: 96px; height: 96px; }
   .pad-reflection { width: 50px; }
   .texture-item { grid-template-columns: 60px 1fr; gap: 1rem; }
@@ -1048,9 +1053,9 @@ blockquote cite {
   </defs>
 </svg>
 
-<a href="#main" class="skip-link">Skip to content</a>
+<a href="#main-content" class="skip-link">Skip to content</a>
 
-<main id="main">
+<main id="main-content">
 
   <!-- ═══════════════════════════════════════════
        HERO — The pond at sunrise.
@@ -1117,137 +1122,144 @@ blockquote cite {
       </div>
 
       <div class="lily-pond-surface" aria-label="Lily Shimmer color palette">
-        <ul class="lily-pads-grid" role="list" aria-label="Eight palette colors as lily pads">
+        <div class="palette-grid" role="list" aria-label="Eight palette colors as lily pads">
 
-          <!-- 1. Lily Glow — Anchor -->
-          <li class="pad-unit">
-            <div class="lily-pad reveal-on-scroll js-reveal"
-                 style="--pad-color: #F4DDD4;"
-                 tabindex="0"
-                 role="listitem"
-                 aria-label="Lily Glow, hex F4DDD4 — anchor, the dissolving seam where lily petal meets morning water">
-              <div class="pad-label">
-                <span class="pad-name">Lily Glow</span>
-                <span class="pad-hex">#F4DDD4</span>
-                <span class="pad-role">Anchor</span>
+          <!-- Row 1: 3 swatches -->
+          <div class="palette-row">
+
+            <!-- 1. Lily Glow — Anchor -->
+            <div class="pad-unit palette-swatch" role="listitem">
+              <div class="lily-pad reveal-on-scroll js-reveal"
+                   style="--pad-color: #F4DDD4;"
+                   tabindex="0"
+                   aria-label="Lily Glow, hex F4DDD4 — anchor, the dissolving seam where lily petal meets morning water">
+                <div class="pad-label">
+                  <span class="pad-name">Lily Glow</span>
+                  <span class="pad-hex">#F4DDD4</span>
+                  <span class="pad-role">Anchor</span>
+                </div>
               </div>
+              <div class="pad-reflection" style="--pad-color: #F4DDD4;" aria-hidden="true"></div>
             </div>
-            <div class="pad-reflection" style="--pad-color: #F4DDD4;" aria-hidden="true"></div>
-          </li>
 
-          <!-- 2. Morning Mist — Warm carrier -->
-          <li class="pad-unit">
-            <div class="lily-pad reveal-on-scroll js-reveal"
-                 style="--pad-color: #F8F2EC;"
-                 tabindex="0"
-                 role="listitem"
-                 aria-label="Morning Mist, hex F8F2EC — warm carrier neutral, fog over the pond at 6 AM">
-              <div class="pad-label">
-                <span class="pad-name">Morning Mist</span>
-                <span class="pad-hex">#F8F2EC</span>
-                <span class="pad-role">Warm Carrier</span>
+            <!-- 2. Morning Mist — Warm carrier -->
+            <div class="pad-unit palette-swatch" role="listitem">
+              <div class="lily-pad reveal-on-scroll js-reveal"
+                   style="--pad-color: #F8F2EC;"
+                   tabindex="0"
+                   aria-label="Morning Mist, hex F8F2EC — warm carrier neutral, fog over the pond at 6 AM">
+                <div class="pad-label">
+                  <span class="pad-name">Morning Mist</span>
+                  <span class="pad-hex">#F8F2EC</span>
+                  <span class="pad-role">Warm Carrier</span>
+                </div>
               </div>
+              <div class="pad-reflection" style="--pad-color: #F8F2EC;" aria-hidden="true"></div>
             </div>
-            <div class="pad-reflection" style="--pad-color: #F8F2EC;" aria-hidden="true"></div>
-          </li>
 
-          <!-- 3. Pond Silver — Cool carrier -->
-          <li class="pad-unit">
-            <div class="lily-pad reveal-on-scroll js-reveal"
-                 style="--pad-color: #D8DCD6;"
-                 tabindex="0"
-                 role="listitem"
-                 aria-label="Pond Silver, hex D8DCD6 — cool carrier neutral, silvered pond surface at midday">
-              <div class="pad-label">
-                <span class="pad-name">Pond Silver</span>
-                <span class="pad-hex">#D8DCD6</span>
-                <span class="pad-role">Cool Carrier</span>
+            <!-- 3. Pond Silver — Cool carrier -->
+            <div class="pad-unit palette-swatch" role="listitem">
+              <div class="lily-pad reveal-on-scroll js-reveal"
+                   style="--pad-color: #D8DCD6;"
+                   tabindex="0"
+                   aria-label="Pond Silver, hex D8DCD6 — cool carrier neutral, silvered pond surface at midday">
+                <div class="pad-label">
+                  <span class="pad-name">Pond Silver</span>
+                  <span class="pad-hex">#D8DCD6</span>
+                  <span class="pad-role">Cool Carrier</span>
+                </div>
               </div>
+              <div class="pad-reflection" style="--pad-color: #D8DCD6;" aria-hidden="true"></div>
             </div>
-            <div class="pad-reflection" style="--pad-color: #D8DCD6;" aria-hidden="true"></div>
-          </li>
 
-          <!-- 4. Reed Green — Flex hue -->
-          <li class="pad-unit">
-            <div class="lily-pad reveal-on-scroll js-reveal"
-                 style="--pad-color: #8FA086;"
-                 tabindex="0"
-                 role="listitem"
-                 aria-label="Reed Green, hex 8FA086 — flex hue, pond-edge reeds warm-sage, alive">
-              <div class="pad-label">
-                <span class="pad-name">Reed Green</span>
-                <span class="pad-hex">#8FA086</span>
-                <span class="pad-role">Flex Hue</span>
+          </div><!-- /palette-row 1 -->
+
+          <!-- Row 2: 2 swatches (centered) -->
+          <div class="palette-row" style="grid-template-columns: repeat(2, 1fr); max-width: 66%; margin: 0 auto;">
+
+            <!-- 4. Reed Green — Flex hue -->
+            <div class="pad-unit palette-swatch" role="listitem">
+              <div class="lily-pad reveal-on-scroll js-reveal"
+                   style="--pad-color: #8FA086;"
+                   tabindex="0"
+                   aria-label="Reed Green, hex 8FA086 — flex hue, pond-edge reeds warm-sage, alive">
+                <div class="pad-label">
+                  <span class="pad-name">Reed Green</span>
+                  <span class="pad-hex">#8FA086</span>
+                  <span class="pad-role">Flex Hue</span>
+                </div>
               </div>
+              <div class="pad-reflection" style="--pad-color: #8FA086;" aria-hidden="true"></div>
             </div>
-            <div class="pad-reflection" style="--pad-color: #8FA086;" aria-hidden="true"></div>
-          </li>
 
-          <!-- 5. Deep Water — Counterweight -->
-          <li class="pad-unit">
-            <div class="lily-pad reveal-on-scroll js-reveal"
-                 style="--pad-color: #2C3D3F;"
-                 tabindex="0"
-                 role="listitem"
-                 aria-label="Deep Water, hex 2C3D3F — counterweight, the underwater shadow where the pond drops away">
-              <div class="pad-label">
-                <span class="pad-name">Deep Water</span>
-                <span class="pad-hex">#2C3D3F</span>
-                <span class="pad-role">Counterweight</span>
+            <!-- 5. Deep Water — Counterweight -->
+            <div class="pad-unit palette-swatch" role="listitem">
+              <div class="lily-pad reveal-on-scroll js-reveal"
+                   style="--pad-color: #2C3D3F;"
+                   tabindex="0"
+                   aria-label="Deep Water, hex 2C3D3F — counterweight, the underwater shadow where the pond drops away">
+                <div class="pad-label">
+                  <span class="pad-name">Deep Water</span>
+                  <span class="pad-hex">#2C3D3F</span>
+                  <span class="pad-role">Counterweight</span>
+                </div>
               </div>
+              <div class="pad-reflection" style="--pad-color: #2C3D3F;" aria-hidden="true"></div>
             </div>
-            <div class="pad-reflection" style="--pad-color: #2C3D3F;" aria-hidden="true"></div>
-          </li>
 
-          <!-- 6. Lily Bloom — Saturated pink accent -->
-          <li class="pad-unit">
-            <div class="lily-pad reveal-on-scroll js-reveal"
-                 style="--pad-color: #D89098;"
-                 tabindex="0"
-                 role="listitem"
-                 aria-label="Lily Bloom, hex D89098 — saturated warm pink, the lily petal in full bloom">
-              <div class="pad-label">
-                <span class="pad-name">Lily Bloom</span>
-                <span class="pad-hex">#D89098</span>
-                <span class="pad-role">Accent</span>
+          </div><!-- /palette-row 2 -->
+
+          <!-- Row 3: 3 swatches -->
+          <div class="palette-row">
+
+            <!-- 6. Lily Bloom — Saturated pink accent -->
+            <div class="pad-unit palette-swatch" role="listitem">
+              <div class="lily-pad reveal-on-scroll js-reveal"
+                   style="--pad-color: #D89098;"
+                   tabindex="0"
+                   aria-label="Lily Bloom, hex D89098 — saturated warm pink, the lily petal in full bloom">
+                <div class="pad-label">
+                  <span class="pad-name">Lily Bloom</span>
+                  <span class="pad-hex">#D89098</span>
+                  <span class="pad-role">Accent</span>
+                </div>
               </div>
+              <div class="pad-reflection" style="--pad-color: #D89098;" aria-hidden="true"></div>
             </div>
-            <div class="pad-reflection" style="--pad-color: #D89098;" aria-hidden="true"></div>
-          </li>
 
-          <!-- 7. Bridge Wood — Saturated earth accent -->
-          <li class="pad-unit">
-            <div class="lily-pad reveal-on-scroll js-reveal"
-                 style="--pad-color: #8B6A4E;"
-                 tabindex="0"
-                 role="listitem"
-                 aria-label="Bridge Wood, hex 8B6A4E — warm earth accent, the Japanese bridge grain">
-              <div class="pad-label">
-                <span class="pad-name">Bridge Wood</span>
-                <span class="pad-hex">#8B6A4E</span>
-                <span class="pad-role">Accent</span>
+            <!-- 7. Bridge Wood — Saturated earth accent -->
+            <div class="pad-unit palette-swatch" role="listitem">
+              <div class="lily-pad reveal-on-scroll js-reveal"
+                   style="--pad-color: #8B6A4E;"
+                   tabindex="0"
+                   aria-label="Bridge Wood, hex 8B6A4E — warm earth accent, the Japanese bridge grain">
+                <div class="pad-label">
+                  <span class="pad-name">Bridge Wood</span>
+                  <span class="pad-hex">#8B6A4E</span>
+                  <span class="pad-role">Accent</span>
+                </div>
               </div>
+              <div class="pad-reflection" style="--pad-color: #8B6A4E;" aria-hidden="true"></div>
             </div>
-            <div class="pad-reflection" style="--pad-color: #8B6A4E;" aria-hidden="true"></div>
-          </li>
 
-          <!-- 8. Honey Light — Saturated gold accent -->
-          <li class="pad-unit">
-            <div class="lily-pad reveal-on-scroll js-reveal"
-                 style="--pad-color: #E8B86D;"
-                 tabindex="0"
-                 role="listitem"
-                 aria-label="Honey Light, hex E8B86D — golden flash, morning sun on water for thirty seconds">
-              <div class="pad-label">
-                <span class="pad-name">Honey Light</span>
-                <span class="pad-hex">#E8B86D</span>
-                <span class="pad-role">Accent</span>
+            <!-- 8. Honey Light — Saturated gold accent -->
+            <div class="pad-unit palette-swatch" role="listitem">
+              <div class="lily-pad reveal-on-scroll js-reveal"
+                   style="--pad-color: #E8B86D;"
+                   tabindex="0"
+                   aria-label="Honey Light, hex E8B86D — golden flash, morning sun on water for thirty seconds">
+                <div class="pad-label">
+                  <span class="pad-name">Honey Light</span>
+                  <span class="pad-hex">#E8B86D</span>
+                  <span class="pad-role">Accent</span>
+                </div>
               </div>
+              <div class="pad-reflection" style="--pad-color: #E8B86D;" aria-hidden="true"></div>
             </div>
-            <div class="pad-reflection" style="--pad-color: #E8B86D;" aria-hidden="true"></div>
-          </li>
 
-        </ul>
+          </div><!-- /palette-row 3 -->
+
+        </div>
       </div>
 
     </div>
@@ -1540,7 +1552,7 @@ blockquote cite {
       <p class="footer-tagline">Still water runs deep.</p>
       <h2 class="footer-heading" id="cta-heading">Yours.</h2>
       <p class="footer-sub">Lily Shimmer — Art Gallery Collection</p>
-      <a href="#" class="cta-button" aria-label="Get the Lily Shimmer brand kit">
+      <a href="#" class="cta-button" aria-label="Get the Lily Shimmer brand kit" aria-disabled="true">
         Get the Kit
       </a>
       <p class="footer-note">

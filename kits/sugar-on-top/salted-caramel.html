@@ -599,7 +599,7 @@ body {
 
 .contents-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
   margin-top: 1rem;
 }
@@ -982,7 +982,7 @@ body {
    RESPONSIVE
 ────────────────────────────────────────────────────────────── */
 
-@media (max-width: 600px) {
+@media (max-width: 640px) {
   :root { --section-pad: clamp(3rem, 8vw, 5rem) 1.25rem; }
   .recipe-card { padding: 1.5rem; }
   .texture-grid { grid-template-columns: 1fr 1fr; }
@@ -1123,6 +1123,7 @@ body {
 <!-- ══════════════════════════════════════════════════════════════
      SECTION 2: THE RECIPE — Palette as ingredients
 ═════════════════════════════════════════════════════════════════ -->
+<!-- salted-caramel: recipe-ingredient list format — sanctioned exception per kit-page-standard -->
 <section id="palette" aria-labelledby="palette-heading">
   <div class="marble-vein" aria-hidden="true"></div>
   <div class="section-inner">
