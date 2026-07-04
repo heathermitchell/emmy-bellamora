@@ -1,0 +1,694 @@
+<!-- The Gallery Opening — The Art Gallery kit line, hung as an exhibition.
+     Built by Otto per Emmy's SPEC-gallery-opening.md, 2026-07-03.
+     Every hex on this page is sourced live from each kit's canonical
+     color-palette.md — no imported fixtures, no invented colors. The only
+     non-kit color on the page is the gallery-wall chrome (background,
+     wayfinding, entry/exit text) — a neutral museum system, not a kit color,
+     flagged as a DIRECTION call in the receipt. Self-contained: no external
+     fonts, no network fetches, $0 spend. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Gallery Opening — The Art Gallery Collection</title>
+<style>
+  :root {
+    /* Gallery chrome — neutral museum system. Not a kit color. */
+    --wall-bg: #F6F3EE;
+    --wall-bg-deep: #EFEAE2;
+    --wall-ink: #2A2724;
+    --wall-ink-soft: #6B655D;
+    --wall-line: rgba(42, 39, 36, 0.12);
+    --wall-card: #FFFFFF;
+  }
+
+  :root[data-theme="dark"] {
+    --wall-bg: #171513;
+    --wall-bg-deep: #0F0E0D;
+    --wall-ink: #F0ECE5;
+    --wall-ink-soft: #A69E93;
+    --wall-line: rgba(240, 236, 229, 0.14);
+    --wall-card: #201D1A;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --wall-bg: #171513;
+      --wall-bg-deep: #0F0E0D;
+      --wall-ink: #F0ECE5;
+      --wall-ink-soft: #A69E93;
+      --wall-line: rgba(240, 236, 229, 0.14);
+      --wall-card: #201D1A;
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--wall-bg);
+    color: var(--wall-ink);
+    font-family: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .wrap {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  a { color: inherit; }
+
+  /* ---------- Entry wall ---------- */
+
+  .entry-wall {
+    background: var(--wall-bg-deep);
+    border-bottom: 1px solid var(--wall-line);
+    padding: 4.5rem 0 3.5rem;
+    text-align: center;
+  }
+
+  .entry-eyebrow {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.22em;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--wall-ink-soft);
+    margin: 0 0 1.25rem;
+  }
+
+  .entry-wall h1 {
+    font-size: clamp(2.25rem, 5.5vw, 3.75rem);
+    font-weight: 400;
+    font-style: italic;
+    margin: 0 0 1.5rem;
+    letter-spacing: 0.01em;
+  }
+
+  .entry-wall .lede {
+    max-width: 640px;
+    margin: 0 auto;
+    font-size: 1.125rem;
+    color: var(--wall-ink-soft);
+  }
+
+  .entry-wall .lede + .lede {
+    margin-top: 1rem;
+  }
+
+  /* ---------- Wayfinding ---------- */
+
+  .wayfinding {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem 1rem;
+    padding: 1.75rem 0;
+    font-size: 1rem;
+  }
+
+  .wayfinding a {
+    text-decoration: none;
+    color: var(--wall-ink-soft);
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+  }
+
+  .wayfinding a:hover,
+  .wayfinding a:focus-visible {
+    color: var(--wall-ink);
+    border-color: var(--wall-ink-soft);
+  }
+
+  .wayfinding .sep {
+    color: var(--wall-line);
+  }
+
+  /* ---------- Gallery walk ---------- */
+
+  .gallery-walk {
+    padding: 2rem 0 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+  }
+
+  /* ---------- The piece (one component, seven instances) ---------- */
+
+  .piece {
+    scroll-margin-top: 1.5rem;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px var(--wall-line), 0 18px 44px -24px rgba(0, 0, 0, 0.35);
+    border: 1px solid var(--wall-line);
+  }
+
+  .piece-frame {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+  }
+
+  @media (max-width: 820px) {
+    .piece-frame { grid-template-columns: 1fr; }
+  }
+
+  /* The artwork panel — kit-pure hexes only, no chrome color enters here */
+  .artwork {
+    position: relative;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .artwork svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .kit-number {
+    position: absolute;
+    top: 1.25rem;
+    left: 1.25rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 0.3rem 0.65rem;
+    border-radius: 999px;
+    z-index: 2;
+  }
+
+  /* The placard — kit-pure hexes for card body, museum-serif type */
+  .placard {
+    padding: 2.75rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .placard .kit-name {
+    font-size: 1.9rem;
+    font-weight: 400;
+    margin: 0 0 0.35rem;
+    line-height: 1.15;
+  }
+
+  .placard .kit-identity {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.13em;
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 1.1rem;
+  }
+
+  .placard .attribution {
+    font-style: italic;
+    font-size: 1rem;
+    margin: 0 0 1.25rem;
+  }
+
+  .placard .site-line {
+    font-size: 1.0625rem;
+    font-style: italic;
+    margin: 0 0 1.25rem;
+    padding-left: 1rem;
+    border-left: 3px solid;
+  }
+
+  .placard .story p {
+    font-size: 1rem;
+    margin: 0 0 0.85rem;
+  }
+
+  .placard .story p:last-child {
+    margin-bottom: 0;
+  }
+
+  .placard .swatch-row {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+  }
+
+  .placard .swatch-chip {
+    width: 2.1rem;
+    height: 2.1rem;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.14);
+    flex-shrink: 0;
+  }
+
+  .placard .door {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    align-self: flex-start;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    padding: 0.75rem 1.4rem;
+    border-radius: 999px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .placard .door:hover,
+  .placard .door:focus-visible {
+    transform: translateY(-2px);
+  }
+
+  .placard .door:focus-visible {
+    outline: 3px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  .placard .door .arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .placard .door:hover .arrow {
+    transform: translateX(3px);
+  }
+
+  /* ---------- Exit note ---------- */
+
+  .exit-note {
+    border-top: 1px solid var(--wall-line);
+    padding: 3.5rem 0 4.5rem;
+    text-align: center;
+  }
+
+  .exit-note p {
+    font-size: 1rem;
+    color: var(--wall-ink-soft);
+    max-width: 560px;
+    margin: 0 auto 0.85rem;
+  }
+
+  .exit-note .collection-link {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .exit-note .credit {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 1rem;
+    color: var(--wall-ink-soft);
+    margin-top: 2rem;
+  }
+
+  /* ---------- Skip link ---------- */
+  .skip-link {
+    position: absolute;
+    left: -999px;
+    top: auto;
+  }
+  .skip-link:focus {
+    position: fixed;
+    left: 1rem;
+    top: 1rem;
+    z-index: 100;
+    background: var(--wall-card);
+    color: var(--wall-ink);
+    padding: 0.75rem 1.25rem;
+    border-radius: 6px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#walk">Skip to the gallery walk</a>
+
+<header class="entry-wall">
+  <div class="wrap">
+    <p class="entry-eyebrow">The Art Gallery Collection · 2026</p>
+    <h1>The Gallery Opening</h1>
+    <p class="lede">Seven brand kits, each seeded from a masterwork and flipped into a living palette. Not "inspired by" — every piece here names the painting it comes from, and shows its work.</p>
+    <p class="lede">Walk the room. Stand in front of the one that stops you. Take it home.</p>
+  </div>
+  <nav class="wayfinding" aria-label="Jump to a piece">
+    <a href="#starry-swirl">Starry Swirl</a><span class="sep">·</span>
+    <a href="#lily-shimmer">Lily Shimmer</a><span class="sep">·</span>
+    <a href="#rouge-poster">Rouge Poster</a><span class="sep">·</span>
+    <a href="#ballet-light">Ballet Light</a><span class="sep">·</span>
+    <a href="#golden-mosaic">Golden Mosaic</a><span class="sep">·</span>
+    <a href="#sunday-dots">Sunday Dots</a><span class="sep">·</span>
+    <a href="#wave-crest">Wave Crest</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div id="walk" class="gallery-walk">
+
+    <!-- ============================================================ -->
+    <!-- 1. STARRY SWIRL — Van Gogh, The Starry Night (reimagined at sunset) -->
+    <!-- ============================================================ -->
+    <article class="piece" id="starry-swirl" aria-labelledby="starry-swirl-name">
+      <div class="piece-frame">
+        <div class="artwork" style="background:#FFF3E4;">
+          <span class="kit-number" style="background:#4A4458; color:#FFF3E4;">01 / 07</span>
+          <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A swirling sunset composition in amber, plum, and rose — an abstract evocation of Starry Swirl's palette, not a reproduction of the source painting.">
+            <rect width="400" height="420" fill="#FFF3E4"/>
+            <path d="M0,260 Q60,180 120,230 T240,210 T400,250 V420 H0 Z" fill="#4A4458"/>
+            <circle cx="90" cy="110" r="46" fill="#E8842A"/>
+            <circle cx="90" cy="110" r="70" fill="#E8842A" opacity="0.28"/>
+            <path d="M-20,150 Q60,100 140,150 T300,140 T440,170" stroke="#6B2D5B" stroke-width="26" fill="none" opacity="0.85"/>
+            <path d="M-20,190 Q80,150 180,195 T420,190" stroke="#C87F8A" stroke-width="14" fill="none" opacity="0.75"/>
+            <path d="M-10,90 Q90,60 170,95 T410,85" stroke="#F2B552" stroke-width="8" fill="none" opacity="0.8"/>
+            <circle cx="300" cy="70" r="10" fill="#E05A3A"/>
+            <circle cx="250" cy="140" r="6" fill="#F2B552"/>
+            <circle cx="340" cy="130" r="5" fill="#E05A3A"/>
+            <path d="M0,300 Q100,270 200,300 T400,290 V420 H0 Z" fill="#5A3225" opacity="0.9"/>
+          </svg>
+        </div>
+        <div class="placard" style="background:#FFF3E4; color:#5A3225;">
+          <h2 class="kit-name" id="starry-swirl-name" style="color:#5A3225;">Starry Swirl</h2>
+          <p class="attribution" style="color:#5A3225;">After Vincent van Gogh, <em>The Starry Night</em> (1889) — reimagined at sunset</p>
+          <p class="site-line" style="color:#6B2D5B; border-left-color:#E8842A;">"A sunset burning through impasto sky — the energy of Van Gogh in a completely different time of day. For the person whose ideas never sit still."</p>
+          <div class="story">
+            <p>Van Gogh painted movement, not midnight — every swirl follows a current. This kit keeps his urgency and moves it from night to golden hour: sunset amber where the sky was ink-blue, plum where the depth still has to live, rose dust as the color between one moment and the next.</p>
+            <p>Amber Glow is the anchor; Plum Vortex is the gravity that keeps all that warmth from floating away.</p>
+          </div>
+          <div class="swatch-row" role="list" aria-label="Starry Swirl palette swatches">
+            <span class="swatch-chip" style="background:#E8842A;" role="listitem" aria-label="Amber Glow"></span>
+            <span class="swatch-chip" style="background:#6B2D5B;" role="listitem" aria-label="Plum Vortex"></span>
+            <span class="swatch-chip" style="background:#4A4458;" role="listitem" aria-label="Twilight Slate"></span>
+            <span class="swatch-chip" style="background:#C87F8A;" role="listitem" aria-label="Rose Dust"></span>
+            <span class="swatch-chip" style="background:#F2B552;" role="listitem" aria-label="Brushstroke Gold"></span>
+          </div>
+          <a class="door" style="background:#6B2D5B; color:#FFF3E4;" href="https://emmybellamora.com/kits/art-gallery/starry-swirl" target="_blank" rel="noopener">Take this home <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============================================================ -->
+    <!-- 2. LILY SHIMMER — Monet, Water Lilies -->
+    <!-- ============================================================ -->
+    <article class="piece" id="lily-shimmer" aria-labelledby="lily-shimmer-name">
+      <div class="piece-frame">
+        <div class="artwork" style="background:#F8F2EC;">
+          <span class="kit-number" style="background:#2C3D3F; color:#F8F2EC;">02 / 07</span>
+          <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A dissolving pond surface in pearl-pink and deep teal — an abstract evocation of Lily Shimmer's palette.">
+            <rect width="400" height="420" fill="#F8F2EC"/>
+            <rect y="230" width="400" height="190" fill="#2C3D3F"/>
+            <ellipse cx="200" cy="230" rx="220" ry="18" fill="#D8DCD6" opacity="0.7"/>
+            <ellipse cx="130" cy="200" rx="55" ry="16" fill="#8FA086"/>
+            <ellipse cx="260" cy="215" rx="70" ry="18" fill="#8FA086" opacity="0.85"/>
+            <ellipse cx="90" cy="180" rx="34" ry="30" fill="#F4DDD4"/>
+            <ellipse cx="90" cy="180" rx="16" ry="14" fill="#D89098"/>
+            <ellipse cx="300" cy="165" rx="30" ry="26" fill="#F4DDD4" opacity="0.9"/>
+            <ellipse cx="300" cy="165" rx="14" ry="12" fill="#D89098" opacity="0.9"/>
+            <circle cx="330" cy="90" r="34" fill="#E8B86D" opacity="0.55"/>
+            <path d="M0,260 Q100,240 200,258 T400,250" stroke="#D8DCD6" stroke-width="3" fill="none" opacity="0.6"/>
+          </svg>
+        </div>
+        <div class="placard" style="background:#F8F2EC; color:#2C3D3F;">
+          <h2 class="kit-name" id="lily-shimmer-name" style="color:#2C3D3F;">Lily Shimmer</h2>
+          <p class="attribution" style="color:#2C3D3F;">After Claude Monet, <em>Water Lilies</em> series (1896–1926)</p>
+          <p class="site-line" style="color:#2C3D3F; border-left-color:#D89098;">"Lily Shimmer. Soft. The beauty is in what dissolves between them."</p>
+          <div class="story">
+            <p>The anchor isn't the lily — it's the seam, the moment where petal becomes water becomes light, impossible to name precisely. Lily Glow lives there. Underneath, Deep Water holds the pond's actual depth, so the softness has something to rest against.</p>
+            <p>Quiet, but not passive — Monet painted the same pond two hundred and fifty times. That's relentless, disguised as calm.</p>
+          </div>
+          <div class="swatch-row" role="list" aria-label="Lily Shimmer palette swatches">
+            <span class="swatch-chip" style="background:#F4DDD4;" role="listitem" aria-label="Lily Glow"></span>
+            <span class="swatch-chip" style="background:#2C3D3F;" role="listitem" aria-label="Deep Water"></span>
+            <span class="swatch-chip" style="background:#D8DCD6;" role="listitem" aria-label="Pond Silver"></span>
+            <span class="swatch-chip" style="background:#8FA086;" role="listitem" aria-label="Reed Green"></span>
+            <span class="swatch-chip" style="background:#D89098;" role="listitem" aria-label="Lily Bloom"></span>
+          </div>
+          <a class="door" style="background:#2C3D3F; color:#F8F2EC;" href="https://emmybellamora.com/kits/art-gallery/lily-shimmer" target="_blank" rel="noopener">Take this home <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============================================================ -->
+    <!-- 3. ROUGE POSTER — Toulouse-Lautrec, Moulin Rouge: La Goulue -->
+    <!-- ============================================================ -->
+    <article class="piece" id="rouge-poster" aria-labelledby="rouge-poster-name">
+      <div class="piece-frame">
+        <div class="artwork" style="background:#F5EDD8;">
+          <span class="kit-number" style="background:#1A1428; color:#F5EDD8;">03 / 07</span>
+          <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A bold flat-color poster composition in magenta and charcoal — an abstract evocation of Rouge Poster's palette.">
+            <rect width="400" height="420" fill="#F5EDD8"/>
+            <path d="M0,0 L400,0 L400,120 Q200,180 0,120 Z" fill="#2D2D30"/>
+            <ellipse cx="200" cy="230" rx="120" ry="150" fill="#C4285C"/>
+            <path d="M100,340 Q200,300 300,340 L300,420 L100,420 Z" fill="#1A1428"/>
+            <circle cx="330" cy="80" r="22" fill="#A8C43E"/>
+            <rect x="30" y="60" width="12" height="140" fill="#A8C43E" opacity="0.9"/>
+            <circle cx="200" cy="190" r="34" fill="#E89AA5"/>
+            <path d="M0,380 L400,380 L400,420 L0,420 Z" fill="#C49548"/>
+          </svg>
+        </div>
+        <div class="placard" style="background:#F5EDD8; color:#2D2D30;">
+          <h2 class="kit-name" id="rouge-poster-name" style="color:#2D2D30;">Rouge Poster</h2>
+          <p class="attribution" style="color:#2D2D30;">After Henri de Toulouse-Lautrec, <em>Moulin Rouge: La Goulue</em> (1891)</p>
+          <p class="site-line" style="color:#2D2D30; border-left-color:#C4285C;">"If the font is big enough, you only have to say it once. The original influencer. Bold lines, flat color, a woman who knows you're looking."</p>
+          <div class="story">
+            <p>Cabaret Magenta is the specific magenta of a lipstick print on a cocktail napkin — deliberate, not decorative. Charcoal Ink is the outline that doesn't hesitate. Absinthe is the unexpected chartreuse note, named for the drink because it's a little dangerous.</p>
+            <p>Confidence isn't loud for loud's sake — a great poster is restrained. Fewer colors, more conviction.</p>
+          </div>
+          <div class="swatch-row" role="list" aria-label="Rouge Poster palette swatches">
+            <span class="swatch-chip" style="background:#C4285C;" role="listitem" aria-label="Cabaret Magenta"></span>
+            <span class="swatch-chip" style="background:#2D2D30;" role="listitem" aria-label="Charcoal Ink"></span>
+            <span class="swatch-chip" style="background:#7A7A7E;" role="listitem" aria-label="Zinc Matte"></span>
+            <span class="swatch-chip" style="background:#A8C43E;" role="listitem" aria-label="Absinthe"></span>
+            <span class="swatch-chip" style="background:#E89AA5;" role="listitem" aria-label="Blush Cancan"></span>
+          </div>
+          <a class="door" style="background:#C4285C; color:#F5EDD8;" href="https://emmybellamora.com/kits/art-gallery/rouge-poster" target="_blank" rel="noopener">Take this home <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============================================================ -->
+    <!-- 4. BALLET LIGHT — Degas, The Ballet Class -->
+    <!-- ============================================================ -->
+    <article class="piece" id="ballet-light" aria-labelledby="ballet-light-name">
+      <div class="piece-frame">
+        <div class="artwork" style="background:#FBF4EC;">
+          <span class="kit-number" style="background:#3A2A2E; color:#FBF4EC;">04 / 07</span>
+          <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A soft rehearsal-studio composition in dusty pink and warm brown — an abstract evocation of Ballet Light's palette.">
+            <rect width="400" height="420" fill="#FBF4EC"/>
+            <rect y="260" width="400" height="160" fill="#6B4A32"/>
+            <rect x="260" y="20" width="110" height="230" fill="#B8C2C7" opacity="0.55"/>
+            <rect x="260" y="20" width="110" height="230" fill="none" stroke="#A09690" stroke-width="4"/>
+            <path d="M120,260 Q160,140 210,260 Z" fill="#E2B8B0"/>
+            <path d="M140,260 Q160,180 185,260 Z" fill="#9A3F4C" opacity="0.85"/>
+            <circle cx="163" cy="120" r="26" fill="#E2B8B0"/>
+            <rect x="40" y="150" width="10" height="110" fill="#C9A55A" opacity="0.9"/>
+            <ellipse cx="45" cy="150" rx="16" ry="8" fill="#8EA89A"/>
+          </svg>
+        </div>
+        <div class="placard" style="background:#FBF4EC; color:#3A2A2E;">
+          <h2 class="kit-name" id="ballet-light-name" style="color:#3A2A2E;">Ballet Light</h2>
+          <p class="attribution" style="color:#3A2A2E;">After Edgar Degas, <em>The Ballet Class</em> (1871–1874) and the ballet series</p>
+          <p class="site-line" style="color:#3A2A2E; border-left-color:#9A3F4C;">"The grace you see is built on the discipline you don't."</p>
+          <div class="story">
+            <p>Degas painted rehearsals, not performances — the moments between moments. Tulle Blush is the slipper worn in by a season of class, not fresh from the box. Stage Rouge is the bruise underneath, the evidence of effort the softness doesn't hide.</p>
+            <p>Mirror Light is the studio mirror finally getting a color — the cool surface every reflection travels on.</p>
+          </div>
+          <div class="swatch-row" role="list" aria-label="Ballet Light palette swatches">
+            <span class="swatch-chip" style="background:#E2B8B0;" role="listitem" aria-label="Tulle Blush"></span>
+            <span class="swatch-chip" style="background:#9A3F4C;" role="listitem" aria-label="Stage Rouge"></span>
+            <span class="swatch-chip" style="background:#B8C2C7;" role="listitem" aria-label="Mirror Light"></span>
+            <span class="swatch-chip" style="background:#8EA89A;" role="listitem" aria-label="Mirror Sage"></span>
+            <span class="swatch-chip" style="background:#C9A55A;" role="listitem" aria-label="Rosin Gold"></span>
+          </div>
+          <a class="door" style="background:#9A3F4C; color:#FBF4EC;" href="https://emmybellamora.com/kits/art-gallery/ballet-light" target="_blank" rel="noopener">Take this home <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============================================================ -->
+    <!-- 5. GOLDEN MOSAIC — Klimt, The Kiss -->
+    <!-- ============================================================ -->
+    <article class="piece" id="golden-mosaic" aria-labelledby="golden-mosaic-name">
+      <div class="piece-frame">
+        <div class="artwork" style="background:#F5EDE0;">
+          <span class="kit-number" style="background:#1A2F3A; color:#F5EDE0;">05 / 07</span>
+          <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A dense pattern-on-pattern mosaic composition in gold and teal — an abstract evocation of Golden Mosaic's palette.">
+            <rect width="400" height="420" fill="#F5EDE0"/>
+            <g>
+              <rect x="0" y="0" width="66" height="66" fill="#C9A84C"/>
+              <rect x="66" y="0" width="66" height="66" fill="#1B5E6B"/>
+              <rect x="132" y="0" width="66" height="66" fill="#E8D5A3"/>
+              <rect x="198" y="0" width="66" height="66" fill="#8B6F47"/>
+              <rect x="264" y="0" width="66" height="66" fill="#C4909A"/>
+              <rect x="330" y="0" width="70" height="66" fill="#1A2F3A"/>
+              <rect x="0" y="66" width="66" height="66" fill="#1B5E6B"/>
+              <rect x="66" y="66" width="66" height="66" fill="#7A2848"/>
+              <rect x="132" y="66" width="66" height="66" fill="#C9A84C"/>
+              <rect x="198" y="66" width="66" height="66" fill="#E8D5A3"/>
+              <rect x="264" y="66" width="66" height="66" fill="#1A2F3A"/>
+              <rect x="330" y="66" width="70" height="66" fill="#8B6F47"/>
+              <rect x="0" y="132" width="66" height="288" fill="#C9A84C" opacity="0.9"/>
+              <rect x="66" y="132" width="66" height="288" fill="#F5EDE0"/>
+              <rect x="132" y="132" width="66" height="288" fill="#1B5E6B" opacity="0.9"/>
+              <rect x="198" y="132" width="66" height="288" fill="#F5EDE0"/>
+              <rect x="264" y="132" width="66" height="288" fill="#7A2848" opacity="0.9"/>
+              <rect x="330" y="132" width="70" height="288" fill="#F5EDE0"/>
+            </g>
+            <circle cx="200" cy="230" r="70" fill="#C9A84C"/>
+            <circle cx="200" cy="230" r="46" fill="#F5EDE0"/>
+          </svg>
+        </div>
+        <div class="placard" style="background:#F5EDE0; color:#1A2F3A;">
+          <h2 class="kit-name" id="golden-mosaic-name" style="color:#1A2F3A;">Golden Mosaic</h2>
+          <p class="attribution" style="color:#1A2F3A;">After Gustav Klimt, <em>The Kiss</em> (1907–1908)</p>
+          <p class="site-line" style="color:#1A2F3A; border-left-color:#C9A84C;">"Byzantine empress meets modern maker. Pattern on pattern on pattern — and it works. Maximalism with taste."</p>
+          <div class="story">
+            <p>Hammered Gold is the unifying thread — not shiny-smooth, hammered and handled and ancient. Byzantine Teal is the cool counterpoint that keeps the gold from going costume. Lead Came is the quiet structural metal behind the mosaic, almost colorless, holding every tile in place.</p>
+            <p>Nine colors here, not eight — density earns the extra slot. This is the maximalist track, named on purpose.</p>
+          </div>
+          <div class="swatch-row" role="list" aria-label="Golden Mosaic palette swatches">
+            <span class="swatch-chip" style="background:#C9A84C;" role="listitem" aria-label="Hammered Gold"></span>
+            <span class="swatch-chip" style="background:#1B5E6B;" role="listitem" aria-label="Byzantine Teal"></span>
+            <span class="swatch-chip" style="background:#404048;" role="listitem" aria-label="Lead Came"></span>
+            <span class="swatch-chip" style="background:#C4909A;" role="listitem" aria-label="Rose Quartz"></span>
+            <span class="swatch-chip" style="background:#7A2848;" role="listitem" aria-label="Mulberry Wine"></span>
+          </div>
+          <a class="door" style="background:#1A2F3A; color:#F5EDE0;" href="https://emmybellamora.com/kits/art-gallery/golden-mosaic" target="_blank" rel="noopener">Take this home <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============================================================ -->
+    <!-- 6. SUNDAY DOTS — Seurat, A Sunday Afternoon on the Island of La Grande Jatte -->
+    <!-- ============================================================ -->
+    <article class="piece" id="sunday-dots" aria-labelledby="sunday-dots-name">
+      <div class="piece-frame">
+        <div class="artwork" style="background:#F7F2EB;">
+          <span class="kit-number" style="background:#2A3D5C; color:#F7F2EB;">06 / 07</span>
+          <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A pointillist grid of coral, navy, and sage dots — an abstract evocation of Sunday Dots' palette.">
+            <rect width="400" height="420" fill="#F7F2EB"/>
+            <rect y="270" width="400" height="150" fill="#A8B2BC" opacity="0.5"/>
+            <g>
+              <!-- generated dot field: deterministic grid, colors cycling through the palette -->
+              <circle cx="30" cy="40" r="9" fill="#E86B5A"/><circle cx="70" cy="55" r="7" fill="#2A3D5C"/><circle cx="110" cy="35" r="8" fill="#6B8F7A"/><circle cx="150" cy="60" r="6" fill="#E8A83E"/><circle cx="190" cy="40" r="9" fill="#5A3154"/><circle cx="230" cy="58" r="7" fill="#E86B5A"/><circle cx="270" cy="38" r="8" fill="#2A3D5C"/><circle cx="310" cy="55" r="6" fill="#F0B89A"/><circle cx="350" cy="42" r="9" fill="#6B8F7A"/>
+              <circle cx="50" cy="100" r="8" fill="#2A3D5C"/><circle cx="90" cy="115" r="7" fill="#E8A83E"/><circle cx="130" cy="95" r="9" fill="#E86B5A"/><circle cx="170" cy="118" r="6" fill="#5A3154"/><circle cx="210" cy="98" r="8" fill="#6B8F7A"/><circle cx="250" cy="112" r="7" fill="#2A3D5C"/><circle cx="290" cy="96" r="9" fill="#E86B5A"/><circle cx="330" cy="114" r="6" fill="#F0B89A"/>
+              <circle cx="30" cy="165" r="7" fill="#6B8F7A"/><circle cx="70" cy="180" r="9" fill="#E8A83E"/><circle cx="110" cy="160" r="6" fill="#2A3D5C"/><circle cx="150" cy="182" r="8" fill="#E86B5A"/><circle cx="190" cy="163" r="7" fill="#5A3154"/><circle cx="230" cy="178" r="9" fill="#6B8F7A"/><circle cx="270" cy="162" r="6" fill="#E86B5A"/><circle cx="310" cy="180" r="8" fill="#2A3D5C"/><circle cx="350" cy="165" r="7" fill="#F0B89A"/>
+              <circle cx="50" cy="225" r="9" fill="#E86B5A"/><circle cx="90" cy="240" r="7" fill="#6B8F7A"/><circle cx="130" cy="222" r="8" fill="#5A3154"/><circle cx="170" cy="242" r="6" fill="#2A3D5C"/><circle cx="210" cy="224" r="9" fill="#E8A83E"/><circle cx="250" cy="238" r="7" fill="#E86B5A"/><circle cx="290" cy="222" r="8" fill="#6B8F7A"/><circle cx="330" cy="240" r="6" fill="#F0B89A"/>
+            </g>
+            <rect x="150" y="290" width="24" height="90" rx="4" fill="#2A3D5C"/>
+            <circle cx="162" cy="285" r="20" fill="#E86B5A"/>
+          </svg>
+        </div>
+        <div class="placard" style="background:#F7F2EB; color:#2A3D5C;">
+          <h2 class="kit-name" id="sunday-dots-name" style="color:#2A3D5C;">Sunday Dots</h2>
+          <p class="attribution" style="color:#2A3D5C;">After Georges Seurat, <em>A Sunday Afternoon on the Island of La Grande Jatte</em> (1884–1886)</p>
+          <p class="site-line" style="color:#2A3D5C; border-left-color:#E86B5A;">"Precision with personality — the grid that lets you dance."</p>
+          <div class="story">
+            <p>Every dot is its own color, never blended — that's Seurat's whole technique, and it's the argument for this kit's five-role grammar. Coral Confetti pops like a celebration against Parasol Navy's structural depth.</p>
+            <p>Nine colors here too: Afternoon Haze joined as the true cool carrier, the pale sky the brights get to breathe against.</p>
+          </div>
+          <div class="swatch-row" role="list" aria-label="Sunday Dots palette swatches">
+            <span class="swatch-chip" style="background:#E86B5A;" role="listitem" aria-label="Coral Confetti"></span>
+            <span class="swatch-chip" style="background:#2A3D5C;" role="listitem" aria-label="Parasol Navy"></span>
+            <span class="swatch-chip" style="background:#A8B2BC;" role="listitem" aria-label="Afternoon Haze"></span>
+            <span class="swatch-chip" style="background:#6B8F7A;" role="listitem" aria-label="River Sage"></span>
+            <span class="swatch-chip" style="background:#5A3154;" role="listitem" aria-label="Plum Point"></span>
+          </div>
+          <a class="door" style="background:#2A3D5C; color:#F7F2EB;" href="https://emmybellamora.com/kits/art-gallery/sunday-dots" target="_blank" rel="noopener">Take this home <span class="arrow" aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </article>
+
+    <!-- ============================================================ -->
+    <!-- 7. WAVE CREST — Hokusai, The Great Wave off Kanagawa -->
+    <!-- ============================================================ -->
+    <article class="piece" id="wave-crest" aria-labelledby="wave-crest-name">
+      <div class="piece-frame">
+        <div class="artwork" style="background:#F4E4D3;">
+          <span class="kit-number" style="background:#3B1F2E; color:#FBF3E9;">07 / 07</span>
+          <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid slice" role="img" aria-label="A held wave crest in warm coral and plum — a steep face curling into an overhanging lip with foam-claws dripping from the curl, an abstract evocation of Wave Crest's palette.">
+            <rect width="400" height="420" fill="#F4E4D3"/>
+            <!-- distant swell, low horizon -->
+            <path d="M0,340 Q90,320 160,300 Q90,290 0,300 Z" fill="#3B1F2E"/>
+            <!-- the wave body: steep rise on the left, curling over into an overhanging hook on the right -->
+            <path d="M0,300
+                     C50,220 90,140 150,95
+                     C195,62 235,58 258,85
+                     C276,107 262,132 228,138
+                     C270,146 305,128 318,92
+                     C330,58 312,28 275,22
+                     C330,30 372,66 380,120
+                     C386,160 368,196 330,205
+                     L400,205 L400,420 L0,420 Z"
+                  fill="#3B1F2E"/>
+            <!-- ink outline on the curling lip, the bold carved woodblock line -->
+            <path d="M20,290 C65,215 100,145 155,102 C198,70 236,66 258,90 C273,108 263,128 232,133"
+                  stroke="#2A1A1C" stroke-width="9" fill="none" stroke-linecap="round"/>
+            <path d="M232,133 C272,140 302,120 313,90 C324,60 308,32 275,24"
+                  stroke="#2A1A1C" stroke-width="9" fill="none" stroke-linecap="round"/>
+            <!-- foam-claws: the pointed talons dripping from the underside of the curl, Hokusai's signature move -->
+            <path d="M232,133 q-8,20 -22,26 q10,-8 6,-22" fill="#FBF3E9"/>
+            <path d="M205,150 q-10,18 -26,22 q12,-6 10,-20" fill="#FBF3E9"/>
+            <path d="M178,163 q-12,16 -30,16 q14,-4 14,-18" fill="#FBF3E9"/>
+            <path d="M275,24 q18,-6 26,-20 q-4,12 -18,14" fill="#FBF3E9"/>
+            <path d="M303,20 q16,-4 22,-16 q-2,10 -14,12" fill="#FBF3E9"/>
+            <!-- foam scatter along the face -->
+            <path d="M60,240 q12,-20 28,-8 q8,-16 20,-4" stroke="#FBF3E9" stroke-width="6" fill="none" stroke-linecap="round"/>
+            <path d="M110,180 q10,-16 24,-6" stroke="#FBF3E9" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <circle cx="150" cy="230" r="11" fill="#E85D4A"/>
+            <circle cx="260" cy="170" r="8" fill="#D98A2B"/>
+            <circle cx="90" cy="270" r="7" fill="#FF7A2E"/>
+            <circle cx="330" cy="150" r="6" fill="#FF7A2E"/>
+            <circle cx="200" cy="120" r="5" fill="#FF7A2E"/>
+            <ellipse cx="330" cy="330" rx="30" ry="10" fill="#B98268"/>
+          </svg>
+        </div>
+        <div class="placard" style="background:#F4E4D3; color:#3B1F2E;">
+          <h2 class="kit-name" id="wave-crest-name" style="color:#3B1F2E;">Wave Crest</h2>
+          <p class="attribution" style="color:#3B1F2E;">After Katsushika Hokusai, <em>The Great Wave off Kanagawa</em> (c. 1831)</p>
+          <p class="site-line" style="color:#3B1F2E; border-left-color:#E85D4A;">Momentum, held. Poised force — power that has arrived and is choosing, for one more beat, not to release yet.</p>
+          <div class="story">
+            <p>The original is Prussian-blue cold. This kit keeps every structural decision — the bold carved line, the flat planes, the foam-claws — and flips only the temperature: sunset coral and amber where the wave was blue-black, deep plum standing in for the indigo's weight, not its hue.</p>
+            <p>The newest piece in the room, and the line's first non-painterly technique — woodblock, not brushwork.</p>
+          </div>
+          <div class="swatch-row" role="list" aria-label="Wave Crest palette swatches">
+            <span class="swatch-chip" style="background:#3B1F2E;" role="listitem" aria-label="Deep Plum Undertow"></span>
+            <span class="swatch-chip" style="background:#E85D4A;" role="listitem" aria-label="Sunset Coral"></span>
+            <span class="swatch-chip" style="background:#D98A2B;" role="listitem" aria-label="Amber Swell"></span>
+            <span class="swatch-chip" style="background:#FF7A2E;" role="listitem" aria-label="Spark Ember"></span>
+            <span class="swatch-chip" style="background:#B98268;" role="listitem" aria-label="Clay Dune"></span>
+          </div>
+          <span class="door door--soon" style="background:#3B1F2E; color:#FBF3E9; opacity:0.72; cursor:default;" aria-disabled="true">Newest piece — hanging soon</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</main>
+
+<footer class="exit-note">
+  <div class="wrap">
+    <p>The Art Gallery is seven kits, one line: brand kits seeded from masterworks, flipped into palettes that are honest about where they came from.</p>
+    <p class="credit">Idea: Heather Mitchell. Execution: Emmy + Otto.</p>
+  </div>
+</footer>
+
+</body>
+</html>
