@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<!-- The Pastry Case: the Sugar on Top line, six kits in one case.
+     Built by Otto from Emmy's SPEC-pastry-case.md + BRIEF-otto-pastry-case.md,
+     2026-10-18 (CWI 1621). Model: the Gallery Opening, translated to a
+     cupcake shop.
+
+     Every kit hex is read from that kit's own color-palette.md, keyed by
+     material name in the comment above each slot. Text pairs on the label
+     cards are each kit's own pre-verified pairs:
+       Salted Caramel     Molasses on Buttermilk 13.26 / door Buttermilk on Molasses 13.26
+       Mint Condition     Evergreen on Morning Glass 9.05 / door Morning Glass on Evergreen 9.05
+       Electric Sherbet   Midnight Mango on Sherbet Cream 15.25 / door Sherbet Cream on Raspberry Velvet 8.02
+       Spun Sugar         Plum Shadow on Cloud Linen 14.35 / door Cloud Linen on Plum Shadow 14.35
+       Velvet Noir        Pearl Light on Dark Ganache 14.44 / door Dark Ganache on Champagne Foil 7.54
+       Raspberry Martini  Highlight Tint on Velvet Anchor 17.58 / door Highlight Tint on Raspberry Martini 4.88
+     Icy Spark #8CC9DD appears only as decoration on Raspberry Martini's dark
+     panel; never text, never on a light ground.
+
+     The only non-kit colors are the counter chrome (--counter, --ink, ...),
+     a warm neutral, theme-aware: a direction call for the eye-gate.
+
+     Doors: live kit pages are linked at kits/sugar-on-top/<kit>. "Page coming"
+     doors are plain text, not links. To open one, replace the
+     <p class="door door--coming">...</p> with the <a class="door"> pattern
+     used on the live slots.
+
+     Self-contained: system fonts, no network requests, no scripts. $0. -->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Pastry Case · Sugar on Top</title>
+<link rel="icon" href="data:,">
+<meta name="description" content="The Sugar on Top line: six brand kits, boxed like the good cupcakes, each with a door to its own page.">
+<style>
+  /* Counter chrome: warm neutral, theme-aware. The one non-kit color system
+     on the page (DIRECTION call, flagged in the receipt). Kit panels and
+     label cards never use these. */
+  :root {
+    color-scheme: light dark;
+    --counter: #F6EFE6;
+    --counter-deep: #ECE2D5;
+    --rail: #D8C8B5;
+    --ink: #2B231D;
+    --ink-soft: #625347;
+    --line: rgba(43, 35, 29, 0.14);
+    --shadow: rgba(43, 35, 29, 0.28);
+  }
+  :root[data-theme="dark"] {
+    --counter: #191512;
+    --counter-deep: #110E0C;
+    --rail: #3A3029;
+    --ink: #F3ECE4;
+    --ink-soft: #B6A99B;
+    --line: rgba(243, 236, 228, 0.14);
+    --shadow: rgba(0, 0, 0, 0.6);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --counter: #191512;
+      --counter-deep: #110E0C;
+      --rail: #3A3029;
+      --ink: #F3ECE4;
+      --ink-soft: #B6A99B;
+      --line: rgba(243, 236, 228, 0.14);
+      --shadow: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--counter);
+    color: var(--ink);
+    font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    font-size: 16px;
+    line-height: 1.6;
+  }
+
+  .sans { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; }
+
+  .sr-only {
+    position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+    overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 1rem; }
+  @media (min-width: 600px) { .wrap { padding: 0 1.5rem; } }
+
+  a { color: inherit; }
+
+  /* ---------- Skip link ---------- */
+  .skip-link {
+    position: absolute; left: -999px; top: auto;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  }
+  .skip-link:focus {
+    position: fixed; left: 1rem; top: 1rem; z-index: 100;
+    background: var(--counter); color: var(--ink);
+    padding: 0.75rem 1.25rem; border-radius: 6px;
+    outline: 3px solid var(--ink); outline-offset: 2px;
+  }
+
+  /* ---------- Shop front (the welcome) ---------- */
+  .shop-front {
+    background: var(--counter-deep);
+    border-bottom: 1px solid var(--line);
+    padding: 4rem 0 0;
+    text-align: center;
+  }
+  .eyebrow {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin: 0 0 1rem;
+  }
+  .shop-front h1 {
+    font-size: clamp(2.5rem, 7vw, 4.25rem);
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: 0.01em;
+    margin: 0 0 1.5rem;
+  }
+  .lede {
+    max-width: 620px;
+    margin: 0 auto;
+    font-size: 1.125rem;
+    color: var(--ink-soft);
+  }
+  .lede + .lede { margin-top: 0.85rem; }
+
+  .case-guide {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    margin: 2.25rem 0 0;
+    padding: 1.25rem 0 1.5rem;
+    border-top: 1px solid var(--line);
+  }
+  .case-guide ol {
+    list-style: none; margin: 0; padding: 0;
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem 1.5rem;
+  }
+  .case-guide a {
+    font-size: 1rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding: 0.25rem 0;
+  }
+  .case-guide a:hover { color: var(--ink); border-color: var(--ink-soft); }
+  .case-guide a:focus-visible { color: var(--ink); outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 2px; }
+
+  /* ---------- The case ---------- */
+  main { padding: 3rem 0 0; }
+  .case {
+    background: var(--counter-deep);
+    border: 1px solid var(--line);
+    border-top: 8px solid var(--rail);      /* the glass rail along the top of the case */
+    border-radius: 14px 14px 0 0;
+    padding: clamp(1rem, 3vw, 2.5rem);
+    display: flex; flex-direction: column;
+    gap: clamp(2.5rem, 6vw, 4.5rem);
+  }
+  .counter-base {
+    height: 18px;
+    background: var(--rail);
+    border-radius: 0 0 6px 6px;
+    margin: 0 -0.5rem;
+  }
+
+  /* ---------- One slot in the case (one component, six instances) ---------- */
+  .slot {
+    scroll-margin-top: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    box-shadow: 0 1px 3px var(--line), 0 20px 40px -26px var(--shadow);
+  }
+  .slot:nth-child(even) .confection { order: 2; }
+
+  .confection {
+    position: relative;
+    background: var(--panel);
+    display: flex; align-items: center; justify-content: center;
+    min-height: 380px;
+  }
+  .confection svg { display: block; width: 100%; height: 100%; max-height: 560px; }
+
+  .badge {
+    position: absolute; top: 1rem; left: 1rem; z-index: 2;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 1rem; font-weight: 700; letter-spacing: 0.08em;
+    padding: 0.25rem 0.7rem; border-radius: 999px;
+  }
+
+  /* The label card: kit hexes only, through the slot's custom properties */
+  .card {
+    background: var(--card-bg);
+    color: var(--card-ink);
+    padding: clamp(1.75rem, 4vw, 2.75rem) clamp(1.25rem, 4vw, 2.5rem);
+    display: flex; flex-direction: column; justify-content: center;
+  }
+  .kit-name {
+    font-size: 2rem; font-weight: 400; line-height: 1.15;
+    margin: 0 0 1rem;
+  }
+  .site-line {
+    font-size: 1.125rem; font-style: italic;
+    margin: 0 0 1.25rem;
+    padding-left: 1rem;
+    border-left: 3px solid var(--accent);
+  }
+  .story p { font-size: 1rem; margin: 0 0 0.85rem; }
+  .story p:last-child { margin-bottom: 0; }
+
+  .in-box {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 1rem; font-weight: 600; letter-spacing: 0.06em;
+    margin: 1.5rem 0 0.6rem;
+  }
+  .chips { list-style: none; margin: 0 0 1.75rem; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .chip {
+    width: 2rem; height: 2rem; border-radius: 50%;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.16), 0 0 0 1px rgba(255, 255, 255, 0.12);
+  }
+
+  .door {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    align-self: flex-start;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    margin: 0;
+    font-size: 1rem; font-weight: 600; line-height: 1.3;
+    text-decoration: none;
+    padding: 0.8rem 1.4rem;
+    border-radius: 999px;
+    background: var(--door-bg);
+    color: var(--door-ink);
+    border: 2px solid var(--door-bg);
+  }
+  a.door:focus-visible { outline: 3px solid var(--card-ink); outline-offset: 3px; }
+  .door--coming {
+    background: transparent;
+    color: var(--card-ink);
+    border: 2px dashed var(--card-ink);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+    a.door { transition: transform 0.2s ease; }
+    a.door:hover { transform: translateY(-2px); }
+    a.door .arrow { transition: transform 0.2s ease; }
+    a.door:hover .arrow { transform: translateX(3px); }
+  }
+
+  @media (max-width: 820px) {
+    .slot { grid-template-columns: 1fr; }
+    .slot:nth-child(even) .confection { order: 0; }
+    .confection { min-height: 0; }
+    .confection svg { max-height: 420px; }
+  }
+
+  /* ---------- Exit note ---------- */
+  .exit-note { padding: 3.5rem 0 4.5rem; text-align: center; }
+  .exit-note p { font-size: 1.0625rem; color: var(--ink-soft); max-width: 560px; margin: 0 auto 0.85rem; }
+  .exit-note .back {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 1rem; font-weight: 600; color: var(--ink);
+    text-decoration: underline; text-underline-offset: 3px;
+  }
+  .exit-note .back:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; border-radius: 2px; }
+  .exit-note .credit {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 1rem; margin-top: 2rem;
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#case">Skip to the case</a>
+
+<header class="shop-front">
+  <div class="wrap">
+    <p class="eyebrow">Sugar on Top · The Cupcake Shop</p>
+    <h1>The Pastry Case</h1>
+    <p class="lede">Six brand kits, boxed like the good cupcakes. Each one is built for a particular woman, in her own colors, down to the topper.</p>
+    <p class="lede">Look along the case. When one looks like you, open the box.</p>
+  </div>
+  <nav class="case-guide wrap" aria-label="The case, front to back">
+    <ol><li><a href="#salted-caramel">Salted Caramel</a></li><li><a href="#mint-condition">Mint Condition</a></li><li><a href="#electric-sherbet">Electric Sherbet</a></li><li><a href="#spun-sugar">Spun Sugar</a></li><li><a href="#velvet-noir">Velvet Noir</a></li><li><a href="#raspberry-martini">Raspberry Martini</a></li></ol>
+  </nav>
+</header>
+
+<main class="wrap">
+  <div id="case" class="case" tabindex="-1">
+    <!-- 01. SALTED CARAMEL : hexes from salted-caramel/color-palette.md -->
+    <article class="slot" id="salted-caramel" aria-labelledby="salted-caramel-name"
+      style="--card-bg:#FBF3E4;--card-ink:#3D2212;--accent:#A0622E;--door-bg:#3D2212;--door-ink:#FBF3E4;--panel:#C9C2B8">
+      <div class="confection">
+        <span class="badge" style="background:#3D2212;color:#FBF3E4">01 / 06</span>
+        <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid meet" role="img" aria-label="A gourmet salted caramel cupcake in a cream box with an antique-blue ribbon, set on a stone counter: a terracotta pleated liner, a piped cream swirl with a burnt-sugar caramel drizzle, and one standing shard of caramel brittle flecked with flaky salt."><rect width="400" height="420" fill="#C9C2B8"/><rect y="372" width="400" height="48" fill="#3D2212"/><rect y="372" width="400" height="3" fill="#FBF3E4" opacity="0.45"/><path d="M92 304 L102 262 H298 L308 304 Z" fill="#3D2212"/><path d="M118 236 H282 L268 330 H132 Z" fill="#B5673F"/><line x1="132.9" y1="236" x2="144.4" y2="330" stroke="#A0622E" stroke-width="3" opacity="0.6"/><line x1="147.8" y1="236" x2="156.7" y2="330" stroke="#A0622E" stroke-width="3" opacity="0.6"/><line x1="162.7" y1="236" x2="169.1" y2="330" stroke="#A0622E" stroke-width="3" opacity="0.6"/><line x1="177.6" y1="236" x2="181.5" y2="330" stroke="#A0622E" stroke-width="3" opacity="0.6"/><line x1="192.5" y1="236" x2="193.8" y2="330" stroke="#A0622E" stroke-width="3" opacity="0.6"/><line x1="207.5" y1="236" x2="206.2" y2="330" stroke="#A0622E" stroke-width="3" opacity="0.6"/><line x1="222.4" y1="236" x2="218.5" y2="330" stroke="#A0622E" stroke-width="3" opacity="0.6"/><line x1="237.3" y1="236" x2="230.9" y2="330" stroke="#A0622E" stroke-width="3" opacity="0.6"/><line x1="252.2" y1="236" x2="243.3" y2="330" stroke="#A0622E" stroke-width="3" opacity="0.6"/><line x1="267.1" y1="236" x2="255.6" y2="330" stroke="#A0622E" stroke-width="3" opacity="0.6"/><path d="M100 238 C98 208 140 196 200 196 C260 196 302 208 300 238 C268 252 132 252 100 238 Z" fill="#FBF3E4"/><path d="M100 238 C98 208 140 196 200 196 C260 196 302 208 300 238 C268 252 132 252 100 238 Z" fill="none" stroke="#A0622E" stroke-width="2" opacity="0.35"/><path d="M122 206 C122 180 156 168 200 168 C244 168 278 180 278 206 C250 220 150 220 122 206 Z" fill="#FBF3E4"/><path d="M122 206 C122 180 156 168 200 168 C244 168 278 180 278 206 C250 220 150 220 122 206 Z" fill="none" stroke="#A0622E" stroke-width="2" opacity="0.35"/><path d="M146 176 C148 152 172 142 200 142 C228 142 252 152 254 176 C232 188 168 188 146 176 Z" fill="#FBF3E4"/><path d="M146 176 C148 152 172 142 200 142 C228 142 252 152 254 176 C232 188 168 188 146 176 Z" fill="none" stroke="#A0622E" stroke-width="2" opacity="0.35"/><path d="M170 150 C172 128 192 116 212 104 C210 120 228 130 230 148 C214 158 186 158 170 150 Z" fill="#FBF3E4"/><path d="M118 222 C140 206 170 202 200 202" fill="none" stroke="#C9C2B8" stroke-width="5" stroke-linecap="round" opacity="0.7"/><path d="M138 192 C156 178 176 174 200 174" fill="none" stroke="#C9C2B8" stroke-width="5" stroke-linecap="round" opacity="0.7"/><path d="M160 164 C172 154 184 150 200 148" fill="none" stroke="#C9C2B8" stroke-width="5" stroke-linecap="round" opacity="0.7"/><path d="M108 230 L132 214 L150 236 L172 210 L196 238 L220 208 L244 236 L266 212 L292 230" fill="none" stroke="#A0622E" stroke-width="6" stroke-linejoin="round" stroke-linecap="round"/><path d="M132 196 L156 178 L178 200 L204 174 L228 200 L252 180 L270 196" fill="none" stroke="#A0622E" stroke-width="5" stroke-linejoin="round" stroke-linecap="round"/><path d="M88 300 H312 L304 376 H96 Z" fill="#FBF3E4"/><rect x="84" y="294" width="232" height="10" rx="3" fill="#B5894A"/><rect x="188" y="304" width="24" height="72" fill="#5C7A8C"/><polygon points="168,150 212,70 240,82 214,156" fill="#A0622E"/><polygon points="212,70 240,82 230,110 214,96" fill="#B5894A"/><polygon points="176,146 204,96 210,104 188,150" fill="#B5894A" opacity="0.7"/><polygon points="200,100 207,97 209,104 202,107" fill="#FBF3E4"/><polygon points="214,124 221,121 223,128 216,131" fill="#FBF3E4"/><polygon points="190,132 197,129 199,136 192,139" fill="#FBF3E4"/><polygon points="222,94 229,91 231,98 224,101" fill="#FBF3E4"/><polygon points="204,140 211,137 213,144 206,147" fill="#FBF3E4"/><polygon points="262,0 318,0 138,420 82,420" fill="#FBF3E4" opacity="0.22"/><polygon points="330,0 344,0 164,420 150,420" fill="#FBF3E4" opacity="0.18"/><rect width="400" height="5" fill="#FBF3E4" opacity="0.5"/></svg>
+      </div>
+      <div class="card">
+        <h2 class="kit-name" id="salted-caramel-name">Salted Caramel</h2>
+        <p class="site-line">“Salted Caramel. Warm. Come on in. Something’s baking.”</p>
+        <div class="story"><p>A kitchen with good light and something in the oven: brown sugar, butter, time. Burnt Sugar is the warmth of a woman who walks in like she lives there, and Garden Sage is the rosemary on the windowsill that keeps it grounded.</p></div>
+        <p class="in-box" id="salted-caramel-box">In the box</p>
+        <ul class="chips" aria-labelledby="salted-caramel-box"><li class="chip" style="background:#A0622E"><span class="sr-only">Burnt Sugar #A0622E</span></li><li class="chip" style="background:#7A9582"><span class="sr-only">Garden Sage #7A9582</span></li><li class="chip" style="background:#FBF3E4"><span class="sr-only">Buttermilk #FBF3E4</span></li><li class="chip" style="background:#C9C2B8"><span class="sr-only">Stone Counter #C9C2B8</span></li><li class="chip" style="background:#B5894A"><span class="sr-only">Brass Pull #B5894A</span></li><li class="chip" style="background:#3D2212"><span class="sr-only">Molasses #3D2212</span></li><li class="chip" style="background:#5C7A8C"><span class="sr-only">Antique Blue #5C7A8C</span></li><li class="chip" style="background:#B5673F"><span class="sr-only">Terracotta Pot #B5673F</span></li></ul>
+        <a class="door" href="https://emmybellamora.com/kits/sugar-on-top/salted-caramel">Open this box<span class="sr-only">: the Salted Caramel kit</span> <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </article>
+    <!-- 02. MINT CONDITION : hexes from mint-condition/color-palette.md -->
+    <article class="slot" id="mint-condition" aria-labelledby="mint-condition-name"
+      style="--card-bg:#F5F9F7;--card-ink:#1E4D3D;--accent:#6DBAA1;--door-bg:#1E4D3D;--door-ink:#F5F9F7;--panel:#B8DCE3">
+      <div class="confection">
+        <span class="badge" style="background:#1E4D3D;color:#F5F9F7">02 / 06</span>
+        <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid meet" role="img" aria-label="A gourmet mint cupcake in a frosted white box with a spearmint ribbon, on a pale oak shelf behind cool glass: a bare-oak pleated liner, a eucalyptus-green piped swirl, and one fresh spearmint leaf with a raindrop on it."><rect width="400" height="420" fill="#B8DCE3"/><rect y="372" width="400" height="48" fill="#E3D3B8"/><rect y="372" width="400" height="3" fill="#F5F9F7" opacity="0.45"/><path d="M92 304 L102 262 H298 L308 304 Z" fill="#A8B5BA"/><path d="M118 236 H282 L268 330 H132 Z" fill="#E3D3B8"/><line x1="132.9" y1="236" x2="144.4" y2="330" stroke="#C8B88A" stroke-width="3" opacity="0.75"/><line x1="147.8" y1="236" x2="156.7" y2="330" stroke="#C8B88A" stroke-width="3" opacity="0.75"/><line x1="162.7" y1="236" x2="169.1" y2="330" stroke="#C8B88A" stroke-width="3" opacity="0.75"/><line x1="177.6" y1="236" x2="181.5" y2="330" stroke="#C8B88A" stroke-width="3" opacity="0.75"/><line x1="192.5" y1="236" x2="193.8" y2="330" stroke="#C8B88A" stroke-width="3" opacity="0.75"/><line x1="207.5" y1="236" x2="206.2" y2="330" stroke="#C8B88A" stroke-width="3" opacity="0.75"/><line x1="222.4" y1="236" x2="218.5" y2="330" stroke="#C8B88A" stroke-width="3" opacity="0.75"/><line x1="237.3" y1="236" x2="230.9" y2="330" stroke="#C8B88A" stroke-width="3" opacity="0.75"/><line x1="252.2" y1="236" x2="243.3" y2="330" stroke="#C8B88A" stroke-width="3" opacity="0.75"/><line x1="267.1" y1="236" x2="255.6" y2="330" stroke="#C8B88A" stroke-width="3" opacity="0.75"/><path d="M100 238 C98 208 140 196 200 196 C260 196 302 208 300 238 C268 252 132 252 100 238 Z" fill="#A8D5C8"/><path d="M100 238 C98 208 140 196 200 196 C260 196 302 208 300 238 C268 252 132 252 100 238 Z" fill="none" stroke="#6DBAA1" stroke-width="2" opacity="0.35"/><path d="M122 206 C122 180 156 168 200 168 C244 168 278 180 278 206 C250 220 150 220 122 206 Z" fill="#A8D5C8"/><path d="M122 206 C122 180 156 168 200 168 C244 168 278 180 278 206 C250 220 150 220 122 206 Z" fill="none" stroke="#6DBAA1" stroke-width="2" opacity="0.35"/><path d="M146 176 C148 152 172 142 200 142 C228 142 252 152 254 176 C232 188 168 188 146 176 Z" fill="#A8D5C8"/><path d="M146 176 C148 152 172 142 200 142 C228 142 252 152 254 176 C232 188 168 188 146 176 Z" fill="none" stroke="#6DBAA1" stroke-width="2" opacity="0.35"/><path d="M170 150 C172 128 192 116 212 104 C210 120 228 130 230 148 C214 158 186 158 170 150 Z" fill="#A8D5C8"/><path d="M118 222 C140 206 170 202 200 202" fill="none" stroke="#F5F9F7" stroke-width="5" stroke-linecap="round" opacity="0.65"/><path d="M138 192 C156 178 176 174 200 174" fill="none" stroke="#F5F9F7" stroke-width="5" stroke-linecap="round" opacity="0.65"/><path d="M160 164 C172 154 184 150 200 148" fill="none" stroke="#F5F9F7" stroke-width="5" stroke-linecap="round" opacity="0.65"/><path d="M88 300 H312 L304 376 H96 Z" fill="#F5F9F7"/><rect x="84" y="294" width="232" height="10" rx="3" fill="#A8B5BA"/><rect x="188" y="304" width="24" height="72" fill="#6DBAA1"/><path d="M204 112 C170 96 168 62 196 40 C222 62 226 94 204 112 Z" fill="#6DBAA1"/><path d="M204 112 C198 88 196 66 196 44" fill="none" stroke="#1E4D3D" stroke-width="2.5" stroke-linecap="round"/><path d="M199 92 L184 80 M198 76 L186 66 M200 92 L212 80 M199 74 L210 64" stroke="#1E4D3D" stroke-width="1.6" stroke-linecap="round"/><path d="M206 108 C228 108 246 96 252 78 C230 76 212 88 206 108 Z" fill="#6DBAA1" opacity="0.9"/><circle cx="214" cy="66" r="6" fill="#B8DCE3"/><circle cx="212" cy="64" r="2" fill="#F5F9F7"/><polygon points="262,0 318,0 138,420 82,420" fill="#F5F9F7" opacity="0.3"/><polygon points="330,0 344,0 164,420 150,420" fill="#F5F9F7" opacity="0.24"/><rect width="400" height="5" fill="#F5F9F7" opacity="0.5"/></svg>
+      </div>
+      <div class="card">
+        <h2 class="kit-name" id="mint-condition-name">Mint Condition</h2>
+        <p class="site-line">“Mint Condition. Fresh. The morning after it rained all night.”</p>
+        <div class="story"><p>The morning after the rain: polished leaves, a kettle ticking, the chair by the window warm where the sun lands on it. Spearmint is the clear head of someone who has just decided, and Bare Oak is that chair, so the cool reads fresh instead of cold.</p></div>
+        <p class="in-box" id="mint-condition-box">In the box</p>
+        <ul class="chips" aria-labelledby="mint-condition-box"><li class="chip" style="background:#6DBAA1"><span class="sr-only">Spearmint #6DBAA1</span></li><li class="chip" style="background:#C8B88A"><span class="sr-only">Aloe Honey #C8B88A</span></li><li class="chip" style="background:#E3D3B8"><span class="sr-only">Bare Oak #E3D3B8</span></li><li class="chip" style="background:#A8B5BA"><span class="sr-only">Rain Glass #A8B5BA</span></li><li class="chip" style="background:#1E4D3D"><span class="sr-only">Evergreen #1E4D3D</span></li><li class="chip" style="background:#3A4A42"><span class="sr-only">Slate Moss #3A4A42</span></li><li class="chip" style="background:#F5F9F7"><span class="sr-only">Morning Glass #F5F9F7</span></li><li class="chip" style="background:#A8D5C8"><span class="sr-only">Eucalyptus #A8D5C8</span></li><li class="chip" style="background:#B8DCE3"><span class="sr-only">Ice Glass #B8DCE3</span></li></ul>
+        <a class="door" href="https://emmybellamora.com/kits/sugar-on-top/mint-condition">Open this box<span class="sr-only">: the Mint Condition kit</span> <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </article>
+    <!-- 03. ELECTRIC SHERBET : hexes from electric-sherbet/color-palette.md -->
+    <article class="slot" id="electric-sherbet" aria-labelledby="electric-sherbet-name"
+      style="--card-bg:#FFF0E0;--card-ink:#2A1525;--accent:#FF6B35;--door-bg:#8B1A4A;--door-ink:#FFF0E0;--panel:#4A2060">
+      <div class="confection">
+        <span class="badge" style="background:#2A1525;color:#FFF0E0">03 / 06</span>
+        <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid meet" role="img" aria-label="A gourmet sherbet cupcake in a cream box with a fuchsia ribbon, against a deep grape dusk sky on a concrete ledge: a raspberry-velvet pleated liner, a tall swirl piped in alternating tangerine and fuchsia like a sunset drink, and one lime wheel tucked into the top."><rect width="400" height="420" fill="#4A2060"/><rect y="372" width="400" height="48" fill="#8C8896"/><rect y="372" width="400" height="3" fill="#FFF0E0" opacity="0.45"/><path d="M92 304 L102 262 H298 L308 304 Z" fill="#2A1525"/><path d="M118 236 H282 L268 330 H132 Z" fill="#8B1A4A"/><line x1="132.9" y1="236" x2="144.4" y2="330" stroke="#E8356D" stroke-width="3" opacity="0.55"/><line x1="147.8" y1="236" x2="156.7" y2="330" stroke="#E8356D" stroke-width="3" opacity="0.55"/><line x1="162.7" y1="236" x2="169.1" y2="330" stroke="#E8356D" stroke-width="3" opacity="0.55"/><line x1="177.6" y1="236" x2="181.5" y2="330" stroke="#E8356D" stroke-width="3" opacity="0.55"/><line x1="192.5" y1="236" x2="193.8" y2="330" stroke="#E8356D" stroke-width="3" opacity="0.55"/><line x1="207.5" y1="236" x2="206.2" y2="330" stroke="#E8356D" stroke-width="3" opacity="0.55"/><line x1="222.4" y1="236" x2="218.5" y2="330" stroke="#E8356D" stroke-width="3" opacity="0.55"/><line x1="237.3" y1="236" x2="230.9" y2="330" stroke="#E8356D" stroke-width="3" opacity="0.55"/><line x1="252.2" y1="236" x2="243.3" y2="330" stroke="#E8356D" stroke-width="3" opacity="0.55"/><line x1="267.1" y1="236" x2="255.6" y2="330" stroke="#E8356D" stroke-width="3" opacity="0.55"/><path d="M100 238 C98 208 140 196 200 196 C260 196 302 208 300 238 C268 252 132 252 100 238 Z" fill="#FF6B35"/><path d="M122 206 C122 180 156 168 200 168 C244 168 278 180 278 206 C250 220 150 220 122 206 Z" fill="#E8356D"/><path d="M146 176 C148 152 172 142 200 142 C228 142 252 152 254 176 C232 188 168 188 146 176 Z" fill="#FF6B35"/><path d="M170 150 C172 128 192 116 212 104 C210 120 228 130 230 148 C214 158 186 158 170 150 Z" fill="#E8356D"/><path d="M118 222 C140 206 170 202 200 202" fill="none" stroke="#FFF0E0" stroke-width="5" stroke-linecap="round" opacity="0.5"/><path d="M138 192 C156 178 176 174 200 174" fill="none" stroke="#FFF0E0" stroke-width="5" stroke-linecap="round" opacity="0.5"/><path d="M160 164 C172 154 184 150 200 148" fill="none" stroke="#FFF0E0" stroke-width="5" stroke-linecap="round" opacity="0.5"/><path d="M88 300 H312 L304 376 H96 Z" fill="#FFF0E0"/><rect x="84" y="294" width="232" height="10" rx="3" fill="#FFD23F"/><rect x="188" y="304" width="24" height="72" fill="#E8356D"/><circle cx="132" cy="170" r="3" fill="#FFD23F"/><circle cx="270" cy="160" r="3" fill="#FFD23F"/><circle cx="156" cy="124" r="2.5" fill="#FFD23F"/><circle cx="290" cy="118" r="2.5" fill="#FFD23F"/><circle cx="120" cy="110" r="2" fill="#FFD23F"/><g transform="rotate(-18 222 96)"><circle cx="222" cy="96" r="36" fill="#B8E62E"/><circle cx="222" cy="96" r="30" fill="#FFF0E0"/><circle cx="222" cy="96" r="27" fill="#B8E62E"/><line x1="222" y1="96" x2="249.0" y2="96.0" stroke="#FFF0E0" stroke-width="2.2"/><line x1="222" y1="96" x2="243.8" y2="111.9" stroke="#FFF0E0" stroke-width="2.2"/><line x1="222" y1="96" x2="230.3" y2="121.7" stroke="#FFF0E0" stroke-width="2.2"/><line x1="222" y1="96" x2="213.7" y2="121.7" stroke="#FFF0E0" stroke-width="2.2"/><line x1="222" y1="96" x2="200.2" y2="111.9" stroke="#FFF0E0" stroke-width="2.2"/><line x1="222" y1="96" x2="195.0" y2="96.0" stroke="#FFF0E0" stroke-width="2.2"/><line x1="222" y1="96" x2="200.2" y2="80.1" stroke="#FFF0E0" stroke-width="2.2"/><line x1="222" y1="96" x2="213.7" y2="70.3" stroke="#FFF0E0" stroke-width="2.2"/><line x1="222" y1="96" x2="230.3" y2="70.3" stroke="#FFF0E0" stroke-width="2.2"/><line x1="222" y1="96" x2="243.8" y2="80.1" stroke="#FFF0E0" stroke-width="2.2"/><circle cx="222" cy="96" r="4" fill="#FFF0E0"/></g><polygon points="262,0 318,0 138,420 82,420" fill="#FFF0E0" opacity="0.1"/><polygon points="330,0 344,0 164,420 150,420" fill="#FFF0E0" opacity="0.08"/><rect width="400" height="5" fill="#FFF0E0" opacity="0.5"/></svg>
+      </div>
+      <div class="card">
+        <h2 class="kit-name" id="electric-sherbet-name">Electric Sherbet</h2>
+        <p class="site-line">“Dopamine hit. Fizzy, fearless, unapologetically bright. For the woman who wears the orange — not the woman who plays it safe and then says she wishes she’d worn the orange.”</p>
+        <div class="story"><p>A rooftop at golden hour, music loud enough to feel in your chest, a drink the color of a sunset in her hand. Tangerine Fizz and Fuchsia Shock carry the party, and Dusk Concrete is the cool rooftop they get to stand on.</p></div>
+        <p class="in-box" id="electric-sherbet-box">In the box</p>
+        <ul class="chips" aria-labelledby="electric-sherbet-box"><li class="chip" style="background:#FF6B35"><span class="sr-only">Tangerine Fizz #FF6B35</span></li><li class="chip" style="background:#E8356D"><span class="sr-only">Fuchsia Shock #E8356D</span></li><li class="chip" style="background:#FFF0E0"><span class="sr-only">Sherbet Cream #FFF0E0</span></li><li class="chip" style="background:#8C8896"><span class="sr-only">Dusk Concrete #8C8896</span></li><li class="chip" style="background:#B8E62E"><span class="sr-only">Lime Volt #B8E62E</span></li><li class="chip" style="background:#FFD23F"><span class="sr-only">Lemon Zap #FFD23F</span></li><li class="chip" style="background:#8B1A4A"><span class="sr-only">Raspberry Velvet #8B1A4A</span></li><li class="chip" style="background:#2A1525"><span class="sr-only">Midnight Mango #2A1525</span></li><li class="chip" style="background:#4A2060"><span class="sr-only">Twilight Grape #4A2060</span></li></ul>
+        <a class="door" href="https://emmybellamora.com/kits/sugar-on-top/electric-sherbet">Open this box<span class="sr-only">: the Electric Sherbet kit</span> <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </article>
+    <!-- 04. SPUN SUGAR : hexes from spun-sugar/color-palette.md -->
+    <article class="slot" id="spun-sugar" aria-labelledby="spun-sugar-name"
+      style="--card-bg:#FDF5F0;--card-ink:#2D1E3A;--accent:#C97A8C;--door-bg:#2D1E3A;--door-ink:#FDF5F0;--panel:#EABFB9">
+      <div class="confection">
+        <span class="badge" style="background:#2D1E3A;color:#FDF5F0">04 / 06</span>
+        <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid meet" role="img" aria-label="A gourmet spun sugar cupcake in a linen-white box with a lilac ribbon, on a dawn-pink shelf: a champagne-rose pleated liner, frosting piped in soft cloud puffs, and one crown of fine spun-sugar threads catching the light."><rect width="400" height="420" fill="#EABFB9"/><rect y="372" width="400" height="48" fill="#7E6B8A"/><rect y="372" width="400" height="3" fill="#FDF5F0" opacity="0.45"/><path d="M92 304 L102 262 H298 L308 304 Z" fill="#C5CCCE"/><path d="M118 236 H282 L268 330 H132 Z" fill="#C97A8C"/><line x1="132.9" y1="236" x2="144.4" y2="330" stroke="#7E6B8A" stroke-width="3" opacity="0.5"/><line x1="147.8" y1="236" x2="156.7" y2="330" stroke="#7E6B8A" stroke-width="3" opacity="0.5"/><line x1="162.7" y1="236" x2="169.1" y2="330" stroke="#7E6B8A" stroke-width="3" opacity="0.5"/><line x1="177.6" y1="236" x2="181.5" y2="330" stroke="#7E6B8A" stroke-width="3" opacity="0.5"/><line x1="192.5" y1="236" x2="193.8" y2="330" stroke="#7E6B8A" stroke-width="3" opacity="0.5"/><line x1="207.5" y1="236" x2="206.2" y2="330" stroke="#7E6B8A" stroke-width="3" opacity="0.5"/><line x1="222.4" y1="236" x2="218.5" y2="330" stroke="#7E6B8A" stroke-width="3" opacity="0.5"/><line x1="237.3" y1="236" x2="230.9" y2="330" stroke="#7E6B8A" stroke-width="3" opacity="0.5"/><line x1="252.2" y1="236" x2="243.3" y2="330" stroke="#7E6B8A" stroke-width="3" opacity="0.5"/><line x1="267.1" y1="236" x2="255.6" y2="330" stroke="#7E6B8A" stroke-width="3" opacity="0.5"/><circle cx="132" cy="228" r="32" fill="#EABFB9" opacity="0.55"/><circle cx="170" cy="220" r="38" fill="#EABFB9" opacity="0.55"/><circle cx="230" cy="220" r="38" fill="#EABFB9" opacity="0.55"/><circle cx="268" cy="228" r="32" fill="#EABFB9" opacity="0.55"/><circle cx="150" cy="190" r="34" fill="#EABFB9" opacity="0.55"/><circle cx="200" cy="184" r="40" fill="#EABFB9" opacity="0.55"/><circle cx="250" cy="190" r="34" fill="#EABFB9" opacity="0.55"/><circle cx="178" cy="154" r="30" fill="#EABFB9" opacity="0.55"/><circle cx="222" cy="154" r="30" fill="#EABFB9" opacity="0.55"/><circle cx="200" cy="132" r="26" fill="#EABFB9" opacity="0.55"/><circle cx="132" cy="224" r="32" fill="#FDF5F0"/><circle cx="170" cy="216" r="38" fill="#FDF5F0"/><circle cx="230" cy="216" r="38" fill="#FDF5F0"/><circle cx="268" cy="224" r="32" fill="#FDF5F0"/><circle cx="150" cy="186" r="34" fill="#FDF5F0"/><circle cx="200" cy="180" r="40" fill="#FDF5F0"/><circle cx="250" cy="186" r="34" fill="#FDF5F0"/><circle cx="178" cy="150" r="30" fill="#FDF5F0"/><circle cx="222" cy="150" r="30" fill="#FDF5F0"/><circle cx="200" cy="128" r="26" fill="#FDF5F0"/><path d="M114.4 216.0 A19.2 19.2 0 0 1 135.2 204.2" fill="none" stroke="#C5CCCE" stroke-width="3" stroke-linecap="round" opacity="0.8"/><path d="M149.1 206.5 A22.8 22.8 0 0 1 173.8 192.4" fill="none" stroke="#C5CCCE" stroke-width="3" stroke-linecap="round" opacity="0.8"/><path d="M209.1 206.5 A22.8 22.8 0 0 1 233.8 192.4" fill="none" stroke="#C5CCCE" stroke-width="3" stroke-linecap="round" opacity="0.8"/><path d="M250.4 216.0 A19.2 19.2 0 0 1 271.2 204.2" fill="none" stroke="#C5CCCE" stroke-width="3" stroke-linecap="round" opacity="0.8"/><path d="M131.3 177.5 A20.4 20.4 0 0 1 153.4 164.9" fill="none" stroke="#C5CCCE" stroke-width="3" stroke-linecap="round" opacity="0.8"/><path d="M178.0 170.0 A24.0 24.0 0 0 1 204.0 155.2" fill="none" stroke="#C5CCCE" stroke-width="3" stroke-linecap="round" opacity="0.8"/><path d="M231.3 177.5 A20.4 20.4 0 0 1 253.4 164.9" fill="none" stroke="#C5CCCE" stroke-width="3" stroke-linecap="round" opacity="0.8"/><path d="M161.5 142.5 A18.0 18.0 0 0 1 181.0 131.4" fill="none" stroke="#C5CCCE" stroke-width="3" stroke-linecap="round" opacity="0.8"/><path d="M205.5 142.5 A18.0 18.0 0 0 1 225.0 131.4" fill="none" stroke="#C5CCCE" stroke-width="3" stroke-linecap="round" opacity="0.8"/><path d="M185.7 121.5 A15.6 15.6 0 0 1 202.6 111.9" fill="none" stroke="#C5CCCE" stroke-width="3" stroke-linecap="round" opacity="0.8"/><path d="M88 300 H312 L304 376 H96 Z" fill="#FDF5F0"/><rect x="84" y="294" width="232" height="10" rx="3" fill="#C5CCCE"/><rect x="188" y="304" width="24" height="72" fill="#7E6B8A"/><ellipse cx="200" cy="92" rx="34" ry="14" transform="rotate(0 200 92)" fill="none" stroke="#C5CCCE" stroke-width="1.8" opacity="0.95"/><ellipse cx="200" cy="92" rx="38" ry="19" transform="rotate(13 200 92)" fill="none" stroke="#FDF5F0" stroke-width="1.8" opacity="0.95"/><ellipse cx="200" cy="92" rx="42" ry="24" transform="rotate(26 200 92)" fill="none" stroke="#C97A8C" stroke-width="1.8" opacity="0.95"/><ellipse cx="200" cy="92" rx="46" ry="14" transform="rotate(39 200 92)" fill="none" stroke="#7E6B8A" stroke-width="1.8" opacity="0.6"/><ellipse cx="200" cy="92" rx="34" ry="19" transform="rotate(52 200 92)" fill="none" stroke="#C5CCCE" stroke-width="1.8" opacity="0.95"/><ellipse cx="200" cy="92" rx="38" ry="24" transform="rotate(65 200 92)" fill="none" stroke="#FDF5F0" stroke-width="1.8" opacity="0.95"/><ellipse cx="200" cy="92" rx="42" ry="14" transform="rotate(78 200 92)" fill="none" stroke="#C97A8C" stroke-width="1.8" opacity="0.95"/><ellipse cx="200" cy="92" rx="46" ry="19" transform="rotate(91 200 92)" fill="none" stroke="#7E6B8A" stroke-width="1.8" opacity="0.6"/><ellipse cx="200" cy="92" rx="34" ry="24" transform="rotate(104 200 92)" fill="none" stroke="#C5CCCE" stroke-width="1.8" opacity="0.95"/><ellipse cx="200" cy="92" rx="38" ry="14" transform="rotate(117 200 92)" fill="none" stroke="#FDF5F0" stroke-width="1.8" opacity="0.95"/><ellipse cx="200" cy="92" rx="42" ry="19" transform="rotate(130 200 92)" fill="none" stroke="#C97A8C" stroke-width="1.8" opacity="0.95"/><ellipse cx="200" cy="92" rx="46" ry="24" transform="rotate(143 200 92)" fill="none" stroke="#7E6B8A" stroke-width="1.8" opacity="0.6"/><ellipse cx="200" cy="92" rx="34" ry="14" transform="rotate(156 200 92)" fill="none" stroke="#C5CCCE" stroke-width="1.8" opacity="0.95"/><ellipse cx="200" cy="92" rx="38" ry="19" transform="rotate(169 200 92)" fill="none" stroke="#FDF5F0" stroke-width="1.8" opacity="0.95"/><polygon points="262,0 318,0 138,420 82,420" fill="#FDF5F0" opacity="0.28"/><polygon points="330,0 344,0 164,420 150,420" fill="#FDF5F0" opacity="0.22"/><rect width="400" height="5" fill="#FDF5F0" opacity="0.5"/></svg>
+      </div>
+      <div class="card">
+        <h2 class="kit-name" id="spun-sugar-name">Spun Sugar</h2>
+        <p class="site-line">“Softness that doesn’t fall apart when you look at it closely”</p>
+        <div class="story"><p>The hour before the light decides: lavender bleeding into rose, a porcelain cup catching the morning. Dawn Blush is softness chosen on purpose, and Plum Shadow is the night still at the horizon, the depth the softness rises out of.</p></div>
+        <p class="in-box" id="spun-sugar-box">In the box</p>
+        <ul class="chips" aria-labelledby="spun-sugar-box"><li class="chip" style="background:#EABFB9"><span class="sr-only">Dawn Blush #EABFB9</span></li><li class="chip" style="background:#C97A8C"><span class="sr-only">Champagne Rose #C97A8C</span></li><li class="chip" style="background:#FDF5F0"><span class="sr-only">Cloud Linen #FDF5F0</span></li><li class="chip" style="background:#C5CCCE"><span class="sr-only">Wet Petal #C5CCCE</span></li><li class="chip" style="background:#9DAE96"><span class="sr-only">Garden Sage #9DAE96</span></li><li class="chip" style="background:#2D1E3A"><span class="sr-only">Plum Shadow #2D1E3A</span></li><li class="chip" style="background:#7E6B8A"><span class="sr-only">Lilac Dusk #7E6B8A</span></li><li class="chip" style="background:#9FB5C4"><span class="sr-only">Morning Mist #9FB5C4</span></li></ul>
+        <a class="door" href="https://emmybellamora.com/kits/sugar-on-top/spun-sugar">Open this box<span class="sr-only">: the Spun Sugar kit</span> <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </article>
+    <!-- 05. VELVET NOIR : hexes from velvet-noir/color-palette.md -->
+    <article class="slot" id="velvet-noir" aria-labelledby="velvet-noir-name"
+      style="--card-bg:#2C1810;--card-ink:#EAEEF0;--accent:#D4A0A0;--door-bg:#C9A96E;--door-ink:#2C1810;--panel:#0F0B12">
+      <div class="confection">
+        <span class="badge" style="background:#D4A0A0;color:#0F0B12">05 / 06</span>
+        <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid meet" role="img" aria-label="A gourmet chocolate cupcake in a dark truffle box edged in gold with a pink-champagne ribbon, at midnight: a smoky-plum pleated liner, a glossy ganache dome ringed with tiny rosé piping, and one crumpled flake of champagne gold leaf on top."><rect width="400" height="420" fill="#0F0B12"/><rect y="372" width="400" height="48" fill="#6B3A2A"/><rect y="372" width="400" height="3" fill="#EAEEF0" opacity="0.45"/><defs><radialGradient id="vn-candle" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="#C9A96E" stop-opacity="0.30"/><stop offset="1" stop-color="#C9A96E" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="196" r="170" fill="url(#vn-candle)"/><path d="M92 304 L102 262 H298 L308 304 Z" fill="#0F0B12"/><path d="M118 236 H282 L268 330 H132 Z" fill="#6B3052"/><line x1="132.9" y1="236" x2="144.4" y2="330" stroke="#6B3A2A" stroke-width="3" opacity="0.6"/><line x1="147.8" y1="236" x2="156.7" y2="330" stroke="#6B3A2A" stroke-width="3" opacity="0.6"/><line x1="162.7" y1="236" x2="169.1" y2="330" stroke="#6B3A2A" stroke-width="3" opacity="0.6"/><line x1="177.6" y1="236" x2="181.5" y2="330" stroke="#6B3A2A" stroke-width="3" opacity="0.6"/><line x1="192.5" y1="236" x2="193.8" y2="330" stroke="#6B3A2A" stroke-width="3" opacity="0.6"/><line x1="207.5" y1="236" x2="206.2" y2="330" stroke="#6B3A2A" stroke-width="3" opacity="0.6"/><line x1="222.4" y1="236" x2="218.5" y2="330" stroke="#6B3A2A" stroke-width="3" opacity="0.6"/><line x1="237.3" y1="236" x2="230.9" y2="330" stroke="#6B3A2A" stroke-width="3" opacity="0.6"/><line x1="252.2" y1="236" x2="243.3" y2="330" stroke="#6B3A2A" stroke-width="3" opacity="0.6"/><line x1="267.1" y1="236" x2="255.6" y2="330" stroke="#6B3A2A" stroke-width="3" opacity="0.6"/><rect x="116" y="232" width="168" height="4" fill="#C9A96E"/><path d="M106 240 C102 126 298 126 294 240 Z" fill="#2C1810"/><path d="M256 178 C274 194 282 214 284 234" fill="none" stroke="#6B3A2A" stroke-width="9" stroke-linecap="round" opacity="0.85"/><path d="M140 220 C142 196 158 176 184 166" fill="none" stroke="#F2E6D9" stroke-width="6" stroke-linecap="round" opacity="0.45"/><path d="M150 230 C150 224 152 218 154 214" fill="none" stroke="#F2E6D9" stroke-width="5" stroke-linecap="round" opacity="0.35"/><circle cx="114" cy="238" r="6" fill="#D4A0A0"/><circle cx="127" cy="238" r="6" fill="#D4A0A0"/><circle cx="140" cy="238" r="6" fill="#D4A0A0"/><circle cx="153" cy="238" r="6" fill="#D4A0A0"/><circle cx="166" cy="238" r="6" fill="#D4A0A0"/><circle cx="179" cy="238" r="6" fill="#D4A0A0"/><circle cx="192" cy="238" r="6" fill="#D4A0A0"/><circle cx="205" cy="238" r="6" fill="#D4A0A0"/><circle cx="218" cy="238" r="6" fill="#D4A0A0"/><circle cx="231" cy="238" r="6" fill="#D4A0A0"/><circle cx="244" cy="238" r="6" fill="#D4A0A0"/><circle cx="257" cy="238" r="6" fill="#D4A0A0"/><circle cx="270" cy="238" r="6" fill="#D4A0A0"/><circle cx="283" cy="238" r="6" fill="#D4A0A0"/><path d="M88 300 H312 L304 376 H96 Z" fill="#2C1810"/><rect x="84" y="294" width="232" height="10" rx="3" fill="#C9A96E"/><rect x="188" y="304" width="24" height="72" fill="#D4A0A0"/><polygon points="178,150 200,132 222,138 218,150 232,160 208,168 192,160 176,164" fill="#C9A96E"/><polygon points="200,132 222,138 212,150" fill="#F2E6D9" opacity="0.45"/><polyline points="192,160 206,148 218,150" fill="none" stroke="#6B3A2A" stroke-width="1.5" opacity="0.7"/><polygon points="262,0 318,0 138,420 82,420" fill="#EAEEF0" opacity="0.07"/><polygon points="330,0 344,0 164,420 150,420" fill="#EAEEF0" opacity="0.06"/><rect width="400" height="5" fill="#EAEEF0" opacity="0.5"/></svg>
+      </div>
+      <div class="card">
+        <h2 class="kit-name" id="velvet-noir-name">Velvet Noir</h2>
+        <p class="site-line">“Velvet Noir. Indulgent.”</p>
+        <div class="story"><p>A Paris hotel room, late, with champagne that is barely pink and a masterpiece in progress on the desk. Dark Ganache is the outside of the truffle box, Rosé Fizz is the bubbles catching candlelight, and Champagne Foil is the gold at the edge of the wrapper.</p></div>
+        <p class="in-box" id="velvet-noir-box">In the box</p>
+        <ul class="chips" aria-labelledby="velvet-noir-box"><li class="chip" style="background:#2C1810"><span class="sr-only">Dark Ganache #2C1810</span></li><li class="chip" style="background:#D4A0A0"><span class="sr-only">Rosé Fizz #D4A0A0</span></li><li class="chip" style="background:#F2E6D9"><span class="sr-only">Cocoa Cream #F2E6D9</span></li><li class="chip" style="background:#EAEEF0"><span class="sr-only">Pearl Light #EAEEF0</span></li><li class="chip" style="background:#6B3052"><span class="sr-only">Smoky Plum #6B3052</span></li><li class="chip" style="background:#C9A96E"><span class="sr-only">Champagne Foil #C9A96E</span></li><li class="chip" style="background:#0F0B12"><span class="sr-only">Velvet Drape #0F0B12</span></li><li class="chip" style="background:#6B3A2A"><span class="sr-only">Truffle Interior #6B3A2A</span></li></ul>
+        <a class="door" href="https://emmybellamora.com/kits/sugar-on-top/velvet-noir">Open this box<span class="sr-only">: the Velvet Noir kit</span> <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </article>
+    <!-- 06. RASPBERRY MARTINI : hexes from raspberry-martini/color-palette.md -->
+    <article class="slot" id="raspberry-martini" aria-labelledby="raspberry-martini-name"
+      style="--card-bg:#13141A;--card-ink:#F9FAFA;--accent:#CE2B59;--door-bg:#CE2B59;--door-ink:#F9FAFA;--panel:#13141A">
+      <div class="confection">
+        <span class="badge" style="background:#F9FAFA;color:#13141A">06 / 06</span>
+        <svg viewBox="0 0 400 420" preserveAspectRatio="xMidYMid meet" role="img" aria-label="A sleek raspberry martini cupcake in a slate box, on a dark bar with a chrome edge: an ink liner with a fine silver rim, two smooth white tiers cut clean like a patisserie cap, and one raspberry on a cocktail pick, with an icy glint off the glass."><rect width="400" height="420" fill="#13141A"/><rect y="372" width="400" height="48" fill="#3A3E4A"/><rect y="372" width="400" height="3" fill="#8CC9DD" opacity="0.45"/><path d="M92 304 L102 262 H298 L308 304 Z" fill="#13141A"/><path d="M118 236 H282 L268 330 H132 Z" fill="#3A3E4A"/><line x1="132.9" y1="236" x2="144.4" y2="330" stroke="#13141A" stroke-width="3" opacity="0.5"/><line x1="147.8" y1="236" x2="156.7" y2="330" stroke="#13141A" stroke-width="3" opacity="0.5"/><line x1="162.7" y1="236" x2="169.1" y2="330" stroke="#13141A" stroke-width="3" opacity="0.5"/><line x1="177.6" y1="236" x2="181.5" y2="330" stroke="#13141A" stroke-width="3" opacity="0.5"/><line x1="192.5" y1="236" x2="193.8" y2="330" stroke="#13141A" stroke-width="3" opacity="0.5"/><line x1="207.5" y1="236" x2="206.2" y2="330" stroke="#13141A" stroke-width="3" opacity="0.5"/><line x1="222.4" y1="236" x2="218.5" y2="330" stroke="#13141A" stroke-width="3" opacity="0.5"/><line x1="237.3" y1="236" x2="230.9" y2="330" stroke="#13141A" stroke-width="3" opacity="0.5"/><line x1="252.2" y1="236" x2="243.3" y2="330" stroke="#13141A" stroke-width="3" opacity="0.5"/><line x1="267.1" y1="236" x2="255.6" y2="330" stroke="#13141A" stroke-width="3" opacity="0.5"/><rect x="116" y="232" width="168" height="4" fill="#9F9295"/><path d="M112 238 V206 Q112 194 124 194 H276 Q288 194 288 206 V238 Z" fill="#F9FAFA"/><rect x="250" y="196" width="34" height="42" fill="#EDE8E9"/><path d="M134 194 V178 Q134 170 142 170 H258 Q266 170 266 178 V194 Z" fill="#F9FAFA"/><rect x="238" y="171" width="26" height="23" fill="#EDE8E9"/><rect x="112" y="236" width="176" height="2" fill="#9F9295"/><path d="M88 300 H312 L304 376 H96 Z" fill="#3A3E4A"/><rect x="84" y="294" width="232" height="10" rx="3" fill="#9F9295"/><rect x="188" y="304" width="24" height="72" fill="#3A3E4A"/><line x1="246" y1="52" x2="200" y2="172" stroke="#9F9295" stroke-width="3" stroke-linecap="round"/><circle cx="247" cy="49" r="5" fill="#9F9295"/><circle cx="212" cy="150" r="7.5" fill="#CE2B59" stroke="#13141A" stroke-width="1" stroke-opacity="0.35"/><circle cx="224" cy="150" r="7.5" fill="#CE2B59" stroke="#13141A" stroke-width="1" stroke-opacity="0.35"/><circle cx="206" cy="140" r="7.5" fill="#CE2B59" stroke="#13141A" stroke-width="1" stroke-opacity="0.35"/><circle cx="218" cy="140" r="7.5" fill="#CE2B59" stroke="#13141A" stroke-width="1" stroke-opacity="0.35"/><circle cx="230" cy="140" r="7.5" fill="#CE2B59" stroke="#13141A" stroke-width="1" stroke-opacity="0.35"/><circle cx="212" cy="130" r="7.5" fill="#CE2B59" stroke="#13141A" stroke-width="1" stroke-opacity="0.35"/><circle cx="224" cy="130" r="7.5" fill="#CE2B59" stroke="#13141A" stroke-width="1" stroke-opacity="0.35"/><circle cx="218" cy="120" r="7.5" fill="#CE2B59" stroke="#13141A" stroke-width="1" stroke-opacity="0.35"/><circle cx="206" cy="152" r="7.5" fill="#CE2B59" stroke="#13141A" stroke-width="1" stroke-opacity="0.35"/><circle cx="230" cy="152" r="7.5" fill="#CE2B59" stroke="#13141A" stroke-width="1" stroke-opacity="0.35"/><circle cx="218" cy="160" r="7.5" fill="#CE2B59" stroke="#13141A" stroke-width="1" stroke-opacity="0.35"/><path d="M302 177 L304 184 L311 186 L304 188 L302 195 L300 188 L293 186 L300 184 Z" fill="#8CC9DD"/><path d="M110 89 L112 96 L119 98 L112 100 L110 107 L108 100 L101 98 L108 96 Z" fill="#8CC9DD"/><polygon points="262,0 318,0 138,420 82,420" fill="#8CC9DD" opacity="0.08"/><polygon points="330,0 344,0 164,420 150,420" fill="#8CC9DD" opacity="0.06"/><rect width="400" height="5" fill="#8CC9DD" opacity="0.5"/></svg>
+      </div>
+      <div class="card">
+        <h2 class="kit-name" id="raspberry-martini-name">Raspberry Martini</h2>
+        <p class="site-line">“Raspberry Martini Cupcake. Sleek.”</p>
+        <div class="story"><p>A cool room after dark: concrete walls, a chrome and slate bar, gin-clear ice. One warm thing in it, the raspberry in her hand, and everything else is there to make it mean what it means.</p></div>
+        <p class="in-box" id="raspberry-martini-box">In the box</p>
+        <ul class="chips" aria-labelledby="raspberry-martini-box"><li class="chip" style="background:#13141A"><span class="sr-only">Velvet Anchor #13141A</span></li><li class="chip" style="background:#3A3E4A"><span class="sr-only">Ink Slate #3A3E4A</span></li><li class="chip" style="background:#377067"><span class="sr-only">Cool Jade #377067</span></li><li class="chip" style="background:#CE2B59"><span class="sr-only">Raspberry Martini #CE2B59</span></li><li class="chip" style="background:#9F9295"><span class="sr-only">Bridge Mist #9F9295</span></li><li class="chip" style="background:#8CC9DD"><span class="sr-only">Icy Spark #8CC9DD</span></li><li class="chip" style="background:#EDE8E9"><span class="sr-only">Surface Tint #EDE8E9</span></li><li class="chip" style="background:#F9FAFA"><span class="sr-only">Highlight Tint #F9FAFA</span></li></ul>
+        <a class="door" href="https://emmybellamora.com/kits/sugar-on-top/raspberry-martini">Open this box<span class="sr-only">: the Raspberry Martini kit</span> <span class="arrow" aria-hidden="true">→</span></a>
+      </div>
+    </article>
+  </div>
+  <div class="counter-base" aria-hidden="true"></div>
+</main>
+
+<footer class="exit-note">
+  <div class="wrap">
+    <p>Sugar on Top is six kits, one shop. The name on the box is a way in, not a color brief: each palette starts from the woman it is for.</p>
+    <p><a class="back" href="https://emmybellamora.com/#work">Back to the shop front</a></p>
+    <p class="credit">Idea: Heather Mitchell. Execution: Emmy + Otto.</p>
+  </div>
+</footer>
+
+</body>
+</html>
