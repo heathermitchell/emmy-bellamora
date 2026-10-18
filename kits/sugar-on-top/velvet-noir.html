@@ -1,425 +1,881 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- JS gate: add 'js' before any CSS so no-JS content is full-opacity from first paint -->
-<script>document.documentElement.classList.add('js')</script>
+<script>
+/* JS gate. 'js' for the standard; 'motion' opts in to the dim room that
+   lights as you read. Reduced motion (or no JS) = the room is fully lit
+   from the first frame, every candle burning. */
+(function () {
+  var d = document.documentElement;
+  d.classList.add('js');
+  if (window.matchMedia && !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      && 'IntersectionObserver' in window) { d.classList.add('motion'); }
+})();
+</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Velvet Noir — Sugar on Top Brand Kit · Emmy Bellamora</title>
-<meta name="description" content="Velvet Noir is a truffle box with pink champagne — luxury without coldness, depth without heaviness. Eight material-named colors, three-font Champagne Suite, full brand kit.">
+<meta name="color-scheme" content="dark">
+<meta name="project" content="brand-kits">
+<title>Velvet Noir — Kit Experience</title>
+<meta name="description" content="Velvet Noir, a Sugar on Top brand kit. A hotel room in Paris, late evening. Eight colors, candlelight, and the city out the window.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Jost:wght@200;300;400;500&family=EB+Garamond:ital,wght@0,400;1,400&family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="../../assets/velvet-noir/hero-room.jpg" fetchpriority="high">
 <style>
-/* VELVET NOIR — rebuilt 2026-05-02: nothing is flat, everything is material. Real texture PNGs layered with color. Champagne bubbles. Section surfaces shift as you scroll. */
-:root {
-  --tex-velvet-drape: url('../../assets/textures/velvet-noir/texture-velvet-drape.png');
-  --tex-dark-ganache: url('../../assets/textures/velvet-noir/texture-dark-ganache.png');
-  --tex-truffle:      url('../../assets/textures/velvet-noir/texture-truffle-interior.png');
-  --tex-rose-fizz:    url('../../assets/textures/velvet-noir/texture-rose-fizz.png');
-  --tex-blush-silk:   url('../../assets/textures/velvet-noir/texture-blush-silk.png');
-  --tex-rose-leaf:    url('../../assets/textures/velvet-noir/texture-rose-leaf.png');
-  --tex-cocoa-cream:  url('../../assets/textures/velvet-noir/texture-cocoa-cream.png');
-  --tex-meringue:     url('../../assets/textures/velvet-noir/texture-meringue-kiss.png');
-  --deep-night: #0D0A14; --amethyst: #6B3FA0; --amethyst-light: #9B6FD0; --violet-dusk: #2D1B4E; --fairy-silver: #C8B8E8; --moonpetal: #E8D8F8; --snowflake: #F5F0FF;
-  /* Velvet Noir v3 palette — color-palette.md v3 (2026-05-22) */
-  --vn-velvet-drape:    #0F0B12; /* value-extreme accent — cool deep shadow at midnight */
-  --vn-dark-ganache:    #2C1810; /* anchor — warm brown-black, the woman's confidence */
-  --vn-truffle-interior:#6B3A2A; /* mid-warm bridge — the warm rest between dark and pink */
-  --vn-smoky-plum:      #6B3052; /* flex hue — bruised evening, the 2026 plum family */
-  --vn-rose-fizz:       #D4A0A0; /* counterweight — pink champagne in crystal */
-  --vn-champagne-foil:  #C9A96E; /* metallic accent — the only gold, candlelight made literal */
-  --vn-cocoa-cream:     #F2E6D9; /* warm carrier neutral — tissue paper, linen */
-  --vn-pearl-light:     #EAEEF0; /* cool carrier neutral — pearl, marble, the midnight gleam */
-  --font-emmy-display: 'Cormorant Garamond', serif; --font-emmy-body: 'Jost', sans-serif;
-  --font-vn-display: 'Playfair Display', serif; --font-vn-subhead: 'Cormorant Garamond', serif; --font-vn-body: 'Inter', sans-serif;
-  /* Layout */
-  --max-w: 1100px;
-}
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; }
+/* ══════════════════════════════════════════════════════════════════
+   VELVET NOIR — bespoke kit page (Sugar on Top)
+   Rebuilt 2026-10-18 by Otto, CWI 1623.
+   Sources: color-palette.md (v3, 2026-05-22, canonical — not edited),
+   page-experience-blueprint.md, velvet-noir-scroll-rhythm.md,
+   velvet-noir-type-sheet-for-page.md, typography-selections-v1.md,
+   kit-page standard v1.1. Ported from the vault candlelit build
+   (page-experience-v1.html + velvet-noir.css/js, May 2026).
 
-/* ── REDUCED MOTION: collapse all animation to end state immediately ── */
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  * {
-    transition-duration: 0.01ms !important;
-    animation-duration:  0.01ms !important;
-    animation-iteration-count: 1 !important;
-  }
-  .bubble { animation: none !important; opacity: 0 !important; }
+   THE ONE THING: the room lights as you read. A Paris suite, nine
+   real candles painted into the room. Two burn when you arrive; each
+   section you reach lights more; by the CTA every candle is burning.
+   Rationed: no other motion on the page. Each flame catches once and
+   then holds still. Nothing loops.
+
+   Flames sit on the candles in the painting, not on the viewport:
+   the room is a 16:9 frame sized to cover the screen, and each flame
+   is placed in that frame's own coordinates, so it moves with the crop.
+   Under 720px the frame shifts left to keep the side table, the
+   votives and the champagne in view (five candles), per the rhythm
+   spec's mobile reduction.
+
+   Reduced motion / no JS: the room is fully lit from the first frame.
+
+   Contrast (WCAG 2.x, computed from the hexes):
+     Cocoa Cream on Velvet Drape    15.88  body text on the room scrim
+     Pearl Light on Velvet Drape    16.70  headings
+     Champagne Foil on Velvet Drape  8.71  labels, eyebrows
+     Rosé Fizz on Velvet Drape       8.67  tagline, links
+     Cocoa Cream on Dark Ganache    13.73  card text
+     Champagne Foil on Dark Ganache  7.54  card labels
+     Smoky Plum on Pearl Light       8.29  pull quote (the one light room)
+     Dark Ganache on Pearl Light    14.44  pull-quote attribution
+     Velvet Drape on Champagne Foil  8.71  CTA button
+   Text over the photograph is measured against the rendered room
+   (worst pixel under each line, every candle lit) in the build note.
+
+   Every text node is 16px or larger. No exemptions.
+   ══════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* the eight — color-palette.md v3 */
+  --velvet-drape:     #0F0B12; /* value extreme: the city sky past the curtain */
+  --dark-ganache:     #2C1810; /* anchor: the outside of the truffle box */
+  --truffle-interior: #6B3A2A; /* mid-warm bridge: where the flavor lives */
+  --smoky-plum:       #6B3052; /* flex hue: the wine in the glass on the desk */
+  --rose-fizz:        #D4A0A0; /* counterweight: pink champagne in crystal */
+  --champagne-foil:   #C9A96E; /* metallic: the actual gold, candlelight made literal */
+  --cocoa-cream:      #F2E6D9; /* warm carrier: tissue paper in the gift box */
+  --pearl-light:      #EAEEF0; /* cool carrier: the pearl on the nightstand */
+
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-subhead: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+
+  --max-w: 1100px;
+  --section-pad: clamp(3rem, 6vw, 5rem) clamp(1.25rem, 4vw, 3.5rem);
+
+  /* 0 = room as you arrive, 1 = every candle burning. JS moves it. */
+  --light: 1;
 }
-body { background: var(--vn-velvet-drape); color: var(--vn-cocoa-cream); font-family: var(--font-emmy-body); font-weight: 300; overflow-x: hidden; line-height: 1.7; }
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: var(--vn-velvet-drape); }
-::-webkit-scrollbar-thumb { background: var(--amethyst); border-radius: 2px; }
-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(13,10,20,0.95) 0%, transparent 100%); backdrop-filter: blur(2px); }
-.nav-name { font-family: var(--font-emmy-display); font-size: 1.1rem; font-weight: 300; font-style: italic; color: var(--fairy-silver); letter-spacing: 0.05em; text-decoration: none; transition: color 0.3s ease; }
-.nav-name:hover { color: var(--moonpetal); }
-.nav-links { display: flex; gap: 2.5rem; list-style: none; }
-.nav-links a { font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; color: var(--fairy-silver); text-decoration: none; transition: color 0.3s ease; opacity: 0.7; }
-.nav-links a:hover { color: var(--moonpetal); opacity: 1; }
-.breadcrumb { max-width: 1200px; margin: 0 auto; padding: 4.75rem 3rem 0.5rem; display: flex; align-items: center; gap: 0.6rem; font-family: var(--font-emmy-body); font-size: 0.5rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--vn-champagne-foil); opacity: 0.55; }
-.breadcrumb a { color: inherit; text-decoration: none; transition: color 0.3s ease, opacity 0.3s ease; }
-.breadcrumb a:hover { color: var(--vn-cocoa-cream); opacity: 1; }
-.breadcrumb-sep { opacity: 0.45; }
-@keyframes bubbleRise { 0% { transform: translateY(0) scale(1); opacity: 0; } 8% { opacity: 0.55; } 60% { transform: translateY(-38vh) translateX(6px) scale(0.92); opacity: 0.35; } 100% { transform: translateY(-70vh) translateX(-4px) scale(0.75); opacity: 0; } }
-@keyframes bubbleDrift { 0% { transform: translateY(0) scale(1); opacity: 0; } 10% { opacity: 0.4; } 55% { transform: translateY(-32vh) translateX(-8px) scale(0.88); opacity: 0.28; } 100% { transform: translateY(-65vh) translateX(5px) scale(0.7); opacity: 0; } }
-.bubbles { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 0; }
-.bubble { position: absolute; border-radius: 50%; background: radial-gradient(circle at 38% 35%, rgba(255,240,235,0.9) 0%, rgba(212,160,160,0.45) 40%, rgba(196,144,155,0.15) 70%, transparent 100%); animation-fill-mode: both; animation-iteration-count: infinite; animation-timing-function: ease-in-out; }
-.bubble-1  { width:6px;  height:6px;  bottom:8%;  left:12%; animation: bubbleRise 9s 0s     infinite; }
-.bubble-2  { width:4px;  height:4px;  bottom:4%;  left:28%; animation: bubbleDrift 12s 1.5s  infinite; }
-.bubble-3  { width:8px;  height:8px;  bottom:10%; left:44%; animation: bubbleRise 11s 3.2s   infinite; }
-.bubble-4  { width:5px;  height:5px;  bottom:6%;  left:58%; animation: bubbleDrift 8.5s 0.8s infinite; }
-.bubble-5  { width:7px;  height:7px;  bottom:12%; left:72%; animation: bubbleRise 10s 2.1s   infinite; }
-.bubble-6  { width:3px;  height:3px;  bottom:3%;  left:85%; animation: bubbleDrift 13s 4.5s  infinite; }
-.bubble-7  { width:5px;  height:5px;  bottom:8%;  left:20%; animation: bubbleRise 15s 6s     infinite; }
-.bubble-8  { width:4px;  height:4px;  bottom:5%;  left:65%; animation: bubbleDrift 11s 2.7s  infinite; }
-.bubble-9  { width:6px;  height:6px;  bottom:14%; left:92%; animation: bubbleRise 9.5s 1.1s  infinite; }
-.bubble-10 { width:3px;  height:3px;  bottom:7%;  left:38%; animation: bubbleDrift 14s 5.3s  infinite; }
-.kit-hero { margin: 1.5rem 0 0; padding: 0; position: relative; }
-.kit-hero-inner { border-radius: 0; overflow: hidden; position: relative; min-height: 380px; padding: 4rem 0; display: flex; flex-direction: column; justify-content: center; background-image: radial-gradient(ellipse at 80% 20%, rgba(196,144,155,0.55) 0%, rgba(196,144,155,0.3) 18%, transparent 40%), radial-gradient(ellipse at 20% 80%, rgba(44,24,16,0.7) 0%, rgba(44,24,16,0.4) 30%, transparent 55%), radial-gradient(ellipse at 55% 55%, rgba(212,160,160,0.35) 0%, transparent 45%), linear-gradient(135deg, rgba(26,15,10,0.85) 0%, rgba(44,24,16,0.75) 50%, rgba(212,160,160,0.4) 100%), var(--tex-velvet-drape); background-size: auto, auto, auto, auto, cover; background-blend-mode: normal, normal, normal, multiply, normal; }
-.kit-hero-inner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 78% 25%, rgba(212,160,160,0.38) 0%, transparent 45%), radial-gradient(ellipse at 15% 75%, rgba(26,15,10,0.6) 0%, transparent 50%); pointer-events: none; z-index: 1; }
-.kit-hero-inner::after { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-52deg, transparent 0px, transparent 3px, rgba(212,160,160,0.04) 3px, rgba(212,160,160,0.04) 4px), repeating-linear-gradient(38deg, transparent 0px, transparent 3px, rgba(0,0,0,0.06) 3px, rgba(0,0,0,0.06) 4px); pointer-events: none; z-index: 1; }
-.kit-hero-wrap { max-width: 1200px; margin: 0 auto; width: 100%; padding: 0 3rem; position: relative; z-index: 2; }
-.kit-hero-content { position: relative; z-index: 1; max-width: 720px; }
-.kit-hero-meta { font-family: var(--font-vn-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--vn-champagne-foil); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 0.85rem; }
-.kit-hero-meta::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--vn-champagne-foil); opacity: 0.7; }
-.kit-hero-name { font-family: var(--font-vn-display); font-size: clamp(3.5rem, 7vw, 6rem); font-weight: 700; color: var(--vn-cocoa-cream); line-height: 1.0; letter-spacing: -0.015em; margin-bottom: 1.5rem; text-shadow: 0 2px 32px rgba(0,0,0,0.6), 0 4px 64px rgba(0,0,0,0.3); }
-.kit-hero-tagline { font-family: var(--font-vn-subhead); font-style: italic; font-size: clamp(1.1rem, 1.8vw, 1.4rem); color: var(--vn-cocoa-cream); line-height: 1.6; opacity: 0.95; text-shadow: 0 2px 20px rgba(0,0,0,0.6); max-width: 580px; }
-.painting-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 60% 50%, rgba(44,24,16,0.45) 0%, transparent 65%), linear-gradient(to bottom, rgba(26,15,10,0.38) 0%, rgba(26,15,10,0.32) 100%), var(--tex-dark-ganache); background-size: auto, auto, cover; }
-.painting-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 20%, rgba(212,160,160,0.08) 0%, transparent 55%); pointer-events: none; }
-.painting-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
-.painting-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; }
-.painting-label { font-family: var(--font-emmy-body); font-size: 0.58rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--vn-rose-fizz); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 1rem; }
-.painting-label::before { content: ''; display: block; width: 1.5rem; height: 1px; background: var(--vn-rose-fizz); opacity: 0.6; }
-.painting-title { font-family: var(--font-emmy-display); font-size: clamp(2rem, 3.5vw, 2.8rem); font-weight: 300; font-style: italic; color: var(--vn-pearl-light); line-height: 1.15; margin-bottom: 1.5rem; }
-.painting-attribution { font-family: var(--font-emmy-body); font-size: 0.8rem; font-weight: 300; letter-spacing: 0.1em; color: var(--vn-cocoa-cream); opacity: 0.7; margin-bottom: 2rem; }
-.painting-body p { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--vn-cocoa-cream); margin-bottom: 1.5rem; opacity: 0.88; }
-.painting-body p strong { color: var(--vn-rose-fizz); font-weight: 400; }
-.painting-body p em { color: var(--vn-champagne-foil); font-style: italic; }
-.palette-section { position: relative; padding: 7rem 0; overflow: hidden; background: var(--vn-velvet-drape); }
-.palette-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 1; }
-.palette-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
-.palette-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--vn-pearl-light); line-height: 1.1; }
-.palette-intro { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--vn-cocoa-cream); opacity: 0.85; }
-.palette-intro em { color: var(--vn-rose-fizz); font-style: italic; }
-.section-label { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--vn-champagne-foil); opacity: 0.85; margin-bottom: 1rem; }
-.palette-grid { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 3rem; }
-.palette-row { display: grid; gap: 1.25rem; }
-.palette-row:nth-child(1),
-.palette-row:nth-child(3) { grid-template-columns: repeat(3, 1fr); }
-.palette-row:nth-child(2) { grid-template-columns: repeat(2, 1fr); max-width: 66.666%; margin: 0 auto; width: 100%; }
-.palette-swatch { display: flex; flex-direction: column; cursor: default; transition: transform 0.3s ease, box-shadow 0.3s ease; border-radius: 4px; overflow: hidden; border: 1px solid rgba(242,230,217,0.10); background: rgba(26,15,10,0.6); box-shadow: 0 2px 12px rgba(0,0,0,0.35); }
-.palette-swatch:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.45), 0 2px 8px rgba(212,160,160,0.12); border-color: rgba(196,144,155,0.4); }
-.swatch-color { width: 100%; aspect-ratio: 2.6; }
-.palette-chip-material { width: 100%; aspect-ratio: 2.6; position: relative; background-size: cover; background-position: center; }
-.palette-chip-material::after { content: ''; position: absolute; inset: 0; }
-/* v3 palette chip textures — names match the color they render, not the texture filename */
-.chip-rose-fizz      { background-image: var(--tex-rose-fizz); }   .chip-rose-fizz::after      { background: var(--vn-rose-fizz);       mix-blend-mode: multiply; opacity: 0.45; }
-.chip-dark-ganache   { background-image: var(--tex-dark-ganache); } .chip-dark-ganache::after   { background: var(--vn-dark-ganache);    mix-blend-mode: multiply; opacity: 0.5;  }
-.chip-truffle        { background-image: var(--tex-truffle); }      .chip-truffle::after        { background: var(--vn-truffle-interior);mix-blend-mode: multiply; opacity: 0.5;  }
-.chip-smoky-plum     { background-image: var(--tex-velvet-drape); } .chip-smoky-plum::after     { background: var(--vn-smoky-plum);      mix-blend-mode: multiply; opacity: 0.65; }
-.chip-champagne-foil { background-image: var(--tex-rose-fizz); }    .chip-champagne-foil::after { background: var(--vn-champagne-foil);  mix-blend-mode: multiply; opacity: 0.5;  }
-.chip-velvet-drape   { background-image: var(--tex-velvet-drape); } .chip-velvet-drape::after   { background: var(--vn-velvet-drape);    mix-blend-mode: multiply; opacity: 0.55; }
-.chip-cocoa-cream    { background-image: var(--tex-cocoa-cream); }  .chip-cocoa-cream::after    { background: var(--vn-cocoa-cream);     mix-blend-mode: screen;   opacity: 0.4;  }
-.chip-pearl-light    { background-image: var(--tex-cocoa-cream); }  .chip-pearl-light::after    { background: var(--vn-pearl-light);     mix-blend-mode: screen;   opacity: 0.55; } /* pearl/marble texture pending — tex-cocoa-cream stand-in until vault delivers it */
-.swatch-label { background: rgba(26,15,10,0.85); padding: 1rem 1.1rem 1.25rem; text-align: left; border-top: 1px solid rgba(242,230,217,0.06); }
-.swatch-role { display: block; font-family: var(--font-emmy-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; color: var(--vn-champagne-foil); opacity: 0.85; margin-bottom: 0.5rem; }
-.swatch-name { display: block; font-family: var(--font-emmy-display); font-size: 1.1rem; font-weight: 400; color: var(--vn-cocoa-cream); margin-bottom: 0.3rem; line-height: 1.2; letter-spacing: 0; text-transform: none; }
-.swatch-hex { display: block; font-family: var(--font-emmy-body); font-size: 0.62rem; font-weight: 400; letter-spacing: 0.1em; color: var(--vn-cocoa-cream); opacity: 0.6; text-transform: uppercase; margin-bottom: 0.7rem; }
-.swatch-feel { display: block; font-family: var(--font-emmy-body); font-size: 0.85rem; font-weight: 300; line-height: 1.6; color: var(--vn-cocoa-cream); opacity: 0.78; }
-.type-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
-.type-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: end; }
-.type-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--vn-pearl-light); line-height: 1.1; }
-.type-intro { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--vn-cocoa-cream); opacity: 0.85; }
-.type-intro strong { color: var(--vn-rose-fizz); font-weight: 400; }
-.type-card { background-image: linear-gradient(to bottom right, rgba(242,230,217,0.97) 0%, rgba(255,245,238,0.97) 100%), var(--tex-cocoa-cream); background-size: auto, cover; background-blend-mode: multiply; border-radius: 16px; padding: 4rem 3.5rem; margin-bottom: 1.5rem; position: relative; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.4), 0 2px 8px rgba(0,0,0,0.2); }
-.type-card::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(42deg, transparent 0px, transparent 4px, rgba(26,15,10,0.022) 4px, rgba(26,15,10,0.022) 5px); pointer-events: none; }
-.type-card-meta { font-family: var(--font-vn-body); font-size: 0.55rem; font-weight: 500; letter-spacing: 0.3em; text-transform: uppercase; color: var(--vn-velvet-drape); opacity: 0.7; margin-bottom: 1rem; position: relative; }
-.type-card-display { font-family: var(--font-vn-display); font-weight: 700; font-size: clamp(3rem, 6vw, 5.5rem); line-height: 1.0; color: var(--vn-dark-ganache); margin-bottom: 0.5rem; letter-spacing: -0.02em; position: relative; }
-.type-card-name { font-family: var(--font-vn-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; color: var(--vn-velvet-drape); opacity: 0.65; margin-top: 1rem; margin-bottom: 2rem; position: relative; }
-.type-card-subhead { font-family: var(--font-vn-subhead); font-style: italic; font-weight: 500; font-size: clamp(1.4rem, 2.4vw, 1.9rem); color: var(--vn-velvet-drape); line-height: 1.4; margin-bottom: 1.5rem; max-width: 720px; position: relative; }
-.type-card-body { font-family: var(--font-vn-body); font-weight: 300; font-size: 1rem; line-height: 1.75; color: var(--vn-truffle-interior); max-width: 620px; position: relative; }
-.type-rule { background-image: linear-gradient(to bottom, rgba(26,15,10,0.92) 0%, rgba(44,24,16,0.88) 100%), var(--tex-velvet-drape); background-size: auto, cover; border-radius: 16px; padding: 3.5rem 3.5rem; text-align: center; font-family: var(--font-vn-subhead); font-style: italic; font-weight: 500; font-size: clamp(1.3rem, 2.4vw, 1.9rem); line-height: 1.5; color: var(--vn-cocoa-cream); position: relative; overflow: hidden; box-shadow: 0 6px 40px rgba(0,0,0,0.5); }
-.type-rule::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-48deg, transparent 0px, transparent 3px, rgba(212,160,160,0.03) 3px, rgba(212,160,160,0.03) 4px); pointer-events: none; }
-.type-rule em { color: var(--vn-champagne-foil); font-style: italic; position: relative; }
-.combo-section { max-width: 1200px; margin: 0 auto; padding: 7rem 3rem; }
-.combo-header { margin-bottom: 4rem; display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: end; }
-.combo-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--vn-pearl-light); line-height: 1.1; }
-.combo-intro { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--vn-cocoa-cream); opacity: 0.85; }
-.combo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-.combo-card { border-radius: 14px; overflow: hidden; aspect-ratio: 1; display: flex; flex-direction: column; justify-content: flex-end; padding: 2rem; position: relative; transition: transform 0.35s ease, box-shadow 0.35s ease; box-shadow: 0 4px 24px rgba(0,0,0,0.4); background-size: cover; background-position: center; }
-.combo-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
-.combo-card::before { content: ''; position: absolute; inset: 0; pointer-events: none; border-radius: 14px; }
-.combo-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.1) 45%, transparent 70%); pointer-events: none; border-radius: 14px; }
-.combo-text { position: relative; z-index: 1; }
-.combo-name { font-family: var(--font-vn-display); font-weight: 700; font-size: 1.5rem; line-height: 1.1; margin-bottom: 0.4rem; }
-.combo-pair { font-family: var(--font-vn-body); font-size: 0.55rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase; opacity: 0.8; }
-/* Combo cards demonstrate their named pairings literally:
-   text color = the named accent color in the pairing,
-   background = the texture + gradient of the named base color. */
-.combo-1 { background-image: var(--tex-dark-ganache); color: var(--vn-rose-fizz); } .combo-1::before { background: linear-gradient(135deg, rgba(44,24,16,0.65) 0%, rgba(212,160,160,0.45) 100%); }
-.combo-2 { background-image: var(--tex-cocoa-cream); color: var(--vn-dark-ganache); } .combo-2::before { background: linear-gradient(135deg, rgba(242,230,217,0.7) 0%, rgba(212,160,160,0.3) 100%); } .combo-2::after { background: linear-gradient(to top, rgba(242,230,217,0.55) 0%, rgba(242,230,217,0.1) 45%, transparent 70%); }
-.combo-3 { background-image: var(--tex-rose-leaf); color: var(--vn-velvet-drape); } .combo-3::before { background: linear-gradient(135deg, rgba(44,24,16,0.55) 0%, rgba(196,144,155,0.5) 100%); }
-.combo-4 { background-image: var(--tex-meringue); color: var(--vn-velvet-drape); } .combo-4::before { background: linear-gradient(135deg, rgba(184,125,125,0.55) 0%, rgba(255,245,238,0.5) 100%); } .combo-4::after { background: linear-gradient(to top, rgba(255,245,238,0.65) 0%, rgba(255,245,238,0.15) 45%, transparent 70%); }
-.combo-5 { background-image: var(--tex-truffle); color: var(--vn-smoky-plum); } .combo-5::before { background: linear-gradient(135deg, rgba(107,58,42,0.65) 0%, rgba(184,125,125,0.45) 100%); }
-.combo-6 { background-image: var(--tex-velvet-drape); color: var(--vn-rose-fizz); } .combo-6::before { background: linear-gradient(135deg, rgba(26,15,10,0.7) 0%, rgba(212,160,160,0.4) 100%); }
-.tier-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-.tier-card { display: flex; flex-direction: column; border-radius: 4px; overflow: hidden; border: 1px solid rgba(196,144,155,0.25); background: rgba(44,24,16,0.4); text-decoration: none; color: inherit; transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s, border-color 0.4s; }
-.tier-card:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(0,0,0,0.5); border-color: rgba(196,144,155,0.55); }
-.tier-card-visual { height: 240px; width: 100%; background-size: cover; background-position: center; }
-.tier-card-body { padding: 2rem 2rem 2.2rem; display: flex; flex-direction: column; gap: 0.85rem; }
-.tier-card-eyebrow { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--vn-champagne-foil); }
-.tier-card-title { font-family: var(--font-emmy-display); font-size: 1.7rem; font-weight: 300; font-style: italic; color: var(--vn-cocoa-cream); margin: 0; line-height: 1.2; }
-.tier-card-desc { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; color: var(--vn-cocoa-cream); opacity: 0.85; line-height: 1.7; margin: 0; }
-.tier-card-cta { font-family: var(--font-emmy-body); font-size: 0.7rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--vn-champagne-foil); margin-top: 0.5rem; transition: transform 0.3s; }
-.tier-card:hover .tier-card-cta { transform: translateX(4px); }
-.inside-section { position: relative; padding: 7rem 0; overflow: hidden; background: #160C08; }
-.inside-section::before { content: ''; position: absolute; top: -30%; left: 50%; transform: translateX(-50%); width: 80%; height: 200%; background: radial-gradient(ellipse, rgba(212,160,160,0.06) 0%, transparent 60%); pointer-events: none; z-index: 0; }
-.inside-inner { max-width: 1200px; margin: 0 auto; padding: 0 3rem; position: relative; z-index: 2; }
-.inside-header { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
-.inside-title { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 4.5vw, 3.5rem); font-weight: 300; font-style: italic; color: var(--vn-pearl-light); line-height: 1.1; }
-.inside-intro { font-family: var(--font-emmy-body); font-size: 1rem; font-weight: 300; line-height: 1.85; color: var(--vn-cocoa-cream); opacity: 0.85; }
-.inside-intro em { color: var(--vn-rose-fizz); font-style: italic; }
-.inside-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 3rem; align-items: start; }
-/* Carousel + mockup CSS removed V3 — carousel replaced with tier-cards in session 11 */
-.cta-section { position: relative; padding: 7rem 0; overflow: hidden; background-image: radial-gradient(ellipse at 50% 50%, rgba(212,160,160,0.22) 0%, transparent 60%), radial-gradient(ellipse at 50% 100%, rgba(26,15,10,0.65) 0%, transparent 55%), linear-gradient(to bottom, rgba(26,15,10,0.45) 0%, rgba(44,24,16,0.5) 100%), var(--tex-rose-fizz); background-size: auto, auto, auto, cover; }
-.cta-section::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(-45deg, transparent 0px, transparent 4px, rgba(212,160,160,0.025) 4px, rgba(212,160,160,0.025) 5px); pointer-events: none; }
-.cta-inner { max-width: 900px; margin: 0 auto; padding: 0 3rem; text-align: center; position: relative; z-index: 1; }
-.cta-label { font-family: var(--font-emmy-body); font-size: 0.58rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--vn-rose-fizz); margin-bottom: 1.25rem; }
-.cta-big { font-family: var(--font-emmy-display); font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 300; font-style: italic; color: var(--vn-pearl-light); line-height: 1.15; margin-bottom: 1.5rem; text-shadow: 0 2px 24px rgba(0,0,0,0.4); }
-.cta-sub { font-family: var(--font-emmy-body); font-size: 1rem; color: var(--vn-cocoa-cream); opacity: 0.85; line-height: 1.8; margin-bottom: 2.5rem; max-width: 580px; margin-left: auto; margin-right: auto; }
-.cta-buttons { display: flex; gap: 1.25rem; justify-content: center; flex-wrap: wrap; }
-.btn-primary { display: inline-block; padding: 0.95rem 2.5rem; background: var(--amethyst); color: var(--snowflake); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: background 0.3s ease, transform 0.2s ease; }
-.btn-primary:hover { background: var(--amethyst-light); transform: translateY(-1px); }
-.btn-ghost { display: inline-block; padding: 0.95rem 2.5rem; border: 1px solid rgba(242,230,217,0.55); color: var(--vn-cocoa-cream); font-family: var(--font-emmy-body); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.2em; text-transform: uppercase; text-decoration: none; border-radius: 4px; transition: border-color 0.3s ease, color 0.3s ease; }
-.btn-ghost:hover { border-color: var(--vn-cocoa-cream); color: var(--vn-pearl-light); }
-footer { padding: 3rem; border-top: 1px solid rgba(200,184,232,0.08); display: flex; justify-content: space-between; align-items: center; max-width: var(--max-w); margin: 0 auto; }
-.footer-name { font-family: var(--font-emmy-display); font-style: italic; font-size: 1rem; color: var(--fairy-silver); opacity: 0.5; }
-.footer-note { font-family: var(--font-emmy-body); font-size: 0.6rem; font-weight: 300; letter-spacing: 0.1em; color: var(--fairy-silver); opacity: 0.35; }
-/* Skip link */
-.skip-link { position: absolute; top: -999px; left: 0; background: var(--vn-champagne-foil); color: var(--vn-dark-ganache); padding: 0.5rem 1.25rem; font-family: var(--font-emmy-body); font-weight: 500; font-size: 0.9rem; z-index: 9999; text-decoration: none; border-radius: 0 0 4px 0; }
+html.motion { --light: 0.22; }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; color-scheme: dark; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  background: var(--velvet-drape);
+  color: var(--cocoa-cream);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.8;
+  letter-spacing: 0.005em;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--champagne-foil); outline-offset: 3px; border-radius: 2px; }
+
+.skip-link {
+  position: absolute; top: -999px; left: 0; z-index: 1000;
+  background: var(--champagne-foil); color: var(--velvet-drape);
+  font-weight: 500; font-size: 1rem; padding: 0.6rem 1.2rem;
+  text-decoration: none; border-radius: 0 0 4px 0;
+}
 .skip-link:focus { top: 0; }
-/* Content-visible-by-default: resting state is fully visible */
-.reveal { opacity: 1; transform: translateY(0); transition: opacity 0.7s ease, transform 0.7s ease; }
-/* JS adds pre-reveal for entrance flourish — never blocks content */
-.js .reveal.pre-reveal { opacity: 0; transform: translateY(24px); }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ════════════════ THE ROOM (fixed, behind everything) ════════════════ */
+.room {
+  position: fixed; inset: 0; z-index: 0; overflow: hidden;
+  background: var(--velvet-drape);
+}
+/* A 16:9 frame that covers the viewport. Flames are placed inside it in
+   the painting's own coordinates (percent of the frame), so they stay on
+   the painted candles at any crop. --fx = which part of the width stays
+   in view when the screen is narrower than 16:9. */
+.room-frame {
+  --fx: 0.5;
+  --w: max(100vw, 177.78vh);
+  position: absolute; top: 50%;
+  width: var(--w);
+  aspect-ratio: 16 / 9;
+  left: clamp(100vw - var(--w), 50vw - var(--w) * var(--fx), 0px);
+  transform: translateY(-50%);
+  container-type: inline-size;
+}
+.room-frame img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  display: block; object-fit: cover;
+}
+/* the dark: Velvet Drape over the room. It lifts as candles light. */
+.room-dark {
+  position: absolute; inset: 0;
+  background: var(--velvet-drape);
+  opacity: calc(0.82 - 0.32 * var(--light));
+  transition: opacity 1.6s ease;
+}
+
+/* a candle: flame on the wick, glow around it */
+.candle {
+  position: absolute; left: var(--x); top: var(--y);
+  width: 0; height: 0;
+}
+.candle .glow {
+  position: absolute; left: 0; top: 0;
+  width: calc(var(--g, 14) * 1cqw); height: calc(var(--g, 14) * 1cqw);
+  transform: translate(-50%, -55%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,169,110,0.42) 0%, rgba(201,169,110,0.16) 32%, rgba(201,169,110,0) 68%);
+  mix-blend-mode: screen;
+  opacity: 1;
+  transition: opacity 1.4s ease;
+}
+.candle .flame {
+  position: absolute; left: 0; top: 0;
+  width: calc(var(--s, 1) * 0.62cqw); height: calc(var(--s, 1) * 1.25cqw);
+  transform: translate(-50%, -92%);
+  transform-origin: 50% 100%;
+}
+.candle .flame svg { display: block; width: 100%; height: 100%; }
+
+/* motion: candles are dark until lit */
+.motion .candle:not(.lit) .glow,
+.motion .candle:not(.lit) .flame { opacity: 0; }
+.motion .candle .flame { transition: opacity 0.5s ease; }
+.motion .candle.lit .flame { animation: catch 0.9s ease-out both; }
+.motion .candle.lit.first .flame { animation-delay: 0.8s; }
+.motion .candle.lit.first .glow { transition-delay: 0.8s; }
+@keyframes catch {
+  0%   { opacity: 0; transform: translate(-50%, -92%) scale(0.35, 0.2); }
+  45%  { opacity: 1; transform: translate(-50%, -92%) scale(0.9, 1.18); }
+  70%  { transform: translate(-50%, -92%) scale(1.05, 0.94); }
+  100% { opacity: 1; transform: translate(-50%, -92%) scale(1, 1); }
+}
+/* when most of the room is lit, ease each glow back so the warmth
+   doesn't oversaturate (rhythm spec, halo behaviour) */
+.dampen .candle .glow { opacity: 0.85; }
+.motion .dampen .candle:not(.lit) .glow { opacity: 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .room-dark, .candle .glow, .candle .flame { transition: none !important; animation: none !important; }
+}
+@media (forced-colors: active) {
+  .room { display: none; }
+}
+
+/* ════════════════ NAV ════════════════ */
+nav[aria-label="Kit sections"] {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  background: var(--velvet-drape);
+  border-bottom: 1px solid rgba(201,169,110,0.28);
+}
+nav[aria-label="Kit sections"] ul {
+  list-style: none; display: flex; justify-content: center; flex-wrap: wrap;
+  gap: 0.25rem 1.75rem; padding: 0.7rem 1.25rem; max-width: var(--max-w); margin: 0 auto;
+}
+nav[aria-label="Kit sections"] a {
+  display: inline-block; text-decoration: none;
+  font-size: 1rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--cocoa-cream);
+  padding: 0.2rem 0 0.25rem;
+  border-bottom: 2px solid transparent;
+}
+nav[aria-label="Kit sections"] a:hover { color: var(--champagne-foil); }
+nav[aria-label="Kit sections"] a[aria-current="true"] { border-bottom-color: var(--champagne-foil); color: var(--champagne-foil); }
+
+/* ════════════════ PAGE ════════════════ */
+main, #cta-footer { position: relative; z-index: 1; overflow-x: clip; }
+
+section { padding: var(--section-pad); }
+
+/* the reading scrim: Velvet Drape behind every block of text, feathered at
+   the edges so the room still shows around it. Not over the whole room. */
+.section-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  position: relative;
+  padding: clamp(1.75rem, 4vw, 3rem) clamp(1.25rem, 4vw, 3rem);
+  isolation: isolate;
+}
+.section-inner::before {
+  content: ''; position: absolute; inset: -32px; z-index: -1;
+  background: rgba(15, 11, 18, 0.86);
+  filter: blur(26px);
+  border-radius: 28px;
+  pointer-events: none;
+}
+
+.section-label {
+  font-size: 1rem; font-weight: 500;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--champagne-foil);
+  margin-bottom: 0.9rem;
+}
+.section-heading {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(2.25rem, 5vw, 3.25rem); line-height: 1.08; letter-spacing: -0.015em;
+  color: var(--pearl-light);
+  margin-bottom: 1.1rem;
+}
+.section-lede {
+  font-family: var(--font-subhead); font-style: italic; font-weight: 400;
+  font-size: clamp(1.3rem, 2.4vw, 1.45rem); line-height: 1.4;
+  color: var(--rose-fizz);
+  max-width: 44rem; margin-bottom: 0.75rem;
+}
+.section-body { max-width: 44rem; color: var(--cocoa-cream); }
+
+/* room to breathe: open stretches where nothing covers the room */
+.breath { height: clamp(18vh, 26vh, 32vh); }
+
+/* ════════════════ HERO ════════════════ */
+#hero {
+  min-height: 100vh; min-height: 100svh;
+  display: flex; align-items: flex-start; justify-content: center;
+  padding-top: clamp(6rem, 17vh, 11rem);
+  padding-bottom: 4rem;
+  text-align: center;
+  overflow-x: clip; /* the title scrim feathers past the column; never past the screen */
+}
+.hero-content {
+  position: relative; max-width: 40rem;
+  padding: 1.5rem 1.25rem;
+}
+/* soft scrim behind the title only: the room stays itself around it */
+.hero-content::before {
+  content: ''; position: absolute; inset: -12% -18%; z-index: -1;
+  background: radial-gradient(ellipse at 50% 50%, rgba(15,11,18,0.84) 0%, rgba(15,11,18,0.78) 45%, rgba(15,11,18,0) 72%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 1rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--champagne-foil); margin-bottom: 1.1rem;
+}
+.hero-title {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(3.5rem, 8vw, 5.25rem); line-height: 1.02; letter-spacing: -0.015em;
+  color: var(--pearl-light);
+  margin-bottom: 0.9rem;
+}
+.hero-tagline {
+  font-family: var(--font-subhead); font-style: italic; font-weight: 400;
+  font-size: clamp(1.5rem, 3vw, 1.875rem); line-height: 1.35;
+  color: var(--rose-fizz);
+  margin-bottom: 0.9rem;
+}
+.hero-scene { color: var(--cocoa-cream); max-width: 32rem; margin: 0 auto 1.5rem; }
+.text-link {
+  display: inline-block; font-size: 1rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--cocoa-cream); text-decoration: none;
+  border-bottom: 1px solid var(--champagne-foil); padding-bottom: 0.15rem;
+}
+.text-link:hover { color: var(--champagne-foil); }
+
+/* ════════════════ PALETTE (8 = 3-2-3, row-wrapper per standard v1.1) ════════════════ */
+.palette-grid { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 2.25rem; }
+.palette-row { list-style: none; display: grid; gap: 1.25rem; grid-template-columns: repeat(3, 1fr); }
+.palette-row:nth-child(2) { grid-template-columns: repeat(2, 1fr); max-width: 66.666%; width: 100%; margin: 0 auto; }
+.palette-item {
+  background: var(--dark-ganache);
+  border: 1px solid rgba(201,169,110,0.35);
+  border-radius: 4px;
+  padding: 0 0 1.25rem;
+  overflow: hidden;
+}
+.palette-swatch {
+  height: 7.5rem;
+  /* the foil at the edge of the wrapper */
+  box-shadow: inset 0 -1px 0 var(--champagne-foil);
+}
+.palette-item > :not(.palette-swatch) { margin-inline: 1.25rem; }
+.palette-role {
+  margin-top: 1rem;
+  font-size: 1rem; font-weight: 500; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--champagne-foil);
+}
+.palette-name {
+  font-family: var(--font-display); font-weight: 500; font-size: 1.5rem; line-height: 1.2;
+  color: var(--pearl-light); margin: 0.2rem 0 0.1rem;
+}
+.palette-hex { font-size: 1rem; font-weight: 400; letter-spacing: 0.08em; color: var(--cocoa-cream); }
+.palette-job { margin-top: 0.55rem; color: var(--cocoa-cream); line-height: 1.65; }
+.palette-contrast {
+  margin-top: 0.7rem; padding-top: 0.6rem;
+  border-top: 1px solid rgba(201,169,110,0.3);
+  color: var(--cocoa-cream); line-height: 1.55;
+}
+.nowrap { white-space: nowrap; }
+
+.sw-drape   { background: var(--velvet-drape); }
+.sw-ganache { background: var(--dark-ganache); box-shadow: inset 0 -1px 0 var(--champagne-foil), inset 0 0 0 1px rgba(201,169,110,0.35); }
+.sw-truffle { background: var(--truffle-interior); }
+.sw-plum    { background: var(--smoky-plum); }
+.sw-fizz    { background: var(--rose-fizz); }
+.sw-foil    { background: var(--champagne-foil); }
+.sw-cocoa   { background: var(--cocoa-cream); }
+.sw-pearl   { background: var(--pearl-light); }
+
+/* ════════════════ WHAT'S INSIDE (6 = 3×2) ════════════════ */
+.contents-grid { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2.25rem; }
+.content-item {
+  background: var(--dark-ganache);
+  border-top: 1px solid var(--champagne-foil);
+  border-radius: 0 0 4px 4px;
+  padding: 1.25rem 1.25rem 1.4rem;
+}
+.content-num { display: block; font-size: 1rem; font-weight: 500; letter-spacing: 0.12em; color: var(--champagne-foil); }
+.content-title {
+  font-family: var(--font-display); font-weight: 500; font-size: 1.35rem; line-height: 1.25;
+  color: var(--pearl-light); margin: 0.35rem 0 0.4rem;
+}
+.content-desc { color: var(--cocoa-cream); line-height: 1.65; }
+
+/* ════════════════ TEXTURES (6 = 3×2) ════════════════ */
+.texture-grid { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 2.25rem; }
+.texture-card { background: var(--dark-ganache); border-radius: 4px; overflow: hidden; border: 1px solid rgba(201,169,110,0.35); }
+.texture-swatch { height: 10rem; position: relative; overflow: hidden; }
+.texture-swatch svg { display: block; width: 100%; height: 100%; }
+.texture-card h3 {
+  font-family: var(--font-display); font-weight: 500; font-size: 1.35rem; line-height: 1.25;
+  color: var(--pearl-light); margin: 1rem 1.25rem 0.3rem;
+}
+.texture-feel { color: var(--cocoa-cream); line-height: 1.65; margin: 0 1.25rem 1.25rem; }
+
+/* ════════════════ PULL QUOTE (the one light room) ════════════════ */
+#pull-quote .section-inner::before { display: none; }
+#pull-quote .section-inner {
+  background: var(--pearl-light);
+  border-radius: 6px;
+  box-shadow: 0 0 0 1px var(--champagne-foil), 0 0 70px 30px rgba(15,11,18,0.7);
+  text-align: center;
+  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.5rem, 6vw, 5rem);
+}
+.pull-quote-text {
+  font-family: var(--font-subhead); font-style: italic; font-weight: 400;
+  font-size: clamp(1.6rem, 3.4vw, 2.25rem); line-height: 1.38;
+  color: var(--smoky-plum);
+  max-width: 46rem; margin: 0 auto 1.25rem;
+}
+.pull-quote-attr {
+  font-style: normal; font-size: 1rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--dark-ganache);
+}
+
+/* ════════════════ CTA FOOTER ════════════════ */
+#cta-footer { padding: var(--section-pad); padding-bottom: clamp(4rem, 10vw, 7rem); }
+/* narrow column: the scrim stays off the side table, so every candle that
+   lit is still visible when the room is full at the CTA */
+.cta-inner { text-align: center; max-width: 42rem; }
+.cta-mark { width: 96px; height: auto; display: block; margin: 0 auto 1.25rem; }
+.cta-eyebrow { font-size: 1rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase; color: var(--champagne-foil); margin-bottom: 0.75rem; }
+.cta-heading {
+  font-family: var(--font-display); font-weight: 500;
+  font-size: clamp(2.25rem, 5vw, 3.25rem); line-height: 1.1; letter-spacing: -0.015em;
+  color: var(--pearl-light); margin-bottom: 0.8rem;
+}
+.cta-sub { font-family: var(--font-subhead); font-style: italic; font-size: clamp(1.3rem, 2.4vw, 1.45rem); line-height: 1.4; color: var(--rose-fizz); margin-bottom: 1.75rem; }
+.cta-button {
+  display: inline-block; text-decoration: none;
+  background: var(--champagne-foil); color: var(--velvet-drape);
+  font-size: 1rem; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 1rem 2.25rem; border-radius: 3px;
+  transition: background-color 0.25s ease;
+}
+.cta-button:hover { background: var(--cocoa-cream); }
+.cta-button:focus-visible { outline: 2px solid var(--cocoa-cream); outline-offset: 4px; }
+.cta-note { margin-top: 1.25rem; color: var(--cocoa-cream); }
+@media (prefers-reduced-motion: reduce) { .cta-button { transition: none; } }
+@media (forced-colors: active) { .cta-button { border: 1px solid ButtonText; } }
+
+/* ════════════════ RESPONSIVE ════════════════ */
+/* single column under 820 (brief), 640 / 480 are the line's breakpoints */
+@media (max-width: 820px) {
+  .palette-row, .palette-row:nth-child(2) { grid-template-columns: 1fr; max-width: none; }
+  .contents-grid, .texture-grid { grid-template-columns: 1fr; }
+  .palette-item { display: grid; grid-template-columns: 7rem 1fr; padding: 0; }
+  .palette-swatch { height: auto; min-height: 100%; grid-row: 1 / span 6; box-shadow: inset -1px 0 0 var(--champagne-foil); }
+  .sw-ganache { box-shadow: inset -1px 0 0 var(--champagne-foil), inset 0 0 0 1px rgba(201,169,110,0.35); }
+  .palette-item > :not(.palette-swatch) { margin-inline: 1.1rem; }
+  .palette-item > :last-child { margin-bottom: 1.1rem; }
+  .texture-swatch { height: 8rem; }
+}
+/* narrow screens keep the side table, the votives and the champagne in view */
+@media (max-width: 719px) {
+  .room-frame { --fx: 0.16; }
+}
 @media (max-width: 640px) {
-  nav { padding: 1.25rem 1.5rem; } .nav-links { gap: 1.5rem; } .breadcrumb { padding: 4.25rem 1.5rem 0.4rem; }
-  .kit-hero-wrap { padding: 0 1.5rem; } .kit-hero-inner { padding: 3rem 0; min-height: 320px; }
-  .painting-inner, .palette-inner, .inside-inner { padding: 0 1.5rem; }
-  .type-section, .combo-section { padding: 5rem 1.5rem; }
-  .painting-section, .palette-section, .inside-section, .cta-section { padding: 5rem 0; }
-  .cta-inner { padding: 0 1.5rem; }
-  .painting-grid, .palette-header, .type-header, .combo-header, .inside-header, .inside-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .palette-row:nth-child(1),
-  .palette-row:nth-child(3) { grid-template-columns: 1fr 1fr; }
-  .palette-row:nth-child(2) { max-width: 100%; }
-  .combo-grid { grid-template-columns: 1fr 1fr; }
-  .type-card { padding: 3rem 2rem; } .type-rule { padding: 2.5rem 2rem; }
-  footer { flex-direction: column; gap: 1rem; text-align: center; padding: 3rem 1.5rem; }
+  nav[aria-label="Kit sections"] { display: none; }
+  #hero { padding-top: clamp(4rem, 12vh, 6rem); }
 }
 @media (max-width: 480px) {
-  .nav-links { display: none; } .palette-row:nth-child(1), .palette-row:nth-child(3) { grid-template-columns: 1fr; } .palette-row:nth-child(2) { max-width: 100%; } .combo-grid { grid-template-columns: 1fr; } .cta-buttons { flex-direction: column; align-items: center; }
+  .palette-item { grid-template-columns: 5rem 1fr; }
 }
 </style>
 </head>
-<body>
 
+<body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
-<nav>
-  <a href="../../index.html" class="nav-name">Emmy Bellamora</a>
-  <ul class="nav-links">
-    <li><a href="../../index.html#about">About</a></li>
-    <li><a href="../../index.html#work">Work</a></li>
-    <li><a href="../../index.html#approach">Approach</a></li>
-    <li><a href="../../index.html#working-together">Together</a></li>
-    <li><a href="../../index.html#contact">Contact</a></li>
+<!-- The flame, drawn once and placed on every candle -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <radialGradient id="flame-fill" cx="50%" cy="72%" r="62%">
+      <stop offset="0%" stop-color="#EAEEF0"/>
+      <stop offset="30%" stop-color="#F2E6D9"/>
+      <stop offset="62%" stop-color="#C9A96E"/>
+      <stop offset="100%" stop-color="#D4A0A0" stop-opacity="0"/>
+    </radialGradient>
+    <symbol id="flame" viewBox="0 0 20 40">
+      <path d="M10 1 C 6 12, 2.5 20, 3 28 C 3.5 35, 7 39, 10 39 C 13 39, 16.5 35, 17 28 C 17.5 20, 14 12, 10 1 Z" fill="url(#flame-fill)"/>
+      <ellipse cx="10" cy="31" rx="2.6" ry="5" fill="#EAEEF0" fill-opacity="0.9"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- THE ROOM. One image, described once; the candles are part of it. -->
+<div class="room" role="img" aria-label="A Paris hotel suite late at night: velvet armchair, marble fireplace, a writing desk with a journal, champagne on ice, and the Eiffel Tower lit through the window. Candles burn on the mantel, the sconces, the desk and the side table.">
+  <div class="room-frame" aria-hidden="true">
+    <img src="../../assets/velvet-noir/hero-room.jpg" alt="" width="2048" height="1152" decoding="async" fetchpriority="high">
+    <div class="room-dark"></div>
+    <!-- nine candles, placed on the painted wicks (percent of the frame).
+         data-order = the lighting sequence. -->
+    <span class="candle" data-order="1" style="--x:92.82%;--y:50.87%;--s:1.35;--g:15"><span class="glow"></span><span class="flame"><svg><use href="#flame"/></svg></span></span><!-- desk pillar, beside the journal -->
+    <span class="candle" data-order="2" style="--x:10.30%;--y:81.40%;--s:1.25;--g:12"><span class="glow"></span><span class="flame"><svg><use href="#flame"/></svg></span></span><!-- votive, front left -->
+    <span class="candle" data-order="3" style="--x:38.57%;--y:31.08%;--s:0.95;--g:12"><span class="glow"></span><span class="flame"><svg><use href="#flame"/></svg></span></span><!-- mantel, left -->
+    <span class="candle" data-order="4" style="--x:49.76%;--y:31.42%;--s:0.95;--g:12"><span class="glow"></span><span class="flame"><svg><use href="#flame"/></svg></span></span><!-- mantel, right -->
+    <span class="candle" data-order="5" style="--x:14.65%;--y:77.95%;--s:1.15;--g:11"><span class="glow"></span><span class="flame"><svg><use href="#flame"/></svg></span></span><!-- votive, back left -->
+    <span class="candle" data-order="6" style="--x:16.21%;--y:83.90%;--s:1.25;--g:11"><span class="glow"></span><span class="flame"><svg><use href="#flame"/></svg></span></span><!-- votive, front right -->
+    <span class="candle" data-order="7" style="--x:14.90%;--y:2.34%;--s:1.0;--g:13"><span class="glow"></span><span class="flame"><svg><use href="#flame"/></svg></span></span><!-- wall sconce, left -->
+    <span class="candle" data-order="8" style="--x:60.35%;--y:15.45%;--s:0.9;--g:12"><span class="glow"></span><span class="flame"><svg><use href="#flame"/></svg></span></span><!-- wall sconce, by the window -->
+    <span class="candle" data-order="9" style="--x:19.38%;--y:79.00%;--s:1.15;--g:11"><span class="glow"></span><span class="flame"><svg><use href="#flame"/></svg></span></span><!-- votive, back right -->
+  </div>
+</div>
+
+<nav aria-label="Kit sections">
+  <ul>
+    <li><a href="#hero">The Room</a></li>
+    <li><a href="#palette">Palette</a></li>
+    <li><a href="#contents">Inside</a></li>
+    <li><a href="#textures">Textures</a></li>
+    <li><a href="#cta-footer">Get It</a></li>
   </ul>
 </nav>
 
-<div class="breadcrumb">
-  <a href="../../index.html">Emmy</a><span class="breadcrumb-sep">/</span>
-  <a href="../../index.html#work">Brand Kits</a><span class="breadcrumb-sep">/</span>
-  <a href="../../index.html#work">Sugar on Top</a><span class="breadcrumb-sep">/</span>
-  <span>Velvet Noir</span>
-</div>
-
 <main id="main-content">
 
-<section id="hero" class="kit-hero">
-  <div class="kit-hero-inner">
-    <div class="bubbles" aria-hidden="true">
-      <span class="bubble bubble-1"></span><span class="bubble bubble-2"></span><span class="bubble bubble-3"></span>
-      <span class="bubble bubble-4"></span><span class="bubble bubble-5"></span><span class="bubble bubble-6"></span>
-      <span class="bubble bubble-7"></span><span class="bubble bubble-8"></span><span class="bubble bubble-9"></span>
-      <span class="bubble bubble-10"></span>
+  <!-- ════════════════ HERO ════════════════ -->
+  <section id="hero" aria-labelledby="hero-heading">
+    <div class="hero-content">
+      <p class="hero-eyebrow">Sugar on Top &middot; Kit 1</p>
+      <h1 class="hero-title" id="hero-heading">Velvet Noir</h1>
+      <p class="hero-tagline">Velvet Noir. Indulgent.</p>
+      <p class="hero-scene">A hotel room in Paris. Late evening. Pink champagne, candlelight, and the city out the window.</p>
+      <a class="text-link" href="#palette">See the palette</a>
     </div>
-    <div class="kit-hero-wrap">
-      <div class="kit-hero-content">
-        <div class="kit-hero-meta">Sugar on Top &middot; Hero Kit 01</div>
-        <h1 class="kit-hero-name">Velvet Noir</h1>
-        <p class="kit-hero-tagline">A truffle box with pink champagne. Luxury without coldness, depth without heaviness &mdash; for the person who creates her best work in candlelight.</p>
+  </section>
+
+  <div class="breath" aria-hidden="true"></div>
+
+  <!-- ════════════════ PALETTE ════════════════ -->
+  <section id="palette" aria-labelledby="palette-heading" data-stage="1">
+    <div class="section-inner">
+      <p class="section-label">The palette</p>
+      <h2 class="section-heading" id="palette-heading">Eight colors. Eight jobs.</h2>
+      <p class="section-lede">Dark depth lifted by champagne pink. This is Velvet Noir.</p>
+      <p class="section-body">Two darks, one bridge, one plum, one pink, one gold, and two neutrals at opposite temperatures: warm linen inside, cool pearl at the window. No two colors do the same job.</p>
+
+      <div class="palette-grid">
+        <ul class="palette-row" aria-label="Palette, colors 1 to 3">
+          <li class="palette-item">
+            <div class="palette-swatch sw-drape" role="img" aria-label="Velvet Drape swatch, #0F0B12"></div>
+            <p class="palette-role">1 &middot; Value extreme</p>
+            <h3 class="palette-name">Velvet Drape</h3>
+            <p class="palette-hex">#0F0B12</p>
+            <p class="palette-job">The deepest dark. The cool shadow of the city at midnight, past the curtain.</p>
+            <p class="palette-contrast">Pearl Light text on Velvet Drape &middot; <span class="nowrap">16.70:1 AAA</span></p>
+          </li>
+          <li class="palette-item">
+            <div class="palette-swatch sw-ganache" role="img" aria-label="Dark Ganache swatch, #2C1810"></div>
+            <p class="palette-role">2 &middot; Anchor</p>
+            <h3 class="palette-name">Dark Ganache</h3>
+            <p class="palette-hex">#2C1810</p>
+            <p class="palette-job">Real dark chocolate, not black, not corporate. The outside of the truffle box.</p>
+            <p class="palette-contrast">Cocoa Cream text on Dark Ganache &middot; <span class="nowrap">13.73:1 AAA</span></p>
+          </li>
+          <li class="palette-item">
+            <div class="palette-swatch sw-truffle" role="img" aria-label="Truffle Interior swatch, #6B3A2A"></div>
+            <p class="palette-role">3 &middot; Mid-warm bridge</p>
+            <h3 class="palette-name">Truffle Interior</h3>
+            <p class="palette-hex">#6B3A2A</p>
+            <p class="palette-job">That moment you bite in. The rich brown between dark and milk.</p>
+            <p class="palette-contrast">Pearl Light text on Truffle Interior &middot; <span class="nowrap">7.95:1 AAA</span></p>
+          </li>
+        </ul>
+
+        <ul class="palette-row" aria-label="Palette, colors 4 and 5">
+          <li class="palette-item">
+            <div class="palette-swatch sw-plum" role="img" aria-label="Smoky Plum swatch, #6B3052"></div>
+            <p class="palette-role">4 &middot; Flex hue</p>
+            <h3 class="palette-name">Smoky Plum</h3>
+            <p class="palette-hex">#6B3052</p>
+            <p class="palette-job">Bruised evening. The wine in the glass on the desk where she&rsquo;s writing.</p>
+            <p class="palette-contrast">Smoky Plum text on Pearl Light &middot; <span class="nowrap">8.29:1 AAA</span></p>
+          </li>
+          <li class="palette-item">
+            <div class="palette-swatch sw-fizz" role="img" aria-label="Rosé Fizz swatch, #D4A0A0"></div>
+            <p class="palette-role">5 &middot; Counterweight</p>
+            <h3 class="palette-name">Ros&eacute; Fizz</h3>
+            <p class="palette-hex">#D4A0A0</p>
+            <p class="palette-job">Pink champagne in crystal. The pink of bubbles catching candlelight.</p>
+            <p class="palette-contrast">Velvet Drape text on Ros&eacute; Fizz &middot; <span class="nowrap">8.67:1 AAA</span></p>
+          </li>
+        </ul>
+
+        <ul class="palette-row" aria-label="Palette, colors 6 to 8">
+          <li class="palette-item">
+            <div class="palette-swatch sw-foil" role="img" aria-label="Champagne Foil swatch, #C9A96E"></div>
+            <p class="palette-role">6 &middot; Metallic</p>
+            <h3 class="palette-name">Champagne Foil</h3>
+            <p class="palette-hex">#C9A96E</p>
+            <p class="palette-job">The actual gold. Foil at the edge of the wrapper. The candlelight made literal.</p>
+            <p class="palette-contrast">Velvet Drape text on Champagne Foil &middot; <span class="nowrap">8.71:1 AAA</span></p>
+          </li>
+          <li class="palette-item">
+            <div class="palette-swatch sw-cocoa" role="img" aria-label="Cocoa Cream swatch, #F2E6D9"></div>
+            <p class="palette-role">7 &middot; Warm neutral</p>
+            <h3 class="palette-name">Cocoa Cream</h3>
+            <p class="palette-hex">#F2E6D9</p>
+            <p class="palette-job">The tissue paper inside a luxury gift box. Warm, soft, never stark white.</p>
+            <p class="palette-contrast">Dark Ganache text on Cocoa Cream &middot; <span class="nowrap">13.73:1 AAA</span></p>
+          </li>
+          <li class="palette-item">
+            <div class="palette-swatch sw-pearl" role="img" aria-label="Pearl Light swatch, #EAEEF0"></div>
+            <p class="palette-role">8 &middot; Cool neutral</p>
+            <h3 class="palette-name">Pearl Light</h3>
+            <p class="palette-hex">#EAEEF0</p>
+            <p class="palette-job">The pearl on the nightstand. The cool gleam off the marble writing desk.</p>
+            <p class="palette-contrast">Dark Ganache text on Pearl Light &middot; <span class="nowrap">14.44:1 AAA</span></p>
+          </li>
+        </ul>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="contents" class="inside-section">
-  <div class="bubbles" aria-hidden="true">
-    <span class="bubble bubble-1"></span><span class="bubble bubble-2"></span><span class="bubble bubble-3"></span>
-    <span class="bubble bubble-4"></span><span class="bubble bubble-5"></span><span class="bubble bubble-6"></span>
-  </div>
-  <div class="inside-inner">
-    <div class="inside-header">
-      <div>
-        <p class="section-label reveal">Everything in the box</p>
-        <h2 class="inside-title reveal">What you&rsquo;re actually getting.</h2>
-      </div>
-      <p class="inside-intro reveal">Not just colors. A whole material world &mdash; crushed velvet, dark ganache, pink champagne, rose foil &mdash; that you can step into and start using the same day.</p>
+  <div class="breath" aria-hidden="true"></div>
+
+  <!-- ════════════════ WHAT'S INSIDE ════════════════ -->
+  <section id="contents" aria-labelledby="contents-heading" data-stage="2">
+    <div class="section-inner">
+      <p class="section-label">What&rsquo;s inside</p>
+      <h2 class="section-heading" id="contents-heading">These aren&rsquo;t hex codes on a white page.</h2>
+      <p class="section-lede">They&rsquo;re a world.</p>
+
+      <ul class="contents-grid">
+        <li class="content-item">
+          <span class="content-num" aria-hidden="true">01</span>
+          <h3 class="content-title">Color Palette</h3>
+          <p class="content-desc">Eight colors, named and storied, each with its material, its pairings and its contrast numbers.</p>
+        </li>
+        <li class="content-item">
+          <span class="content-num" aria-hidden="true">02</span>
+          <h3 class="content-title">The Champagne Suite</h3>
+          <p class="content-desc">Playfair Display, Cormorant Garamond and Inter. Three free Google Fonts, three volumes of voice.</p>
+        </li>
+        <li class="content-item">
+          <span class="content-num" aria-hidden="true">03</span>
+          <h3 class="content-title">Brand Board</h3>
+          <p class="content-desc">Your visual identity on one page. Pin it above the desk.</p>
+        </li>
+        <li class="content-item">
+          <span class="content-num" aria-hidden="true">04</span>
+          <h3 class="content-title">Social Headers</h3>
+          <p class="content-desc">Headers sized for each platform, in the same order of voice: gold eyebrow, Playfair name, pink line.</p>
+        </li>
+        <li class="content-item">
+          <span class="content-num" aria-hidden="true">05</span>
+          <h3 class="content-title">Link-in-Bio Page</h3>
+          <p class="content-desc">One link, the whole suite, in mobile format.</p>
+        </li>
+        <li class="content-item">
+          <span class="content-num" aria-hidden="true">06</span>
+          <h3 class="content-title">Color Combinations Cheat Sheet</h3>
+          <p class="content-desc">The signature pairings, the contrast stack, and which pairs stay headline-only.</p>
+        </li>
+      </ul>
     </div>
-    <div class="tier-cards">
-      <a href="#" class="tier-card tier-1 reveal">
-        <div class="tier-card-visual" style="background-image: linear-gradient(135deg, rgba(26,15,10,0.65), rgba(44,24,16,0.4)), var(--tex-velvet-drape);"></div>
-        <div class="tier-card-body">
-          <div class="tier-card-eyebrow">Tier 1 &middot; The Kit</div>
-          <h3 class="tier-card-title">The Kit &mdash; $188</h3>
-          <p class="tier-card-desc">Brand board, color cheat sheet, eight material textures, and the Champagne Suite typography system. Everything to use Velvet Noir the same day it arrives.</p>
-          <span class="tier-card-cta">See what's inside &rarr;</span>
-        </div>
-      </a>
-      <a href="#" class="tier-card tier-2 reveal">
-        <div class="tier-card-visual" style="background-image: linear-gradient(135deg, rgba(26,15,10,0.55), rgba(196,144,155,0.4)), var(--tex-rose-leaf);"></div>
-        <div class="tier-card-body">
-          <div class="tier-card-eyebrow">Tier 2 &middot; The Playground</div>
-          <h3 class="tier-card-title">The Playground &mdash; $388</h3>
-          <p class="tier-card-desc">Everything in Tier 1, plus social templates, web-ready components, and the playground that lets you mix the kit any way your brand wants.</p>
-          <span class="tier-card-cta">See the full playground &rarr;</span>
-        </div>
-      </a>
+  </section>
+
+  <div class="breath" aria-hidden="true"></div>
+
+  <!-- ════════════════ TEXTURES ════════════════ -->
+  <section id="textures" aria-labelledby="textures-heading" data-stage="3">
+    <div class="section-inner">
+      <p class="section-label">The materials</p>
+      <h2 class="section-heading" id="textures-heading">Nothing is flat. Everything is material.</h2>
+      <p class="section-body">Every swatch should make you want to touch it.</p>
+
+      <ul class="texture-grid">
+        <li class="texture-card">
+          <div class="texture-swatch">
+            <svg viewBox="0 0 300 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Crushed velvet in Smoky Plum, the pile running one direction" focusable="false">
+              <defs>
+                <filter id="tx-pile" x="0" y="0" width="100%" height="100%">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.006 0.09" numOctaves="3" seed="4"/>
+                  <feColorMatrix values="0 0 0 0 0.059  0 0 0 0 0.043  0 0 0 0 0.071  0 0 0 1.6 -0.62"/>
+                </filter>
+              </defs>
+              <rect width="300" height="160" fill="#6B3052"/>
+              <rect x="-30" y="-30" width="360" height="220" filter="url(#tx-pile)" transform="rotate(-8 150 80)"/>
+            </svg>
+          </div>
+          <h3>Crushed velvet</h3>
+          <p class="texture-feel">Deep saturation with a subtle directional pile. Smoky Plum.</p>
+        </li>
+        <li class="texture-card">
+          <div class="texture-swatch">
+            <svg viewBox="0 0 300 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Matte dark chocolate with a fine grain, in Dark Ganache" focusable="false">
+              <defs>
+                <filter id="tx-grain" x="0" y="0" width="100%" height="100%">
+                  <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="7"/>
+                  <feColorMatrix values="0 0 0 0 0.059  0 0 0 0 0.043  0 0 0 0 0.071  0 0 0 1.4 -0.55"/>
+                </filter>
+              </defs>
+              <rect width="300" height="160" fill="#2C1810"/>
+              <rect width="300" height="160" filter="url(#tx-grain)"/>
+              <line x1="0" y1="112" x2="300" y2="112" stroke="#6B3A2A" stroke-width="1"/>
+            </svg>
+          </div>
+          <h3>Dark chocolate</h3>
+          <p class="texture-feel">Matte, with grain. The outside of the truffle box. Dark Ganache.</p>
+        </li>
+        <li class="texture-card">
+          <div class="texture-swatch">
+            <svg viewBox="0 0 300 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Crinkled gold foil in Champagne Foil, catching light along its folds" focusable="false">
+              <rect width="300" height="160" fill="#C9A96E"/>
+              <g fill="#F2E6D9" fill-opacity="0.55">
+                <polygon points="0,0 70,0 40,60 0,44"/>
+                <polygon points="120,0 180,0 150,70 104,52"/>
+                <polygon points="210,40 262,18 248,96 196,104"/>
+                <polygon points="40,110 96,92 112,160 30,160"/>
+              </g>
+              <g fill="#6B3A2A" fill-opacity="0.35">
+                <polygon points="70,0 120,0 104,52 40,60"/>
+                <polygon points="180,0 300,0 262,18 210,40 150,70"/>
+                <polygon points="0,44 40,60 96,92 40,110 0,120"/>
+                <polygon points="248,96 300,84 300,160 230,160"/>
+              </g>
+              <g fill="none" stroke="#F2E6D9" stroke-width="1"><line x1="40" y1="60" x2="104" y2="52"/><line x1="150" y1="70" x2="196" y2="104"/></g>
+            </svg>
+          </div>
+          <h3>Champagne foil</h3>
+          <p class="texture-feel">Metallic and reflective. The ribbon catching candlelight. Champagne Foil.</p>
+        </li>
+        <li class="texture-card">
+          <div class="texture-swatch">
+            <svg viewBox="0 0 300 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Polished cool marble in Pearl Light, with faint dark veins" focusable="false">
+              <rect width="300" height="160" fill="#EAEEF0"/>
+              <g fill="none" stroke="#0F0B12" stroke-opacity="0.22" stroke-linecap="round">
+                <path d="M-10 40 C 50 30, 80 70, 140 58 S 230 20, 310 46" stroke-width="1.2"/>
+                <path d="M60 160 C 90 120, 130 118, 170 96 S 240 80, 310 110" stroke-width="0.8"/>
+                <path d="M140 58 C 150 80, 160 88, 170 96" stroke-width="0.6"/>
+              </g>
+              <ellipse cx="226" cy="44" rx="34" ry="10" fill="#F2E6D9" fill-opacity="0.6"/>
+            </svg>
+          </div>
+          <h3>Pearl and marble</h3>
+          <p class="texture-feel">Cool gleam, subtle, never flat. The marble writing desk. Pearl Light.</p>
+        </li>
+        <li class="texture-card">
+          <div class="texture-swatch">
+            <svg viewBox="0 0 300 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Soft linen paper in Cocoa Cream, with a fine woven texture" focusable="false">
+              <defs>
+                <pattern id="tx-weave" width="4" height="4" patternUnits="userSpaceOnUse">
+                  <rect width="4" height="4" fill="#F2E6D9"/>
+                  <rect width="4" height="1" fill="#6B3A2A" fill-opacity="0.07"/>
+                  <rect width="1" height="4" fill="#6B3A2A" fill-opacity="0.06"/>
+                </pattern>
+              </defs>
+              <rect width="300" height="160" fill="url(#tx-weave)"/>
+              <path d="M300 0 L 300 160 L 210 160 Z" fill="#F2E6D9"/>
+              <path d="M300 0 L 210 160" stroke="#6B3A2A" stroke-opacity="0.25" stroke-width="1"/>
+            </svg>
+          </div>
+          <h3>Linen paper</h3>
+          <p class="texture-feel">The tissue in the gift box, cream cardstock, the cookbook page. Cocoa Cream.</p>
+        </li>
+        <li class="texture-card">
+          <div class="texture-swatch">
+            <svg viewBox="0 0 300 160" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Midnight window glass in Velvet Drape, with a few far city lights" focusable="false">
+              <rect width="300" height="160" fill="#0F0B12"/>
+              <g fill="#EAEEF0">
+                <circle cx="38" cy="122" r="1"/><circle cx="64" cy="128" r="0.8"/><circle cx="92" cy="118" r="1.1"/>
+                <circle cx="130" cy="126" r="0.8"/><circle cx="176" cy="121" r="1"/><circle cx="214" cy="129" r="0.8"/>
+                <circle cx="252" cy="119" r="1"/><circle cx="276" cy="127" r="0.7"/>
+              </g>
+              <line x1="0" y1="138" x2="300" y2="138" stroke="#6B3052" stroke-width="1"/>
+              <line x1="196" y1="18" x2="236" y2="86" stroke="#C9A96E" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h3>Midnight glass</h3>
+          <p class="texture-feel">The night sky on the window, the faintest blue-violet. Velvet Drape.</p>
+        </li>
+      </ul>
     </div>
-  </div>
-</section>
+  </section>
 
-<section class="painting-section">
-  <div class="painting-inner">
-    <div class="painting-grid">
-      <div class="reveal">
-        <div class="painting-label">The Scene Behind It</div>
-        <h2 class="painting-title">A hotel room in<br>Paris. Late evening.<br>Pink <em style="color:var(--vn-rose-fizz);font-style:italic;">champagne.</em></h2>
-        <p class="painting-attribution">A scene, not a painting &mdash; built from feeling first.</p>
-      </div>
-      <div class="painting-body reveal">
-        <p>A hotel room in Paris. Late evening. You're wearing something that feels like water against your skin. There's champagne &mdash; the good kind, the kind that's barely pink. The city is out there, glittering, but you're in here. <strong>Safe. Warm. Writing your masterpiece.</strong></p>
-        <p><em>"I see you, world, but I am up here drinking champagne and writing my masterpiece."</em> That's Velvet Noir. Safety + luxury. Depth without heaviness. The feeling of being wrapped in something expensive that nobody else needs to see.</p>
-        <p>The dark in this kit is not gothic. It is <strong>warm dark</strong> &mdash; chocolate brown-black with red undertones, the outside of a luxury truffle box. The pink is not baby pink. It is the pink of bubbles catching candlelight. The metallic is not yellow gold. It is rose gold foil &mdash; the ribbon on the box, the detail you noticed, good.</p>
-        <p>This is the kit for the person who knows that indulgence is not a guilty pleasure &mdash; it <em>is</em> the work. Her brand shouldn't look careful and corporate. It should feel like stepping into a room where the lighting has already been taken care of.</p>
-      </div>
+  <div class="breath" aria-hidden="true"></div>
+
+  <!-- ════════════════ PULL QUOTE ════════════════ -->
+  <section id="pull-quote" aria-label="Kit voice" data-stage="4">
+    <div class="section-inner">
+      <blockquote>
+        <p class="pull-quote-text">&ldquo;I see you, world, but I am up here drinking champagne and writing my masterpiece.&rdquo;</p>
+        <footer><cite class="pull-quote-attr">Velvet Noir &middot; Sugar on Top</cite></footer>
+      </blockquote>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="palette" class="palette-section">
-  <div class="palette-inner">
-    <div class="palette-header">
-      <div>
-        <p class="section-label reveal">The full eight</p>
-        <h2 class="palette-title reveal">Eight colors.<br>Eight materials.<br><em>One palette.</em></h2>
-      </div>
-      <p class="palette-intro reveal">Each one named for what it actually <em>is</em>, because &ldquo;brown&rdquo; tells you nothing and <em>Dark Ganache</em> tells you everything. <em>Nothing here is flat. Everything is edible.</em></p>
-    </div>
-    <div class="palette-grid" role="list">
-      <!-- v3 palette — eight colors, five structural roles. color-palette.md v3 (2026-05-22) -->
-
-      <!-- Row 1: 3 swatches -->
-      <div class="palette-row">
-        <div class="palette-swatch reveal" role="listitem"><div class="swatch-color" style="background-color: #D4A0A0;"></div><div class="palette-chip-material chip-rose-fizz"></div><div class="swatch-label"><span class="swatch-role">Counterweight</span><span class="swatch-name">Ros&eacute; Fizz</span><span class="swatch-hex">#D4A0A0</span><p class="swatch-feel">Pink champagne in crystal. Not baby pink, not hot pink. The pink of bubbles catching candlelight. Effervescent, luminous, alive.</p></div></div>
-        <div class="palette-swatch reveal" role="listitem"><div class="swatch-color" style="background-color: #2C1810;"></div><div class="palette-chip-material chip-dark-ganache"></div><div class="swatch-label"><span class="swatch-role">Anchor</span><span class="swatch-name">Dark Ganache</span><span class="swatch-hex">#2C1810</span><p class="swatch-feel">Real dark chocolate &mdash; not black, not corporate. Warm brown-black with red undertones. The outside of the truffle box.</p></div></div>
-        <div class="palette-swatch reveal" role="listitem"><div class="swatch-color" style="background-color: #6B3A2A;"></div><div class="palette-chip-material chip-truffle"></div><div class="swatch-label"><span class="swatch-role">Mid-Warm Bridge</span><span class="swatch-name">Truffle Interior</span><span class="swatch-hex">#6B3A2A</span><p class="swatch-feel">That moment you bite in &mdash; the rich brown between dark and milk. Where the flavor lives.</p></div></div>
-      </div><!-- /palette-row 1 -->
-
-      <!-- Row 2: 2 swatches (centered) -->
-      <div class="palette-row">
-        <div class="palette-swatch reveal" role="listitem"><div class="swatch-color" style="background-color: #6B3052;"></div><div class="palette-chip-material chip-smoky-plum"></div><div class="swatch-label"><span class="swatch-role">Flex Hue</span><span class="swatch-name">Smoky Plum</span><span class="swatch-hex">#6B3052</span><p class="swatch-feel">Bruised evening. The wine in the glass on the desk. The inside of a fig. Carries the 2026 deep-purple cultural family.</p></div></div>
-        <div class="palette-swatch reveal" role="listitem"><div class="swatch-color" style="background-color: #C9A96E;"></div><div class="palette-chip-material chip-champagne-foil"></div><div class="swatch-label"><span class="swatch-role">Metallic Accent</span><span class="swatch-name">Champagne Foil</span><span class="swatch-hex">#C9A96E</span><p class="swatch-feel">The actual gold. Foil at the edge of the wrapper, ribbon catching candlelight. The only metallic. The only yellow-warm.</p></div></div>
-      </div><!-- /palette-row 2 -->
-
-      <!-- Row 3: 3 swatches -->
-      <div class="palette-row">
-        <div class="palette-swatch reveal" role="listitem"><div class="swatch-color" style="background-color: #0F0B12;"></div><div class="palette-chip-material chip-velvet-drape"></div><div class="swatch-label"><span class="swatch-role">Value Extreme</span><span class="swatch-name">Velvet Drape</span><span class="swatch-hex">#0F0B12</span><p class="swatch-feel">The deepest dark &mdash; cool-leaning with a faint blue-violet undertone. The shadow at midnight when you look past the curtain to the city.</p></div></div>
-        <div class="palette-swatch reveal" role="listitem"><div class="swatch-color" style="background-color: #F2E6D9;"></div><div class="palette-chip-material chip-cocoa-cream"></div><div class="swatch-label"><span class="swatch-role">Warm Carrier Neutral</span><span class="swatch-name">Cocoa Cream</span><span class="swatch-hex">#F2E6D9</span><p class="swatch-feel">The tissue paper inside a luxury gift box. Warm, soft, never stark white. The surface every warm color travels on.</p></div></div>
-        <div class="palette-swatch reveal" role="listitem"><div class="swatch-color" style="background-color: #EAEEF0;"></div><div class="palette-chip-material chip-pearl-light"></div><div class="swatch-label"><span class="swatch-role">Cool Carrier Neutral</span><span class="swatch-name">Pearl Light</span><span class="swatch-hex">#EAEEF0</span><p class="swatch-feel">The pearl on the nightstand. The cool gleam off the marble desk. The condensation on the champagne bucket. Cool surface every cool color travels on.</p></div></div>
-      </div><!-- /palette-row 3 -->
-
-    </div>
-  </div>
-</section>
-
-<section class="type-section">
-  <div class="type-header">
-    <div>
-      <p class="section-label reveal">The Champagne Suite</p>
-      <h2 class="type-title reveal">Three fonts.<br>One suite.</h2>
-    </div>
-    <p class="type-intro reveal"><strong>Playfair commands. Cormorant whispers. Inter clarifies.</strong> Three fonts that never compete &mdash; each one with a different volume of voice. All three are free Google Fonts, forever yours.</p>
-  </div>
-  <div class="type-card reveal"><div class="type-card-meta">Headline &middot; Playfair Display 400&ndash;700</div><div class="type-card-display">Truffle box.</div><div class="type-card-name">Playfair Display 700, 72pt &middot; Dark Ganache</div></div>
-  <div class="type-card reveal"><div class="type-card-meta">Subhead &middot; Cormorant Garamond 400 italic</div><p class="type-card-subhead">The whisper between headline and body. Cormorant in italic is one of the most beautiful screen serifs available &mdash; delicate without being fragile, elegant without being precious.</p><div class="type-card-name">Cormorant Garamond 400 italic, 28pt &middot; Truffle Interior</div></div>
-  <div class="type-card reveal"><div class="type-card-meta">Body &middot; Inter 300&ndash;500</div><p class="type-card-body">Designed for screens. At 300 weight on dark backgrounds, Inter genuinely disappears &mdash; the words arrive without the font getting in the way. At 500 weight uppercase with tracking, it becomes a clean caption voice. One font, two personalities. The workhorse that knows when to be quiet.</p><div class="type-card-name">Inter 300, 16pt &middot; Truffle Interior on Cocoa Cream</div></div>
-  <div class="type-rule reveal">The rule:<br><em>Playfair commands. Cormorant whispers. Inter clarifies. Never make them compete.</em></div>
-</section>
-
-<section class="combo-section">
-  <div class="combo-header">
-    <div>
-      <p class="section-label reveal">How to use them</p>
-      <h2 class="combo-title reveal">Color in context,<br>never in isolation.</h2>
-    </div>
-    <p class="combo-intro reveal">A color swatch on white tells you nothing. What matters is how a color <em>behaves</em> next to other colors. These are the signature pairings &mdash; the combinations Velvet Noir was built for.</p>
-  </div>
-  <div class="combo-grid">
-    <div class="combo-card combo-1 reveal"><div class="combo-text"><div class="combo-pair">The Signature</div><div class="combo-name">Ganache &amp; Ros&eacute;</div></div></div>
-    <div class="combo-card combo-2 reveal"><div class="combo-text"><div class="combo-pair">Quiet Elegance</div><div class="combo-name">Ganache on Cocoa</div></div></div>
-    <div class="combo-card combo-3 reveal"><div class="combo-text"><div class="combo-pair">Champagne &amp; Foil</div><div class="combo-name">Ros&eacute; &amp; Champagne Foil</div></div></div>
-    <div class="combo-card combo-4 reveal"><div class="combo-text"><div class="combo-pair">Light &amp; Luminous</div><div class="combo-name">Ros&eacute; &amp; Meringue</div></div></div>
-    <div class="combo-card combo-5 reveal"><div class="combo-text"><div class="combo-pair">The Warm Middle</div><div class="combo-name">Blush &amp; Truffle</div></div></div>
-    <div class="combo-card combo-6 reveal"><div class="combo-text"><div class="combo-pair">Statement Pairing</div><div class="combo-name">Ros&eacute; on Velvet Drape</div></div></div>
-  </div>
-</section>
-
-<section id="cta-footer" class="cta-section">
-  <div class="cta-inner">
-    <div class="cta-label">Take it Home</div>
-    <h2 class="cta-big reveal">You&rsquo;ve spent long enough<br>making your brand<br>look careful.</h2>
-    <p class="cta-sub reveal">Velvet Noir is for the person who creates her best work in candlelight &mdash; not the one who asks permission to take up space. The kit is available now. If you want a custom kit built for your world, or if you&rsquo;d like Emmy to translate Velvet Noir into a full website &mdash; that&rsquo;s available too.</p>
-    <div class="cta-buttons reveal">
-      <a href="#" aria-disabled="true" class="cta-button btn-primary">Get Velvet Noir — $188</a>
-      <a href="../../index.html#working-together" class="btn-ghost">Talk to Emmy</a>
-    </div>
-  </div>
-</section>
+  <div class="breath" aria-hidden="true"></div>
 
 </main>
 
-<footer>
-  <div class="footer-name">Emmy Bellamora</div>
-  <div class="footer-note">Creative Director &middot; Cognitive UX Designer &middot; Fairy With Bite 🧚‍♀️</div>
+<!-- ════════════════ CTA FOOTER ════════════════ -->
+<footer id="cta-footer" aria-labelledby="cta-heading" data-stage="5">
+  <div class="section-inner cta-inner">
+    <!-- The brand, not a product: one candle from the room, on its gold foil dish. -->
+    <svg class="cta-mark" viewBox="0 0 120 160" role="img" aria-labelledby="cta-mark-title" focusable="false">
+      <title id="cta-mark-title">One lit pillar candle on a gold foil dish, the candle from the writing desk</title>
+      <ellipse cx="60" cy="146" rx="46" ry="8" fill="#C9A96E"/>
+      <ellipse cx="60" cy="143" rx="40" ry="5" fill="#6B3A2A"/>
+      <rect x="36" y="70" width="48" height="74" rx="4" fill="#F2E6D9"/>
+      <rect x="36" y="70" width="10" height="74" rx="4" fill="#EAEEF0"/>
+      <ellipse cx="60" cy="70" rx="24" ry="5" fill="#EAEEF0"/>
+      <line x1="60" y1="70" x2="60" y2="60" stroke="#2C1810" stroke-width="2" stroke-linecap="round"/>
+      <use href="#flame" x="50" y="22" width="20" height="40"/>
+    </svg>
+    <p class="cta-eyebrow">Sugar on Top &middot; Kit 1</p>
+    <h2 class="cta-heading" id="cta-heading">Velvet Noir.</h2>
+    <p class="cta-sub">Safety and luxury. Depth without heaviness.</p>
+    <!-- Destination pending: Emmy wires the real kit link at publish (siblings ship href="#" the same way). -->
+    <a href="#" class="cta-button">Get Velvet Noir</a>
+    <p class="cta-note">Eight colors. Candlelight. The city out the window.</p>
+  </div>
 </footer>
 
 <script>
-const reveals = document.querySelectorAll('.reveal');
-// Hide reveal elements only after we know JS is running — that way if JS is off
-// or interrupted, content stays visible by the .reveal { opacity: 1 } default.
-reveals.forEach(el => el.classList.add('pre-reveal'));
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.remove('pre-reveal'); entry.target.classList.add('visible'); } });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-reveals.forEach(el => observer.observe(el));
+/* ══════════════════════════════════════════════════════════
+   VELVET NOIR — page JS
+   Additive only. Without it (or with reduced motion) every
+   candle is lit, the room is fully visible, and the nav is
+   plain anchor links.
+   Two jobs:
+   1. Light the room as you read. Each section you reach moves
+      the room to its stage; the candles that light are the next
+      ones in the sequence among those on screen, so a phone
+      (five candles in view) gets the same arc as a desktop (nine).
+   2. Mark the section you're in on the nav (aria-current).
+   ══════════════════════════════════════════════════════════ */
+(function () {
+  'use strict';
+  var root = document.documentElement;
 
-// Carousel JS removed V3 — carousel replaced with tier-cards in session 11
+  /* ---- 1. the room ---- */
+  if (root.classList.contains('motion')) {
+    var frame = document.querySelector('.room-frame');
+    var candles = Array.prototype.slice.call(document.querySelectorAll('.candle'))
+      .sort(function (a, b) { return a.dataset.order - b.dataset.order; });
+    /* share of the room lit at each stage: arrive, palette, inside, textures, quote, cta */
+    var SHARE = [2 / 9, 4 / 9, 6 / 9, 7 / 9, 8 / 9, 1];
+    var stage = 0;
+
+    function onScreen(c) {
+      var r = c.getBoundingClientRect();
+      return r.left >= 0 && r.left <= window.innerWidth && r.top >= 0 && r.top <= window.innerHeight;
+    }
+
+    function apply(firstPaint) {
+      var share = SHARE[stage];
+      var visible = candles.filter(onScreen);
+      var nVis = Math.max(1, Math.round(share * visible.length));
+      var nAll = Math.round(share * candles.length);
+      candles.forEach(function (c, i) {
+        var on = visible.indexOf(c) > -1 ? visible.indexOf(c) < nVis : i < nAll;
+        if (on && !c.classList.contains('lit')) {
+          c.classList.add('lit');
+          if (firstPaint) c.classList.add('first');
+        }
+      });
+      root.style.setProperty('--light', share.toFixed(3));
+      frame.classList.toggle('dampen', share >= 6 / 9);
+    }
+
+    apply(true);
+
+    var stages = Array.prototype.slice.call(document.querySelectorAll('[data-stage]'));
+    var check = function () {
+      var line = window.innerHeight * 0.6;
+      var reached = 0;
+      stages.forEach(function (s) {
+        if (s.getBoundingClientRect().top <= line) reached = Math.max(reached, +s.dataset.stage);
+      });
+      /* the page bottom always counts as the end of the room */
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) reached = SHARE.length - 1;
+      if (reached > stage) { stage = reached; apply(false); }
+    };
+    var io = new IntersectionObserver(check, { rootMargin: '0px 0px -40% 0px', threshold: [0, 0.01] });
+    stages.forEach(function (s) { io.observe(s); });
+    window.addEventListener('scroll', function () { if (stage < SHARE.length - 1) check(); }, { passive: true });
+    window.addEventListener('resize', function () { apply(false); }, { passive: true });
+    check();
+  }
+
+  /* ---- 2. section nav ---- */
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav[aria-label="Kit sections"] a'));
+  if (!links.length || !('IntersectionObserver' in window)) return;
+  var byId = {};
+  links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+  var visible = {};
+  var nav = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { visible[e.target.id] = e.isIntersecting; });
+    for (var i = 0; i < links.length; i++) {
+      var id = links[i].getAttribute('href').slice(1);
+      if (visible[id]) {
+        links.forEach(function (a) { a.removeAttribute('aria-current'); });
+        links[i].setAttribute('aria-current', 'true');
+        return;
+      }
+    }
+  }, { rootMargin: '-45% 0px -45% 0px' });
+  Object.keys(byId).forEach(function (id) { var el = document.getElementById(id); if (el) nav.observe(el); });
+})();
 </script>
 </body>
 </html>
